@@ -1304,7 +1304,7 @@
       <!-- ====================================
         ——— CONTENT WRAPPER
         ===================================== -->
-      <div class="content-wrapper">
+      <div class="content-wrapper table-hover">
         <div class="content"><!-- For Components documentaion -->
 
           <!-- 여기서부터  -->
@@ -1414,6 +1414,7 @@
                   $(".task-btn").click(function(){
                     if(confirm("정말 등록하시겟습니까?")){
                       console.log("등록완료");
+                      alert("등록이 완료되었습니다.");
                     } else {
                       console.log("등록취소");
                     }
@@ -1425,15 +1426,15 @@
                 })
                 
                 $(document).ready(function(){
-                  $(".file").click(function(){
+                  $(document).on("click",".file", function(){
                     console.log("파일 클릭");
                     console.log($(this).html());
                     let title = $(this).html();
                     $(".conn").append("<input type=\"checkbox\" class=\"custom-control-input\" id=\"customCheck1\" checked=\"checked\"> <label class=\"custom-control-label\" for=\"customCheck1\">" + title + "</label> <label class=\"deleteTask\" style=\"cursor: pointer;\">X</label>");
                   })
 
-                  $(document).on(".deleteTask", "click", function(){
-                    $(this).parent().remove();
+                  $(document).on("click",".deleteTask", function(){
+                    $(this).parent().children().remove();
                     console.log("삭제 버튼");
                   });
                 })
@@ -1478,7 +1479,7 @@
               </div>
 
 
-              <table class="table table-hover" style="text-align: center;">
+              <table class="table" style="text-align: center;">
                 <thead style="background-color: lightgray;">
                   <tr>
                     <th scope="col">번호</th>
