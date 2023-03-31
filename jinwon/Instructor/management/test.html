@@ -1301,7 +1301,109 @@
                     <td>2023-04-01</td>
                     <td>
                       <button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;">시작</button>
-                      <button type="button" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
+                      <button type="button" class="test-score mb-1 btn btn-pill btn-secondary" data-toggle="modal" data-target="#examModal" style="height: 25px; line-height: 10px;" disabled>채점</button>
+                      <!-- 채점 모달 -->
+                      <div class="modal fade" id="examModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">[자바기초] 자료형과 연산자</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- 시험참여 학생 목록 -->
+                              <div class="accordion" id="accordionTwo">
+
+                                <div class="card">
+                                  <div class="card-header" id="headingBorderTwo">
+                                    <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBorderTwo"
+                                        aria-expanded="false" aria-controls="collapseBorderTwo">
+                                        김진원
+                                      </button>
+                                    </h2>
+                                  </div>
+                                  <div id="collapseBorderTwo" class="collapse" aria-labelledby="headingBorderTwo" data-parent="#accordionTwo">
+                                    <div class="card-body">
+
+                                     <div class="d-flex flex-column mb-3">
+                                        <div class="p-2">
+                                          학생답안
+                                        </div>
+                                        <hr>
+                                        <div class="p-2">
+                                          모범답안
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card">
+                                  <div class="card-header" id="headingBorderThree">
+                                    <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBorderThree"
+                                        aria-expanded="false" aria-controls="collapseBorderThree">
+                                        이진원
+                                      </button>
+                                    </h2>
+                                  </div>
+                                  <div id="collapseBorderThree" class="collapse" aria-labelledby="headingBorderThree" data-parent="#accordionTwo">
+                                    <div class="card-body">
+
+                                      <div class="d-flex flex-column mb-3">
+                                        <div class="p-2">
+                                          학생답안
+                                        </div>
+                                        <hr>
+                                        <div class="p-2">
+                                          모범답안
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="card">
+                                  <div class="card-header" id="talk">
+                                    <h2 class="mb-0">
+                                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseBorderTwo"
+                                        aria-expanded="false" aria-controls="collapseBorderTwo">
+                                        박진원
+                                      </button>
+                                    </h2>
+                                  </div>
+                                  <div id="collapseBorderTwo2" class="collapse" aria-labelledby="talk" data-parent="#accordionTwo">
+                                    <div class="card-body">
+
+                                     <div class="d-flex flex-column mb-3">
+                                        <div class="p-2">
+                                          학생답안
+                                        </div>
+                                        <hr>
+                                        <div class="p-2">
+                                          모범답안
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- 시험참여 학생 목록 끝 -->
+
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
+                              <button type="button" class="btn btn-primary btn-pill">채점완료</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>
                     </td>
                   </tr>
