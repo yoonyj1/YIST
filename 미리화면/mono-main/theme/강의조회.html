@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YIST</title>
+    <title>ADMIN-강의조회</title>
 
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
@@ -52,6 +52,31 @@
           color: white;
         }
 
+        table#classinfo-table, table#classStudent-table{
+          width: 70%;
+          margin-left: auto; margin-right: auto;
+        }
+
+        table#classinfo-table *, table#classStudent-table *{
+          text-align: center;
+          vertical-align: middle;
+          color: black;
+        }
+
+        table#classinfo-table td>input{
+          vertical-align: middle;
+        }
+
+        table#classinfo-table td>label{
+          margin-right: 5px;
+          padding-top: 10px;
+        }
+
+        .btn-center{
+          width: 100%;
+          margin: 40px auto;
+          text-align: center;
+        }
     </style>
 
 </head>
@@ -95,29 +120,25 @@
                       <ul  class="collapse"  id="class-admin"
                         data-parent="#sidebar-menu">
                         <div class="sub-menu">                                                      
-                              <li >
-                                <a class="sidenav-item-link" href="/미리화면/mono-main/theme/강의관리.html">
-                                  <span class="nav-text">강의 관리</span>
-                                </a>
-                              </li>
+                            <li >
+                              <a class="sidenav-item-link" href="강의관리.html">
+                                <span class="nav-text">강의 관리</span>
+                              </a>
+                            </li>
 
                               <li >
-                                <a class="sidenav-item-link" href="#">
+                                <a class="sidenav-item-link" href="수업자료관리.html">
                                   <span class="nav-text">수업 자료 관리</span>                                 
                                 </a>
                               </li>
                             
                               <li >
-                                <a class="sidenav-item-link" href="#">
+                                <a class="sidenav-item-link" href="시험자료관리.html">
                                   <span class="nav-text">시험 자료 관리</span>                                  
                                 </a>
                               </li>
                               
-                              <li >
-                                <a class="sidenav-item-link" href="#">
-                                  <span class="nav-text">강사 배정</span>                                  
-                                </a>
-                              </li>                                                
+                                         
                         </div>
                       </ul>
                     </li>
@@ -173,7 +194,7 @@
                   <span class="sr-only">Toggle navigation</span>
                 </button>
   
-                <span class="page-title">tabs</span>
+                <span class="page-title">강의 상세 조회</span>
   
                 <div class="navbar-right ">
   
@@ -480,7 +501,189 @@
                         
             </header>
 
+            <div class="card card-default">
+              <div class="card-header">
+                <h2>강의 이름</h2>
+              </div>
+
+              <div class="card-body">
+
+                  <table class="table table-striped" id="classInfo-table">
+                    
+                    <tr>
+                      <th colspan="2"> 강의명</th>
+                      <td colspan="2">
+                          자바의정석
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>담당강사</th>
+                      <td>
+                          강사이름
+                      </td>
+                      <th> 강의과목</th>
+                      <td>
+                          자바
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>수강정원</th>
+                      <td>
+                          10
+                      </td>
+                      <th>수강료</th>
+                      <td>
+                          300,000 원
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th>개강일</th>
+                      <td>
+                        2023.03.17
+                      </td>
+                      <th>종강일</th>
+                      <td>
+                        2023.06.15
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <th colspan="2">수업요일</th>
+                      <td colspan="2">
+                          <input type="checkbox" name="classDays" value="mon" id="mon">
+                          <label for="mon">월</label>
+                          <input type="checkbox" name="classDays" value="mon" id="tue">
+                          <label for="tue">화</label>
+                          <input type="checkbox" name="classDays" value="mon" id="wed">
+                          <label for="wed">수</label>
+                          <input type="checkbox" name="classDays" value="mon" id="thu">
+                          <label for="thu">목</label>
+                          <input type="checkbox" name="classDays" value="mon" id="fri">
+                          <label for="fri">금</label>
+                          <input type="checkbox" name="classDays" value="mon" id="sat">
+                          <label for="sat">토</label>
+                          <input type="checkbox" name="classDays" value="mon"id="sun">
+                          <label for="sun">일</label>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+
+                    </tr>
+
+                  </table>
+
+
+
+
+
+
+                  
+                  
+                  
+                  
+                </div>
+ 
+              <div class="card-header">
+                  <h2>수강생 정보</h2>
+              </div>
+              
+              <div class="card-body">
+                <table class="table" id="classStudent-table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">학생명</th>
+                      <th scope="col">아이디</th>
+                      <th scope="col">출석률</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td scope="row">1</td>
+                      <td>Lucia</td>
+                      <td>@Lucia</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">2</td>
+                      <td>Catrin</td>
+                      <td>@catrin</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">3</td>
+                      <td>Lilli</td>
+                      <td>@lilli</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">4</td>
+                      <td>Else</td>
+                      <td>@voigt</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">5</td>
+                      <td>Ursel</td>
+                      <td>@ursel</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">6</td>
+                      <td>Anke</td>
+                      <td>@Anke</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">7</td>
+                      <td>Anke</td>
+                      <td>@Anke</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">8</td>
+                      <td>Anke</td>
+                      <td>@Anke</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">9</td>
+                      <td>Anke</td>
+                      <td>@Anke</td>
+                      <td>70%</td>
+                    </tr>
+                    <tr>
+                      <td scope="row">10</td>
+                      <td>Anke</td>
+                      <td>@Anke</td>
+                      <td>70%</td>
+                    </tr>
+                  </tbody>
+                </table>                
+              </div>
+
+                
+                
+                <div class="btn-center">
+                  <button class="btn btn-light btn-pill" type="submit">뒤로가기</button>
+                </div>
+
+            </div>
+
+
+
+
+            </div>
+
+            
           </div> 
+
+
 
       </div>  
 
@@ -491,9 +694,10 @@
           <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 
           
+          <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
           
           <script src="plugins/prism/prism.js"></script>
-          
+
           
           <script src="js/mono.js"></script>
           <script src="js/chart.js"></script>

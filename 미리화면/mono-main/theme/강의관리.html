@@ -52,6 +52,42 @@
           color: white;
         }
 
+        table#classTable{
+          text-align: center;
+          line-height: 2em;
+          width: 85%;
+          margin-left: auto; margin-right: auto;
+        }
+
+        table#classTable input[type=radio]{
+          margin-top: 7px;
+          margin-bottom: 7px;
+        }
+
+        table#classTable tbody>tr:hover{
+          box-shadow: 0px 10px 18px 0px rgb(55 103 208 / 20%);
+          background-color: transparent;
+          cursor: pointer;
+        }
+        table#classTable tbody>tr:hover td{
+          color: #8a909d;
+        }
+
+        .search-area{
+          display: flex;
+          justify-content: center;
+          margin-top: 40px;
+          width: 100%;
+        }
+        
+        .search-area>form{
+          text-align: center;
+          display: inline-block;
+        }
+
+        .search-area>form>*{
+          float: left;
+        }
     </style>
 
 </head>
@@ -95,29 +131,24 @@
                       <ul  class="collapse"  id="class-admin"
                         data-parent="#sidebar-menu">
                         <div class="sub-menu">                                                      
-                              <li >
-                                <a class="sidenav-item-link" href="#">
-                                  <span class="nav-text">강의 개설</span>
-                                </a>
-                              </li>
+                            <li >
+                              <a class="sidenav-item-link" href="강의관리.html">
+                                <span class="nav-text">강의 관리</span>
+                              </a>
+                            </li>
 
                               <li >
-                                <a class="sidenav-item-link" href="#">
+                                <a class="sidenav-item-link" href="수업자료관리.html">
                                   <span class="nav-text">수업 자료 관리</span>                                 
                                 </a>
                               </li>
                             
                               <li >
-                                <a class="sidenav-item-link" href="#">
+                                <a class="sidenav-item-link" href="시험자료관리.html">
                                   <span class="nav-text">시험 자료 관리</span>                                  
                                 </a>
                               </li>
-                              
-                              <li >
-                                <a class="sidenav-item-link" href="#">
-                                  <span class="nav-text">강사 배정</span>                                  
-                                </a>
-                              </li>                                                
+                                                                           
                         </div>
                       </ul>
                     </li>
@@ -483,12 +514,41 @@
             <div class="card card-default">
               <div class="card-header">
                 <h2>강의</h2>
-                <button type="button" class="mb-1 btn btn-pill btn-danger">삭제</button>
+                <div class="btn-right" style="float:right">
+                  <button type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
+                  <button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
+
+                  <!-- 모달 -->
+                  <div class="modal fade" id="classDeleteModal" tabindex="-1" role="dialog" aria-labelledby="classDeleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="classDeleteModalLabel">강의 삭제</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="text-align: center; color: black;">
+                        삭제된 강의는 복구할 수 없습니다.
+                        <br>
+                        정말 삭제하시겠습니까?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">삭제</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!--모달 끝-->
+
+
+                </div>  
+
+              </div>
             </div>
 
               <div class="card-body">
 
-                <table id="productsTable" class="table table-hover table-product" style="width:100%">
+                <table id="classTable" class="table table-hover table-product">
                   <thead>
                     <tr>
                       <th><input type="radio"></th>
@@ -508,7 +568,7 @@
                       </td>
                       <td>1</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -522,7 +582,7 @@
                       </td>
                       <td>2</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -536,7 +596,7 @@
                       </td>
                       <td>3</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -550,7 +610,7 @@
                       </td>
                       <td>4</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -564,7 +624,7 @@
                       </td>
                       <td>5</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -578,7 +638,7 @@
                       </td>
                       <td>6</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -592,7 +652,7 @@
                       </td>
                       <td>7</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -606,7 +666,7 @@
                       </td>
                       <td>8</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -620,7 +680,7 @@
                       </td>
                       <td>9</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -634,7 +694,7 @@
                       </td>
                       <td>10</td>
                       <td>자바의정석</td>
-                      <td>남궁성</td>
+                      <td>남성</td>
                       <td>10</td>
                       <td>8</td>
                       <td>
@@ -646,7 +706,19 @@
                   </tbody>
                 </table>
             
-                <div class="card card-default align-items-center" style="border: none;">
+                <div class="search-area">
+                  <form action="" method="get">
+                    <select class="custom-select my-1 mr-sm-2 w-auto" id="classSearchCondition">
+                      <option selected name value="teacher">강사명</option>
+                      <option value="className">강의명</option>
+                      <option value="classNo">강의번호</option>
+                    </select>
+                    <input type="text" class="form-control rounded-pill" name="keyword" style="width:200;">
+                    <button type="submit" class="btn btn-outline-primary">검색</button>
+                  </form>
+                </div>
+
+                <div class="card card-default align-items-center" style="border: none; clear: both;">
                 
                     <nav aria-label="Page navigation example" style="margin-top: 50px;">
                       <ul class="pagination pagination-seperated pagination-seperated-rounded">
