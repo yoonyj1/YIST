@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
- 	dfsfsdfsqwerwrewrw
- 	<h1>진원 수정</h1>
+ 	<jsp:include page="WEB-INF/views/common/header.jsp"/>
+
+ 	<jsp:include page="WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
