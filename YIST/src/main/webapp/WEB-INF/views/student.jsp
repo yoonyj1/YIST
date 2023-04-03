@@ -16,7 +16,7 @@ div {
     width: 25%;
     height: 100%;
     border-top: 1px solid #353944;
-    background: #a4a2a9;
+    background: #dcdade;
     box-sizing: border-box;
     float: left;
 }
@@ -124,7 +124,7 @@ tr {
 
 #photoArea .photoGroup {
     position: relative;
-    width: 170px;
+    width: 190px;
     height: 230px;
     background: #ccc;
     float: left;
@@ -220,7 +220,7 @@ tr {
             </div> <!--leftMenu-->
             <div class="contents"> 
                 <div class="infoStyle03">   
-                    <div id="memberInfo" style="background-color: #444959;">
+                    <div id="memberInfo" style="background-color: #f8f8f8;">
                         <br>
                         <div class="tableGroup" style="height: 1000px;">
                             <div id="photoArea">
@@ -237,12 +237,12 @@ tr {
                                 </colgroup>
                                 <tbody>
                                 <tr>
-                                    <th style="color: white;">이름 </th>
+                                    <th style="color: rgb(87, 87, 87);">이름 </th>
                                     <td><input type="text" name="memName" value="김누구" maxlength="20" style="width:100%; height: 35px;" disabled=""></td>
                                     
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">성별 </th>
+                                    <th style="color: rgb(87, 87, 87);">성별 </th>
                                     <td>
                                         <input type="radio" name="sex" value="남" checked="">남 
                                         <input type="radio" name="sex" value="여">여
@@ -250,35 +250,35 @@ tr {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">아이디 </th>
+                                    <th style="color: rgb(87, 87, 87);">아이디 </th>
                                     <td><input type="text" style="width:100%; height: 35px;" name="memId" value="user03" class="readon" disabled=""></td>
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">비밀번호 </th>
+                                    <th style="color: rgb(87, 87, 87);">비밀번호 </th>
                                     <td><input type="text" style="width:100%; height: 35px;" name="pw" value="pass03" maxlength="16" disabled=""></td>
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">생년월일</th>
+                                    <th style="color: rgb(87, 87, 87);">생년월일</th>
                                     <td>
                                         <input type="text" style="width:80px; height: 35px;" class="datepicker hasDatepicker" readonly="" name="birthday" value="1998-12-24" id="dp1680462505816" disabled=""> 
                                     </td>
                                 </tr>   
                                 <tr>
-                                <th style="color: white;">이메일</th>
+                                <th style="color: rgb(87, 87, 87);">이메일</th>
                                 <td><input type="text" name="email" value="jane9512@naver.com" maxlength="50" style="width:100%; height: 35px;" disabled=""></td>
                                 </tr>                          
                                 <tr>
-                                    <th style="color: white;">반</th>
+                                    <th style="color: rgb(87, 87, 87);">반</th>
                                     <td><input type="text" name="class" value="361" maxlength="30" style="width:30px; height: 35px;" disabled="">반</td>
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">휴대전화</th>
+                                    <th style="color: rgb(87, 87, 87);">휴대전화</th>
                                     <td>
                                         <input type="text" name="pcs" value="010-5285-0376" maxlength="15" style="width:200px; height: 35px;" disabled=""> 
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="color: white;">주소 </th>
+                                    <th style="color: rgb(87, 87, 87);">주소 </th>
                                     <td colspan="3">
                                         <div style="padding-bottom:5px;">
                                             <input type="text" style="width:100px; height: 35px;" name="zipcode" id="zipcode" title="우편번호" value="07362" maxlength="5" onkeyup="chkNumeric(this);" disabled=""> 
