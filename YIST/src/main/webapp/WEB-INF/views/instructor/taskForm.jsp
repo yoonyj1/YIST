@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-md-auto" style="background-color: white;">
               <!-- 과제 등록 패널 -->
-              <div class="row" style="font-weight: bolder;">과제 컨텐츠</div>
+              <div class="row mx-1" style="font-weight: bolder; font-weight: bold;">과제 컨텐츠</div>
               <div class="row mx-1">
                 <!-- 과제폴더 시작 -->
                 <div class="container" style="height: 600px;">
@@ -235,16 +235,15 @@
 									  	</div>
 									  	<div class="col-md-auto">
 									  	 <h5 class="card-title ">점수</h5>
-											<select class="form-select" aria-label="Default select example">
-											  <option selected>선택</option>
-											  <option value="1">10</option>
-											  <option value="2">20</option>
-											  <option value="3">30</option>
-											  <option value="3">40</option>
-											  <option value="3">50</option>
-											  <option value="3">60</option>
-											  <option value="3">70</option>
-											</select>
+											  <div class="form-group">
+											    <select class="form-control rounded-pill" id="exampleFormControlSelect13">
+											      <option>1</option>
+											      <option>2</option>
+											      <option>3</option>
+											      <option>4</option>
+											      <option>5</option>
+											    </select>
+											  </div>
 									  	</div>
 									  </div>
 								    </div>
