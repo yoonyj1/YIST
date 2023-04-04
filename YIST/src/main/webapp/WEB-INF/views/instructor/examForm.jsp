@@ -10,7 +10,7 @@
 	<div class="page-wrapper">
 		<div class="wrapper">
 			<!-- 헤더 -->
-			<jsp:include page="../common/instructor/header.jsp"></jsp:include>
+			<jsp:include page="../instructor/common/header.jsp"></jsp:include>
 			
 			<div class="content-wrapper table-hover">
         <div class="content"><!-- For Components documentaion -->

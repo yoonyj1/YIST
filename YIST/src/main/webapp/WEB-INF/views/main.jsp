@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="common/instructor/header.jsp"></jsp:include>
+	<jsp:include page="instructor/common/header.jsp"></jsp:include>
 </body>
 </html>

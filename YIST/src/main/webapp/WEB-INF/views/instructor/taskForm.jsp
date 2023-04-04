@@ -19,7 +19,7 @@
 <div class="page-wrapper">
 	<div class="wrapper">
 		<!-- 헤더 -->
-		<jsp:include page="../common/instructor/header.jsp"></jsp:include>
+		<jsp:include page="../instructor/common/header.jsp"></jsp:include>
 		
 		<div class="content-wrapper table-hover">
         <div class="content"><!-- For Components documentaion -->
@@ -103,7 +103,7 @@
               
               <!-- 과제등록패널 체크박스 -->
               <div class="row" style="font-size: 12px;">
-                <div class="d-flex align-items-start flex-column mb-3 mx-2" style="height: 120px;">
+                <div class="d-flex align-items-start flex-column mb-3 mx-2" style="height: 50px;">
                   <h1 class="conn" style="display: none;"></h1>
                   <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 conn">
                   </div>
