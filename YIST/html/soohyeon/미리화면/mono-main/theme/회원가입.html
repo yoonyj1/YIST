@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
+    <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="plugins/simplebar/simplebar.css" rel="stylesheet" />
+
+    <!-- PLUGINS CSS STYLE -->
+    <link href="plugins/nprogress/nprogress.css" rel="stylesheet" />
+
+
+    <link href="plugins/prism/prism.css" rel="stylesheet" />
+
+
+    <!-- MONO CSS -->
+    <link id="main-css-href" rel="stylesheet" href="css/style.css" />
+
+    <!--FontAwesome-->
+    <script src="https://kit.fontawesome.com/9824677df6.js" crossorigin="anonymous"></script>
+
+    <!-- FAVICON -->
+    <link href="images/favicon.png" rel="shortcut icon" />
+
+    <!--
+            HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+        -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    <script src="plugins/nprogress/nprogress.js"></script>
+    <style>
+        @font-face {
+            font-family: 'LINESeedKR-Bd';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Rg';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Th';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2') format('woff2');
+            font-weight: 100;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'LINESeedKR-Rg';
+        }
+        body{
+            background: white;
+        }
+        button {
+            font-family: 'LINESeedKR-Bd';
+            font-weight: 700;
+        }
+
+        .btn-outline-primary:hover{
+          background-color: #93cf82;
+          border-color: #99da87;
+        }
+
+        .btn-outline-primary{
+          border-color: #99da87;
+          color: #99da87;
+        }
+
+
+        table#memberInsert-table{
+          line-height: 2em;
+          width: 100%;
+
+        }
+
+        table#memberInsert-table>th{
+            vertical-align: middle;
+            text-align: center;
+            color: black;
+        }
+
+        .redMark{
+            color: red;
+            font-size: 1em;
+            font-weight: 700;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .align-center{
+            text-align: center;
+        }
+
+        .enroll-area{
+            width: 1600px;
+            height: auto;
+            margin: 50px auto;
+        }
+
+        .enroll-area button.btn[aria-expanded="true"]{
+            background-color: #99da87;
+        }
+
+        .btn-center{
+          width: 100%;
+          margin: 40px auto;
+          text-align: center;
+        }
+
+        div.btn-center>button:first-child{
+          background-color: #99da87;
+          border-color: #99da87;
+        }
+
+        div.btn-center>button:first-child:hover{
+          background-color: #8eca7d;
+          border-color: #8eca7d;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+    <div class="enroll-area">
+
+        <div class="membership-area" style="width:80%; margin:50px auto;">
+            <div class="accordion" id="accordionOne">
+                <div class="card border-0">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                                aria-expanded="true" aria-controls="collapseOne">
+                                YIST 회원가입 약관
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionOne">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                            wolf moon
+                            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                            Brunch 3 wolf
+                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                            Nihil anim
+                            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                            excepteur
+                            butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                            you probably
+                            haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 10px; padding-right: 20px;">
+                    <input type="radio" name="" id="member-agree-essential">
+                    <label for="member-agree-essential">회원가입 약관에 동의합니다(필수)</label>
+                </div>
+        
+        
+                <div class="card border-0">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                개인정보취급방침
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionOne">
+                        <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                            wolf moon
+                            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                            Brunch 3 wolf
+                            moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                            Nihil anim
+                            keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                            excepteur
+                            butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                            you probably
+                            haven't heard of them accusamus labore sustainable VHS.
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 10px;  padding-right: 20px;">
+                    <input type="radio" name="" id="member-agree-essential">
+                    <label for="member-agree-essential">개인정보취급방침에 동의합니다(필수)</label>
+                </div>
+            </div>
+        
+        
+        </div>
+
+
+        <form action="" method="post">
+            <table class="table-bordered" width="700px" id="memberInsert-table">
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            아이디
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                            <button type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
+                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                아이디는 필수 입력 사항입니다.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            비밀번호
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                영문, 숫자, 특수문자 3가지를 모두 사용하여 8~12자 사이로 입력하세요.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            비밀번호 확인
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="password" class="form-control" placeholder="사용할 비밀번호와 동일한 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                동일한 비밀번호를 입력하세요.
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            이름
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="text" name="" class="form-control" placeholder="이름을 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
+                        </div>
+                    </td>
+                </tr> 
+    
+    
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            이메일
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                            <button type="button" id="verificationBtn" class="mb-1 btn btn-outline-primary" data-toggle="modal" data-target="#verificationModal">본인인증</button>
+
+                            <!-- 모달 -->
+                            <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="verificationModalLabel">본인 인증</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: center; color: black;">
+                                        <form action="" method="">
+                                            입력한 이메일로 인증코드를 발송하였습니다.
+                                            인증코드를 입력하세요.
+                                            <div style="width: 100%;">
+                                                <input type="text" name="" class="form-control" style="width:60%; float:left;">
+                                                <button type="button" class="btn btn-outline-primary">인증</button>
+                                            </div>
+                                        </form>
+                                    <br>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">확인</button>
+                                    </div>
+                                </div>
+                            </div>
+                                <!--모달 끝-->                   
+
+                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                인증할 수 있는 이메일을 입력하세요
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            생년월일
+                        </div>
+                    </th>
+                    <td>
+                        <input type="date" name="" class="form-control">
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            연락처
+                        </div>
+                    </th>
+                    <td>
+                        <div class="input-group"  style="width:80%; padding: 10px;">
+                            <input type="phone" name="" class="form-control" placeholder="연락처를 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
+                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                - 없이 숫자만 입력하세요
+                            </div>
+                        </div>                        
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="align-center">
+                            주소
+                        </div>
+                    </th>
+                    <td>
+                        <input type="text" id="sample6_postcode" placeholder="우편번호">
+                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                        <input type="text" id="sample6_address" placeholder="주소"><br>
+                        <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                        <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                        
+                        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                        <script>
+                            function sample6_execDaumPostcode() {
+                                new daum.Postcode({
+                                    oncomplete: function(data) {
+                                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                        
+                                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                                        var addr = ''; // 주소 변수
+                                        var extraAddr = ''; // 참고항목 변수
+                                        //아래 코드처럼 테마 객체를 생성합니다.(color값은 #F00, #FF0000 형식으로 입력하세요.)
+                                        //변경되지 않는 색상의 경우 주석 또는 제거하시거나 값을 공백으로 하시면 됩니다.
+                                        var themeObj = {
+                                        //bgColor: "", //바탕 배경색
+                                        searchBgColor: "#99DA87", //검색창 배경색
+                                        //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+                                        //pageBgColor: "", //페이지 배경색
+                                        //textColor: "", //기본 글자색
+                                        queryTextColor: "#FFFFFF" //검색창 글자색
+                                        //postcodeTextColor: "", //우편번호 글자색
+                                        //emphTextColor: "", //강조 글자색
+                                        //outlineColor: "", //테두리
+                                        };
+
+                                        //위에서 생성한 themeObj객체를 우편번호 서비스 생성자에 넣습니다.
+                                        //생성자의 자세한 설정은 예제 및 속성탭을 확인해 주세요.
+                                        /*
+                                        new daum.Postcode({
+                                        theme: themeObj
+                                        }).open();
+
+                                        new daum.Postcode({
+                                        theme: themeObj
+                                        }).embed(target);
+                                        */
+                                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                            addr = data.roadAddress;
+                                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                            addr = data.jibunAddress;
+                                        }
+                        
+                                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                        if(data.userSelectedType === 'R'){
+                                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                                extraAddr += data.bname;
+                                            }
+                                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                                            if(data.buildingName !== '' && data.apartment === 'Y'){
+                                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                            }
+                                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                            if(extraAddr !== ''){
+                                                extraAddr = ' (' + extraAddr + ')';
+                                            }
+                                            // 조합된 참고항목을 해당 필드에 넣는다.
+                                            document.getElementById("sample6_extraAddress").value = extraAddr;
+                                        
+                                        } else {
+                                            document.getElementById("sample6_extraAddress").value = '';
+                                        }
+                        
+                                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                        document.getElementById('sample6_postcode').value = data.zonecode;
+                                        document.getElementById("sample6_address").value = addr;
+                                        // 커서를 상세주소 필드로 이동한다.
+                                        document.getElementById("sample6_detailAddress").focus();
+                                    }
+                                }).open();
+                            }
+                        </script>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">
+                        <div class="align-center">
+                            <span class="redMark">*</span>
+                            수강과목
+                        </div>
+                    </th>
+                </tr>
+
+                <tr>
+                    <th colspan="2">
+                        <table id="subjectList" width="100%" style="text-align: center;">
+                            <tr>
+                                <th>과목명</th>
+                                <td>정원</td>
+                                <td>신청인원</td>
+                                <td>수강일자</td>
+                                <td>선택</td>
+                            </tr>
+                            <tr>
+                                <th>자바의정석</th>
+                                <td>10</td>
+                                <td>8</td>
+                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                <td>
+                                    <input type="radio" name="subject-choice">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>자바의정석</th>
+                                <td>10</td>
+                                <td>8</td>
+                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                <td>
+                                    <input type="radio" name="subject-choice">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>자바의정석</th>
+                                <td>10</td>
+                                <td>8</td>
+                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                <td>
+                                    <input type="radio" name="subject-choice">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>자바의정석</th>
+                                <td>10</td>
+                                <td>8</td>
+                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                <td>
+                                    <input type="radio" name="subject-choice">
+                                </td>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+
+            </table>
+            <div class="btn-center">
+                <button class="btn btn-primary btn-pill mr-2" type="submit">가입</button>
+                <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+            </div> 
+        </form>
+    </div>
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+
+    <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <script src="plugins/prism/prism.js"></script>
+
+
+    <script src="js/mono.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

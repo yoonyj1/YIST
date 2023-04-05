@@ -1,5 +1,13 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: user1
+=======
+
+Built-By: jinwo
+
+Built-By: owner
+
+>>>>>>> d3b46055b8e0d0606ed41e913a2cf145bfacd551
 Build-Jdk: 11.0.16.1
 Created-By: Maven Integration for Eclipse
 
