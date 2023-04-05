@@ -49,7 +49,7 @@
 
 
 <script src="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instructor/style.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css.map" />
 
 <!-- jquery -->
