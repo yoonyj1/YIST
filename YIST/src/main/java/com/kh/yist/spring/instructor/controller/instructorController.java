@@ -18,7 +18,7 @@ public class instructorController {
 	
 	@RequestMapping("gradeForm.ins")
 	public String Calendar() {
-		return "instructor/gradeForm";
+		return "instructor/calendarForm";
 	}
 	
 	/*

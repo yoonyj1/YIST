@@ -32,6 +32,16 @@
 				  googleCalendarId: 'jinwon960328@gmail.com',
 				  className: 'gcal-event' // an option!
 				  },
+				  selectable: true,
+				  select: function(selectionInfo) {
+					  console.log("셀 클릭");
+				      calendar.addEvent({
+				          title: 'dynamic event',
+				          start: selectionInfo.start,
+				          end: selectionInfo.end 
+				        });
+				        calendar.unselect();
+				  },
 				  eventClick: function(info) {
 					  let start_year = info.event.start.getUTCFullYear();
 					  let start_month = info.event.start.getMonth() + 1;
