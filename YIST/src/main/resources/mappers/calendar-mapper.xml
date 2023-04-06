@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="calendarMapper">
+
+	<resultMap id="calendarResultSet" type="Calendar">
+		<result column="CAL_ID" property="_id" />
+		<result column="CAL_TITLE" property="title" />
+		<result column="CAL_START" property="start" />
+		<result column="CAL_END" property="end" />
+		<result column="CAL_DESCRIPTION" property="description" />
+		<result column="CAL_TYPE" property="type" />
+		<result column="USERNAME" property="username" />
+		<result column="BACKGROUNDCOLOR" property="backgroundColor" />
+		<result column="TEXTCOLOR" property="textColor" />
+		<result column="ALLDAY" property="allDay" />
+	</resultMap>
+
+	<select id="selectCalendar" resultMap="calendarResultSet">
+		select
+			cal_id
+			, cal_title
+			, cal_start
+			, cal_end
+			, cal_description
+			, cal_type
+			, username
+			, backgroundcolor
+			, textcolor
+			, allday
+		from calendar
+	</select>
+
+	<insert id="insertCalendar">
+		insert
+			into calendar
+			(
+				  cal_id
+				, cal_title
+				, cal_start
+				, cal_end
+				, cal_description
+				, cal_type
+				, username
+				, backgroundcolor
+				, textcolor
+				, allday
+			)
+			values
+			(
+				  #{_id}
+				, #{title}
+				, #{start}
+				, #{end}
+				, #{description}
+				, #{type}
+				, #{username}
+				, #{backgroundColor}
+				, #{textColor}
+				, #{allDay}
+		    )
+	</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

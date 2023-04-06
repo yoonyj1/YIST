@@ -20,7 +20,7 @@ var newEvent = function (start, end, eventType) {
 
     $("#contextMenu").hide(); //메뉴 숨김
 
-    modalTitle.html('새로운 일');
+    /*modalTitle.html('');*/
     editType.val(eventType).prop('selected', true);
     editTitle.val('');
     editStart.val(start);
@@ -79,17 +79,37 @@ var newEvent = function (start, end, eventType) {
         editAllDay.prop('checked', false);
         eventModal.modal('hide');
 
+
+		console.log(typeof(eventData._id));
+		console.log(eventData.title);
+		console.log(eventData.start);
+		console.log(eventData.end);
+		console.log(eventData.description);
+		console.log(eventData.type);
+		console.log(eventData.username);
+		console.log(eventData.backgroundColor);
+		console.log(eventData.textColor);
+		console.log(eventData.allDay);
         //새로운 일정 저장
         $.ajax({
             type: "get",
-            url: "",
+            url: "insert.cal",
             data: {
-                //.....
+                _id:eventData._id
+              , title:eventData.title
+              , start:eventData.start
+              , end:eventData.end
+              , description:eventData.description
+              , type:eventData.type
+              , username:eventData.username
+              , backgroundColor:eventData.backgroundColor
+              , textColor:eventData.textColor
+              , allDay:eventData.allDay
             },
             success: function (response) {
                 //DB연동시 중복이벤트 방지를 위한
-                //$('#calendar').fullCalendar('removeEvents');
-                //$('#calendar').fullCalendar('refetchEvents');
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('refetchEvents');
             }
         });
     });

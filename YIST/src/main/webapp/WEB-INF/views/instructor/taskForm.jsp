@@ -176,7 +176,7 @@
                   <label style="margin-right: 5px;">기간</label>
                   <input type="date" class="start">
                   <label>~</label>
-                  <input type="date" class="start">
+                  <input type="date" class="end">
                 </div>
                 <div class="col-md-auto">
                   <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 py-1">
