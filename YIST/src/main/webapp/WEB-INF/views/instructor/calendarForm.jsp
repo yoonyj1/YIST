@@ -16,9 +16,445 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/css/main.css" />
 
 </head>
+<style>
+
+
+.dropdown, .dropup {
+	position: relative
+}
+
+.dropdown-toggle:focus {
+	outline: 0
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	font-size: 14px;
+	text-align: left;
+	list-style: none;
+	background-color: #fff;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, .15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, .175)
+}
+
+.dropdown-menu.pull-right {
+	right: 0;
+	left: auto
+}
+
+.dropdown-menu .divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5
+}
+
+.dropdown-menu>li>a {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: 400;
+	line-height: 1.42857143;
+	color: #333;
+	white-space: nowrap
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+	color: #262626;
+	text-decoration: none;
+	background-color: #f5f5f5
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover
+	{
+	color: #fff;
+	text-decoration: none;
+	background-color: #337ab7;
+	outline: 0
+}
+
+.dropdown-menu>.disabled>a, .dropdown-menu>.disabled>a:focus,
+	.dropdown-menu>.disabled>a:hover {
+	color: #777
+}
+
+.dropdown-menu>.disabled>a:focus, .dropdown-menu>.disabled>a:hover {
+	text-decoration: none;
+	cursor: not-allowed;
+	background-color: transparent;
+	background-image: none;
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false)
+}
+
+.open>.dropdown-menu {
+	display: block
+}
+
+.open>a {
+	outline: 0
+}
+
+.dropdown-menu-right {
+	right: 0;
+	left: auto
+}
+
+.dropdown-menu-left {
+	right: auto;
+	left: 0
+}
+
+.dropdown-header {
+	display: block;
+	padding: 3px 20px;
+	font-size: 12px;
+	line-height: 1.42857143;
+	color: #777;
+	white-space: nowrap
+}
+
+.dropdown-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 990
+}
+
+.pull-right>.dropdown-menu {
+	right: 0;
+	left: auto
+}
+
+.dropup .caret, .navbar-fixed-bottom .dropdown .caret {
+	content: "";
+	border-top: 0;
+	border-bottom: 4px dashed;
+	border-bottom: 4px solid\9
+}
+
+.dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
+	top: auto;
+	bottom: 100%;
+	margin-bottom: 2px
+}
+
+/* popover */
+
+.dropNewEvent {
+  font-size: 13px;
+}
+
+.popoverTitleCalendar {
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px;
+  font-size: 13px;
+  border-radius: 5px 5px 0 0;
+}
+
+.popoverInfoCalendar i {
+  font-size: 14px;
+  margin-right: 10px;
+  line-height: inherit;
+  color: #d3d4da;
+}
+
+.popoverInfoCalendar p {
+  margin-bottom: 1px;
+}
+
+.popoverDescCalendar {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #E3E3E3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.popover-title {
+  background: transparent;
+  font-weight: 600;
+  padding: 0 !important;
+  border: none;
+}
+
+.popover-content {
+  padding: 15px 15px;
+  font-size: 13px;
+}
+
+.inputModal {
+  width: 65%;
+  margin-bottom: 10px;
+}
+
+#contextMenu {
+  position: absolute;
+  display: none;
+  z-index: 2;
+}
+
+#contextMenu .dropdown-menu {
+  border: none;
+}
+
+.opacityWeekend {
+  background-color: #f4f4fb !important;
+}
+
+.fc-avatar-image {
+  top: 4px;
+  left: 20px;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
+.fc-avatar-image img {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+
+.fc-avatar-image:before {
+  content: none !important;
+}
+
+.fc-day-header {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  color: #505363;
+  background-color: #FAFAFA;
+  padding: 11px 0px !important;
+  text-decoration: none;
+}
+
+.fc-day-header a {
+  text-decoration: none !important;
+  color: #505363;
+}
+
+.fc-center h2 {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
+  color: #505363;
+  line-height: 32px;
+}
+
+.fc-toolbar.fc-header-toolbar {
+  margin-bottom: 22px;
+  padding-top: 22px;
+}
+
+.fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.fc-day {
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.fc-day:hover {
+  background: #EEF7FF;
+  cursor: pointer;
+  -webkit-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.fc-highlight {
+  background: #EEF7FF;
+  opacity: 0.7;
+}
+
+.fc-time-grid-event.fc-short .fc-time:before {
+  content: attr(data-start);
+  display: none;
+}
+
+.fc-time-grid-event.fc-short .fc-time span {
+  display: inline-block;
+}
+
+.fc-time-grid-event.fc-short .fc-avatar-image {
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+
+.fc-time-grid .fc-bgevent,
+.fc-time-grid .fc-event {
+  border: 1px solid #fff !important;
+}
+
+.fc-time-grid-event.fc-short .fc-content {
+  padding: 4px 20px 10px 22px !important;
+}
+
+.fc-time-grid-event .fc-avatar-image {
+  top: 9px;
+}
+
+.fc-event-vert {
+  min-height: 22px;
+}
+
+.fc .fc-axis {
+  vertical-align: middle;
+  padding: 0 4px;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #505362;
+  text-transform: uppercase;
+  text-align: center !important;
+  background-color: #fafafa;
+}
+
+.fc-unthemed .fc-event .fc-content,
+.fc-unthemed .fc-event-dot .fc-content {
+  padding: 5px 10px 5px 10px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: -1px;
+  height: 100%;
+}
+
+.fc-event {
+  border: none !important;
+}
+
+.fc-day-grid-event .fc-time {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.fc-unthemed .fc-day-grid td:not(.fc-axis).fc-event-container {
+  /* padding: 0.2rem 0.5rem; */
+}
+
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-row,
+.fc-unthemed tbody,
+.fc-unthemed td,
+.fc-unthemed th,
+.fc-unthemed thead {
+  border-color: #DADFEA;
+}
+
+.fc-ltr .fc-h-event .fc-end-resizer,
+.fc-ltr .fc-h-event .fc-end-resizer:before,
+.fc-ltr .fc-h-event .fc-end-resizer:after,
+.fc-rtl .fc-h-event .fc-start-resizer,
+.fc-rtl .fc-h-event .fc-start-resizer:before,
+.fc-rtl .fc-h-event .fc-start-resizer:after {
+  left: auto;
+  cursor: e-resize;
+  background: none;
+}
+
+select.filter {
+  width: 500px !important;
+}
+
+.popover {
+  background: #fff !important;
+  color: #2E2F34;
+  border: none;
+  margin-bottom: 10px;
+}
+
+/*popover header*/
+.popover-title {
+  background: #F7F7FC;
+  font-weight: 600;
+  padding: 15px 15px 11px;
+  border: none;
+}
+
+/*popover arrows*/
+.popover.top .arrow:after {
+  border-top-color: #fff;
+}
+
+.popover.right .arrow:after {
+  border-right-color: #fff;
+}
+
+.popover.bottom .arrow:after {
+  border-bottom-color: #fff;
+}
+
+.popover.left .arrow:after {
+  border-left-color: #fff;
+}
+
+.popover.bottom .arrow:after {
+  border-bottom-color: #fff;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  -webkit-font-feature-settings: 'liga';
+          font-feature-settings: 'liga';
+}
+
+#add-color,
+#edit-color {
+  color: #d25565;
+}
+</style>
 <body>
 
 <div class="page-wrapper">
@@ -29,7 +465,7 @@
 
         <!-- 일자 클릭시 메뉴오픈 -->
         <div id="contextMenu" class="dropdown clearfix">
-            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
                 style="display:block;position:static;margin-bottom:5px;">
                 <li><a tabindex="-1" href="#">카테고리1</a></li>
                 <li><a tabindex="-1" href="#">카테고리2</a></li>
@@ -176,6 +612,10 @@
 				console.log($("#edit-start").val());
 				console.log("dddd");
 			})
+		})
+		
+		$(function(){
+			var eventId = 1 + Math.floor(Math.random() * 1000);
 		})
 	</script>	 
 

@@ -1,4 +1,4 @@
-package com.kh.yist.spring.instructor.model.vo;
+package com.kh.yist.spring.calendar.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter					// getter 메소드
 @ToString
 public class Calendar {
-	private int _id;
+	private int calId;
 	private String title;
 	private String start;
 	private String end;

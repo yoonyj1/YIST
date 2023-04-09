@@ -40,7 +40,7 @@ var newEvent = function (start, end, eventType) {
     $('#save-event').on('click', function () {
 
         var eventData = {
-            _id: eventId,
+            calId: eventId,
             title: editTitle.val(),
             start: editStart.val(),
             end: editEnd.val(),
@@ -80,7 +80,7 @@ var newEvent = function (start, end, eventType) {
         eventModal.modal('hide');
 
 
-		console.log(typeof(eventData._id));
+		console.log("아이디 : " + eventId);
 		console.log(eventData.title);
 		console.log(eventData.start);
 		console.log(eventData.end);
@@ -95,7 +95,7 @@ var newEvent = function (start, end, eventType) {
             type: "get",
             url: "insert.cal",
             data: {
-                _id:eventData._id
+                calId:eventData.calId
               , title:eventData.title
               , start:eventData.start
               , end:eventData.end

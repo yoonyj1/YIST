@@ -3,7 +3,7 @@
  * ************** */
 var editEvent = function (event, element, view) {
 
-    $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
+    $('#deleteEvent').data('id', event.calId); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
     $(element).popover("hide");
@@ -53,7 +53,8 @@ var editEvent = function (event, element, view) {
         var startDate;
         var endDate;
         var displayDate;
-
+		
+		
         if (editAllDay.is(':checked')) {
             statusAllDay = true;
             startDate = moment(editStart.val()).format('YYYY-MM-DD');
@@ -77,13 +78,20 @@ var editEvent = function (event, element, view) {
         event.description = editDesc.val();
 
         $("#calendar").fullCalendar('updateEvent', event);
-
+		
         //일정 업데이트
         $.ajax({
             type: "get",
-            url: "",
+            url: "update.cal",
             data: {
-                //...
+				calId:event.calId
+              , title:event.title
+              , start:event.start
+              , end:event.end
+              , description:event.description
+              , type:event.type
+              , backgroundColor:event.backgroundColor
+              , allDay:event.allDay
             },
             success: function (response) {
                 alert('수정되었습니다.')
@@ -97,15 +105,15 @@ var editEvent = function (event, element, view) {
 $('#deleteEvent').on('click', function () {
     
     $('#deleteEvent').unbind();
-    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
+    $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
 
     //삭제시
     $.ajax({
         type: "get",
-        url: "",
+        url: "delete.cal",
         data: {
-            //...
+            calId:$(this).data('id')
         },
         success: function (response) {
             alert('삭제되었습니다.');

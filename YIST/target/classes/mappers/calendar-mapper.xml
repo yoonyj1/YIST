@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="calendarMapper">
 
 	<resultMap id="calendarResultSet" type="Calendar">
-		<result column="CAL_ID" property="_id" />
+		<result column="CAL_ID" property="calId" />
 		<result column="CAL_TITLE" property="title" />
 		<result column="CAL_START" property="start" />
 		<result column="CAL_END" property="end" />
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 			values
 			(
-				  #{_id}
+				  #{calId}
 				, #{title}
 				, #{start}
 				, #{end}
@@ -62,7 +62,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				, #{allDay}
 		    )
 	</insert>
-
+	
+	<!-- <update id="updateCalendar">
+		update calendar
+			set cal_title = #{c.getTitle()}
+				, cal_start = #{c.getStart()}
+				, cal_end = #{c.getEnd()}
+				, cal_description = #{c.getDescription()}
+				, cal_type = #{c.getType()}
+				, backgroundcolor = #{c.getBackgroundColor()}
+				, allday = #{c.getAllDay()}
+		where cal_id = #{c.getCalId()}
+	</update> -->
+	
+	<update id="updateCalendar">
+		update calendar
+			set cal_title = #{title}
+				, cal_start = #{start}
+				, cal_end = #{end}
+				, cal_description = #{description}
+				, cal_type = #{type}
+				, backgroundcolor = #{backgroundColor}
+				, allday = #{allDay}
+		where cal_id = #{calId}
+	</update>
+	
+	<delete id ="deleteCalendar">
+		delete calendar
+		where cal_id = #{calId}
+	</delete>
+	
 </mapper>
 
 

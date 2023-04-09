@@ -239,6 +239,10 @@ select.filter {
   margin-bottom: 10px;
 }
 
+.popover:hover {
+	color:black;
+}
+
 /*popover header*/
 .popover-title {
   background: #F7F7FC;
