@@ -467,10 +467,9 @@ select.filter {
         <div id="contextMenu" class="dropdown clearfix">
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu"
                 style="display:block;position:static;margin-bottom:5px;">
-                <li><a tabindex="-1" href="#">카테고리1</a></li>
-                <li><a tabindex="-1" href="#">카테고리2</a></li>
-                <li><a tabindex="-1" href="#">카테고리3</a></li>
-                <li><a tabindex="-1" href="#">카테고리4</a></li>
+                <li><a tabindex="-1" href="#">전체</a></li>
+                <li><a tabindex="-1" href="#">강사</a></li>
+                <li><a tabindex="-1" href="#">학생</a></li>
                 <li class="divider"></li>
                 <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
             </ul>
@@ -519,10 +518,9 @@ select.filter {
 						  <div class="form-group">
 						    <label for="edit-type">구분</label>
 						    <select class="form-control" type="text" name="edit-type" id="edit-type">
-						      <option class="test1" value="카테고리1">카테고리1</option>
-                              <option value="카테고리2">카테고리2</option>
-                              <option value="카테고리3">카테고리3</option>
-                              <option value="카테고리4">카테고리4</option>
+						      <option class="test1" value="카테고리1">전체</option>
+                              <option value="카테고리2">강사</option>
+                              <option value="카테고리3">학생</option>
 						    </select>
 						  </div>
 						  
@@ -573,10 +571,9 @@ select.filter {
                     <label for="calendar_view">구분별</label>
                     <div class="input-group">
                         <select class="filter" id="type_filter" multiple="multiple">
-                            <option value="카테고리1">카테고리1</option>
-                            <option value="카테고리2">카테고리2</option>
-                            <option value="카테고리3">카테고리3</option>
-                            <option value="카테고리4">카테고리4</option>
+                            <option value="카테고리1">전체</option>
+                            <option value="카테고리2">강사</option>
+                            <option value="카테고리3">학생</option>
                         </select>
                     </div>
                 </div>

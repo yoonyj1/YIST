@@ -118,6 +118,7 @@ var calendar = $('#calendar').fullCalendar({
         var fixedDate = response.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             //array.end = moment(array.end).add(1, 'days'); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
+            //array.end = moment(array.end); // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
           }
           return array;
         });
@@ -169,16 +170,28 @@ var calendar = $('#calendar').fullCalendar({
         return false;
       }
     }
-
+	
     // 드랍시 수정된 날짜반영
     var newDates = calDateWhenDragnDrop(event);
-
+	
+	console.log("드래그앤 드롭~~");
+	console.log(event.calId);
+	console.log("변경된 시작 : " + newDates.startDate);
+	console.log("변경된 끝 : " + newDates.endDate); 
+	console.log("설명 : " + event.description);
     //드롭한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: "update.cal",
       data: {
-        //...
+        		calId:event.calId
+              , title:event.title
+              , start:newDates.startDate
+              , end:newDates.endDate
+              , description:event.description
+              , type:event.type
+              , backgroundColor:event.backgroundColor
+              , allDay:event.allDay
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
