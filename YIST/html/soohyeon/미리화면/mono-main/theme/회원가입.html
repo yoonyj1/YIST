@@ -83,6 +83,7 @@
         table#memberInsert-table{
           line-height: 2em;
           width: 100%;
+          margin-top: 50px;
 
         }
 
@@ -208,300 +209,304 @@
                     <input type="radio" name="" id="member-agree-essential">
                     <label for="member-agree-essential">개인정보취급방침에 동의합니다(필수)</label>
                 </div>
+
+
+                <form action="" method="post">
+                    <table class="table-bordered" id="memberInsert-table">
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    아이디
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group"  style="width:40%; padding: 10px;">
+                                    <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <button type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
+                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        아이디는 필수 입력 사항입니다.
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    비밀번호
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group"  style="width:40%; padding: 10px;">
+                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        영문, 숫자, 특수문자 3가지를 모두 사용하여 8~12자 사이로 입력하세요.
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    비밀번호 확인
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group"  style="width:40%; padding: 10px;">
+                                    <input type="password" class="form-control" placeholder="사용할 비밀번호와 동일한 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        동일한 비밀번호를 입력하세요.
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    이름
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group" style="width:40%; padding: 10px;">
+                                    <input type="text" name="" class="form-control" placeholder="이름을 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
+                                </div>
+                            </td>
+                        </tr> 
+            
+            
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    이메일
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group"  style="width:40%; padding: 10px;">
+                                    <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <button type="button" id="verificationBtn" class="mb-1 btn btn-outline-primary" data-toggle="modal" data-target="#verificationModal">본인인증</button>
+        
+                                    <!-- 모달 -->
+                                    <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="verificationModalLabel">본인 인증</h3>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="text-align: center; color: black;">
+                                                <form action="" method="">
+                                                    <div style="width: 80%; padding: 10px; margin: 0 auto;">
+                                                        <input type="text" name="" value="입력한이메일" readonly class="form-control" style="width:60%; float:left;">
+                                                        <button type="button" class="btn btn-outline-primary">인증코드 발송</button> 
+                                                        <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%; text-align: left;">
+                                                            입력한 이메일로 인증코드를 발송하였습니다.
+                                                        </div>
+                                                        <input type="text" name="" class="form-control" placeholder="인증코드를 입력하세요" style="width:100%; float:left;">
+                                                    </div>
+                                                </form>
+                                            <br>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">확인</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <!--모달 끝-->                   
+        
+                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        인증할 수 있는 이메일을 입력하세요
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    생년월일
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group" style="width:40%; padding: 10px;">
+                                    <input type="date" name="" class="form-control">
+                                </div> 
+                            </td>
+                        </tr>
+        
+        
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    연락처
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group"  style="width:40%; padding: 10px;">
+                                    <input type="phone" name="" class="form-control" placeholder="연락처를 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
+                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        - 없이 숫자만 입력하세요
+                                    </div>
+                                </div>                        
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <th>
+                                <div class="align-center">
+                                    주소
+                                </div>
+                            </th>
+                            <td>
+                                <div class="input-group" style="width:40%; padding-left: 10px; padding-top: 10px; padding-bottom: 5px;">
+                                    <input type="text" id="zipcode" placeholder="우편번호" style="width: 20%;" class="form-control">
+                                    <button id="zipcodeBtn" type="button" class="btn btn-outline-primary" onclick="selectZipcode();" style="width: 35%;">우편번호 검색</button><br>
+                                </div>
+                                <div class="input-group" style="width:80%; padding-left: 10px; padding-bottom: 10px;">
+                                    <input type="text" id="address" placeholder="주소" style="width: 40%;" class="form-control">
+                                    <input type="text" id="detailAddress" placeholder="상세주소" style="width: 40%;" class="form-control">
+                                </div>                        
+                            </td>
+                        </tr>
+        
+                                <script>
+        
+                                    function selectZipcode() {
+        
+        
+                                        new daum.Postcode({
+                                            oncomplete: function(data) {
+                                
+        
+                                                var addr = ''; // 주소 변수
+                                                var extraAddr = ''; // 참고항목 변수
+        
+                                                var themeObj = {
+                                                        searchBgColor: "#99DA87", 
+                                                        queryTextColor: "#FFFFFF"
+                                                        };
+        
+                                                
+                                                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                                    addr = data.roadAddress;
+                                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                                    addr = data.jibunAddress;
+                                                }
+                                
+                                                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                                if(data.userSelectedType === 'R'){
+                                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                                        extraAddr += data.bname;
+                                                    }
+                                                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                                                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                                    }
+                                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                                    if(extraAddr !== ''){
+                                                        extraAddr = ' (' + extraAddr + ')';
+                                                    }
+                                                    // 조합된 참고항목을 해당 필드에 넣는다.
+                                                    document.getElementById("extraAddress").value = extraAddr;
+                                                
+                                                } else {
+                                                    document.getElementById("extraAddress").value = '';
+                                                }
+                                
+                                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                                document.getElementById('zipcode').value = data.zonecode;
+                                                document.getElementById("address").value = addr;
+                                                // 커서를 상세주소 필드로 이동한다.
+                                                document.getElementById("detailAddress").focus();
+                                            }
+                                        }).open({
+                                            popupTitle: '우편번호 검색'
+                                            ,theme: themeObj
+                                        });
+                                    }
+                                </script>
+        
+                        <tr>
+                            <th colspan="2">
+                                <div class="align-center">
+                                    <span class="redMark">*</span>
+                                    수강과목
+                                </div>
+                            </th>
+                        </tr>
+        
+                        <tr>
+                            <td colspan="2">
+                                <table id="subjectList" width="100%" style="text-align: center;">
+                                    <tr>
+                                        <td>과목명</td>
+                                        <td>정원</td>
+                                        <td>신청인원</td>
+                                        <td>수강일자</td>
+                                        <td>선택</td>
+                                    </tr>
+                                    <tr>
+                                        <td>자바의정석</td>
+                                        <td>10</td>
+                                        <td>8</td>
+                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                        <td>
+                                            <input type="radio" name="subject-choice">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>자바의정석</td>
+                                        <td>10</td>
+                                        <td>8</td>
+                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                        <td>
+                                            <input type="radio" name="subject-choice">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>자바의정석</td>
+                                        <td>10</td>
+                                        <td>8</td>
+                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                        <td>
+                                            <input type="radio" name="subject-choice">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>자바의정석</td>
+                                        <td>10</td>
+                                        <td>8</td>
+                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+                                        <td>
+                                            <input type="radio" name="subject-choice">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+        
+                    </table>
+                    <div class="btn-center">
+                        <button class="btn btn-primary btn-pill mr-2" type="submit">가입</button>
+                        <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    </div> 
+                </form>
+
+
             </div>
         
         
         </div>
 
 
-        <form action="" method="post">
-            <table class="table-bordered" width="700px" id="memberInsert-table">
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            아이디
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group"  style="width:40%; padding: 10px;">
-                            <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
-                            <button type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
-                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                아이디는 필수 입력 사항입니다.
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            비밀번호
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group"  style="width:40%; padding: 10px;">
-                            <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
-                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                영문, 숫자, 특수문자 3가지를 모두 사용하여 8~12자 사이로 입력하세요.
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            비밀번호 확인
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group"  style="width:40%; padding: 10px;">
-                            <input type="password" class="form-control" placeholder="사용할 비밀번호와 동일한 비밀번호를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
-                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                동일한 비밀번호를 입력하세요.
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            이름
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group" style="width:40%; padding: 10px;">
-                            <input type="text" name="" class="form-control" placeholder="이름을 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
-                        </div>
-                    </td>
-                </tr> 
-    
-    
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            이메일
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group"  style="width:40%; padding: 10px;">
-                            <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
-                            <button type="button" id="verificationBtn" class="mb-1 btn btn-outline-primary" data-toggle="modal" data-target="#verificationModal">본인인증</button>
-
-                            <!-- 모달 -->
-                            <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title" id="verificationModalLabel">본인 인증</h3>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body" style="text-align: center; color: black;">
-                                        <form action="" method="">
-                                            <div style="width: 80%; padding: 10px; margin: 0 auto;">
-                                                <input type="text" name="" value="입력한이메일" readonly class="form-control" style="width:60%; float:left;">
-                                                <button type="button" class="btn btn-outline-primary">인증코드 발송</button> 
-                                                <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%; text-align: left;">
-                                                    입력한 이메일로 인증코드를 발송하였습니다.
-                                                </div>
-                                                <input type="text" name="" class="form-control" placeholder="인증코드를 입력하세요" style="width:100%; float:left;">
-                                            </div>
-                                        </form>
-                                    <br>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">확인</button>
-                                    </div>
-                                </div>
-                            </div>
-                                <!--모달 끝-->                   
-
-                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                인증할 수 있는 이메일을 입력하세요
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            생년월일
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group" style="width:40%; padding: 10px;">
-                            <input type="date" name="" class="form-control">
-                        </div> 
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            연락처
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group"  style="width:40%; padding: 10px;">
-                            <input type="phone" name="" class="form-control" placeholder="연락처를 입력하세요" aria-label="Username" aria-describedby="basic-addon1">                        
-                            <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                - 없이 숫자만 입력하세요
-                            </div>
-                        </div>                        
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>
-                        <div class="align-center">
-                            주소
-                        </div>
-                    </th>
-                    <td>
-                        <div class="input-group" style="width:40%; padding-left: 10px; padding-top: 10px; padding-bottom: 5px;">
-                            <input type="text" id="zipcode" placeholder="우편번호" style="width: 20%;" class="form-control">
-                            <input type="button" id="zipcodeBtn" class="btn btn-outline-primary" onclick="selectZipcode();" value="우편번호 검색" style="width: 30%;"><br>
-                        </div>
-                        <div class="input-group" style="width:80%; padding-left: 10px; padding-bottom: 10px;">
-                            <input type="text" id="address" placeholder="주소" style="width: 40%;" class="form-control">
-                            <input type="text" id="detailAddress" placeholder="상세주소" style="width: 40%;" class="form-control">
-                        </div>                        
-                    </td>
-                </tr>
-
-                        <script>
-
-                            function selectZipcode() {
-
-
-                                new daum.Postcode({
-                                    oncomplete: function(data) {
-                        
-
-                                        var addr = ''; // 주소 변수
-                                        var extraAddr = ''; // 참고항목 변수
-
-                                        var themeObj = {
-                                                searchBgColor: "#99DA87", 
-                                                queryTextColor: "#FFFFFF"
-                                                };
-
-                                        
-                                        //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                            addr = data.roadAddress;
-                                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                            addr = data.jibunAddress;
-                                        }
-                        
-                                        // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                                        if(data.userSelectedType === 'R'){
-                                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                                            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                                                extraAddr += data.bname;
-                                            }
-                                            // 건물명이 있고, 공동주택일 경우 추가한다.
-                                            if(data.buildingName !== '' && data.apartment === 'Y'){
-                                                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                                            }
-                                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                                            if(extraAddr !== ''){
-                                                extraAddr = ' (' + extraAddr + ')';
-                                            }
-                                            // 조합된 참고항목을 해당 필드에 넣는다.
-                                            document.getElementById("extraAddress").value = extraAddr;
-                                        
-                                        } else {
-                                            document.getElementById("extraAddress").value = '';
-                                        }
-                        
-                                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                        document.getElementById('zipcode').value = data.zonecode;
-                                        document.getElementById("address").value = addr;
-                                        // 커서를 상세주소 필드로 이동한다.
-                                        document.getElementById("detailAddress").focus();
-                                    }
-                                }).open({
-                                    popupTitle: '우편번호 검색'
-                                    ,theme: themeObj
-                                });
-                            }
-                        </script>
-
-                <tr>
-                    <th colspan="2">
-                        <div class="align-center">
-                            <span class="redMark">*</span>
-                            수강과목
-                        </div>
-                    </th>
-                </tr>
-
-                <tr>
-                    <td colspan="2">
-                        <table id="subjectList" width="100%" style="text-align: center;">
-                            <tr>
-                                <td>과목명</td>
-                                <td>정원</td>
-                                <td>신청인원</td>
-                                <td>수강일자</td>
-                                <td>선택</td>
-                            </tr>
-                            <tr>
-                                <td>자바의정석</td>
-                                <td>10</td>
-                                <td>8</td>
-                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                <td>
-                                    <input type="radio" name="subject-choice">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>자바의정석</td>
-                                <td>10</td>
-                                <td>8</td>
-                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                <td>
-                                    <input type="radio" name="subject-choice">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>자바의정석</td>
-                                <td>10</td>
-                                <td>8</td>
-                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                <td>
-                                    <input type="radio" name="subject-choice">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>자바의정석</td>
-                                <td>10</td>
-                                <td>8</td>
-                                <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                <td>
-                                    <input type="radio" name="subject-choice">
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-            </table>
-            <div class="btn-center">
-                <button class="btn btn-primary btn-pill mr-2" type="submit">가입</button>
-                <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
-            </div> 
-        </form>
     </div>
     <!-- script  -->
     <script src="plugins/jquery/jquery.min.js"></script>
