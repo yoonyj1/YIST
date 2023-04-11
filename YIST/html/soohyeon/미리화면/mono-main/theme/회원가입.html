@@ -230,40 +230,14 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요">                        
-                                    <button type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
+                                    <input id="userId" type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요">                        
+                                    <button id="idCheck-btn" type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
                                     <div id="id-resultBox" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
                                         아이디는 필수 입력 사항입니다.
                                     </div>
                                 </div>
                             </td>
                         </tr>
-
-                        <script>
-
-                            function idCheck(){
-                                const id = $("#userId").val();
-                                const idResult = $("#id-resultBox");
-                                const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-
-                                if(id.length <= 0){
-                                    idResult.text("아이디는 필수 입력 사항입니다.");
-                                }
-
-                                if(!hangulcheck.test(id)){
-                                    idResult.text("아이디에는 한글을 사용할 수 없습니다.").css("color","red");
-                                    $("#userId").focus();
-                                }
-
-
-                            }
-
-                            $(function(){
-                                idCheck();
-                            })
-
-                        </script>
-
 
                         <tr>
                             <th>
@@ -314,17 +288,43 @@
                         </tr>
 
                         <script>
+
+                            const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+                            const num = /[0-9]/g;
+                            const engSmall = /[a-z]/g;
+                            const engLarge = /[A-Z]/g;
+                            const spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+                            const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                            const idResult = $("#id-resultBox");
+        
+
+                            function idCheck(){
+                                let id = $("#userId").val();
+
+                                
+                                if(id.length <= 1){
+                                    idResult.css("color","red");
+                                    idResult.text("아이디를 한글자 이상 입력해주세요");
+                                }else{
+                                    idResult.text("아이디는 필수 입력 사항입니다.");
+                                }
+
+                                if(hangulcheck.test(id)){
+                                    idResult.css("color","red");
+                                    idResult.text("아이디에 한글을 사용할 수 없습니다.")
+                                }
+                                
+
+
+                            }
+
+
                             function chkPW(){
         
-                                var pw = $("#userPWd").val();
-                                var pwCheck = $("#pwdCheck").val();
+                                let pw = $("#userPWd").val();
+                                let pwCheck = $("#pwdCheck").val();
         
-                                var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
-                                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-                                var num = /[0-9]/g;
-                                var engSmall = /[a-z]/g;
-                                var engLarge = /[A-Z]/g;
-                                var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+
                                 
                                 if(!reg.test(pw)){
                                     $("#pwd-td text-daborder-danger span").removeClass("mdi-check-all");
@@ -374,14 +374,7 @@
                                         $("#pwd-resultBox-spe").css("color","#8a909d");
                                         $("#pwd-resultBox-spe span").css("color","#8a909d");
                                     }
-                                    
-                                    if(hangulcheck.test(pw)){
-                                        $("#pwd-resultBox-etc").html("<span class='mdi mdi-check'></span>한글입력불가");
-                                        $("#pwd-resultBox-etc").css("color","red");
-                                        $("#pwd-resultBox-etc span").css("color","red");
-                                    }else{
-                                        $("#pwd-resultBox-etc").html("");
-                                    }
+                                   
         
                                 }else{
 
@@ -396,31 +389,23 @@
         
                             }
         
-                            function pwdtest(){
-                                var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
-                                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-                                var num = /[0-9]/g;
-                                var engSmall = /[a-z]/g;
-                                var engLarge = /[A-Z]/g;
-                                var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;       
+                            function pwdEqualCheck(){
+ 
 
                                 var pw = $("#userPWd").val();
                                 var pwCheck = $("#pwdCheck").val();
                                 
                                 if(pwCheck.length >= 8 && reg.test(pw)){
                                         if(pw===pwCheck){
-                                            console.log("비밀번호일치 초록색나와야됨");
                                             $("#pwdCheck-resultBox").css("color","lightgreen");
                                             $("#pwdCheck-resultBox").text("비밀번호가 일치합니다");
                                             
                                         }else{
-                                            console.log("비밀번호불일치 빨간색나와야됨");
                                             $("#pwdCheck-resultBox").css("color","red");
                                             $("#pwdCheck-resultBox").text("비밀번호가 일치하지않습니다");
                                             // $("#pwdCheck").select();
                                         }
                                 }else{
-                                    console.log("아무것도아닌상태 회색 나와야됨");
                                     $("#pwdCheck-resultBox").css("color","#8a909d");
                                     $("#pwdCheck-resultBox").text("입력한 비밀번호와 동일한 비밀번호를 입력하세요.")
                                 }
@@ -429,7 +414,6 @@
         
                             $(function(){
                                 $("#userPWd").keyup(function(){
-
 
                                     if($("#userPWd").val().length > 5){
                                         chkPW();
@@ -442,12 +426,22 @@
                                 })
 
                                 $("#pwdCheck").keyup(function(){
-                                    console.log("키업");
-                                    pwdtest();
+                                    pwdEqualCheck();
                                 })
-        
+
+                                $("#userId").keyup(function(){
+                                    
+                                    if($("#userId").val().length > 3){
+                                        idCheck();
+                                    }else{
+                                        idResult.css("color","#8a909d");
+                                        idResult.text("아이디는 필수 입력 사항입니다.");
+                                    }
+                                })       
+
                             })
-        
+
+
         
                         </script>
 
@@ -476,7 +470,7 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요">                        
                                     <button type="button" id="verificationBtn" class="mb-1 btn btn-outline-primary" data-toggle="modal" data-target="#verificationModal">본인인증</button>
         
                                     <!-- 모달 -->
@@ -563,7 +557,7 @@
                                 </div>                        
                             </td>
                         </tr>
-        
+<!--         
                         <script>
         
                             function selectZipcode() {
@@ -621,7 +615,7 @@
                                             ,theme: themeObj
                                         });
                                     }
-                                </script>
+                                </script> -->
         
                         <tr>
                             <th colspan="2">
@@ -711,7 +705,7 @@
     <script src="js/custom.js"></script>
 
     <!--kakao-->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 
 </body>
 
