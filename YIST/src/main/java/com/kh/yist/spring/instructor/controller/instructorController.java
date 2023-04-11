@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class instructorController {
-
 	
 	@RequestMapping("taskForm.ins")
 	public String taskForm() {
@@ -22,6 +21,6 @@ public class instructorController {
 		return "instructor/calendarForm";
 	}
 	
-
+	
 	
 }

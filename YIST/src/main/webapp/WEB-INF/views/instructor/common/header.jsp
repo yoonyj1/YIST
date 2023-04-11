@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 
 <!--
@@ -54,6 +55,8 @@
 
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
 <!-- 폴더트리 -->
 
@@ -439,8 +442,8 @@
               <!-- User Account -->
               <li class="dropdown user-menu">
                 <button class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <img src="images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                  <span class="d-none d-lg-inline-block">조진원님</span>
+                  <!-- <img src="images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" /> -->
+                  <span class="d-none d-lg-inline-block">${loginUser.userName}</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li>
