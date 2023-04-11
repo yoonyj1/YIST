@@ -209,6 +209,9 @@
 			<version>2.8.5</version>
 		</dependency>
 
+		<!-- 스프링 웹소켓 추가 -->
+
+
 	</dependencies>
 	<build>
 		<plugins>

@@ -85,7 +85,7 @@ var calendar = $('#calendar').fullCalendar({
           class: 'popoverInfoCalendar'
         }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
         .append('<p><strong>구분:</strong> ' + event.type + '</p>')
-        .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
+        //.append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
       delay: {
         show: "800",
@@ -142,10 +142,16 @@ var calendar = $('#calendar').fullCalendar({
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
+      url: "update.cal",
       data: {
-        //id: event._id,
-        //....
+       		    calId:event.calId
+              , title:event.title
+              , start:newDates.startDate
+              , end:newDates.endDate
+              , description:event.description
+              , type:event.type
+              , backgroundColor:event.backgroundColor
+              , allDay:event.allDay
       },
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
