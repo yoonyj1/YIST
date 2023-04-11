@@ -4,24 +4,6 @@
 <html dir="ltr" lang="en">
 <head>
 
-<!-- Meta Tags -->
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<meta name="description" content="LearnPress | Education & Courses HTML Template" />
-<meta name="keywords" content="academy, course, education, education html theme, #, learning," />
-
-<!-- Stylesheet -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<!-- CSS | Main style file -->
-<link href="resources/css/style-main.css" rel="stylesheet" type="text/css">
-<!-- CSS | Custom Margin Padding Collection -->
-<link href="resources/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
-
-<!-- external javascripts -->
-<script src="resources/js/jquery-2.2.4.min.js"></script>
-<!-- JS | jquery plugin collection for this theme -->
-<script src="resources/js/jquery-plugin-collection.js"></script>
-
 </head>
 <body class="">
   

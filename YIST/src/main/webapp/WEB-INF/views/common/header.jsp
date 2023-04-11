@@ -19,6 +19,8 @@
 <link href="resources/css/style-main.css" rel="stylesheet" type="text/css">
 <!-- CSS | Theme Color -->
 <link href="resources/css/colors/theme-skin-color-set-1.css" rel="stylesheet" type="text/css">
+<!-- CSS | Custom Margin Padding Collection -->
+<link href="resources/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
 
 <!-- external javascripts -->
 <script src="resources/js/jquery-2.2.4.min.js"></script>

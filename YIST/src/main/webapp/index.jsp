@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- 	<jsp:include page="WEB-INF/views/common/header.jsp"/>
-
- 	<jsp:include page="WEB-INF/views/common/footer.jsp"/>
+ 
+ 	<jsp:forward page="WEB-INF/views/student/studentCertificate.jsp"/>
 </body>
 </html>
