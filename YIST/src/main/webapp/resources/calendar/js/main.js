@@ -144,7 +144,7 @@ var calendar = $('#calendar').fullCalendar({
       type: "get",
       url: "update.cal",
       data: {
-       		    calId:event.calId
+        calId:event.calId
               , title:event.title
               , start:newDates.startDate
               , end:newDates.endDate
