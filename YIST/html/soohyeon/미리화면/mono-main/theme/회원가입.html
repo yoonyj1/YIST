@@ -27,6 +27,14 @@
     <!-- FAVICON -->
     <link href="images/favicon.png" rel="shortcut icon" />
 
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+    
+
+
     <!--
             HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
         -->
@@ -222,14 +230,41 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" aria-label="userId" aria-describedby="basic-addon1">                        
+                                    <input type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요">                        
                                     <button type="button" class="mb-1 btn btn-outline-primary">ID 중복확인</button>
-                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                    <div id="id-resultBox" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
                                         아이디는 필수 입력 사항입니다.
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
+                        <script>
+
+                            function idCheck(){
+                                const id = $("#userId").val();
+                                const idResult = $("#id-resultBox");
+                                const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+                                if(id.length <= 0){
+                                    idResult.text("아이디는 필수 입력 사항입니다.");
+                                }
+
+                                if(!hangulcheck.test(id)){
+                                    idResult.text("아이디에는 한글을 사용할 수 없습니다.").css("color","red");
+                                    $("#userId").focus();
+                                }
+
+
+                            }
+
+                            $(function(){
+                                idCheck();
+                            })
+
+                        </script>
+
+
                         <tr>
                             <th>
                                 <div class="align-center">
@@ -237,12 +272,27 @@
                                     비밀번호
                                 </div>
                             </th>
-                            <td>
-                                <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" id="userPWd">                        
-                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                        영문, 숫자, 특수문자 3가지를 모두 사용하여 8~12자 사이로 입력하세요.
-                                    </div>
+                            <td id="pwd-td">
+                                <div class="input-group"  style="width:40%; padding: 10px 10px 0px 10px ;">
+                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" id="userPWd">                                                           
+                                </div>
+                                <div id="pwd-resultBox-en" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 10%; float:left;">
+                                    <span class="mdi mdi-check"></span>
+                                    알파벳 대, 소문자
+                                </div>
+                                <div id="pwd-resultBox-num" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 5%; float:left;">
+                                    <span class="mdi mdi-check"></span>
+                                    숫자
+                                </div>
+                                <div id="pwd-resultBox-spe" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 7%; float:left;">
+                                    <span class="mdi mdi-check"></span>
+                                    특수문자
+                                </div>
+                                <div id="pwd-resultBox-len" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 15%; float:left;">
+                                    <span class="mdi mdi-check"></span>
+                                    8글자 이상 15글자 이하
+                                </div>
+                                <div id="pwd-resultBox-etc" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 15%; float:left;">
                                 </div>
                             </td>
                         </tr>
@@ -256,12 +306,152 @@
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
                                     <input type="password" class="form-control" placeholder="사용할 비밀번호와 동일한 비밀번호를 입력하세요" id="pwdCheck">                        
-                                    <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
-                                        동일한 비밀번호를 입력하세요.
+                                    <div id="pwdCheck-resultBox" class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
+                                        입력한 비밀번호와 동일한 비밀번호를 입력하세요.
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
+                        <script>
+                            function chkPW(){
+        
+                                var pw = $("#userPWd").val();
+                                var pwCheck = $("#pwdCheck").val();
+        
+                                var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+                                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                                var num = /[0-9]/g;
+                                var engSmall = /[a-z]/g;
+                                var engLarge = /[A-Z]/g;
+                                var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+                                
+                                if(!reg.test(pw)){
+                                    $("#pwd-td text-daborder-danger span").removeClass("mdi-check-all");
+                                    $("#pwd-td text-daborder-danger span").addClass("mdi-check").css("color","lightgreen");
+
+                                    $("#pwd-td text-daborder-danger").css("color","#8a909d");
+
+                                    if(pw.length<8 || pw.length>15){
+
+                                        $("#pwd-resultBox-len span").css("color","red");
+                                        $("#pwd-resultBox-len").css("color","red");
+
+                                    }else{
+                                        $("#pwd-resultBox-len span").css("color","#8a909d");
+                                        $("#pwd-resultBox-len").css("color","#8a909d");
+                                    }
+                                    
+                                    if(!num.test(pw)){
+
+                                        $("#pwd-resultBox-num").css("color","red");
+                                        $("#pwd-resultBox-num span").css("color","red");
+
+                                    }else{
+                                        
+                                        $("#pwd-resultBox-num").css("color","#8a909d");
+                                        $("#pwd-resultBox-num span").css("color","#8a909d");
+                                    }
+                                    
+                                    if(!engSmall.test(pw) || !engLarge.test(pw)){
+
+                                        $("#pwd-resultBox-en").css("color","red");
+                                        $("#pwd-resultBox-en span").css("color","red");
+
+                                    }else{
+
+                                        $("#pwd-resultBox-en").css("color","#8a909d");
+                                        $("#pwd-resultBox-en span").css("color","#8a909d");
+                                    }
+                                    
+                                    if(!spe.test(pw)){
+
+                                        $("#pwd-resultBox-spe").css("color","red");
+                                        $("#pwd-resultBox-spe span").css("color","red");
+
+                                    }else{
+
+                                        $("#pwd-resultBox-spe").css("color","#8a909d");
+                                        $("#pwd-resultBox-spe span").css("color","#8a909d");
+                                    }
+                                    
+                                    if(hangulcheck.test(pw)){
+                                        $("#pwd-resultBox-etc").html("<span class='mdi mdi-check'></span>한글입력불가");
+                                        $("#pwd-resultBox-etc").css("color","red");
+                                        $("#pwd-resultBox-etc span").css("color","red");
+                                    }else{
+                                        $("#pwd-resultBox-etc").html("");
+                                    }
+        
+                                }else{
+
+                                    $("#pwd-td .text-daborder-danger span").removeClass("mdi-check");
+                                    $("#pwd-td .text-daborder-danger span").addClass("mdi-check-all").css("color","lightgreen");
+
+                                    $("#pwd-td .text-daborder-danger").css("color","lightgreen");
+
+
+                                }
+
+        
+                            }
+        
+                            function pwdtest(){
+                                var reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+                                var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                                var num = /[0-9]/g;
+                                var engSmall = /[a-z]/g;
+                                var engLarge = /[A-Z]/g;
+                                var spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;       
+
+                                var pw = $("#userPWd").val();
+                                var pwCheck = $("#pwdCheck").val();
+                                
+                                if(pwCheck.length >= 8 && reg.test(pw)){
+                                        if(pw===pwCheck){
+                                            console.log("비밀번호일치 초록색나와야됨");
+                                            $("#pwdCheck-resultBox").css("color","lightgreen");
+                                            $("#pwdCheck-resultBox").text("비밀번호가 일치합니다");
+                                            
+                                        }else{
+                                            console.log("비밀번호불일치 빨간색나와야됨");
+                                            $("#pwdCheck-resultBox").css("color","red");
+                                            $("#pwdCheck-resultBox").text("비밀번호가 일치하지않습니다");
+                                            // $("#pwdCheck").select();
+                                        }
+                                }else{
+                                    console.log("아무것도아닌상태 회색 나와야됨");
+                                    $("#pwdCheck-resultBox").css("color","#8a909d");
+                                    $("#pwdCheck-resultBox").text("입력한 비밀번호와 동일한 비밀번호를 입력하세요.")
+                                }
+        
+                            }
+        
+                            $(function(){
+                                $("#userPWd").keyup(function(){
+
+
+                                    if($("#userPWd").val().length > 5){
+                                        chkPW();
+                                    }else{
+                                        $("#pwd-td .text-daborder-danger span").removeClass("mdi-check-all");
+                                        $("#pwd-td .text-daborder-danger span").addClass("mdi-check")
+                                        $("#pwd-td .text-daborder-danger span").css("color","#8a909d");
+                                        $("#pwd-td .text-daborder-danger").css("color","#8a909d");
+                                    }
+                                })
+
+                                $("#pwdCheck").keyup(function(){
+                                    console.log("키업");
+                                    pwdtest();
+                                })
+        
+                            })
+        
+        
+                        </script>
+
+
                         <tr>
                             <th>
                                 <div class="align-center">
@@ -374,58 +564,57 @@
                             </td>
                         </tr>
         
-                                <script>
+                        <script>
         
-                                    function selectZipcode() {
+                            function selectZipcode() {
         
         
-                                        new daum.Postcode({
-                                            oncomplete: function(data) {
+                                new daum.Postcode({
+                                    oncomplete: function(data) {
                                 
-        
-                                                var addr = ''; // 주소 변수
-                                                var extraAddr = ''; // 참고항목 변수
-        
-                                                var themeObj = {
-                                                        searchBgColor: "#99DA87", 
-                                                        queryTextColor: "#FFFFFF"
-                                                        };
-        
-                                                
-                                                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                                                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                                                    addr = data.roadAddress;
-                                                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                                                    addr = data.jibunAddress;
+                                            var addr = ''; // 주소 변수
+                                            var extraAddr = ''; // 참고항목 변수
+            
+                                            var themeObj = {
+                                                    searchBgColor: "#99DA87", 
+                                                    queryTextColor: "#FFFFFF"
+                                                };
+            
+                                                    
+                                            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                                            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                                                addr = data.roadAddress;
+                                            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                                                addr = data.jibunAddress;
+                                            }
+                                    
+                                            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                                            if(data.userSelectedType === 'R'){
+                                                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                                                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                                                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                                    extraAddr += data.bname;
                                                 }
-                                
-                                                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                                                if(data.userSelectedType === 'R'){
-                                                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                                                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                                                        extraAddr += data.bname;
-                                                    }
-                                                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                                                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                                                    }
-                                                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                                                    if(extraAddr !== ''){
-                                                        extraAddr = ' (' + extraAddr + ')';
-                                                    }
-                                                    // 조합된 참고항목을 해당 필드에 넣는다.
-                                                    document.getElementById("extraAddress").value = extraAddr;
-                                                
-                                                } else {
-                                                    document.getElementById("extraAddress").value = '';
+                                                // 건물명이 있고, 공동주택일 경우 추가한다.
+                                                if(data.buildingName !== '' && data.apartment === 'Y'){
+                                                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                                                 }
-                                
-                                                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                                                document.getElementById('zipcode').value = data.zonecode;
-                                                document.getElementById("address").value = addr;
-                                                // 커서를 상세주소 필드로 이동한다.
-                                                document.getElementById("detailAddress").focus();
+                                                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                                                if(extraAddr !== ''){
+                                                    extraAddr = ' (' + extraAddr + ')';
+                                                }
+                                                // 조합된 참고항목을 해당 필드에 넣는다.
+                                                document.getElementById("extraAddress").value = extraAddr;
+                                                    
+                                            } else {
+                                                document.getElementById("extraAddress").value = '';
+                                            }
+                                    
+                                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                                            document.getElementById('zipcode').value = data.zonecode;
+                                            document.getElementById("address").value = addr;
+                                            // 커서를 상세주소 필드로 이동한다.
+                                            document.getElementById("detailAddress").focus();
                                             }
                                         }).open({
                                             popupTitle: '우편번호 검색'
@@ -500,55 +689,7 @@
                     </div> 
                 </form>
 
-                <script>
 
-                    $(function(){
-                        $("#userPWd").keyup(function(){
-                            if($("#userPWd").val >= 3){
-                                chkPw();
-                            }
-                        })
-                    })
-
-                    function chkPW(){
-
-                    var pw = $("#userPWd").val();
-                    var pwCheck = $("#pwdCheck").val();
-                        
-                    var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
-                    var hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-                    
-                    if(false === reg.test(pw)) {
-                        alert('비밀번호는 8자 이상이어야 하며, 숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
-                    }else if(/(\w)\1\1\1/.test(pw)){
-                    alert('같은 문자를 4번 이상 사용하실 수 없습니다.');
-                        return false;
-                    }else if(pw.search(id) > -1){
-                    alert("비밀번호에 아이디가 포함되었습니다.");
-                        return false;
-                    }else if(pw.search(/\s/) != -1){
-                    alert("비밀번호는 공백 없이 입력해주세요.");
-                        return false;
-                    }else if(hangulcheck.test(pw)){
-                        alert("비밀번호에 한글을 사용 할 수 없습니다."); 
-                    }else {
-                        console.log("통과");
-                    }
-
-                    }
-
-                    function equalPwd(){
-                        var pw = $("#userPWd").val();
-                        var pwCheck = $("#pwdCheck").val();
-
-                        if(pw == pwCheck){
-                            console.log("비밀번호 일치");
-                        }else{
-                            return false;
-                        }
-
-                    }
-                </script>
 
             </div>
             
@@ -557,11 +698,6 @@
 
 
     </div>
-    <!-- script  -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="plugins/simplebar/simplebar.min.js"></script>
-    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 
 
     <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
