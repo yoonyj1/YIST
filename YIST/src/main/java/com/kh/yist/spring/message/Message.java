@@ -12,6 +12,7 @@ import lombok.ToString;
 @Getter					// getter 메소드
 @ToString
 public class Message {
+
 	private String m_to; //발신자
 	private String m_from; //수신자
 	private String msg; //쪽지내용
