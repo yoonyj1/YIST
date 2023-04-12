@@ -6,37 +6,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="memberMapper">
 
 	<resultMap id="memberResultSet" type="Member">
-		<result column="user_id" property="userId"></result>
-		<result column="user_pwd" property="userPwd"></result>
-		<result column="user_name" property="userName"></result>
-		<result column="email" property="email"></result>
-		<result column="gender" property="gender"></result>
-		<result column="age" property="age"></result>
+		<result column="id" property="id"></result>
+		<result column="name" property="name"></result>
+		<result column="pwd" property="pwd"></result>
+		<result column="birth" property="birth"></result>
 		<result column="phone" property="phone"></result>
+		<result column="image" property="image"></result>
+		<result column="email" property="email"></result>
+		<result column="post" property="post"></result>
 		<result column="address" property="address"></result>
+		<result column="detail_address" property="detailAddress"></result>
+		<result column="subject" property="subject"></result>
 		<result column="enroll_date" property="enrollDate"></result>
-		<result column="modify_date" property="modifyDate"></result>
+		<result column="start_date" property="startDate"></result>
+		<result column="end_date" property="endDate"></result>
 		<result column="status" property="status"></result>
+		<result column="sort" property="sort"></result>
+		<result column="employ_date" property="employDate"></result>
 	</resultMap>
 
+	<resultMap id="alarmResultSet" type="Alarm">
+		<result column="alarm_no" property="alarmNo"></result>
+		<result column="id" property="id"></result>
+		<result column="alarm_content" property="alarmContent"></result>
+		<result column="alarm_type" property="alarmType"></result>
+		<result column="status" property="status"></result>
+		<result column="create_date" property="createDate"></result>
+	</resultMap>
 
 	<select id="loginMember" resultMap="memberResultSet">
 		select
-		user_id
-		, user_pwd
-		, user_name
-		, email
-		, gender
-		, age
-		, phone
-		, address
-		, enroll_date
-		, modify_date
-		, status
+				  id
+				, name
+				, pwd
+				, birth
+				, phone
+				, image
+				, email
+				, post
+				, address
+				, detail_address
+				, subject
+				, enroll_date
+				, start_date
+				, end_date
+				, status
+				, sort
+				, employ_date
 		from member
-		where user_id = #{userId}
-		and user_pwd = #{userPwd}
-		and status = 'Y'
+		where id = #{id} and pwd = #{pwd} and status = 'Y'
 	</select>
 
 	<insert id="insertMember">
@@ -56,7 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(
 		#{userId}
 		, #{userPwd}
-		, #{userName}
+		,
+		#{userName}
 		, #{email}
 		, #{gender}
 		, #{age}
@@ -69,13 +88,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update
 		member
 		set user_name = #{userName}
-		, email = #{email}
+		, email =
+		#{email}
 		, age = #{age}
 		, phone = #{phone}
 		, address = #{address}
-		, gender = #{gender}
+		, gender
+		= #{gender}
 		, modify_date = sysdate
-		where user_id = #{userId} and status = 'Y'
+		where user_id = #{userId} and status
+		= 'Y'
 	</update>
 
 	<delete id="deleteMember">
@@ -92,35 +114,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user_id = #{checkId}
 	</select>
 
-	<!-- public List<Member> listMember(); -->
-	<select id="listMember" resultType="kr.or.bit.dto.Member">
-		select userid, pwd, name from member_alert
-	</select>
-
-	<!-- public int getmsgcount(String userid); -->
-	<select id="getmsgcount" resultType="int">
-		select count(*) from message where m_from = #{userid}
-	</select>
-
-	<!-- public int insertMessage(Message message) -->
-	<insert id="insertMessage">
-		insert into message(m_to, m_from, msg)
-		values(
-		#{m_to},
-		#{m_from},
-		#{msg}
-		)
+	<!-- 알람삽입 -->
+	<insert id="insertAlarm">
+		insert 
+			into alarm 
+				values
+				(
+					seq_alarm_no.nextval
+				  , #{id}
+				  , #{alarmContent}
+				  , #{alarmType}
+				  , #{status}
+				  , sysdate
+				)
 	</insert>
 
-	<!-- public List<Message> listMessage(String userid) -->
-	<select id="listMessage" resultType="Message">
-		select m_to, m_from, msg, m_check from message where m_from = #{userid}
+	<!-- 알람조회 -->
+	<select id="selectAlarmList" resultMap="alarmResultSet">
+		select
+				alarm_no
+				, id
+				, alarm_content
+				, alarm_type
+				, status
+				, create_date
+				from alarm
+		where id = 'user01' and status = 'N'
 	</select>
 
-	<!-- public int updateMessage(String userid) -->
-	<update id="updateMessage">
-		update message set m_check=1 where m_from = #{userid}
-	</update>
 </mapper>
 
 

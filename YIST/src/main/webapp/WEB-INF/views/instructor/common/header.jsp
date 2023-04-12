@@ -121,7 +121,7 @@
 					let content = $("#search-input").val();
 					let url = '컨트롤러 매핑값';
 					//socket.send("관리자,"+target+","+content+","+url);
-					socket.send('${loginUser.userName},' + target+","+content+","+url);
+					socket.send('${loginUser.name},' + target+","+content+","+url);
 		        }
 		    });
 		
@@ -466,7 +466,7 @@
 					<li class="dropdown user-menu">
 						<button class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<!-- <img src="images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" /> -->
-							<span class="d-none d-lg-inline-block">${loginUser.userName}</span>
+							<span class="d-none d-lg-inline-block">${loginUser.name}</span>
 						</button>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li><a class="dropdown-link-item" href="user-profile.html">
