@@ -540,7 +540,7 @@
                       <th colspan="2">강의명</th>
                       <td colspan="2">
                         <div class="input-group mb-3">
-                          <input type="text" name="className" class="form-control" placeholder="강의명을 입력하세요" aria-label="Recipient's username"
+                          <input type="text" name="subjectName" class="form-control" placeholder="강의명을 입력하세요" aria-label="Recipient's username"
                             aria-describedby="basic-addon2">
                           <div class="input-group-append">
                             <span class="input-group-text mdi mdi-book-open-page-variant" id="basic-addon2"></span>
@@ -564,7 +564,7 @@
                       <th>강의과목</th>
                       <td>
                         <div class="form-group">
-                          <select name="subject" class="js-example-basic-multiple form-control" required>
+                          <select name="className" class="js-example-basic-multiple form-control" required>
                             <option value=" ">과목1</option>
                             <option value=" ">과목2</option>
                             <option value=" ">과목3</option>
@@ -577,13 +577,13 @@
                       <th>수강정원</th>
                       <td>
                         <div class="form-group">
-                          <input type="number" name="" min="5" max="10" class="form-control" required>
+                          <input type="number" name="maximumSeats" min="5" max="10" class="form-control" required>
                         </div>
                       </td>
                       <th>수강료</th>
                       <td>
                         <div class="form-group">
-                          <input type="number" name="" min="0" max="1000000000" step="50000" class="form-control" required>
+                          <input type="number" name="fee" min="0" max="1000000000" step="50000" class="form-control" required>
                         </div>
                       </td>
                     </tr>
@@ -592,13 +592,13 @@
                       <th>개강일</th>
                       <td>
                         <div class="form-group">
-                          <input type="date" name="" class="form-control" required>
+                          <input type="date" name="startDate" class="form-control" required>
                         </div>
                       </td>
                       <th>종강일</th>
                       <td>
                         <div class="form-group">
-                          <input type="date" name="" class="form-control" required>
+                          <input type="date" name="endDate" class="form-control" required>
                         </div>
                       </td>
                     </tr>
@@ -606,19 +606,19 @@
                     <tr>
                       <th colspan="2">* 수업요일</th>
                       <td colspan="2">
-                          <input type="checkbox" name="classDays" value="mon" id="mon">
+                          <input type="checkbox" name="day" value="mon" id="mon">
                           <label for="mon">월</label>
-                          <input type="checkbox" name="classDays" value="mon" id="tue">
+                          <input type="checkbox" name="day" value="mon" id="tue">
                           <label for="tue">화</label>
-                          <input type="checkbox" name="classDays" value="mon" id="wed">
+                          <input type="checkbox" name="day" value="mon" id="wed">
                           <label for="wed">수</label>
-                          <input type="checkbox" name="classDays" value="mon" id="thu">
+                          <input type="checkbox" name="day" value="mon" id="thu">
                           <label for="thu">목</label>
-                          <input type="checkbox" name="classDays" value="mon" id="fri">
+                          <input type="checkbox" name="day" value="mon" id="fri">
                           <label for="fri">금</label>
-                          <input type="checkbox" name="classDays" value="mon" id="sat">
+                          <input type="checkbox" name="day" value="mon" id="sat">
                           <label for="sat">토</label>
-                          <input type="checkbox" name="classDays" value="mon"id="sun">
+                          <input type="checkbox" name="day" value="mon"id="sun">
                           <label for="sun">일</label>
 
                       </td>

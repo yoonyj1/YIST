@@ -80,7 +80,7 @@
         }
 
         table#addMaterialClass-table{
-          width: 70%;
+          width: 100%;
           margin-left: auto; margin-right: auto;
         }
 
@@ -587,27 +587,25 @@
 
               <div class="card-body">
                 <form method="post" action="">
-                  <table class="table table-striped" id="addMaterialClass-table">
+                  <table class="table table-bordered" id="addMaterialClass-table">
                     
                     <tr>
                       <th>제목</th>
                       <td>
                         <div class="input-group mb-3">
-                          <input type="text" name="className" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
-                            aria-describedby="basic-addon2">
-
+                          <input type="text" name="noticeTitle" class="form-control" placeholder="제목을 입력하세요">
                         </div>
                       </td>
                     </tr>
 
                     <tr>
-                      <th>조회범위 설정</th>
+                      <th>읽기권한</th>
                       <td>
-                        <div class="form-group">
-                          <select name="class" class="js-example-basic-multiple form-control" required>
-                            <option value=" ">전체공개</option>
-                            <option value=" ">강사</option>
-                            <option value=" ">운영자</option>
+                        <div class="form-group" style="width: 30%;">
+                          <select name="view" class="js-example-basic-multiple form-control" required>
+                            <option value="3">전체</option>
+                            <option value="2">강사</option>
+                            <option value="1">운영자</option>
                           </select>
                         </div>
                       </td>
@@ -616,7 +614,7 @@
 
                     <tr>
                       <th colspan="2" style="width: 100%;">
-                        <textarea name="content" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
+                        <textarea name="noticeContent" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
                       </th>
                     </tr>
 

@@ -79,7 +79,7 @@
           }
   
           table#addTest-table{
-            width: 70%;
+            width: 100%;
             margin-left: auto; margin-right: auto;
           }
   
@@ -580,13 +580,13 @@
   
                 <div class="card-body">
                   <form method="post" action="">
-                    <table class="table table-striped" id="addTest-table">
+                    <table class="table table-bordered" id="addTest-table">
                       
                       <tr>
                         <th>제목</th>
                         <td>
                           <div class="input-group mb-3">
-                            <input type="text" name="className" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
+                            <input type="text" name="examMaterialTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
                               aria-describedby="basic-addon2">
   
                           </div>
@@ -596,8 +596,8 @@
                       <tr>
                         <th>과목</th>
                         <td>
-                          <div class="form-group">
-                            <select name="class" class="js-example-basic-multiple form-control" required>
+                          <div class="form-group" style="width: 30%;">
+                            <select name="className" class="js-example-basic-multiple form-control" required>
                               <option value=" ">과목1</option>
                               <option value=" ">과목2</option>
                               <option value=" ">과목3</option>
