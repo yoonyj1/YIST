@@ -33,10 +33,19 @@
 	<context:component-scan base-package="com.kh.yist.*" />
 	
 	<!-- /chat-ws 주소값이 입력되면 WebSocketHandler 클래스 실행 -->
-<!-- 	<beans:bean id="chatHandler" class="com.kh.yist.spring.websocket.WebSocketHandler" />
+<!--  	<beans:bean id="chatHandler" class="com.kh.yist.spring.websocket.WebSocketHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/chat-ws" />
-	</websocket:handlers> -->
+	</websocket:handlers>  -->
+	
+	<beans:bean id="echoHandler" class="com.kh.yist.spring.websocket.WebSocketHandler" />
+	<websocket:handlers>
+	    <websocket:mapping handler="echoHandler" path="/echo-ws" />
+	    <websocket:handshake-interceptors>
+	        <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+	    </websocket:handshake-interceptors>	
+	    <websocket:sockjs />
+	</websocket:handlers>
 	
 	<default-servlet-handler />
 	
