@@ -74,41 +74,70 @@
             font-family: 'LINESeedKR-Rg';
         }
 
-
         aside.left-sidebar *{
           color: white;
         }
 
-        table#addMaterialClass-table{
-          width: 70%;
-          margin-left: auto; margin-right: auto;
+        div.content-wrap{
+          width: 100%;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 20px;
         }
-
-        table#addMaterialClass-table th,
-        table#addMaterialClass-table td{
-          text-align: center;
-          vertical-align: middle;
+        
+        div.content-area{
+          width: 100%;
+          margin-top: 20px;
           color: black;
+          line-height: 1.25rem;
+          padding-left: 10px;
+        }
+        
+        
+        div.title-area{
+          padding-left: 10px;
+          margin-top: 20px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #ddd;
+          height: 150px;
         }
 
-        table#addMaterialClass-table td{
-          font-weight: 700;
+        div.title-area h4{
+          font-family: 'LINESeedKR-Bd';
         }
 
-        table#addMaterialClass-table td>input,
-        table#addMaterialClass-table td>select{
-          vertical-align: middle;
+        div.writer-area{
+          margin-top: 10px;
+        }
+        
+        .subject-span{
+          color: #8eca7d;
+          font-family: 'LINESeedKR-Bd';
         }
 
-        table#addMaterialClass-table td>label{
-          margin-right: 5px;
+        div.writer-area p.date-p, 
+        div.writer-area span.count-span{
+          float: left;
+          margin-right: 10px;
+          margin-top: 5px;
         }
+
+        div.attach-area{
+          margin: 50px 0px;
+        }
+
+        div.attach-area a{
+          color: #8eca7d;
+        }
+
+
 
         .btn-center{
           width: 100%;
           margin: 40px auto;
           text-align: center;
         }
+
 
         div.btn-center>button:first-child{
           background-color: #99da87;
@@ -124,6 +153,7 @@
           font-family: 'LINESeedKR-Bd';
           font-weight: 700;
         }
+
     </style>
 
 </head>
@@ -275,7 +305,7 @@
                   <span class="sr-only">Toggle navigation</span>
                 </button>
   
-                <span class="page-title">시험 자료 관리</span>
+                <span class="page-title">수업 자료 관리</span>
   
                 <div class="navbar-right ">
   
@@ -584,65 +614,49 @@
 
             <div class="card card-default">
               <div class="card-header">
-                <h2>시험 자료 조회</h2>
+                <h2>수업 자료 조회</h2>
               </div>
 
               <div class="card-body">
-                  <table class="table table-bordered" id="addMaterialClass-table">
+
+                <div class="content-wrap" id="addMaterialClass-area">
                     
-                    <tr>
-                      <th colspan="2" style="color:#797979;">제목</th>
-                      <td colspan="2"  style="color:black">
-                        시험자료1
-                      </td>
-                    </tr>
 
-                    <tr>
-                      <th style="color:#797979;">작성자</th>
-                      <td  style="color:black">
-                        작성자이름
-                      </td>
-                      <th style="color:#797979;">작성일</th>
-                      <td  style="color:black">
-                        2023.03.17
-                      </td>
-                    </tr>
+                  <div class="title-area">
+                    <span class="subject-span">과목</span>
+                    <h4>정보처리산업기사 실기 스터디 6주 과정 32일차(4월 13일)</h4>
 
-                    <tr>
-                      <th  style="color:#797979;">과목</th>
-                      <td  style="color:black;">
-                        java
-                      </td>
-                      <th  style="color:#797979;">조회수</th>
-                      <td  style="color:black;">0</td>
-                    </tr>
-
-                    <tr>
-                      <th colspan="4" style="width: 100%; color: black;">내용</th>
-                    </tr>
-
-                    <tr>
-                      <td colspan="4" style="width: 100%; height: 700px; color: black;">
-                        시험자료내용입니다123456
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <th colspan="2">첨부파일</th>
-                      <td colspan="2"  style="color:#ddd;">
-                        <!--있음
-                        파일이름.확장자-->
-                        <!--없음-->
-                        첨부한 파일이 없습니다.                        
-                      </td>
-                    </tr>
-
-                  </table>
-                  <div class="btn-center">
-                    <button class="btn btn-primary btn-pill mr-2" type="submit">수정</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    <div class="writer-area">
+                      <h5>관리자</h5>
+                      <p class="date-p">2023.03.17</p>
+                      <span class="count-span">0</span>
+                    </div>                     
+                    
+                  </div>
+                  
+                  <div class="content-area">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia facere sed iste sit illum ipsa vero? Aspernatur, aperiam! Delectus cupiditate aperiam tempora inventore commodi consequatur quos consequuntur deserunt architecto. Voluptatibus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quibusdam unde animi nostrum suscipit aliquid distinctio odit voluptas. Tempora optio distinctio fugit neque ratione. Dolorum aspernatur voluptas beatae expedita aliquam?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis repellendus dolorem atque alias quasi, cupiditate aut pariatur ullam molestiae nemo animi distinctio necessitatibus odit magni illo. Fugit numquam veniam ad?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum harum dolores quibusdam at nostrum obcaecati quis nihil odit repellendus dolorem rem eos explicabo, tenetur esse consectetur a, incidunt blanditiis earum?
+                  
+                    <div class="attach-area">
+                      <!--첨부파일 있을 때-->
+                      <a href="#" download="">첨부파일</a>
+                      <!--첨부파일 없을 때-->
+                      첨부파일이 없습니다.
+                    </div>
+                  
+                  
                   </div>
 
+
+
+
+
+                  
+
+                </div>
             
 
 
