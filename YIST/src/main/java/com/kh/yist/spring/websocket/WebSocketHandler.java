@@ -98,7 +98,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		Map<String, Object> httpSession = session.getAttributes();
 		//String m_id = (String) httpSession.get("m_id"); // 세션에 저장된 m_id 기준 조회
 		Member m =  (Member) httpSession.get("loginUser");
-		String m_id = m.getUserId();
+		String m_id = m.getId();
 		
 		System.out.println(m);
 		

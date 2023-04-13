@@ -23,18 +23,23 @@ import lombok.ToString;
 @Getter					// getter 메소드
 @ToString				// toString 메소드
 public class Member {
-	private String userId;
-	private String userPwd;
-	private String userName;
-	private String email;
-	private String gender;
-//	private int age;
-	private String age;
+	private String id;
+	private String name;
+	private String pwd;
+	private String birth;
 	private String phone;
+	private String image;
+	private String email;
+	private int post;
 	private String address;
+	private String detailAddress;
+	private String subject;
 	private Date enrollDate;
-	private Date modifyDate;
+	private Date startDate;
+	private Date endDate;
 	private String status;
+	private int sort;
+	private Date employDate;
 
 	// private String uName;
 	// 롬복을 쓸때는 필드명 작성시 적어도 소문자 두글자 이상으로 시작할 것

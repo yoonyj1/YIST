@@ -50,11 +50,11 @@
                     <form action="login.me" method="post">
                       <div class="row">
                         <div class="form-group col-md-12 mb-4">
-                          <input type="text" class="form-control input-lg" id="userId" name="userId" aria-describedby="emailHelp"
+                          <input type="text" class="form-control input-lg" id="id" name="id" aria-describedby="emailHelp"
                             placeholder="아이디">
                         </div>
                         <div class="form-group col-md-12 ">
-                          <input type="password" class="form-control input-lg" id="userPwd" name="userPwd" placeholder="비밀번호">
+                          <input type="password" class="form-control input-lg" id="pwd" name="pwd" placeholder="비밀번호">
                         </div>
                         <div class="col-md-12">
 

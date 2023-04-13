@@ -1,4 +1,6 @@
-package com.kh.yist.spring.message;
+package com.kh.yist.spring.member.model.vo;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,11 +12,12 @@ import lombok.ToString;
 @AllArgsConstructor 	// 매개변수 생성자
 @Setter					// setter 메소드
 @Getter					// getter 메소드
-@ToString
-public class Message {
-
-	private String m_to; //발신자
-	private String m_from; //수신자
-	private String msg; //쪽지내용
-	private String m_check; //read여부
+@ToString				// toString 메소드
+public class Alarm {
+	private int alarmNo;
+	private String id;
+	private String alarmContent;
+	private String alarmType;
+	private String status;
+	private Date createDate;
 }
