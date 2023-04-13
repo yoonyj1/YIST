@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body marginwidth="0" marginheight="0" style="zoom: 1;">
+    <jsp:include page="../instructor/common/header.jsp"></jsp:include>
+       <div class="col-10">  
+              <h6 style="font-weight: bolder;">과제목록</h6>
+              <hr>
+              <br>
+              <div class="d-flex flex-row mb-5">
+                <div class="col-md-auto">
+                  <label style="margin-right: -10px; font-size: 13px;">기간별</label>
+                </div>
+                <div class="col-md-auto">
+                  <div class="btn-group" role="group" aria-label="Basic example" style="font-size: 10px;">
+                    <button type="button" class="period btn btn-primary" value="today"
+                      style="height: 30px; line-height: 9px; font-size: 10px;">오늘</button>
+                    <button type="button" class="period btn btn-primary" value="week"
+                      style="height: 30px; line-height: 9px; font-size: 12px;">일주일</button>
+                    <button type="button" class="period btn btn-primary" value="month"
+                      style="height: 30px; line-height: 9px; font-size: 12px;">1개월</button>
+                  </div>
+                </div>
+                <div class="col-md-auto">
+                  <label style="margin-right: 5px;">기간</label>
+                  <input type="date" class="start">
+                  <label>~</label>
+                  <input type="date" class="start">
+                </div>
+                <div class="col-md-auto">
+                  <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 py-1">
+                    <input type="checkbox" class="custom-control-input" id="customCheck3" checked="checked">
+                    <label class="custom-control-label" for="customCheck3">미완료 과제</label>
+                  </div>
+                </div>
+                <div class="col-md-auto" style="margin-left: -30px;">
+                  <input type="text" style="margin-top: 3px;" placeholder="과제검색">
+                  <button type="button" class="btn btn-primary px-1 py-1" style="height: 29px;">검색</button>
+                </div>
+              </div>
+    </body>
+
+</html>

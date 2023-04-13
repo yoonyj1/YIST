@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>선생메인</title>
+
+
+
+</head>
+<body>
+
+	<body class="navbar-fixed sidebar-fixed" id="body">
+	<jsp:include page="instructor/common/header.jsp"></jsp:include>
+	
+	<div style="height:1000px; margin-left: 252px;">
+		<br><br>
+	<div class="mLeft" >
+		<div class="mtody" style="border-radius: 10px;">
+			<h1>today</h1>
+		<div class="mday_date" style="font-size: 23px;">2023.03.29</div>
+		<div class="week" style="font-size: 15px;">Wendnesday</div>
+		<div class="btn_attend">
+			<a href=""><i class="mdi mdi-calendar-check"></i>출석체크</a>
+		</div>
+		</div>
+
+		<div class="mconBox1" style="border-radius: 10px;">
+			<div class="all_member">
+				<h5 style="font-weight: 600;">전체수강생</h5>
+				<div class="mNum1">1</div>
+			</div>
+			<div class="all_lesson">
+				<h5 style="font-weight: 600;">개설학급</h5>
+				<div class="mNum1">1</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+</body>
+</body>
+</html>

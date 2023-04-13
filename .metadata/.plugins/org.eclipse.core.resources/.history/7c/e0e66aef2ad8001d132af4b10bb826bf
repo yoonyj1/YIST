@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.contents {
+    width: 100%;
+    margin-left:250px;
+    padding: 0;
+    overflow: auto;
+    background: #fff;
+}
+
+</style>
+</head>
+<jsp:include page="../instructor/common/header.jsp"></jsp:include>
+<body marginwidth="0" marginheight="0" style="zoom: 1;">
+       <div class="contents">
+        <h5>학생출석체크</h5>      
+      </div>
+    </body>
+
+</html>
