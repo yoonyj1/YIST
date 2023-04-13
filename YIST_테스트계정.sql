@@ -1,5 +1,5 @@
-drop table member;
 -- 테스트 테이블 생성
+drop table member;
 create table member(
     id varchar2(30) primary key,
     name varchar2(50) not null,
@@ -20,8 +20,11 @@ create table member(
     employ_date date default sysdate null
 );
 
-drop table alarm;
+
 -- 알림 테이블 생성
+drop table alarm;
+drop sequence seq_alarm_no;
+create sequence seq_alarm_no nocache;
 create table alarm(
     alarm_no number primary key,
     id varchar2(30) not null,
@@ -33,9 +36,69 @@ create table alarm(
 alter table alarm
     add foreign key(id) references member;
 
--- 알람 시퀀스 생성
-create sequence seq_alarm_no nocache; 
 
+-- 과정 테이블 생성
+drop table class;
+drop sequence seq_class_no;
+create sequence seq_class_no nocache;
+create table class(
+    class_no number primary key,
+    class_name varchar2(20) not null
+);
+
+--  과목 테이블 생성
+drop table subject;
+drop sequence seq_subject_no;
+create sequence seq_subject_no nocache;
+create table subject(
+    subject_no number primary key,
+    class_no number not null,
+    subejct_name varchar(300) not null,
+    start_date date null,
+    end_date date null,
+    status varchar2(1) default 'N' not null,
+    day varchar2(50) not null,
+    maximum_seats number null,
+    current_seats number null,
+    fee number not null
+);
+alter table subject
+    add foreign key(class_no) references class;
+
+
+-- 과제 테이블 생성
+drop table task;
+drop sequence seq_task_no;
+create sequence seq_task_no nocache;
+create table task(
+    task_no number primary key,
+    subject_no number not null,
+    id varchar2(30) not null,
+    task_title varchar2(100) not null,
+    task_content varchar2(500) not null,
+    start_date date default sysdate,
+    end_date date null
+);
+alter table task
+    add foreign key(subject_no) references subject;
+
+
+-- 과제첨부파일 테이블 생성
+drop table task_file;
+drop sequence seq_file_no;
+create sequence seq_file_no nocache;
+create table task_file(
+    file_no number primary key,
+    task_no number not null,
+    origin_name varchar2(500) not null,
+    change_name varchar2(500) not null,
+    file_level number not null,
+    status varchar2(10) default 'Y' not null
+);
+
+alter table task_file
+    add foreign key(task_no) references task;
+    
 -- 데이터 삽입
 -- 테스트 관리자
 insert
@@ -67,7 +130,7 @@ insert
     values
         (
           'teacher01'
-        , '뚱시경'
+        , '강사1'
         , 'teacher01'
         , ''
         , ''

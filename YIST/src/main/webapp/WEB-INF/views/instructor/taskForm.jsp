@@ -49,46 +49,47 @@
                               <a class="" href="#">
                                 <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2"
                                   class="sign"><i class="icon-plus icon-white"></i></span>
-                                <span class="lbl">1주차</span>
+                                <span class="lbl">과제</span>
                               </a>
                               <ul class="children nav-child unstyled small collapse" id="sub-item-2">
+                              
                                 <li class="item-3">
                                   <a class="" href="#">
                                     <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">정수의 합</span>
+                                    <span class="lbl file">변수</span>
                                   </a>
                                 </li>
+                                
                                 <li class="item-4">
                                   <a class="" href="#">
                                     <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">나머지 계산</span>
+                                    <span class="lbl file">연산자</span>
+                                  </a>
+                                </li>
+                                
+                                <li class="item-4">
+                                  <a class="" href="#">
+                                    <span class="sign"><i class="icon-play"></i></span>
+                                    <span class="lbl file">제어문</span>
+                                  </a>
+                                </li>
+                                
+                                <li class="item-4">
+                                  <a class="" href="#">
+                                    <span class="sign"><i class="icon-play"></i></span>
+                                    <span class="lbl file">반복문</span>
+                                  </a>
+                                </li>
+                                
+                                <li class="item-4">
+                                  <a class="" href="#">
+                                    <span class="sign"><i class="icon-play"></i></span>
+                                    <span class="lbl file">배열</span>
                                   </a>
                                 </li>
                               </ul>
                             </li>
   
-                            <!-- 2주차 -->
-                            <li class="item-5 deeper parent">
-                              <a class="" href="#">
-                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-5"
-                                  class="sign"><i class="icon-plus icon-white"></i></span>
-                                <span class="lbl">2주차</span>
-                              </a>
-                              <ul class="children nav-child unstyled small collapse" id="sub-item-5">
-                                <li class="item-6">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">if문실습</span>
-                                  </a>
-                                </li>
-                                <li class="item-7">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">while문 실습</span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
   
                           </ul>
                         </li>
@@ -108,10 +109,67 @@
                   <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 conn">
                   </div>
                   <!-- 과제 등록 버튼 -->
-                  <button type="button" class="task-btn btn btn-primary my-5 d-flex align-items-end position-absolute">과제등록하기</button>
+                  <button type="button" class="btn btn-info btn-pill" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
                 </div>
               </div>
               
+              <!-- 과제 등록 모달 -->
+              <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
+				  aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">×</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+							    <label for="taskSelect">과제 선택</label>
+							    <select class="form-control" id="taskSelect">
+							      <option>선택</option>
+							      <option value="1">변수</option>
+							      <option value="2">연산자</option>
+							      <option value="3">제어문</option>
+							      <option value="4">반복문</option>
+							      <option value="5">배열</option>
+							    </select>
+				          </div>
+				          <br>
+				          
+				          <div class="form-group">
+				            <label for="exampleInputPassword1">기간설정</label>
+				            <br>
+				            <label style="margin-right: 5px;">시작일</label>
+				            <input type="date" class="task-start">
+				            <label>~</label>
+				            <label style="margin-right: 5px;">마감일</label>
+				            <input type="date" class="task-end">
+				          </div>
+				          <br>
+				          
+				          <!-- 과제 제목 -->
+						  <div class="form-group">
+						     <label for="exampleFormControlInput1">과제제목</label>
+						     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="과제 제목">
+						  </div>
+						  
+						  <!-- 과제 내용 -->
+						  <div class="form-group">
+						    <label for="exampleFormControlTextarea1">과제 내용</label>
+						    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						  </div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
+				        <button type="submit" class="btn btn-primary btn-pill">등록하기</button>
+				      </div>
+				     </form>
+				    </div>
+				  </div>
+				</div>
 
               <!-- 과제폴더 끝 -->
               <script>
@@ -198,8 +256,7 @@
                     <th scope="col">제목</th>
                     <th scope="col">학생명</th>
                     <th scope="col">완료여부</th>
-                    <th>채점</th>
-                    <th>수정</th>
+                    <th>확인하기</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -209,9 +266,7 @@
                     <td>조진원</td>
                     <td>완료</td>
                     <td><button type="button" class="btn btn-primary" style="height: 30px; line-height: 15px;"
-                        data-toggle="modal" data-target="#grade1">채점</button></td>
-                    <td><button type="button" class="btn btn-primary" style="height: 30px; line-height: 15px;"
-                        data-toggle="modal" data-target="#grade2" disabled>수정</button></td>
+                        data-toggle="modal" data-target="#grade1">확인하기</button></td>
                     <!-- 채점 모달1 시작 -->
                     <div class="modal fade" id="grade1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                       aria-hidden="true">
@@ -267,9 +322,6 @@
                     <td>김진원</td>
                     <td>완료</td>
                     <td>50/100</td>
-                    <td style="width: 150px;"><button type="button" class="btn btn-primary"
-                        style="height: 30px; line-height: 15px;" data-toggle="modal" data-target="#update1">수정</button>
-                    </td>
                     <!-- 채점 모달2 시작 -->
                     <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                       aria-hidden="true">
@@ -301,9 +353,6 @@
                     <td>이진원</td>
                     <td>미완료</td>
                     <td>0/100</td>
-                    <td style="width: 150px;"><button type="button" class="btn btn-primary"
-                        style="height: 30px; line-height: 15px;" data-toggle="modal" data-target="#update1"
-                        disabled>수정</button></td>
                     <!-- 채점 모달2 시작 -->
                     <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                       aria-hidden="true">

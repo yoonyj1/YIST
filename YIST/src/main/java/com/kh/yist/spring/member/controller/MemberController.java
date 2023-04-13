@@ -17,7 +17,7 @@ public class MemberController {
 	private MemberServiceImpl mService;
 
 	@RequestMapping("login.me")
-	public String loginMember(Member m, HttpSession session , Model model) {
+	public String loginMember(String sort, Member m, HttpSession session , Model model) {
 
 		// 암호화 작업 전에 했던 과정
 		System.out.println(m);

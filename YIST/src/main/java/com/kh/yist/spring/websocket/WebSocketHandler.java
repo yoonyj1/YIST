@@ -28,6 +28,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	// 로그인중인 개별유저
 	Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
 
+	// 전체 공지시
+	// 로그인한 전체 아이디 
+	ArrayList<String> userArr = new ArrayList<String>();
+	
 	// 클라이언트가 서버로 연결시
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -35,6 +39,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		if (senderId != null) { // 로그인 값이 있는 경우만
 			log(senderId + " 연결 됨");
 			users.put(senderId, session); // 로그인중 개별유저 저장
+			
+			userArr.add(senderId); 
 		}
 	}
 
@@ -42,6 +48,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String senderId = getMemberId(session);
+		
 		// 특정 유저에게 보내기
 		String msg = message.getPayload();
 		System.out.println(msg);
@@ -55,6 +62,27 @@ public class WebSocketHandler extends TextWebSocketHandler {
 				String content = strs[2];
 				String url = strs[3];
 				//WebSocketSession targetSession = users.get(target); // 메시지를 받을 세션 조회
+				
+				// 전체
+				WebSocketSession targetSession = null;
+				
+				for (String userId : userArr) {
+					if (userId.equals("admin")) {
+						continue;
+					} 
+					targetSession = users.get(userId);
+					
+					if (targetSession != null) {
+						System.out.println("실시간 접속시~~");
+						// ex: [&분의일] 신청이 들어왔습니다.
+						//TextMessage tmpMsg = new TextMessage("<a target='_blank' href='" + url + "'>[<b>" + type + "</b>] " + content + "</a>");
+						TextMessage tmpMsg = new TextMessage(content);
+						targetSession.sendMessage(tmpMsg);
+					}
+				}
+				
+				/*
+				// 개별
 				WebSocketSession targetSession = users.get(target);
 				System.out.println("상대방세션:" + targetSession);
 				// 실시간 접속시
@@ -65,6 +93,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					TextMessage tmpMsg = new TextMessage(content);
 					targetSession.sendMessage(tmpMsg);
 				}
+				*/
+				
+				
 			}
 		}
 	}
