@@ -13,28 +13,31 @@
 
 	<div class="main-content">
     <section class="inner-header divider parallax layer-overlay overlay-dark-8" data-bg-img="images/bg/bg6.jpg">
-      <div class="container pt-60 pb-60">
-        <div class="section-content">
-          <div class="row">
-            <div class="col-md-12 text-left">
-              <h2 class="title text-white">이윤화</h2>
-              <div class="left_subject_e text-white">
-                <ul>                  
-                  <li class="class">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</li>
-                  <li class="classroom">[강남 361] 2022. 10. 18 ~ 2023. 05. 19 ｜ 09:00 ~ 15:30</li>
-                  <li>김시연 강사님</li>
-                  <br>
-                  <li>
-                    <a href="#" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</a>
-                    <a href="#" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+	  <div class="container pt-60 pb-60">
+	    <div class="row">
+	      <div class="col-md-2">
+	        <img src="resources/images/yist/profile.png" alt="" style="width: 100%">
+	      </div>
+	      <div class="col-md-10">
+	        <div class="section-content">
+	          <h2 class="title text-white">이윤화</h2>
+	          <div class="left_subject_e text-white">
+	            <ul>
+	              <li class="class">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</li>
+	              <li class="classroom">[강남 361] 2022. 10. 18 ~ 2023. 05. 19 ｜ 09:00 ~ 15:30</li>
+	              <li>김시연 강사님</li>
+	              <br>
+	              <li>
+	                <a href="#" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</a>
+	                <a href="#" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
+	              </li>
+	            </ul>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</section>
 
     <section>
       <div class="container">
