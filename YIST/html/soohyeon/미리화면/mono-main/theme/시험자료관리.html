@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN-시험자료관리</title>
 
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
     <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -74,7 +80,7 @@
           margin-left: auto; margin-right: auto;
         }
 
-        table#testTable input[type=radio]{
+        table#testTable input[type=checkbox]{
           margin-top: 7px;
           margin-bottom: 7px;
         }
@@ -594,10 +600,10 @@
 
               <div class="card-body">
 
-                <table id="testTable" class="table table-hover table-product" border="1" style="border-color: #e5e9f2;">
+                <table id="testTable" class="table table-hover table-product" style="border-color: #e5e9f2;">
                   <thead>
                     <tr>
-                      <th><input type="radio"></th>
+                      <th><input type="checkbox"></th>
                       <th>자료번호</th>
                       <th>과목명</th>
                       <th>제목</th>
@@ -610,7 +616,7 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
                       <td>1</td>
                       <td>자바</td>
@@ -624,9 +630,9 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>2</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -638,9 +644,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>3</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -652,9 +658,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>4</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -666,9 +672,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>5</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -680,9 +686,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>6</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -694,9 +700,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>7</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -708,9 +714,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>8</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -722,9 +728,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>9</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -736,9 +742,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td>10</td>
                       <td>자바</td>
                       <td>자바 기초 시험</td>
                       <td>남성</td>
@@ -750,7 +756,30 @@
 
                   </tbody>
                 </table>
-            
+
+
+
+
+                <script>
+                  $(function(){
+                    
+                    $("#testTable thead th input[type=checkbox]").click(function(){
+                      if($("#testTable thead th input[type=checkbox]").is(":checked")){
+                        $("#testTable tbody td input[type=checkbox]").attr("checked",true);
+                      }else{
+                        $("#testTable tbody td input[type=checkbox]").attr("checked",false);
+                      }
+                    });
+                    
+                  })
+
+                </script>            
+
+
+
+
+
+
                 <div class="search-area">
                   <form action="" method="get">
                     <select class="custom-select my-1 mr-sm-2 w-auto" id="testSearchCondition">
@@ -815,11 +844,7 @@
 
       </div>  
 
-          <!-- script  -->
-          <script src="plugins/jquery/jquery.min.js"></script>
-          <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-          <script src="plugins/simplebar/simplebar.min.js"></script>
-          <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+          
 
           
           <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
