@@ -98,7 +98,25 @@ create table task_file(
 
 alter table task_file
     add foreign key(task_no) references task;
-    
+
+
+-- 달력 테이블 생성
+drop table calendar;
+
+CREATE TABLE "YIST"."CALENDAR" 
+(	"CAL_ID" NUMBER DEFAULT 0, 
+	"CAL_TITLE" VARCHAR2(100 BYTE), 
+	"CAL_START" VARCHAR2(50 BYTE), 
+	"CAL_END" VARCHAR2(50 BYTE), 
+	"CAL_DESCRIPTION" VARCHAR2(1000 BYTE), 
+	"CAL_TYPE" VARCHAR2(50 BYTE), 
+	"USERNAME" VARCHAR2(50 BYTE), 
+	"BACKGROUNDCOLOR" VARCHAR2(50 BYTE), 
+	"TEXTCOLOR" VARCHAR2(50 BYTE), 
+	"ALLDAY" VARCHAR2(50 BYTE)
+);
+commit;
+
 -- 데이터 삽입
 -- 테스트 관리자
 insert
@@ -232,5 +250,8 @@ select
     , create_date
 from alarm
 where id = 'user01' and status = 'N';
+
+-- 과제 테스트로 삽입
+
 
 commit;

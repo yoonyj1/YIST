@@ -26,11 +26,11 @@
 
           <!-- 여기서부터  -->
           <div class="row">
+              <!--
             <div class="col-md-auto" style="background-color: white;">
-              <!-- 과제 등록 패널 -->
               <div class="row mx-1" style="font-weight: bolder; font-weight: bold;">과제 컨텐츠</div>
               <div class="row mx-1">
-                <!-- 과제폴더 시작 -->
+                과제폴더 시작
                 <div class="container" style="height: 600px;">
                   <div class="row">
                     
@@ -44,7 +44,7 @@
                           </a>
                           <ul class="children nav-child unstyled small collapse" id="sub-item-1">
                             
-                            <!-- 1주차 -->
+                            1주차
                             <li class="item-2 deeper parent active">
                               <a class="" href="#">
                                 <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2"
@@ -99,19 +99,8 @@
                   </div>
                 </div>
 
-              </div>
+              </div> -->
               
-              
-              <!-- 과제등록패널 체크박스 -->
-              <div class="row" style="font-size: 12px;">
-                <div class="d-flex align-items-start flex-column mb-3 mx-2" style="height: 50px;">
-                  <h1 class="conn" style="display: none;"></h1>
-                  <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 conn">
-                  </div>
-                  <!-- 과제 등록 버튼 -->
-                  <button type="button" class="btn btn-info btn-pill" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
-                </div>
-              </div>
               
               <!-- 과제 등록 모달 -->
               <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
@@ -127,15 +116,8 @@
 				      <div class="modal-body">
 				        <form>
 				          <div class="form-group">
-							    <label for="taskSelect">과제 선택</label>
-							    <select class="form-control" id="taskSelect">
-							      <option>선택</option>
-							      <option value="1">변수</option>
-							      <option value="2">연산자</option>
-							      <option value="3">제어문</option>
-							      <option value="4">반복문</option>
-							      <option value="5">배열</option>
-							    </select>
+							    <label for="upfile">과제 파일 선택</label>
+    							<input type="file" class="form-control-file" id="upfile", name="upfile">
 				          </div>
 				          <br>
 				          
@@ -152,19 +134,19 @@
 				          
 				          <!-- 과제 제목 -->
 						  <div class="form-group">
-						     <label for="exampleFormControlInput1">과제제목</label>
-						     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="과제 제목">
+						     <label for="taskTitle">과제제목</label>
+						     <input type="text" class="taskTitle form-control" id="taskTitle" placeholder="과제 제목">
 						  </div>
 						  
 						  <!-- 과제 내용 -->
 						  <div class="form-group">
 						    <label for="exampleFormControlTextarea1">과제 내용</label>
-						    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 						  </div>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				        <button type="submit" class="btn btn-primary btn-pill">등록하기</button>
+				        <button type="button" class="task-btn btn btn-primary btn-pill" data-dismiss="modal">등록하기</button>
 				      </div>
 				     </form>
 				    </div>
@@ -174,6 +156,39 @@
               <!-- 과제폴더 끝 -->
               <script>
                 $(function () {
+                	// 과제 선택
+                	$(".task-btn").click(function(){
+                		console.log("제목 : " + $(".taskTitle").val());
+                		console.log("내용 : " + $(".taskContent").val());
+                		console.log("시작일 : " + $(".task-start").val());
+                		console.log("마감일 : " + $(".task-end").val());
+                 		if(confirm("정말 등록하시겟습니까?")){
+                            $.ajax({
+                            	url:'insert.task',
+                            	data:{
+                            		subjectNo:1,
+                            		upfile:$("#upfile").val(),
+                            		taskTitle:$(".taskTitle").val(),
+                            		taskContent:$(".taskContent").val(),
+                            		startDate:$(".task-start").val(),
+                            		endDate:$(".task-end").val(),
+                            		originName:$(".taskTitle").val(),
+                            		changeName:$("#taskSelect option:selected").val(),
+                            		fileStatus:1
+                            	},
+                            	success:function(){
+		                            alert("등록이 완료되었습니다.");
+                            	},
+                            	error:function(){
+                            		alert("등록에 실패했습니다.");
+                            	}
+                            })
+                          } else {
+                            console.log("등록취소");
+                         } 
+                	})
+                	
+                	
                   $(document).on("click", "#left ul.nav li.parent > a > span.sign", function () {
                     $(this).find('i:first').toggleClass("icon-minus");
                   });
@@ -182,14 +197,6 @@
                   $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
                   $("#left ul.nav li.current").parents('ul.children').addClass("in");
 
-                  $(".task-btn").click(function(){
-                    if(confirm("정말 등록하시겟습니까?")){
-                      console.log("등록완료");
-                      alert("등록이 완료되었습니다.");
-                    } else {
-                      console.log("등록취소");
-                    }
-                  })
 
                 })
                 
@@ -213,14 +220,22 @@
             </div>
             <!-- 과제목록  -->
             <div class="col-10">  
-              <h6 style="font-weight: bolder;">과제목록</h6>
+              <div class="row">
+              	<div class="col-10 py-3">
+              		<h6 style="font-weight: bolder;">과제목록</h6>
+              	</div>
+              	<div class="col">
+              		<!-- 과제 등록 버튼 -->
+                  	<button type="button" class="btn btn-info btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
+              	</div>
+              </div>
               <hr>
               <br>
-              <div class="d-flex flex-row mb-5">
-                <div class="col-md-auto">
-                  <label style="margin-right: -10px; font-size: 13px;">기간별</label>
+              <div class="d-flex flex-row mb-1">
+                <div class="col-md-auto" style="margin-left: -10px; margin-top: 3px">
+                  <label style="font-size: 13px;">기간별</label>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-auto"  style="margin-left: -25px;">
                   <div class="btn-group" role="group" aria-label="Basic example" style="font-size: 10px;">
                     <button type="button" class="period btn btn-primary" value="today"
                       style="height: 30px; line-height: 9px; font-size: 10px;">오늘</button>
@@ -230,21 +245,21 @@
                       style="height: 30px; line-height: 9px; font-size: 12px;">1개월</button>
                   </div>
                 </div>
-                <div class="col-md-auto">
-                  <label style="margin-right: 5px;">기간</label>
+                <div class="col-md-auto" style="margin-left: -10px; margin-top: 2px;">
+                  <label style="margin-right: px; font-size: 13px;">기간</label>
                   <input type="date" class="start">
                   <label>~</label>
                   <input type="date" class="end">
                 </div>
                 <div class="col-md-auto">
-                  <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 py-1">
+                  <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3">
                     <input type="checkbox" class="custom-control-input" id="customCheck3" checked="checked">
-                    <label class="custom-control-label" for="customCheck3">미완료 과제</label>
+                    <label class="custom-control-label" for="customCheck3" style="font-size: 13px; margin-top: 8px">미완료 과제</label>
                   </div>
                 </div>
                 <div class="col-md-auto" style="margin-left: -30px;">
                   <input type="text" style="margin-top: 3px;" placeholder="과제검색">
-                  <button type="button" class="btn btn-primary px-1 py-1" style="height: 29px;">검색</button>
+                  <button type="button" class="btn btn-primary px-1 py-1" style="height: 27px;">검색</button>
                 </div>
               </div>
 
@@ -256,7 +271,7 @@
                     <th scope="col">제목</th>
                     <th scope="col">학생명</th>
                     <th scope="col">완료여부</th>
-                    <th>확인하기</th>
+                    <th scope="col">확인여부</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -321,7 +336,7 @@
                     <td>정수의 합</td>
                     <td>김진원</td>
                     <td>완료</td>
-                    <td>50/100</td>
+                    <td>-</td>
                     <!-- 채점 모달2 시작 -->
                     <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                       aria-hidden="true">
@@ -352,7 +367,7 @@
                     <td>정수의 합</td>
                     <td>이진원</td>
                     <td>미완료</td>
-                    <td>0/100</td>
+                    <td>확인</td>
                     <!-- 채점 모달2 시작 -->
                     <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                       aria-hidden="true">
