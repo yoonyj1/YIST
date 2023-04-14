@@ -95,6 +95,18 @@ strong {
     font-weight: bold;
 }
 
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
 </style>
 </head>
 <jsp:include page="../instructor/common/header.jsp"></jsp:include>
@@ -128,9 +140,21 @@ strong {
             </div>
           </div>
         </form>
-
-
-       </div>   
+       </div> 
+        
+       <tbody>
+        <tr>
+            <th>체크</th>
+            <th>번호</th>
+            <th>학생</th>
+            <th>출석시간</th>
+            <th>퇴실시간</th>
+            <th>사유메모</th>ㄴㄴㄴ
+            
+        </tr>
+        <tr></tr>
+        <tr></tr>
+       </tbody>
           
 
 
