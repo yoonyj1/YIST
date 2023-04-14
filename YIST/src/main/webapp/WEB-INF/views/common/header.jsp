@@ -40,7 +40,7 @@
               <img src="resources/images/yist/logo.png" alt="">
             </a>
             <ul class="menuzord-menu">
-              <li><a href="">평가</a></li>
+              <li><a href="list.test">평가</a></li>
               <li><a href="#">수료증</a></li>
               <li><a href="#home">공지사항</a></li>
               <li><a href="#home">학습동영상</a></li>
