@@ -41,6 +41,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <script src="plugins/nprogress/nprogress.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
 
 
@@ -505,8 +507,8 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td scope="row">시험1</td>
+                            <tr style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalForm">
+                              <td scope="row" data-toggle="modal">시험1</td>
                               <td>88</td>
                             </tr>
                             
@@ -533,6 +535,65 @@
                           </tbody>
                         </table>
                         
+                    <div class="modal fade" id="exampleModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalFormTitle">시험 1</h5>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table">
+                            <thead>
+                              <tr align="right">
+                                <td colspan="3"><button class="updateScore btn btn-sm btn-primary">수정</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="col">석차</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">점수</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td scope="row">1</td>
+                                <td>Lucia</td>
+                                <td class="score">100</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">2</td>
+                                <td>Catrin</td>
+                                <td class="score">98</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">3</td>
+                                <td>Lilli</td>
+                                <td class="score">95</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">4</td>
+                                <td>Else</td>
+                                <td class="score">90</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">5</td>
+                                <td>Ursel</td>
+                                <td class="score">88</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">6</td>
+                                <td>Anke</td>
+                                <td class="score">85</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="closeBtn btn btn-danger btn-pill" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                       </div>
                     </div>
                   </div>
@@ -708,6 +769,16 @@
               </div>
             </div>
             
+            <script>
+              $(function(){
+                $(".updateScore").click(function(){
+                  
+                  $(".score").html("<input type='text'>");
+
+                  $(".closeBtn").text("적용");
+                })
+              })
+            </script>
 						
 					</div>
 </div>
