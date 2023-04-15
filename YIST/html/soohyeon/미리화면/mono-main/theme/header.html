@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YIST</title>
 
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
     <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -41,15 +47,42 @@
             font-family: 'LINESeedKR-Bd';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
             font-weight: 700;
-            font-style: normal;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Rg';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Th';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2') format('woff2');
+            font-weight: 100;
+            font-style: normal;            
         }
 
         *{
-            font-family: 'LINESeedKR-Bd';
+            font-family: 'LINESeedKR-Rg';
         }
+
 
         aside.left-sidebar *{
           color: white;
+        }
+        aside.left-sidebar a, aside.left-sidebar span{
+          font-family: 'LINESeedKR-Bd';
+        }
+        
+        div.sub-menu span.nav-text:hover{
+          color: #99da87;
+        }
+
+        button{
+          font-family: 'LINESeedKR-Bd';
+          font-weight: 700;
         }
 
     </style>
@@ -153,15 +186,7 @@
   
               </div>
   
-              <div class="sidebar-footer">
-                <div class="sidebar-footer-content">
-                  <ul class="d-flex">
-                    <li style="width: 100%; background-color: #99da87;">
-                      <a href="user-account-settings.html" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+
             </div>
           </aside>    
 
@@ -484,11 +509,7 @@
 
       </div>  
 
-          <!-- script  -->
-          <script src="plugins/jquery/jquery.min.js"></script>
-          <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-          <script src="plugins/simplebar/simplebar.min.js"></script>
-          <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+          
 
           
           
