@@ -21,11 +21,30 @@
       <div class="progressbar-container">
         <div class="progress-item">
           <div class="progress" style="height: 20px;">
-            <div class="progress-bar" data-percent="55"></div>
+            <div class="progress-bar" data-percent="75"></div>
           </div>
         </div>
       </div>  
-    </div>        
+    </div>  
+    <table style="margin-bottom: 40px">
+        <thead>
+            <tr higth="20px">
+              <th width="15%">번호</th>
+              <th width="70%">능력단위명</th>
+              <th width="15%">발급</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>프로그래밍 언어 활용</td>
+                <td>
+                    <button type="button" class="btn btn-gray btn-theme-colored btn-circled">발급</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+    <div><img alt="" src="resources/images/yist/certificate.jpg">  </div>
   </div>
 
 	<jsp:include page="../common/footer.jsp"/>

@@ -24,7 +24,7 @@
   td {
     height: 50px;
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border: 1px solid #dae0e9;
   }
 
@@ -55,63 +55,63 @@
         <tbody>
             <tr>
                 <td width="15%">문제</td>
-                <td width="85%">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
+                <td width="85%" style="text-align: left;">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
             </tr>
             <tr>
                 <td>학생 답</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>모법 답안</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>문제</td>
-                <td>1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
+                <td style="text-align: left;">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
             </tr>
             <tr>
                 <td>학생 답</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>모법 답안</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>문제</td>
-                <td>1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
+                <td style="text-align: left;">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
             </tr>
             <tr>
                 <td>학생 답</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>모법 답안</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>문제</td>
-                <td>1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
+                <td style="text-align: left;">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
             </tr>
             <tr>
                 <td>학생 답</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>모법 답안</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>문제</td>
-                <td>1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
+                <td style="text-align: left;">1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점)</td>
             </tr>
             <tr>
                 <td>학생 답</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
             <tr>
                 <td>모법 답안</td>
-                <td>String str = "java";</td>
+                <td style="text-align: left;">String str = "java";</td>
             </tr>
         </tbody>
     </table>
