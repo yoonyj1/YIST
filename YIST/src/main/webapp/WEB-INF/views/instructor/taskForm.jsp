@@ -106,6 +106,7 @@
               <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
 				  aria-hidden="true">
 				  <div class="modal-dialog" role="document">
+				   <form method="post" action="insert.task" enctype="multipart/form-data">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
@@ -114,10 +115,9 @@
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				        <form>
 				          <div class="form-group">
 							    <label for="upfile">과제 파일 선택</label>
-    							<input type="file" class="form-control-file" id="upfile", name="upfile">
+    							<input type="file" class="form-control-file" id="upfile" name="upfile">
 				          </div>
 				          <br>
 				          
@@ -135,7 +135,7 @@
 				          <!-- 과제 제목 -->
 						  <div class="form-group">
 						     <label for="taskTitle">과제제목</label>
-						     <input type="text" class="taskTitle form-control" id="taskTitle" placeholder="과제 제목">
+						     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목">
 						  </div>
 						  
 						  <!-- 과제 내용 -->
@@ -146,10 +146,10 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				        <button type="button" class="task-btn btn btn-primary btn-pill" data-dismiss="modal">등록하기</button>
+				        <button type="submit" class="task-btn btn btn-primary btn-pill">등록하기</button>
 				      </div>
-				     </form>
 				    </div>
+				    </form>
 				  </div>
 				</div>
 
@@ -157,7 +157,7 @@
               <script>
                 $(function () {
                 	// 과제 선택
-                	$(".task-btn").click(function(){
+/*                 	$(".task-btn").click(function(){
                 		console.log("제목 : " + $(".taskTitle").val());
                 		console.log("내용 : " + $(".taskContent").val());
                 		console.log("시작일 : " + $(".task-start").val());
@@ -186,7 +186,7 @@
                           } else {
                             console.log("등록취소");
                          } 
-                	})
+                	}) */
                 	
                 	
                   $(document).on("click", "#left ul.nav li.parent > a > span.sign", function () {

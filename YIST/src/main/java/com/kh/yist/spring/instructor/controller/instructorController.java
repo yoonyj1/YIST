@@ -30,9 +30,8 @@ public class instructorController {
 		return "instructor/calendarForm";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="insert.task", produces = "application/json; charset=utf-8")
-	public String insertTask(Task task,  String upfile) {
+	@RequestMapping(value="insert.task")
+	public String insertTask(Task task,  MultipartFile upfile) {
 		
 		System.out.println("파일 : " + upfile);
 		System.out.println(task);
