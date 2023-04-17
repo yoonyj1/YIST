@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="WEB-INF/views/QRtest.jsp"></jsp:forward>	
+	<jsp:forward page="WEB-INF/views/admin/adminSidebar.jsp"></jsp:forward>	
 </body>
 </html>

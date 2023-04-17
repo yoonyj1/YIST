@@ -1,117 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
-<html lang="en" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Mono - Responsive Admin & Dashboard Template</title>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-  <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
-  <link href="plugins/simplebar/simplebar.css" rel="stylesheet" />
-
-  <!-- PLUGINS CSS STYLE -->
-  <link href="plugins/nprogress/nprogress.css" rel="stylesheet" />
-  
-  
-  <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
-  
-  
-  
-  
-  <!-- MONO CSS -->
-  <link id="main-css-href" rel="stylesheet" href="css/style.css" />
-
-  
-
-
-  <!-- FAVICON -->
-  <link href="../../../resources/admin/images/favicon.png" rel="shortcut icon" />
-
-  <!--
-    HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-  -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  <script src="plugins/nprogress/nprogress.js"></script>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-
-
-  <body class="navbar-fixed sidebar-fixed" id="body">
+<body class="navbar-fixed sidebar-fixed" id="body">
     <script>
       NProgress.configure({ showSpinner: false });
       NProgress.start();
     </script>
 
-    
 
-    <!-- ====================================
-    ——— WRAPPER
-    ===================================== -->
     <div class="wrapper">
-      
-      
-        <!-- ====================================
-          ——— LEFT SIDEBAR WITH OUT FOOTER
-        ===================================== -->
-        <aside class="left-sidebar sidebar-dark" id="left-sidebar">
-          <div id="sidebar" class="sidebar sidebar-with-footer">
-              <!-- Aplication Brand -->
-              <div class="app-brand">
-                <a href="index.html">
-                  <img src="images/YIST.png" alt="Mono">
-                </a>
-              </div>
-              <!-- begin sidebar scrollbar -->
-              <div class="sidebar-left" data-simplebar style="height: 100%;">
-                <!-- sidebar menu -->
-                <ul class="nav sidebar-inner" id="sidebar-menu">
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="강사목록.html">
-                        <i class="mdi mdi-image-filter-none"></i>
-                        <span class="nav-text">강사관리</span>
-                      </a>
-                    </li>
-                  
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="학생목록.html">
-                        <i class="mdi mdi-account"></i>
-                        <span class="nav-text">학생관리</span>
-                      </a>
-                    </li>
-                  
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="성적조회.html">
-                        <i class="mdi mdi-file-multiple"></i>
-                        <span class="nav-text">성적관리</span>
-                      </a>
-                    </li>
-                </ul>
-              </div>
-              
-        </aside>
-              <!-- 사이드바 끝 -->
-
-      
-
-      <!-- ====================================
-      ——— PAGE WRAPPER
-      ===================================== -->
-      <div class="page-wrapper">
+    	<jsp:include page="adminSidebar.jsp"/>
+    	
+    	 <div class="page-wrapper">
         
           <!-- Header -->
           <header class="main-header" id="header">
@@ -121,11 +26,38 @@
                 <span class="sr-only">Toggle navigation</span>
               </button>
 
-              <span class="page-title">강사관리</span>
+              <span class="page-title">성적관리</span>
 
               <div class="navbar-right ">
 
-                
+                <!-- search form -->
+                <div class="search-form">
+                  <form action="index.html" method="get">
+                    <div class="input-group input-group-sm" id="input-group-search">
+                      <input type="text" autocomplete="off" name="query" id="search-input" class="form-control" placeholder="Search..." />
+                      <div class="input-group-append">
+                        <button class="btn" type="button">/</button>
+                      </div>
+                    </div>
+                  </form>
+                  <ul class="dropdown-menu dropdown-menu-search">
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="index.html">Morbi leo risus</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="index.html">Dapibus ac facilisis in</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="index.html">Porta ac consectetur ac</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="index.html">Vestibulum at eros</a>
+                    </li>
+
+                  </ul>
+
+                </div>
 
                 <ul class="nav navbar-nav">
                   <!-- Offcanvas -->
@@ -437,237 +369,332 @@
         ——— CONTENT WRAPPER
         ===================================== -->
         <div class="content-wrapper">
-          <div class="content">
-            <div class="row">
-                <div class="col-xl-3 col-md-6">
-                  <div class="card card-default">
-                    <div class="d-flex p-5">
-                      <div class="icon-md bg-secondary rounded-circle mr-3">
-                        <i class="mdi mdi-account-plus-outline"></i>
+          <div class="content">					<div class="invoice-wrapper rounded border bg-white py-5 px-3 px-md-4 px-lg-5 mb-6">
+						<div class="d-flex justify-content-between">
+							<h2 class="text-dark font-weight-medium">성적조회</h2>
+							<div class="btn-group">
+								
+								<button class="btn btn-sm btn-secondary">
+									<i class="mdi mdi-printer"></i> Print</button>
+							</div>
+						</div>
+
+            <br>
+
+						<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#nav-tabs-home" role="tab"
+                  aria-controls="nav-tabs" aria-selected="true">Java</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile" role="tab"
+                  aria-controls="nav-profile" aria-selected="false">Phython</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile2" role="tab"
+                  aria-controls="nav-profile" aria-selected="false">C</a>
+              </li>
+            </ul>
+            <div class="tab-content mt-5" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-tabs-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="accordion accordion-shadow" id="accordionShadow">
+                  <div class="card">
+                    <div class="card-header" id="headingShadowOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseShadowOne"
+                          aria-expanded="true" aria-controls="collapseShadowOne">
+                          자바1반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowOne" class="collapse show" aria-labelledby="headingShadowOne" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">시험명</th>
+                              <th scope="col">평균</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalForm">
+                              <td scope="row" data-toggle="modal">시험1</td>
+                              <td>88</td>
+                            </tr>
+                            
+                            <tr>
+                              <td scope="row">시험2</td>
+                              <td>92</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">시험3</td>
+                              <td>68</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">시험4</td>
+                              <td>100</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">시험5</td>
+                              <td>48</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">시험6</td>
+                              <td>52</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        
+                    <div class="modal fade" id="exampleModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalFormTitle">시험 1</h5>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table">
+                            <thead>
+                              <tr align="right">
+                                <td colspan="3"><button class="updateScore btn btn-sm btn-primary">수정</button></td>
+                              </tr>
+                              <tr>
+                                <th scope="col">석차</th>
+                                <th scope="col">이름</th>
+                                <th scope="col">점수</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td scope="row">1</td>
+                                <td>Lucia</td>
+                                <td class="score">100</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">2</td>
+                                <td>Catrin</td>
+                                <td class="score">98</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">3</td>
+                                <td>Lilli</td>
+                                <td class="score">95</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">4</td>
+                                <td>Else</td>
+                                <td class="score">90</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">5</td>
+                                <td>Ursel</td>
+                                <td class="score">88</td>
+                              </tr>
+                              <tr>
+                                <td scope="row">6</td>
+                                <td>Anke</td>
+                                <td class="score">85</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="closeBtn btn btn-danger btn-pill" data-dismiss="modal">Close</button>
+                        </div>
                       </div>
-                      <div class="text-left">
-                        <span id="insertTeacher" class="h2 d-block my-3" data-toggle="modal" data-target="#exampleModalForm">강사배정</span>
+                    </div>
+                  </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowTwo"
+                          aria-expanded="false" aria-controls="collapseShadowTwo">
+                          자바2반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowTwo" class="collapse" aria-labelledby="headingShadowTwo" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowThree">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowThree"
+                          aria-expanded="false" aria-controls="collapseShadowThree">
+                          자바3반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowThree" class="collapse" aria-labelledby="headingShadowThree" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <div class="col-xl-3 col-md-6">
-                  <div class="card card-default">
-                    <div class="d-flex p-5">
-                      <div class="icon-md bg-primary rounded-circle mr-3">
-                        <i class="mdi mdi-account-minus"></i>
-                      </div>
-                      <div class="text-left">
-                        <button id="deleteTeacher" class="h2 d-block my-3">강사삭제</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
               </div>
-
-              <!-- 모달 시작 -->
-              <div class="modal fade" id="exampleModalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalFormTitle">강사배정</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="accordion accordion-shadow" id="accordionShadow">
+                  <div class="card">
+                    <div class="card-header" id="headingShadowOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseShadowOne"
+                          aria-expanded="true" aria-controls="collapseShadowOne">
+                          파이썬1반
+                        </button>
+                      </h2>
                     </div>
-                    <div class="modal-body">
-                      <form>
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">강사 선택</label>
-                            <br>
-                            <select name="teacherList" id="teacherList" style="width: 300px;">
-                                <option value="강사1">강사1</option>                            
-                                <option value="강사2">강사2</option>                            
-                                <option value="강사3">강사3</option>                            
-                                <option value="강사4">강사4</option>                            
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label for="exampleInputPassword1">강의 선택</label>
-                            <br>
-                            <select name="lectureList" id="lectureList" style="width: 300px;">
-                              <option value="강의1">강의1</option>                            
-                              <option value="강의2">강의2</option>                            
-                              <option value="강의3">강의3</option>                            
-                              <option value="강의4">강의4</option>                            
-                          </select>
-                          </div>
-                          
-                          
-                          </div>
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-pill">저장</button>
-                          </div>
-                      </form>
+                    <div id="collapseShadowOne" class="collapse show" aria-labelledby="headingShadowOne" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowTwo"
+                          aria-expanded="false" aria-controls="collapseShadowTwo">
+                          파이썬2반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowTwo" class="collapse" aria-labelledby="headingShadowTwo" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowThree">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowThree"
+                          aria-expanded="false" aria-controls="collapseShadowThree">
+                          파이썬3반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowThree" class="collapse" aria-labelledby="headingShadowThree" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              
-
-            <!-- 강사 목록 테이블 -->
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th class="selectTeacher" style="display: none;">선택</th>
-                    <th scope="col">이름</th>
-                    <th scope="col">전화번호</th>
-                    <th scope="col">담당과목</th>
-                    <th scope="col" style="text-align: center;">관리</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>윤여진</td>
-                    <td>010-1234-5678</td>
-                    <td>자바</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton" onclick="location.href='teacherInfo.html'">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Catrin</td>
-                    <td>Seidl</td>
-                    <td>C</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Lilli</td>
-                    <td>Kirsh</td>
-                    <td>파이썬</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Else</td>
-                    <td>Voigt</td>
-                    <td>@voigt</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Ursel</td>
-                    <td>Harms</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>@Anke</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  
-                </tbody>
-              </table>
-
-              <script>
-                // function deleteTeacher(){
-                //   $('.selectTeacher').removeAttr("style");
-                //   $('.checkTeacher').removeAttr("style");
-
-                //   $('.selectTeacherButton').removeClass('btn-primary').addClass('btn-danger').text('삭제').click(function(){
-                //     $(location).attr('href', 'sign-up.html')
-                //   });
-
-                //   $('thead').prepend('<th colspan="5" align="right">' + '<button class="btn btn-sm btn-danger">삭제</button>');
-                // }
-
-                // $(function(){
-                //   $("#deleteTeacher").click(function(){
-                //     $('.selectTeacher').removeAttr("style");
-                //     $('.checkTeacher').removeAttr("style");
-
-                //     $('.selectTeacherButton').removeClass('btn-primary').addClass('btn-danger').text('삭제').click(function(){
-                //     $(location).attr('href', 'sign-up.html')
-                //     });
-
-                //     $('thead').prepend('<th colspan="5" align="right">' + '<button class="btn btn-sm btn-danger">삭제</button>');
-                //     })
-                // })
-
-                $(function(){
-                  $("#deleteTeacher").one('click', function(){
-                    $('.selectTeacher').removeAttr("style");
-                    $('.checkTeacher').removeAttr("style");
-
-                    $('.selectTeacherButton').removeClass('btn-primary').addClass('btn-danger').text('삭제').click(function(){
-                    $(location).attr('href', 'sign-up.html')
-                    });
-
-                    $('thead').prepend('<th colspan="5" align="right">' + '<button class="btn btn-sm btn-danger">삭제</button>');
-                  })
-                })
-              </script>
-               
+              <div class="tab-pane fade" id="nav-profile2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="accordion accordion-shadow" id="accordionShadow">
+                  <div class="card">
+                    <div class="card-header" id="headingShadowOne">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseShadowOne"
+                          aria-expanded="true" aria-controls="collapseShadowOne">
+                          C 1반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowOne" class="collapse show" aria-labelledby="headingShadowOne" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowTwo"
+                          aria-expanded="false" aria-controls="collapseShadowTwo">
+                          C 2반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowTwo" class="collapse" aria-labelledby="headingShadowTwo" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingShadowThree">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseShadowThree"
+                          aria-expanded="false" aria-controls="collapseShadowThree">
+                          C 3반
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapseShadowThree" class="collapse" aria-labelledby="headingShadowThree" data-parent="#accordionShadow">
+                      <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+                        moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                        anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you
+                        probably haven't heard of them accusamus labore sustainable VHS.
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- Bordered Rounded -->
-            <div class="card card-default align-items-center">
-              <div class="card-header">
-              </div>
-              <div class="card-body">
             
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination border-rounded">
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                    </li>
-                    <li class="page-item active">
-                      <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
+            <script>
+              $(function(){
+                $(".updateScore").click(function(){
+                  
+                  $(".score").html("<input type='text'>");
 
+                  $(".closeBtn").text("적용");
+                })
+              })
+            </script>
+						
+					</div>
+</div>
           
+        </div>
+        
           <!-- Footer -->
           <footer class="footer mt-auto">
             <div class="copyright bg-white">
@@ -788,35 +815,5 @@
 
                       </div>
                     </div>
-
-                   
-
-
-    
-                    <script src="plugins/jquery/jquery.min.js"></script>
-                    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-                    <script src="plugins/simplebar/simplebar.min.js"></script>
-                    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-
-                    
-                    
-                    <script src="plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
-                    
-                    
-                    
-                    <script src="plugins/apexcharts/apexcharts.js"></script>
-                    
-                    
-                    <script src="js/mono.js"></script>
-                    <script src="js/chart.js"></script>
-                    <script src="js/map.js"></script>
-                    <script src="js/custom.js"></script>
-
-                    
-
-
-                    <!--  -->
-
-
-  </body>
+</body>
 </html>
