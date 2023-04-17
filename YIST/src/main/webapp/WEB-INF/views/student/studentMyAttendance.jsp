@@ -71,7 +71,7 @@ button {
 	<div class="container">
     <div class="sub08_title">
       <ul style="text-align: center; margin-top: 40px;">
-        <li class="title"><h2 class="text-uppercase mt-15" style="font-size: 30px; font-weight: bold;">평가현황</h2></li>
+        <li class="title"><h2 class="text-uppercase mt-15" style="font-size: 30px; font-weight: bold;">출결현황</h2></li>
         <li class="class"><p class="lead" style="margin-bottom: 0%;">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</p></li>
         <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
       </ul>
@@ -190,7 +190,7 @@ button {
         </tbody>
       </table>
     </div>
-	
+	</div>
 	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

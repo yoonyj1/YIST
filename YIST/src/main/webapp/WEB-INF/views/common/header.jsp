@@ -23,7 +23,8 @@
 <link href="resources/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
 
 <!-- external javascripts -->
-<script src="resources/js/jquery-2.2.4.min.js"></script>
+<!-- <script src="resources/js/jquery-2.2.4.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 <!-- JS | jquery plugin collection for this theme -->
 <script src="resources/js/jquery-plugin-collection.js"></script>
 
