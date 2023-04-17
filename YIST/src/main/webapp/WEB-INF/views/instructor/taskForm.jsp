@@ -107,6 +107,8 @@
 				  aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 				   <form method="post" action="insert.task" enctype="multipart/form-data">
+				   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
+				   <input type="hidden" name="subjectNo" value="1">
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
@@ -125,10 +127,10 @@
 				            <label for="exampleInputPassword1">기간설정</label>
 				            <br>
 				            <label style="margin-right: 5px;">시작일</label>
-				            <input type="date" class="task-start">
+				            <input type="date" class="task-start" name="startDate">
 				            <label>~</label>
 				            <label style="margin-right: 5px;">마감일</label>
-				            <input type="date" class="task-end">
+				            <input type="date" class="task-end" name="endDate">
 				          </div>
 				          <br>
 				          
@@ -141,7 +143,7 @@
 						  <!-- 과제 내용 -->
 						  <div class="form-group">
 						    <label for="exampleFormControlTextarea1">과제 내용</label>
-						    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+						    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent"></textarea>
 						  </div>
 				      </div>
 				      <div class="modal-footer">
@@ -156,38 +158,6 @@
               <!-- 과제폴더 끝 -->
               <script>
                 $(function () {
-                	// 과제 선택
-/*                 	$(".task-btn").click(function(){
-                		console.log("제목 : " + $(".taskTitle").val());
-                		console.log("내용 : " + $(".taskContent").val());
-                		console.log("시작일 : " + $(".task-start").val());
-                		console.log("마감일 : " + $(".task-end").val());
-                 		if(confirm("정말 등록하시겟습니까?")){
-                            $.ajax({
-                            	url:'insert.task',
-                            	data:{
-                            		subjectNo:1,
-                            		upfile:$("#upfile").val(),
-                            		taskTitle:$(".taskTitle").val(),
-                            		taskContent:$(".taskContent").val(),
-                            		startDate:$(".task-start").val(),
-                            		endDate:$(".task-end").val(),
-                            		originName:$(".taskTitle").val(),
-                            		changeName:$("#taskSelect option:selected").val(),
-                            		fileStatus:1
-                            	},
-                            	success:function(){
-		                            alert("등록이 완료되었습니다.");
-                            	},
-                            	error:function(){
-                            		alert("등록에 실패했습니다.");
-                            	}
-                            })
-                          } else {
-                            console.log("등록취소");
-                         } 
-                	}) */
-                	
                 	
                   $(document).on("click", "#left ul.nav li.parent > a > span.sign", function () {
                     $(this).find('i:first').toggleClass("icon-minus");
@@ -297,27 +267,8 @@
                           	  <!-- 학생답 시작 -->
                               <div class="card">
 								    <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/test1.PNG" alt="Card image cap">
-								    <div class="card-body">
-									  <div class="row">
-									  	<div class="col-md-auto">
-								      	<h5 class="card-title ">답변</h5>
-											<textarea rows="5" cols="80" style="resize: none;"></textarea>
-									  	</div>
-									  	<div class="col-md-auto">
-									  	 <h5 class="card-title ">점수</h5>
-											  <div class="form-group">
-											    <select class="form-control rounded-pill" id="exampleFormControlSelect13">
-											      <option>1</option>
-											      <option>2</option>
-											      <option>3</option>
-											      <option>4</option>
-											      <option>5</option>
-											    </select>
-											  </div>
-									  	</div>
-									  </div>
-								    </div>
-								  </div>
+
+								  
 							  </div>
 							  <!-- 학생답끝 -->
                           </div>

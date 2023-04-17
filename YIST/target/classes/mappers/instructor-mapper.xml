@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="instructorMapper">
+
+	<insert id="insertTask">
+		insert
+		    into task
+		        (
+		           task_no
+		         , subject_no
+		         , id
+		         , task_title
+		         , task_content
+		         , start_date
+		         , end_date
+		        )
+		        values
+		        (
+		            seq_task_no.nextval
+		          , #{subjectNo}
+		          , #{instructorId}
+		          , #{taskTitle}
+		          , #{taskContent}
+		          , #{startDate}
+		          , #{endDate}
+		        )
+	</insert>
+	
+	<insert id="insertTaskFile">
+		insert
+		    into task_file
+		        (
+		            file_no
+		          , task_no
+		          , origin_name
+		          , change_name
+		          , file_level
+		          , status
+		        )
+		        values
+		        (
+		            seq_file_no.nextval
+		          , seq_task_no.currval
+		          , #{originName}
+		          , #{changeName}
+		          , 1
+		          , 'Y'
+		          )
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

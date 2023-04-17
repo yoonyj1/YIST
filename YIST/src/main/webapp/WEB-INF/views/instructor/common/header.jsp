@@ -93,6 +93,12 @@
 
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+	<c:if test="${ not empty alertMsg }">
+		<script type="text/javascript">
+			alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
 	<script>
 		NProgress.configure({
 			showSpinner : false
@@ -119,9 +125,10 @@
 					let type = '70';
 					let target = 'user02';
 					let content = $("#search-input").val();
+					let loginUser = '${loginUser.getId()}';
 					let url = '컨트롤러 매핑값';
 					//socket.send("관리자,"+target+","+content+","+url);
-					socket.send('${loginUser.name},' + target+","+content+","+url);
+					socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
 		        }
 		    });
 		

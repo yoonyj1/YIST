@@ -56,18 +56,19 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		if (msg != null) {
 			String[] strs = msg.split(",");
 			log(strs.toString());
-			if (strs != null && strs.length == 4) {
+			if (strs != null && strs.length == 5) {
 				String type = strs[0];
 				String target = strs[1]; // m_id 저장
 				String content = strs[2];
 				String url = strs[3];
+				String user = strs[4];
 				//WebSocketSession targetSession = users.get(target); // 메시지를 받을 세션 조회
 				
 				// 전체
 				WebSocketSession targetSession = null;
 				
 				for (String userId : userArr) {
-					if (userId.equals("admin")) {
+					if (userId.equals(user)) {
 						continue;
 					} 
 					targetSession = users.get(userId);

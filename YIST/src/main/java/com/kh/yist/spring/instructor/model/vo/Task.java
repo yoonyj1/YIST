@@ -14,14 +14,15 @@ import lombok.ToString;
 @Getter					// getter 메소드
 @ToString				// toString 메소드
 public class Task {
+	
 	// 과제
-	private int taskNo;
-	private int subjectNo;
-	private String instructorId;
-	private String taskTitle;
-	private String taskContent;
-	private Date startDate;
-	private Date endDate;
+	private int taskNo; // 과제번호
+	private int subjectNo; // 과목번호
+	private String instructorId; // 강사 아이디
+	private String taskTitle; // 과제 제목
+	private String taskContent; // 과제 내용 
+	private Date startDate; // 시작일
+	private Date endDate; // 마감일 
 	
 	// 과제 파일
 	private int fileNo;
