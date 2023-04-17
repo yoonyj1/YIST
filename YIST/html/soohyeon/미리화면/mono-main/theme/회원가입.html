@@ -289,6 +289,11 @@
 
                         <script>
 
+                            let idFlag = false;
+                            let pwdFlag = false;
+                            let agreeFlag = false;
+                            let verifiedFlag = false;
+
                             const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
                             const num = /[0-9]/g;
                             const engSmall = /[a-z]/g;
@@ -337,6 +342,8 @@
                                         $("#pwd-resultBox-len span").css("color","red");
                                         $("#pwd-resultBox-len").css("color","red");
 
+                                        
+
                                     }else{
                                         $("#pwd-resultBox-len span").css("color","#8a909d");
                                         $("#pwd-resultBox-len").css("color","#8a909d");
@@ -383,6 +390,7 @@
 
                                     $("#pwd-td .text-daborder-danger").css("color","lightgreen");
 
+                                    
 
                                 }
 
@@ -399,7 +407,7 @@
                                         if(pw===pwCheck){
                                             $("#pwdCheck-resultBox").css("color","lightgreen");
                                             $("#pwdCheck-resultBox").text("비밀번호가 일치합니다");
-                                            
+                                            pwdFlag = true;                                            
                                         }else{
                                             $("#pwdCheck-resultBox").css("color","red");
                                             $("#pwdCheck-resultBox").text("비밀번호가 일치하지않습니다");
@@ -678,12 +686,23 @@
         
                     </table>
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="submitForm();">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
 
+                <script>
+                    function submitForm(){
+                        if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
 
+                            return true;
+                            
+                        }else{
+
+                            return false;
+                        }
+                    }
+                </script>
 
             </div>
             

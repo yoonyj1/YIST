@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>ADMIN-강의수정</title>
 <style>
+
 	div.btn-center>button:first-child{
 		background-color: #99da87;
 		border-color: #99da87;
@@ -23,6 +24,8 @@
 		background-color: #8eca7d;
 		border-color: #8eca7d;
 	}
+
+
 	
 	table#updateClass-table td>input,
 	table#updateClass-table td>select{
@@ -38,7 +41,8 @@
 	#updateClass-table{
 		width:70%;
 		margin-left: auto;
-    	margin-right: auto;
+    margin-right: auto;
+    border-radius: 5px;
 	}
 	
 </style>
@@ -155,7 +159,7 @@
                   
                   <div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="submit">수정</button>
-                    <button class="btn btn-primary btn-pill mr-2 btn-danger" type="submit" onclick="confirm('삭제된 강의는 복구할 수 없습니다. 정말 삭제하시겠습니까?');">삭제</button>
+                    <button class="btn  btn-pill mr-2 btn-danger" type="submit" onclick="confirm('삭제된 강의는 복구할 수 없습니다. 정말 삭제하시겠습니까?');">삭제</button>
                     <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                   </div>
                   

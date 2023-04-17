@@ -14,7 +14,8 @@
 		margin-right: auto;
     }
 
-	table#classinfo-table *, table#classStudent-table *{
+	table td, 
+  table th{
         text-align: center;
         vertical-align: middle;
         color: black;

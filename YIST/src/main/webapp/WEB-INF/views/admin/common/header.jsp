@@ -122,6 +122,12 @@
 	    background-color: #fe5461;
 	    border-color: #fe5461;	
 	}
+
+	.btn-center button.btn-danger:hover{
+		color: #ffffff;
+		background-color: #fb3a49;
+		border-color: #fb3a49;
+	}
 	
 	.btn-center>button.btn-primary:hover{
 		background-color: #8eca7d;

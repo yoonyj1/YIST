@@ -12,6 +12,7 @@
 		width: 70%;
         margin-left: auto;
         margin-right: auto;
+		border-radius: 5px;
     }
 
 	table#addClass-table>tbody th{
@@ -25,12 +26,14 @@
 	table#addClass-table td>input,
 	table#addClass-table td>select{
 		vertical-align: middle;
+		text-align: center;
 	}
 
 	table#addClass-table td>label{
 		margin-right: 5px;
 		line-height: 4em;
 	}
+
 
 
 </style>
