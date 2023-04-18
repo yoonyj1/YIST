@@ -38,7 +38,7 @@
 		<websocket:mapping handler="chatHandler" path="/chat-ws" />
 	</websocket:handlers>  -->
 	
-	<beans:bean id="echoHandler" class="com.kh.yist.spring.jjw.websocket.WebSocketHandler" />
+	<beans:bean id="echoHandler" class="com.kh.yist.websocket.WebSocketHandler" />
 	<websocket:handlers>
 	    <websocket:mapping handler="echoHandler" path="/echo-ws" />
 	    <websocket:handshake-interceptors>

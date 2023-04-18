@@ -2,32 +2,47 @@ package com.kh.yist.member.model.vo;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
-@Setter
-@Getter
-@ToString
-public class Member {
+/*
+ * * Lombook(롬복)
+ * 
+ * 1. 라이브러리 다운 후 적용 (Maven pom.xml)
+ * 2. 다운로드된 jar 찾아서 설치 (작업할 IDE 선택해서 설치) (CMD로 해당 경로 진입 후 java -jar lombok-1.18.12.jar
+ * 3. IDE 재실행
+ * 
+ */
 
-	private String id; 				// 회원아이디
-	private String name;			// 회원이름
-	private String pwd;				// 비밀번호
-	private String birth;			// 생년월일
-	private String phone; 			// 전화번호
-	private String email;			// 이메일
-	private int post;				// 우편번호
-	private String address;	 		// 주소
-	private String detailAddress; 	// 상세주소
-	private String subject;			// 과목
-	private Date enrollDate; 		// 가입일
-	private Date startDate;			// 수강시작일
-	private Date endDate;			// 수강종료일
-	private String status;			// 회원상태
-	private int sort;				// 회원분류
-	private Date employDate;		// 입사일자
+@NoArgsConstructor 		// 기본생성자
+@AllArgsConstructor 	// 매개변수 생성자
+@Setter					// setter 메소드
+@Getter					// getter 메소드
+@ToString				// toString 메소드
+public class Member {
+	private String id;
+	private String name;
+	private String pwd;
+	private String birth;
+	private String phone;
+	private String image;
+	private String email;
+	private int post;
+	private String address;
+	private String detailAddress;
+	private String subject;
+	private Date enrollDate;
+	private Date startDate;
+	private Date endDate;
+	private String status;
+	private int sort;
+	private Date employDate;
+
+	// private String uName;
+	// 롬복을 쓸때는 필드명 작성시 적어도 소문자 두글자 이상으로 시작할 것
+	
 	
 }
