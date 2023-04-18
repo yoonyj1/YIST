@@ -1,112 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-
-<html lang="en" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Mono - Responsive Admin & Dashboard Template</title>
-
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-  <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
-  <link href="plugins/simplebar/simplebar.css" rel="stylesheet" />
-
-  <!-- PLUGINS CSS STYLE -->
-  <link href="plugins/nprogress/nprogress.css" rel="stylesheet" />
-  
-  <!-- MONO CSS -->
-  <link id="main-css-href" rel="stylesheet" href="css/style.css" />
-
-  
-
-
-  <!-- FAVICON -->
-  <link href="images/favicon.png" rel="shortcut icon" />
-
-  <!--
-    HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-  -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  <script src="plugins/nprogress/nprogress.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-
-
-  <body class="navbar-fixed sidebar-fixed" id="body">
+<body class="navbar-fixed sidebar-fixed" id="body">
     <script>
       NProgress.configure({ showSpinner: false });
       NProgress.start();
     </script>
 
-    
 
-    <!-- ====================================
-    ——— WRAPPER
-    ===================================== -->
     <div class="wrapper">
-      
-      
-        <!-- ====================================
-          ——— LEFT SIDEBAR WITH OUT FOOTER
-        ===================================== -->
-        <aside class="left-sidebar sidebar-dark" id="left-sidebar">
-          <div id="sidebar" class="sidebar sidebar-with-footer">
-              <!-- Aplication Brand -->
-              <div class="app-brand">
-                <a href="index.html">
-                  <img src="images/YIST.png" alt="Mono">
-                </a>
-              </div>
-              <!-- begin sidebar scrollbar -->
-              <div class="sidebar-left" data-simplebar style="height: 100%;">
-                <!-- sidebar menu -->
-                <ul class="nav sidebar-inner" id="sidebar-menu">
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="강사목록.html">
-                        <i class="mdi mdi-image-filter-none"></i>
-                        <span class="nav-text">강사관리</span>
-                      </a>
-                    </li>
-                  
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="학생목록.html">
-                        <i class="mdi mdi-account"></i>
-                        <span class="nav-text">학생관리</span>
-                      </a>
-                    </li>
-                  
-                    <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="성적조회.html">
-                        <i class="mdi mdi-file-multiple"></i>
-                        <span class="nav-text">성적관리</span>
-                      </a>
-                    </li>
-                </ul>
-              </div>
-              
-            </aside>
-              <!-- 사이드바 끝 -->
-
-      
-
-      <!-- ====================================
-      ——— PAGE WRAPPER
-      ===================================== -->
-      <div class="page-wrapper">
+    	<jsp:include page="adminSidebar.jsp"/>
+    	
+    	 <div class="page-wrapper">
         
           <!-- Header -->
           <header class="main-header" id="header">
@@ -905,26 +815,5 @@
 
                       </div>
                     </div>
-
-
-
-    
-                    <script src="plugins/jquery/jquery.min.js"></script>
-                    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-                    <script src="plugins/simplebar/simplebar.min.js"></script>
-                    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-
-                    
-                    <script src="js/mono.js"></script>
-                    <script src="js/chart.js"></script>
-                    <script src="js/map.js"></script>
-                    <script src="js/custom.js"></script>
-
-                    
-
-
-                    <!--  -->
-
-
-  </body>
+</body>
 </html>
