@@ -8,20 +8,20 @@
 
 <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/resources/plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
-  <link href="${pageContext.request.contextPath}/resources/plugins/simplebar/simplebar.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/resources/instructor/plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/resources/instructor/plugins/simplebar/simplebar.css" rel="stylesheet" />
 
   <!-- PLUGINS CSS STYLE -->
-  <link href="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/resources/instructor/plugins/nprogress/nprogress.css" rel="stylesheet" />
   
   <!-- MONO CSS -->
-  <link id="main-css-href" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/instructor/style.css" />
+  <link id="main-css-href" rel="stylesheet" href="${pageContext.request.contextPath}/resources/instructor/css/instructor/style.css" />
 
 
   <!-- FAVICON -->
-  <link href="${pageContext.request.contextPath}/resources/images/favicon.png" rel="shortcut icon" />
+  <link href="${pageContext.request.contextPath}/resources/instructor/images/favicon.png" rel="shortcut icon" />
 
-  <script src="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/instructor/plugins/nprogress/nprogress.js"></script>
 </head>
 <body class="bg-light-gray" id="body">
 	<%-- <jsp:include page="instructor/common/header.jsp"></jsp:include> --%>
@@ -38,7 +38,7 @@
                   <div class="card-header pb-0">
                     <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
                       <a class="w-auto pl-0" href="/index.html">
-                        <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="Mono">
+                        <img src="${pageContext.request.contextPath}/resources/instructor/images/logo.png" alt="Mono">
                         <span class="brand-name text-dark">MONO</span>
                       </a>
                     </div>

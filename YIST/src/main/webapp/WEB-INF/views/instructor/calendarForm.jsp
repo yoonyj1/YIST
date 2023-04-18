@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 
 <link rel=" shortcut icon"
-	href="${pageContext.request.contextPath}/resources/calendar/image/favicon.ico">
+	href="${pageContext.request.contextPath}/resources/instructor/calendar/image/favicon.ico">
 
 <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/calendar/vendor/css/bootstrap.min.css"> -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/calendar/vendor/css/fullcalendar.min.css" />
+	href="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/css/fullcalendar.min.css" />
 <link rel="stylesheet"
-	href='${pageContext.request.contextPath}/resources/calendar/vendor/css/select2.min.css' />
+	href='${pageContext.request.contextPath}/resources/instructor/calendar/vendor/css/select2.min.css' />
 <%-- <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/calendar/vendor/css/bootstrap-datetimepicker.min.css' /> --%>
 
 <link rel="stylesheet"
@@ -22,7 +22,7 @@
 	href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/calendar/css/main.css" />
+	href="${pageContext.request.contextPath}/resources/instructor/calendar/css/main.css" />
 
 </head>
 <style>
@@ -617,27 +617,27 @@ select.filter {
 	</script>
 
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/vendor/js/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/js/jquery.min.js"></script>
 	<!-- <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/bootstrap.min.js"></script> -->
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/vendor/js/moment.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/js/moment.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/vendor/js/fullcalendar.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/js/fullcalendar.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/vendor/js/ko.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/js/ko.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/vendor/js/select2.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/vendor/js/select2.min.js"></script>
 	<%-- <script src="${pageContext.request.contextPath}/resources/calendar/vendor/js/bootstrap-datetimepicker.min.js"></script> --%>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/js/main.js?ver=1"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/main.js?ver=1"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/js/addEvent.js?ver=1"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/addEvent.js?ver=1"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/js/editEvent.js?ver=1"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/editEvent.js?ver=1"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/calendar/js/etcSetting.js?ver=1"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/etcSetting.js?ver=1"></script>
 
 	<script
-		src="${pageContext.request.contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
