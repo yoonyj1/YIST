@@ -76,64 +76,66 @@ button {
 	<jsp:include page="../common/header.jsp"/>
 	
 	<div class="container" >
-	<div class="sub08_title">
-      <ul style="text-align: center; margin-top: 40px">
-        <li class="title"><h2 class="text-uppercase mt-15" style="font-size: 30px; font-weight: bold;">우리반 게시판</h2></li>
-        <li class="class"><p class="lead" style="margin-bottom: 0%;">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</p></li>
-        <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
-      </ul>
-    </div> 
+	
+		<div class="sub08_title">
+	      <ul style="text-align: center; margin-top: 40px">
+	        <li class="title"><h2 class="text-uppercase mt-15" style="font-size: 30px; font-weight: bold;">우리반 게시판</h2></li>
+	        <li class="class"><p class="lead" style="margin-bottom: 0%;">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</p></li>
+	        <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
+	      </ul>
+	    </div> 
     
-    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
-		<table id="write_frm" cellpadding="0" cellspacing="0">
-			<tbody>
-				<tr>
-					<th>제목</th>
-					<td>
-						<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="">
-					</td>
-				</tr>
-				<tr>
-					<th style="height: 70px;">카테고리</th>
-					<td style="text-align: left;">
-						<select id="category_select" name="category" class="select_view" value="" style="width: 158px; height:40px;">
-							<option value="E">Q&A</option>
-							<option value="A">과제</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀글 여부</th>
-					<td style="padding-top: 10px; text-align: left;">
-						<label>
-								<input type="checkbox" name="secret" id="secret" value="1"> 비밀글
-						</label>
-							<p>
-								* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
-								* 비밀글 등록 후 공개로 전환불가
-							</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+    <div>
+	    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
+			<table id="write_frm">
+					<tr>
+						<th>제목</th>
+						<td>
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="">
+						</td>
+					</tr>
+					<tr>
+						<th style="height: 70px;">카테고리</th>
+						<td style="text-align: left;">
+							<select id="category_select" name="category" class="select_view" value="" style="width: 158px; height:40px;">
+								<option value="E">Q&A</option>
+								<option value="A">과제</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>비밀글 여부</th>
+						<td style="padding-top: 10px; text-align: left;">
+							<label>
+									<input type="checkbox" name="secret" id="secret" value="1"> 비밀글
+							</label>
+								<p>
+									* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
+									* 비밀글 등록 후 공개로 전환불가
+								</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<textarea id="summernote" name="editordata" style="align: center;"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
+							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
+						</td>
+					</tr>
+			</table>
+			</form>
+		</div>
 	</div>
 	
-	<div style="text-align:center;">
-	<textarea id="summernote" name="editordata" style="text-align: center;"></textarea>
-
-	<ul style="text-align: center; margin: 40px;">
-        <li>
-            <button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
-            <button type="button" class="btn btn-gray btn-theme-colored btn-circled">뒤로가기</button>
-        </li>
-    </ul>
-	</div>
-	</form>
 	<script>
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
-	            width: 1000,
+	            width: 1200,
 	  		    minHeight: null,             // 최소 높이
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
@@ -142,6 +144,7 @@ button {
 			});
 		});
 	</script>
+	
 	
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 </body>
