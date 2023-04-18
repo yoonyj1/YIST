@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN-수업자료관리</title>
 
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
     <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -75,7 +81,7 @@
           margin-left: auto; margin-right: auto;
         }
 
-        table#materialTable input[type=radio]{
+        table#materialTable input[type=checkbox]{
           margin-top: 7px;
           margin-bottom: 7px;
         }
@@ -241,7 +247,7 @@
               <div class="sidebar-footer">
                 <div class="sidebar-footer-content">
                   <ul class="d-flex">
-                    <li style="width: 100%; background-color: #A2FF88;">
+                    <li style="width: 100%; background-color: #99da87;"">
                       <a href="user-account-settings.html" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a>
                     </li>
                   </ul>
@@ -600,7 +606,7 @@
                 <table id="materialTable" class="table table-hover table-product">
                   <thead>
                     <tr>
-                      <th><input type="radio"></th>
+                      <th><input type="checkbox"></th>
                       <th>자료번호</th>
                       <th>제목</th>
                       <th>작성자</th>
@@ -612,9 +618,9 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">1</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -625,9 +631,9 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">2</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -638,9 +644,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">3</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -651,9 +657,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">4</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -664,9 +670,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">5</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -677,9 +683,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">6</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -690,9 +696,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">7</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -703,9 +709,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">8</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -716,9 +722,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">9</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -729,9 +735,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="materialNo">10</td>
                       <td>자바 기초</td>
                       <td>남성</td>
                       <td>2023.03.31</td>
@@ -791,9 +797,22 @@
                     </nav>
                   </div>
                 </div>
+                
 
+                <script>
+                  $(function(){
+                    
+                    $("#materialTable thead th input[type=checkbox]").click(function(){
+                      if($("#materialTable thead th input[type=checkbox]").is(":checked")){
+                        $("#materialTable tbody td input[type=checkbox]").attr("checked",true);
+                      }else{
+                        $("#materialTable tbody td input[type=checkbox]").attr("checked",false);
+                      }
+                    });
+                    
+                  })
 
-
+                </script>
 
 
               </div>
@@ -806,11 +825,7 @@
 
       </div>  
 
-          <!-- script  -->
-          <script src="plugins/jquery/jquery.min.js"></script>
-          <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-          <script src="plugins/simplebar/simplebar.min.js"></script>
-          <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+          
 
           
           <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />

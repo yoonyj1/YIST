@@ -53,12 +53,27 @@
             font-family: 'LINESeedKR-Bd';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
             font-weight: 700;
-            font-style: normal;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Rg';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Th';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2') format('woff2');
+            font-weight: 100;
+            font-style: normal;            
         }
 
         *{
-            font-family: 'LINESeedKR-Bd';
+            font-family: 'LINESeedKR-Rg';
         }
+
 
         aside.left-sidebar *{
           color: white;
@@ -69,12 +84,16 @@
           margin-left: auto; margin-right: auto;
         }
 
-        table#addMaterialClass-table th{
+        table#addMaterialClass-table th,
+        table#addMaterialClass-table td{
           text-align: center;
           vertical-align: middle;
           color: black;
         }
 
+        table#addMaterialClass-table td{
+          font-weight: 700;
+        }
 
         table#addMaterialClass-table td>input,
         table#addMaterialClass-table td>select{
@@ -89,6 +108,21 @@
           width: 100%;
           margin: 40px auto;
           text-align: center;
+        }
+
+        div.btn-center>button:first-child{
+          background-color: #99da87;
+          border-color: #99da87;
+        }
+
+        div.btn-center>button:first-child:hover{
+          background-color: #8eca7d;
+          border-color: #8eca7d;
+        }
+
+        button{
+          font-family: 'LINESeedKR-Bd';
+          font-weight: 700;
         }
     </style>
 
@@ -224,7 +258,7 @@
               <div class="sidebar-footer">
                 <div class="sidebar-footer-content">
                   <ul class="d-flex">
-                    <li>
+                    <li style="width: 100%; background-color: #99da87;">
                       <a href="user-account-settings.html" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a>
                     </li>
                   </ul>
@@ -554,8 +588,7 @@
               </div>
 
               <div class="card-body">
-                <form method="post" action="">
-                  <table class="table table-striped" id="addMaterialClass-table">
+                  <table class="table table-bordered" id="addMaterialClass-table">
                     
                     <tr>
                       <th colspan="2" style="color:#797979;">제목</th>
@@ -606,10 +639,10 @@
 
                   </table>
                   <div class="btn-center">
-                    <button class="btn btn-primary btn-pill mr-2" type="submit">등록</button>
+                    <button class="btn btn-primary btn-pill mr-2" type="submit">수정</button>
                     <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                   </div>
-                </form>
+
             
 
 

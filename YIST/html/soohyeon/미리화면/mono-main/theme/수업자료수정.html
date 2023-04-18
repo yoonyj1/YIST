@@ -53,11 +53,25 @@
             font-family: 'LINESeedKR-Bd';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
             font-weight: 700;
-            font-style: normal;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Rg';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;            
+        }
+
+        @font-face {
+            font-family: 'LINESeedKR-Th';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Th.woff2') format('woff2');
+            font-weight: 100;
+            font-style: normal;            
         }
 
         *{
-            font-family: 'LINESeedKR-Bd';
+            font-family: 'LINESeedKR-Rg';
         }
 
         aside.left-sidebar *{
@@ -65,7 +79,7 @@
         }
 
         table#addMaterialClass-table{
-          width: 70%;
+          width: 100%;
           margin-left: auto; margin-right: auto;
         }
 
@@ -90,6 +104,23 @@
           margin: 40px auto;
           text-align: center;
         }
+
+        div.btn-center>button:first-child{
+          background-color: #99da87;
+          border-color: #99da87;
+        }
+
+        div.btn-center>button:first-child:hover{
+          background-color: #8eca7d;
+          border-color: #8eca7d;
+        }
+
+        
+        button{
+          font-family: 'LINESeedKR-Bd';
+          font-weight: 700;
+        }
+
     </style>
 
 </head>
@@ -224,7 +255,7 @@
               <div class="sidebar-footer">
                 <div class="sidebar-footer-content">
                   <ul class="d-flex">
-                    <li>
+                    <li style="width: 100%; background-color: #99da87;">
                       <a href="user-account-settings.html" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a>
                     </li>
                   </ul>
@@ -555,15 +586,13 @@
 
               <div class="card-body">
                 <form method="post" action="">
-                  <table class="table table-striped" id="addMaterialClass-table">
+                  <table class="table table-bordered" id="addMaterialClass-table">
                     
                     <tr>
                       <th>제목</th>
                       <td>
                         <div class="input-group mb-3">
-                          <input type="text" name="className" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
-                            aria-describedby="basic-addon2">
-
+                          <input type="text" name="materialName" class="form-control" placeholder="제목을 입력하세요" required value="">
                         </div>
                       </td>
                     </tr>
@@ -571,7 +600,7 @@
                     <tr>
                       <th>과목</th>
                       <td>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 30%;">
                           <select name="class" class="js-example-basic-multiple form-control" required>
                             <option value=" ">과목1</option>
                             <option value=" ">과목2</option>

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN-공지사항관리</title>
 
+    <!-- script  -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
     <link href="plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -75,7 +81,7 @@
           margin-left: auto; margin-right: auto;
         }
 
-        table#noticeTable input[type=radio]{
+        table#noticeTable input[type=checkbox]{
           margin-top: 7px;
           margin-bottom: 7px;
         }
@@ -238,7 +244,7 @@
               <div class="sidebar-footer">
                 <div class="sidebar-footer-content">
                   <ul class="d-flex">
-                    <li>
+                    <li style="width: 100%; background-color: #99da87;">
                       <a href="user-account-settings.html" data-toggle="tooltip" title="Profile settings"><i class="mdi mdi-settings"></i></a>
                     </li>
                   </ul>
@@ -597,7 +603,7 @@
                 <table id="noticeTable" class="table table-hover table-product">
                   <thead>
                     <tr>
-                      <th><input type="radio"></th>
+                      <th><input type="checkbox"></th>
                       <th>공지사항번호</th>
                       <th>제목</th>
                       <th>작성자</th>
@@ -609,9 +615,9 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>1</td>
+                      <td class="noticeNo">1</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -622,9 +628,9 @@
             
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>2</td>
+                      <td class="noticeNo">2</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -635,9 +641,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>3</td>
+                      <td class="noticeNo">3</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -648,9 +654,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>4</td>
+                      <td class="noticeNo">4</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -661,9 +667,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>5</td>
+                      <td class="noticeNo">5</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -674,23 +680,9 @@
 
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>6</td>
-                      <td>3월 개강 안내</td>
-                      <td>운영자</td>
-                      <td>2023.03.31</td>
-                      <td>
-                        <button type="button" class="btn btn-sm btn-outline-warning" onclick="location.href='공지사항수정.html'">수정</button>
-                      </td>
-                    </tr>
-
-                    
-                    <tr>
-                      <td>
-                        <input type="radio">
-                      </td>
-                      <td>7</td>
+                      <td class="noticeNo">6</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -702,9 +694,9 @@
                     
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>8</td>
+                      <td class="noticeNo">7</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -716,9 +708,9 @@
                     
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>9</td>
+                      <td class="noticeNo">8</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -730,9 +722,23 @@
                     
                     <tr>
                       <td>
-                        <input type="radio">
+                        <input type="checkbox">
                       </td>
-                      <td>10</td>
+                      <td class="noticeNo">9</td>
+                      <td>3월 개강 안내</td>
+                      <td>운영자</td>
+                      <td>2023.03.31</td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-outline-warning" onclick="location.href='공지사항수정.html'">수정</button>
+                      </td>
+                    </tr>
+
+                    
+                    <tr>
+                      <td>
+                        <input type="checkbox">
+                      </td>
+                      <td class="noticeNo">10</td>
                       <td>3월 개강 안내</td>
                       <td>운영자</td>
                       <td>2023.03.31</td>
@@ -745,6 +751,20 @@
                   </tbody>
                 </table>
 
+                <script>
+                  $(function(){
+                    
+                    $("#noticeTable thead th input[type=checkbox]").click(function(){
+                      if($("#noticeTable thead th input[type=checkbox]").is(":checked")){
+                        $("#noticeTable tbody td input[type=checkbox]").attr("checked",true);
+                      }else{
+                        $("#noticeTable tbody td input[type=checkbox]").attr("checked",false);
+                      }
+                    });
+                    
+                  })
+
+                </script>
             
                 <div class="search-area">
                   <form action="" method="get">
@@ -809,11 +829,7 @@
 
       </div>  
 
-          <!-- script  -->
-          <script src="plugins/jquery/jquery.min.js"></script>
-          <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-          <script src="plugins/simplebar/simplebar.min.js"></script>
-          <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+          
 
           
           <link href="plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />

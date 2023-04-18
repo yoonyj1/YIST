@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 
 
@@ -168,6 +169,12 @@
 </head>
 <body>
 	<jsp:include page="instructor/common/header.jsp"></jsp:include>
+
+
+<title>YIST</title>
+</head>
+<body>
+	<jsp:include page="admin/common/header.jsp"/>
 
 </body>
 </html>
