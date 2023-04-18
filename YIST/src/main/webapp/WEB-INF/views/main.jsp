@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 </head>
 <body>
 
@@ -163,5 +164,10 @@
   </div> 
 
 	<jsp:include page="common/footer.jsp"/>
+
+</head>
+<body>
+	<jsp:include page="instructor/common/header.jsp"></jsp:include>
+
 </body>
 </html>
