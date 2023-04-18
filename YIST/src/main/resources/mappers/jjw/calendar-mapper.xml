@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="calendarMapper">
+
+	<resultMap id="calendarResultSet" type="Calendar">
+		<result column="CAL_ID" property="calId" />
+		<result column="CAL_TITLE" property="title" />
+		<result column="CAL_START" property="start" />
+		<result column="CAL_END" property="end" />
+		<result column="CAL_DESCRIPTION" property="description" />
+		<result column="CAL_TYPE" property="type" />
+		<result column="USERNAME" property="username" />
+		<result column="BACKGROUNDCOLOR" property="backgroundColor" />
+		<result column="TEXTCOLOR" property="textColor" />
+		<result column="ALLDAY" property="allDay" />
+	</resultMap>
+
+	<select id="selectCalendar" resultMap="calendarResultSet">
+		select
+			cal_id
+			, cal_title
+			, cal_start
+			, cal_end
+			, cal_description
+			, cal_type
+			, username
+			, backgroundcolor
+			, textcolor
+			, allday
+		from calendar
+	</select>
+
+	<insert id="insertCalendar">
+		insert
+			into calendar
+			(
+				  cal_id
+				, cal_title
+				, cal_start
+				, cal_end
+				, cal_description
+				, cal_type
+				, username
+				, backgroundcolor
+				, textcolor
+				, allday
+			)
+			values
+			(
+				  #{calId}
+				, #{title}
+				, #{start}
+				, #{end}
+				, #{description}
+				, #{type}
+				, #{username}
+				, #{backgroundColor}
+				, #{textColor}
+				, #{allDay}
+		    )
+	</insert>
+	
+	<!-- <update id="updateCalendar">
+		update calendar
+			set cal_title = #{c.getTitle()}
+				, cal_start = #{c.getStart()}
+				, cal_end = #{c.getEnd()}
+				, cal_description = #{c.getDescription()}
+				, cal_type = #{c.getType()}
+				, backgroundcolor = #{c.getBackgroundColor()}
+				, allday = #{c.getAllDay()}
+		where cal_id = #{c.getCalId()}
+	</update> -->
+	
+	<update id="updateCalendar">
+		update calendar
+			set cal_title = #{title}
+				, cal_start = #{start}
+				, cal_end = #{end}
+				, cal_description = #{description}
+				, cal_type = #{type}
+				, backgroundcolor = #{backgroundColor}
+				, allday = #{allDay}
+		where cal_id = #{calId}
+	</update>
+	
+	<delete id ="deleteCalendar">
+		delete calendar
+		where cal_id = #{calId}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
