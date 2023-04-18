@@ -25,54 +25,54 @@
 	rel="stylesheet">
 <!-- 얘가 목록 아이콘임 -->
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/material/css/materialdesignicons.min.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/material/css/materialdesignicons.min.css"
 	rel="stylesheet" />
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/simplebar/simplebar.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/simplebar/simplebar.css"
 	rel="stylesheet" />
 
 <!-- PLUGINS CSS STYLE -->
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/nprogress/nprogress.css"
 	rel="stylesheet" />
 
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/prism/prism.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/prism/prism.css"
 	rel="stylesheet" />
 
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css"
 	rel="stylesheet" />
 
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/jvectormap/jquery-jvectormap-2.0.3.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/jvectormap/jquery-jvectormap-2.0.3.css"
 	rel="stylesheet" />
 
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/daterangepicker/daterangepicker.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/daterangepicker/daterangepicker.css"
 	rel="stylesheet" />
 
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/resources/plugins/toaster/toastr.min.css"
+	href="${pageContext.request.contextPath}/resources/instructor/plugins/toaster/toastr.min.css"
 	rel="stylesheet" />
 
 
 
 <!-- FAVICON -->
 <link
-	href="${pageContext.request.contextPath}/resources/images/favicon.png"
+	href="${pageContext.request.contextPath}/resources/instructor/images/favicon.png"
 	rel="shortcut icon" />
 
 
 <script
-	src="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.js"></script>
+	src="${pageContext.request.contextPath}/resources/instructor/plugins/nprogress/nprogress.js"></script>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/instructor/style.css" />
+	href="${pageContext.request.contextPath}/resources/instructor/css/instructor/style.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/style.css.map" />
+	href="${pageContext.request.contextPath}/resources/instructor/css/style.css.map" />
 
 <!-- jquery -->
 <script
@@ -185,7 +185,7 @@
 
 			<div class="app-brand">
 				<a href="/index.html"> <img
-					src="${pageContext.request.contextPath}/resources/images/yist_logo.png"
+					src="${pageContext.request.contextPath}/resources/instructor/images/yist_logo.png"
 					alt="Mono"> <span class="brand-name"></span>
 				</a>
 			</div>
@@ -504,20 +504,20 @@
 		</nav>
 	</header>
 	<script
-		src="${pageContext.request.contextPath}/resources/plugins/jquery/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/plugins/jquery/jquery.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/plugins/simplebar/simplebar.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/plugins/simplebar/simplebar.min.js"></script>
 	<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 
 	<script
-		src="${pageContext.request.contextPath}/resources/plugins/circle-progress/circle-progress.js"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/plugins/circle-progress/circle-progress.js"></script>
 
-	<script src="${pageContext.request.contextPath}/resources/js/mono.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/chart.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/map.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/mono.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/chart.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/map.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/custom.js"></script>
 </body>
 </html>
 

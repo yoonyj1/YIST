@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="${pageContext.request.contextPath}/resources/plugins/nprogress/nprogress.js"></script>
+<script src="${pageContext.request.contextPath}/resources/instructor/plugins/nprogress/nprogress.js"></script>
 
 <style type="text/css">
 	tr {

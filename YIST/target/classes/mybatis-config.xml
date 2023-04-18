@@ -9,10 +9,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.kh.yist.spring.calendar.model.vo.Calendar" alias="Calendar"/>
-		<typeAlias type="com.kh.yist.spring.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.yist.spring.member.model.vo.Alarm" alias="Alarm"/>
-		<typeAlias type="com.kh.yist.spring.message.Message" alias="Message"/>
+		<typeAlias type="com.kh.yist.spring.jjw.calendar.model.vo.Calendar" alias="Calendar"/>
+		<typeAlias type="com.kh.yist.spring.jjw.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.yist.spring.jjw.member.model.vo.Alarm" alias="Alarm"/>
+		<typeAlias type="com.kh.yist.spring.jjw.message.Message" alias="Message"/>
 	</typeAliases>
 	<!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야함 -->
 	
@@ -23,9 +23,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 -->
 	 
 	 <mappers>
-	 	<mapper resource="/mappers/calendar-mapper.xml"/>
-	 	<mapper resource="/mappers/member-mapper.xml"/>
-	 	<mapper resource="/mappers/instructor-mapper.xml"/>
+	 	<mapper resource="/mappers/jjw/calendar-mapper.xml"/>
+	 	<mapper resource="/mappers/jjw/member-mapper.xml"/>
+	 	<mapper resource="/mappers/jjw/instructor-mapper.xml"/>
 	 </mappers>
 	 <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야함! 뿐만 아니라 namespace 등록까지 지정돼있어야함 -->
 	 
