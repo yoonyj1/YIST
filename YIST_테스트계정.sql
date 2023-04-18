@@ -46,6 +46,8 @@ create table class(
     class_name varchar2(20) not null
 );
 
+--insert into class values(1,'자바과정');
+
 --  과목 테이블 생성
 drop table subject;
 drop sequence seq_subject_no;
@@ -64,7 +66,8 @@ create table subject(
 );
 alter table subject
     add foreign key(class_no) references class;
-
+    
+--insert into subject values(1,1,'자바',sysdate,sysdate,'Y', 1, 5, 0, 0);    
 
 -- 과제 테이블 생성
 drop table task;
@@ -106,7 +109,7 @@ drop table calendar;
 CREATE TABLE "YIST"."CALENDAR" 
 (	"CAL_ID" NUMBER DEFAULT 0, 
 	"CAL_TITLE" VARCHAR2(100 BYTE), 
-	"CAL_START" VARCHAR2(50 BYTE), 
+	"CAL_START" VARCHAR2(50 BYTE),  
 	"CAL_END" VARCHAR2(50 BYTE), 
 	"CAL_DESCRIPTION" VARCHAR2(1000 BYTE), 
 	"CAL_TYPE" VARCHAR2(50 BYTE), 
@@ -252,6 +255,46 @@ from alarm
 where id = 'user01' and status = 'N';
 
 -- 과제 테스트로 삽입
+insert
+    into task
+        (
+           task_no
+         , subject_no
+         , id
+         , task_title
+         , task_content
+         , start_date
+         , end_date
+        )
+        values
+        (
+            seq_task_no.nextval
+          , #{subjectNo}
+          , #{instructorId}
+          , #{taskTitle}
+          , #{taskContent}
+          , #{startDate}
+          , #{endDate}
+        )
 
-
+insert
+    into task_file
+        (
+            file_no
+          , task_no
+          , origin_name
+          , change_name
+          , file_level
+          , status
+        )
+        values
+        (
+            seq_file_no.nextval
+          , seq_task_no.currval
+          , #{originName}
+          , #{changeName}
+          , 1
+          , 'Y'
+          )
+            
 commit;

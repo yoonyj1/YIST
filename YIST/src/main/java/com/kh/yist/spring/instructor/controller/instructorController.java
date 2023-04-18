@@ -29,6 +29,11 @@ public class instructorController {
 		return "instructor/taskForm";
 	}
 	
+	@RequestMapping("detail.task")
+	public String detailTask() {
+		return "instructor/detailTaskForm";
+	}
+	
 	@RequestMapping("examForm.ins")
 	public String examForm() {
 		return "instructor/examForm";

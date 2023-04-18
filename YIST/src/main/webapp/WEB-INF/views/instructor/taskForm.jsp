@@ -26,81 +26,6 @@
 
           <!-- 여기서부터  -->
           <div class="row">
-              <!--
-            <div class="col-md-auto" style="background-color: white;">
-              <div class="row mx-1" style="font-weight: bolder; font-weight: bold;">과제 컨텐츠</div>
-              <div class="row mx-1">
-                과제폴더 시작
-                <div class="container" style="height: 600px;">
-                  <div class="row">
-                    
-                    <div id="left" class="span3">
-                      <ul id="menu-group-1" class="nav menu">
-                        <li class="item-1 deeper parent active">
-                          <a class="" href="#">
-                            <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-1" class="sign"><i
-                                class="icon-plus icon-white"></i></span>
-                            <span class="lbl">자바프로그래밍</span>
-                          </a>
-                          <ul class="children nav-child unstyled small collapse" id="sub-item-1">
-                            
-                            1주차
-                            <li class="item-2 deeper parent active">
-                              <a class="" href="#">
-                                <span data-toggle="collapse" data-parent="#menu-group-1" href="#sub-item-2"
-                                  class="sign"><i class="icon-plus icon-white"></i></span>
-                                <span class="lbl">과제</span>
-                              </a>
-                              <ul class="children nav-child unstyled small collapse" id="sub-item-2">
-                              
-                                <li class="item-3">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">변수</span>
-                                  </a>
-                                </li>
-                                
-                                <li class="item-4">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">연산자</span>
-                                  </a>
-                                </li>
-                                
-                                <li class="item-4">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">제어문</span>
-                                  </a>
-                                </li>
-                                
-                                <li class="item-4">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">반복문</span>
-                                  </a>
-                                </li>
-                                
-                                <li class="item-4">
-                                  <a class="" href="#">
-                                    <span class="sign"><i class="icon-play"></i></span>
-                                    <span class="lbl file">배열</span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-  
-  
-                          </ul>
-                        </li>
-  
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-              </div> -->
-              
               
               <!-- 과제 등록 모달 -->
               <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
@@ -153,41 +78,18 @@
 				    </div>
 				    </form>
 				  </div>
-				</div>
-
-              <!-- 과제폴더 끝 -->
-              <script>
-                $(function () {
-                	
-                  $(document).on("click", "#left ul.nav li.parent > a > span.sign", function () {
-                    $(this).find('i:first').toggleClass("icon-minus");
-                  });
-
-                  // Open Le current menu
-                  $("#left ul.nav li.parent.active > a > span.sign").find('i:first').addClass("icon-minus");
-                  $("#left ul.nav li.current").parents('ul.children').addClass("in");
-
-
-                })
-                
-                $(document).ready(function(){
-                  // 과제 추가
-                  $(document).on("click",".file", function(){
-                    console.log("파일 클릭");
-                    console.log($(this).html());
-                    let title = $(this).html();
-                    $(".conn").append("<input type=\"checkbox\" class=\"custom-control-input\" id=\"customCheck1\" checked=\"checked\"> <label class=\"custom-control-label\" for=\"customCheck1\">" + title + "</label> <label class=\"deleteTask\" style=\"cursor: pointer;\">X</label>");
-                  })
-
-                  // 과제 삭제
-                  $(document).on("click",".deleteTask", function(){
-                    $(this).parent().children().remove();
-                    console.log("삭제 버튼");
-                  });
-                })
-              </script>
-
+				</div>	
             </div>
+            
+            <script>
+            	$(function(){
+            		$(".task-list-table>tbody tr").click(function(){
+            			console.log($(this).children().eq(0).html());
+            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
+            		})
+            	})
+            </script>
+            
             <!-- 과제목록  -->
             <div class="col-10">  
               <div class="row">
@@ -234,113 +136,19 @@
               </div>
 
 
-              <table class="table" style="text-align: center;">
+              <table class="table task-list-table" style="text-align: center;">
                 <thead style="background-color: lightgray;">
                   <tr>
                     <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">학생명</th>
-                    <th scope="col">완료여부</th>
-                    <th scope="col">확인여부</th>
+                    <th colspan="7">제목</th>
+                    <th>기간</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td scope="row" style="width: 60px;">1</td>
-                    <td>정수의 합</td>
-                    <td>조진원</td>
-                    <td>완료</td>
-                    <td><button type="button" class="btn btn-primary" style="height: 30px; line-height: 15px;"
-                        data-toggle="modal" data-target="#grade1">확인하기</button></td>
-                    <!-- 채점 모달1 시작 -->
-                    <div class="modal fade" id="grade1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">정수의합 (조진원)</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                          	  <!-- 학생답 시작 -->
-                              <div class="card">
-								    <img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/test1.PNG" alt="Card image cap">
-
-								  
-							  </div>
-							  <!-- 학생답끝 -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-pill">Save Changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- 채점 모달 끝 -->
-                    
-                  </tr>
-                  <tr>
-                    <td scope="row" style="width: 60px;">2</td>
-                    <td>정수의 합</td>
-                    <td>김진원</td>
-                    <td>완료</td>
-                    <td>-</td>
-                    <!-- 채점 모달2 시작 -->
-                    <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">정수의합 (김진원)</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Modal body text goes here.
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-pill">Save Changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- 채점 모달 끝 -->
-                  </tr>
-
-                  <!-- 미완료  -->
-                  <tr>
-                    <td scope="row" style="width: 60px;">3</td>
-                    <td>정수의 합</td>
-                    <td>이진원</td>
-                    <td>미완료</td>
-                    <td>확인</td>
-                    <!-- 채점 모달2 시작 -->
-                    <div class="modal fade" id="update1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">정수의합 (김진원)</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Modal body text goes here.
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary btn-pill">Save Changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- 채점 모달 끝 -->
+                    <th scope="col">1</td>
+                    <th colspan="7">자료형과 연산자</td>
+                    <th>2023-04-17 ~ 2023-04-18</td>
                   </tr>
                 </tbody>
               </table>
