@@ -166,15 +166,5 @@
 
 	<jsp:include page="common/footer.jsp"/>
 
-</head>
-<body>
-	<jsp:include page="instructor/common/header.jsp"></jsp:include>
 
-
-<title>YIST</title>
-</head>
-<body>
-	<jsp:include page="admin/common/header.jsp"/>
-
-</body>
 </html>
