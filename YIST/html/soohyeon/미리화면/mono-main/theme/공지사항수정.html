@@ -81,7 +81,7 @@
         }
 
         table#addMaterialClass-table{
-          width: 70%;
+          width: 100%;
           margin-left: auto; margin-right: auto;
         }
 
@@ -605,13 +605,13 @@
                     </tr>
 
                     <tr>
-                      <th>조회범위 설정</th>
+                      <th>읽기권한</th>
                       <td>
-                        <div class="form-group">
-                          <select name="class" class="js-example-basic-multiple form-control" required>
-                            <option value=" ">전체공개</option>
-                            <option value=" ">강사</option>
-                            <option value=" ">운영자</option>
+                        <div class="form-group" style="width: 30%;">
+                          <select name="view" class="js-example-basic-multiple form-control" required>
+                            <option value="3">전체공개</option>
+                            <option value="2">강사</option>
+                            <option value="1">운영자</option>
                           </select>
                         </div>
                       </td>
