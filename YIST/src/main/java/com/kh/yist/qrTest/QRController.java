@@ -24,7 +24,7 @@ public class QRController {
         int height = 200;
         BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height);
  
-        try (ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             MatrixToImageWriter.writeToStream(matrix, "PNG", out);
             return ResponseEntity.ok()
                     .contentType(MediaType.IMAGE_PNG)
