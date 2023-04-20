@@ -79,6 +79,7 @@
 						alt="Mono"> <span class="brand-name"></span>
 					</a>
 				</div>
+
 				<div class="sidebar-left" data-simplebar style="height: 100%;">
 					<!-- 왼쪽메뉴창 -->
 					<ul class="nav sidebar-inner" id="sidebar-menu">
@@ -120,6 +121,121 @@
 						<li><a class="sidenav-item-link" href="contacts.html"> <i
 								class="mdi mdi-email"></i> <span class="nav-text">학습자료</span>
 						</a></li>
+
+			</div> */
+			<!-- 알림 끝 -->
+		   	
+		   	let msg = "<div class='msg-idx media media-sm p-4 bg-light mb-0'>";
+		   	msg += "<div class='media-sm-wrapper bg-primary'>";
+		   	msg += "<a href='user-profile.html'><i class='mdi mdi-calendar-check-outline'></i></a></div>";
+		   	msg += "<div class='media-body'>";
+		   	msg += "<a href='user-profile.html'><span class='msg-title title mb-0'>"+ data +"</span> <span class='discribe'>1/3/2014 (1pm - 2pm)</span> <span class='time'> <time>10 min ago...</time>...";
+		   	msg += "</span></a></div></div>";
+		   	$(".msg-pane").append(msg);
+		   	//$(".msg-title").html(data);
+		   	
+			// 알람 갯수
+		   	let count = 0;
+		   	$(".msg-idx").each(function(){
+		   		console.log("알람~~");
+		   		count += 1;
+		   	})
+		   	$(".msg-count").html("메세지(" + count + ")");
+		   	$(".alarm-badge").html(count);
+		   	
+		};	
+	</script>
+	<aside class="left-sidebar sidebar-light" id="left-sidebar">
+		<div id="sidebar" class="sidebar sidebar-with-footer">
+
+			<div class="app-brand">
+				<a href="/index.html"> <img
+					src="${pageContext.request.contextPath}/resources/instructor/images/yist_logo.png"
+					alt="Mono"> <span class="brand-name"></span>
+				</a>
+			</div>
+			<div class="sidebar-left" data-simplebar style="height: 100%;">
+				<!-- 왼쪽메뉴창 -->
+				<ul class="nav sidebar-inner" id="sidebar-menu">
+					<li><a class="sidenav-item-link" href="index.html"> <i
+							class="mdi mdi-briefcase-account-outline"></i> <span
+							class="nav-text">학생</span>
+					</a></li>
+
+					<li class="sider"><a class="sidenav-item-link"
+						href="team.html"> <i class="mdi mdi-account-group"></i> <span
+							class="nav-text">학급</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="calendar.html"> <i
+							class="mdi mdi-calendar-check"></i> <span class="nav-text">출석</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="taskForm.ins"> <i
+							class="mdi mdi-file-document-box-multiple"></i> <span
+							class="nav-text">과제</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="examForm.ins"> <i
+							class="mdi mdi-pencil"></i> <span class="nav-text">시험</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
+							class="mdi mdi-calendar-check"></i> <span class="nav-text">일정</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="chat.html"> <i
+							class="mdi mdi-wechat"></i> <span class="nav-text">강의</span>
+					</a></li>
+
+					<li><a class="sidenav-item-link" href="contacts.html"> <i
+							class="mdi mdi-phone"></i> <span class="nav-text">강사</span>
+					</a></li>
+
+
+					<li><a class="sidenav-item-link" href="contacts.html"> <i
+							class="mdi mdi-email"></i> <span class="nav-text">성적</span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</aside>
+
+	<!-- Header -->
+	<header class="main-header" id="header">
+		<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+			<!-- Sidebar toggle button -->
+			<button id="sidebar-toggler" class="sidebar-toggle">
+				<span class="sr-only">Toggle navigation</span>
+			</button>
+
+			<!-- 헤더 타이틀 -->
+			<span class="page-title"></span>
+
+			<div class="navbar-right ">
+
+				<!-- search form -->
+				<div class="search-form">
+					<!-- <form action="index.html" method="get"> -->
+						<div class="input-group input-group-sm" id="input-group-search">
+							<input type="text" autocomplete="off" name="query"
+								id="search-input" class="form-control" placeholder="Search..." />
+							<div class="input-group-append">
+								<button class="send-msg" type="button">/</button>
+							</div>
+						</div>
+					<!-- </form> -->
+					<ul class="dropdown-menu dropdown-menu-search">
+
+						<li class="nav-item"><a class="nav-link" href="index.html">Morbi
+								leo risus</a></li>
+						<li class="nav-item"><a class="nav-link" href="index.html">Dapibus
+								ac facilisis in</a></li>
+						<li class="nav-item"><a class="nav-link" href="index.html">Porta
+								ac consectetur ac</a></li>
+						<li class="nav-item"><a class="nav-link" href="index.html">Vestibulum
+								at eros</a></li>
+
 					</ul>
 				</div>
 			</div>

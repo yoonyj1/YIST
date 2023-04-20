@@ -90,6 +90,7 @@ div.title .titleP {
 </style>
 </head>
 <body>
+
 	<div class="contents">
         <div class="title">
             <h6 align="center">YIST</h6>
@@ -116,6 +117,8 @@ div.title .titleP {
         </div>   
 
     </div>
+
+	
 </body>
 </html>
 
