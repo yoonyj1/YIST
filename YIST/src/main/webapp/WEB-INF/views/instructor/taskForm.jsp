@@ -71,7 +71,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				        <button type="submit" class="task-btn btn btn-primary btn-pill">등록하기</button>
+				        <button type="submit" class="task-insert btn btn-primary btn-pill">등록하기</button>
 				      </div>
 				    </div>
 				    </form>
@@ -93,8 +93,32 @@
 						let taskSetModalId = '#taskUpdate' + $(this).parents('tr').find(".task-num").html();
             			$(taskSetModalId).modal('show');
             		})
+            		
+            		$(".task-delete").click(function(){
+            			if (confirm('정말 삭제하시겠습니까?')){
+            				// ajax ~~
+            				// success 되면
+            				location.reload();
+            				alert("??? 과제 삭제가 완료되었습니다.");
+            				
+            			}
+            		})
+            		
             	})
-
+            	
+				// 과제 등록 알람            	
+				$(document).ready(function(){
+					$(".task-insert").on("click",function(){
+							let type = '70';
+							let target = 'user02';
+							let content = '자료형과 연산자 과제가 등록 되었습니다.';
+							let loginUser = '${loginUser.getId()}';
+							let url = '컨트롤러 매핑값';
+							//socket.send("관리자,"+target+","+content+","+url);
+							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
+				    });
+		
+				})
             </script>
             
             <!-- 과제목록  -->
@@ -204,7 +228,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">삭제하기</button>
+						        <button type="button" class="task-delete btn btn-primary btn-pill">삭제하기</button>
 						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
 						      </div>
 						    </div>
@@ -266,7 +290,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">삭제하기</button>
+						        <button type="submit" class="task-delete btn btn-primary btn-pill">삭제하기</button>
 						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
 						      </div>
 						    </div>

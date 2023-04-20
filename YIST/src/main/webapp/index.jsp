@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 굳굳굳굳굳 -->
  	<jsp:forward page="WEB-INF/views/instructor/main.jsp"/>
 </body>
 </html>

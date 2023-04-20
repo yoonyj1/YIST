@@ -121,6 +121,7 @@
 		
 		$(document).ready(function(){
 			$("#search-input").on("keyup",function(key){
+				console.log("로그인 유저 아이디" + '${loginUser.getId()}');
 		        if(key.keyCode==13) {
 					let type = '70';
 					let target = 'user02';

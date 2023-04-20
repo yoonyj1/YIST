@@ -59,10 +59,10 @@ public class instructorController {
 
 		}
 		
-		int insetTask =  tService.insertTask(task); 
+		int insertTask =  tService.insertTask(task); 
 		int result = 0;
 		
-		if (insetTask > 0) {
+		if (insertTask > 0) {
 			result = tService.insertTaskFile(task);
 		}
 		if (result > 0) { // 성공 => 게시글 리스트 페이지 url 재요청 ("list.bo")
