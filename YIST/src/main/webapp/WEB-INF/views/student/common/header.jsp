@@ -41,17 +41,17 @@
               <img src="${pageContext.request.contextPath}/resources/student/images/yist/logo.png" alt="">
             </a>
             <ul class="menuzord-menu">
-              <li><a href="list.test">평가</a></li>
-              <li><a href="#">수료증</a></li>
-              <li><a href="#home">공지사항</a></li>
-              <li><a href="#home">학습동영상</a></li>
-              <li><a href="#">우리반게시판</a></li>
+              <li><a href="testList.st">평가</a></li>
+              <li><a href="certificate.st">수료증</a></li>
+              <li><a href="noticeList.st">공지사항</a></li>
+              <li><a href="videoList.st">학습동영상</a></li>
+              <li><a href="boardList.st">우리반게시판</a></li>
               <li><a href="">마이페이지</a>
                 <ul class="dropdown">
-                  <li><a href="#">내정보</a></li>
-                  <li><a href="#">과제</a></li>
-                  <li><a href="#">평가</a></li>
-                  <li><a href="#">출결</a></li>
+                  <li><a href="myPage.st">내정보</a></li>
+                  <li><a href="myTask.st">과제</a></li>
+                  <li><a href="myTest.st">평가</a></li>
+                  <li><a href="myAttendance.st">출결</a></li>
                 </ul>
               </li>
             </ul>
