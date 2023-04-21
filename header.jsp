@@ -185,7 +185,7 @@
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 
 			<div class="app-brand">
-				<a href="${pageContext.request.contextPath}/resources/instructor/main.jsp"> <img
+				<a href="/index.html"> <img
 					src="${pageContext.request.contextPath}/resources/instructor/images/yist_logo.png"
 					alt="Mono"> <span class="brand-name"></span>
 				</a>
@@ -222,6 +222,11 @@
 					<li><a class="sidenav-item-link" href="chat.html"> <i
 							class="mdi mdi-wechat"></i> <span class="nav-text">강의</span>
 					</a></li>
+
+					<li><a class="sidenav-item-link" href="contacts.html"> <i
+							class="mdi mdi-phone"></i> <span class="nav-text">강사</span>
+					</a></li>
+
 
 					<li><a class="sidenav-item-link" href="contacts.html"> <i
 							class="mdi mdi-email"></i> <span class="nav-text">성적</span>

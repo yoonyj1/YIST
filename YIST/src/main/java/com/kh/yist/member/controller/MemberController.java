@@ -32,7 +32,7 @@ public class MemberController {
 		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
 			System.out.println("로그인 성공");
 			session.setAttribute("loginUser", loginUser);
-			return "instructor/common/header";
+			return "instructor/main";
 		}
 
 	}
