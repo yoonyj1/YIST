@@ -15,7 +15,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberServiceImpl mService;
-
+	
 	@RequestMapping("login.me")
 	public String loginMember(String sort, Member m, HttpSession session , Model model) {
 

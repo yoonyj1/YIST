@@ -216,15 +216,15 @@
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
-							class="mdi mdi-calendar-check"></i> <span class="nav-text">일정</span>
+							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="chat.html"> <i
-							class="mdi mdi-wechat"></i> <span class="nav-text">강의</span>
+							class="mdi mdi-paperclip"></i> <span class="nav-text">강의</span>
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="contacts.html"> <i
-							class="mdi mdi-email"></i> <span class="nav-text">성적</span>
+							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
 					</a></li>
 				</ul>
 			</div>
