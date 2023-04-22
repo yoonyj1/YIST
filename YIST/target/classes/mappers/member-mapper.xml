@@ -54,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				, sort
 				, employ_date
 		from member
-		where id = #{id} and pwd = #{pwd} and status = 'Y'
+		where id = #{id} and pwd = #{pwd} and status = 'Y' and sort = #{sort}
 	</select>
 
 	<insert id="insertMember">

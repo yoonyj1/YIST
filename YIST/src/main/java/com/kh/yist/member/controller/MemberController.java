@@ -16,46 +16,56 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl mService;
 	
-	private String memSort = "0";
+	private int memSort = 0;
+	private boolean loginCheck = true;
 	
 	@RequestMapping("login.ins")
-	public String loginPageController(String sort, Model model, HttpSession session) {
+	public String loginPageController(int sort, Model model, HttpSession session) {
 		System.out.println("누구인가? : " + sort);
 		memSort = sort;
-		if (memSort == null) {
+		if (!loginCheck) {
 			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
 		}
 		return "LOGIN";
 	}
 	
 	@RequestMapping("login.me")
-	public String loginMember(Member m, HttpSession session , Model model, String sort) {
-		System.out.println(sort);
-		memSort = sort;
+	public String loginMember(Member m, HttpSession session , Model model) {
 		
-		// 암호화 작업 전에 했던 과정
-		System.out.println(m);
+		System.out.println("sort 적용 됬나 ? " + memSort);
+		
+		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
 		
 		System.out.println(m);
+		
 		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
 			System.out.println("로그인실패");
-			return "redirect:login.ins";
+			loginCheck = false;
+			return "redirect:login.ins?sort=" + memSort;
 		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
-			System.out.println("로그인 성공");
+
+			boolean hasMember = true;
 			
 			String mainPage = "";
-
-			if (memSort.equals("1")) { // 관리자
-				mainPage = "admin/adminSideBar";
-			} else if(memSort.equals("2")) { // 강사
+			
+			System.out.println("m.getSort() : " + m.getSort());
+			
+			if (m.getSort() == 1) { // 관리자
+				mainPage = "admin/adminSidebar";
+			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
-			} else if(memSort.equals("3")){ // 학생
+			} else if(m.getSort() == 3){ // 학생
 				mainPage = "student/main";
 			} else {
+				hasMember = false;
 				mainPage = "redirect:login.ins";
 			}
-			session.setAttribute("loginUser", loginUser);
+			
+			if (hasMember) {
+				session.setAttribute("loginUser", loginUser);
+			}
+			
 			return mainPage;
 		}
 
