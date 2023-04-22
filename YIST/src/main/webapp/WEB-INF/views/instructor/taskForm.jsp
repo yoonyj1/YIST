@@ -71,7 +71,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				        <button type="submit" class="task-btn btn btn-primary btn-pill">등록하기</button>
+				        <button type="submit" class="task-insert btn btn-primary btn-pill">등록하기</button>
 				      </div>
 				    </div>
 				    </form>
@@ -82,25 +82,43 @@
             
             <script>
             	$(function(){
-            		$(".task-list-table>tbody tr").click(function(e){
-            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
-            		})
-            		
-            		$(".modal").on("hover", function(){
-            			$('.task-list-table>tbody tr').unbind('hover');  
-            			console.log("호버중");
+            		$(".task-list-table>tbody tr").on("click", function(){
+            			if (!$('body').hasClass('modal-open')){
+	            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
+            			}
+            			
             		})
             		
             		$(".task-set-btn").on("click", function(e){
 						let taskSetModalId = '#taskUpdate' + $(this).parents('tr').find(".task-num").html();
             			$(taskSetModalId).modal('show');
-            			//e.stopPropagation();
-            			return false;
             		})
             		
-            		
+            		$(".task-delete").click(function(){
+            			if (confirm('정말 삭제하시겠습니까?')){
+            				// ajax ~~
+            				// success 되면
+            				location.reload();
+            				alert("??? 과제 삭제가 완료되었습니다.");
+            				
+            			}
+            		})
             		
             	})
+            	
+				// 과제 등록 알람            	
+				$(document).ready(function(){
+					$(".task-insert").on("click",function(){
+							let type = '70';
+							let target = 'user02';
+							let content = '자료형과 연산자 과제가 등록 되었습니다.';
+							let loginUser = '${loginUser.getId()}';
+							let url = '컨트롤러 매핑값';
+							//socket.send("관리자,"+target+","+content+","+url);
+							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
+				    });
+		
+				})
             </script>
             
             <!-- 과제목록  -->
@@ -111,7 +129,7 @@
               	</div>
               	<div class="col">
               		<!-- 과제 등록 버튼 -->
-                  	<button type="button" class="btn btn-primary btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
+                  	<button type="button" class="btn btn-primary btn btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
               	</div>
               </div>
               <hr>
@@ -168,7 +186,7 @@
                       <!-- 과제 수정, 삭제 모달 -->
 		              <div class="modal fade" id="taskUpdate1" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
 						  <div class="modal-dialog" role="document">
-						   <form method="post" action="insert.task" enctype="multipart/form-data">
+						   <form method="post" action="#" enctype="multipart/form-data">
 						   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
 						   <input type="hidden" name="subjectNo" value="1">
 						    <div class="modal-content">
@@ -209,8 +227,8 @@
 								  </div>
 						      </div>
 						      <div class="modal-footer">
-						        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">삭제하기</button>
+						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
+						        <button type="button" class="task-delete btn btn-primary btn-pill">삭제하기</button>
 						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
 						      </div>
 						    </div>
@@ -228,9 +246,9 @@
                     <th>
 						<button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리</button>
 					<!-- 과제 수정, 삭제 모달 -->
-		              <div class="modal fade" id="taskUpdate2" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true">
+		              <div class="modal fade" id="taskUpdate2" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
 						  <div class="modal-dialog" role="document">
-						   <form method="post" action="insert.task" enctype="multipart/form-data">
+						   <form method="post" action="#" enctype="multipart/form-data">
 						   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
 						   <input type="hidden" name="subjectNo" value="1">
 						    <div class="modal-content">
@@ -272,7 +290,7 @@
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">삭제하기</button>
+						        <button type="submit" class="task-delete btn btn-primary btn-pill">삭제하기</button>
 						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
 						      </div>
 						    </div>

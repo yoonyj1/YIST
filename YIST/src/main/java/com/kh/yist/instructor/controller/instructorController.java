@@ -84,10 +84,10 @@ public class instructorController {
 
 		}
 		
-		int insetTask =  tService.insertTask(task); 
+		int insertTask =  tService.insertTask(task); 
 		int result = 0;
 		
-		if (insetTask > 0) {
+		if (insertTask > 0) {
 			result = tService.insertTaskFile(task);
 		}
 		if (result > 0) { // �꽦怨� => 寃뚯떆湲� 由ъ뒪�듃 �럹�씠吏� url �옱�슂泥� ("list.bo")

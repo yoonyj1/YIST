@@ -185,7 +185,7 @@
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 
 			<div class="app-brand">
-				<a href="${pageContext.request.contextPath}/resources/instructor/main.jsp"> <img
+				<a href="/index.html"> <img
 					src="${pageContext.request.contextPath}/resources/instructor/images/yist_logo.png"
 					alt="Mono"> <span class="brand-name"></span>
 				</a>
@@ -216,15 +216,20 @@
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
-							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
+							class="mdi mdi-calendar-check"></i> <span class="nav-text">일정</span>
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="chat.html"> <i
-							class="mdi mdi-paperclip"></i> <span class="nav-text">강의</span>
+							class="mdi mdi-wechat"></i> <span class="nav-text">강의</span>
 					</a></li>
 
 					<li><a class="sidenav-item-link" href="contacts.html"> <i
-							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
+							class="mdi mdi-phone"></i> <span class="nav-text">강사</span>
+					</a></li>
+
+
+					<li><a class="sidenav-item-link" href="contacts.html"> <i
+							class="mdi mdi-email"></i> <span class="nav-text">성적</span>
 					</a></li>
 				</ul>
 			</div>
