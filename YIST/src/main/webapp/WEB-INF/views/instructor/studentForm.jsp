@@ -145,8 +145,10 @@ tr {
 
 
 <body marginwidth="0" marginheight="0" style="zoom: 1;">
+<div class="page-wrapper">
+	<div class="wrapper">
     <jsp:include page="../instructor/common/header.jsp"></jsp:include>
-       <div style="height: 1000px;; padding-left: 250px;"class="all">
+       <div style="height: 1000px; class="all">
         <div class="leftMenu">
             <div class="topBtnBox" style="background-color: #979cc4; height: 75px;">   
                 <div class="topBtnBox_left"><h1 style="font-size: 20px; color: white; margin-top: 27px;">학생관리</h1></div>
@@ -303,9 +305,8 @@ tr {
                 </div>
             </div><!--전체-->
 
-
-
-
-       
+		</div>
+		</div>
+       	
     </body>
 </html>

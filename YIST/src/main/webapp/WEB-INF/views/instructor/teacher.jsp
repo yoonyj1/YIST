@@ -143,10 +143,11 @@ tr {
 
 </head>
 
-
 <body marginwidth="0" marginheight="0" style="zoom: 1;">
+<div class="page-wrapper">
+	<div class="wrapper">
     <jsp:include page="../instructor/common/header.jsp"></jsp:include>
-       <div style="height: 1000px;; padding-left: 250px;"class="all">
+       <div style="height: 1000px; class="all">
         <div class="leftMenu">
  
                         <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 50px;">
@@ -229,7 +230,8 @@ tr {
 
 
 
-
+	</div>
+	</div>
        
     </body>
 </html>

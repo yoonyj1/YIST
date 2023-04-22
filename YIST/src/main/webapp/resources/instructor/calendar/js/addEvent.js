@@ -8,6 +8,7 @@ var editEnd = $('#edit-end');
 var editType = $('#edit-type');
 var editColor = $('#edit-color');
 var editDesc = $('#edit-desc');
+var userName = $('#userName');
 
 var addBtnContainer = $('.modalBtnContainer-addEvent');
 var modifyBtnContainer = $('.modalBtnContainer-modifyEvent');
@@ -46,7 +47,7 @@ var newEvent = function (start, end, eventType) {
             end: editEnd.val(),
             description: editDesc.val(),
             type: editType.val(),
-            username: '사나',
+            username: userName.val(),
             backgroundColor: editColor.val(),
             textColor: '#ffffff',
             allDay: false
@@ -90,6 +91,7 @@ var newEvent = function (start, end, eventType) {
 		console.log(eventData.backgroundColor);
 		console.log(eventData.textColor);
 		console.log(eventData.allDay);
+		console.log('${loginUser.name}');
         //새로운 일정 저장
         $.ajax({
             type: "get",
