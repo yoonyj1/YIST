@@ -227,18 +227,6 @@
             }
             
               $(function(){
-                $(".test-start").click(function(){
-                  let title = $(this).parents("tr").children().eq(2).html();
-                  
-                  if(confirm("[" + title + "] 평가를 시작하시겠습니까?")){
-                    alert("평가가 시작되었습니다");
-                    $(this).attr("disabled", true);
-                    $(this).next().attr("disabled", false);
-                    $(this).next().next().attr("disabled", false);
-                  }
-                  
-                })
-
                 $(".close, #close").click(function(){
                   let getId = '#' + $(this).parents(".s-modal").attr('id');
                   console.log(getId);
@@ -256,6 +244,27 @@
               })
 
 			  $(document).ready(function(){
+				  
+				  $(".test-start").on("click", function(){
+	                  let title = $(this).parents("tr").children().eq(2).html();
+	                  
+	                  if(confirm("[" + title + "] 평가를 시작하시겠습니까?")){
+	                    alert("평가가 시작되었습니다");
+	                    $(this).attr("disabled", true);
+	                    $(this).next().attr("disabled", false);
+	                    $(this).next().next().attr("disabled", false);
+	                    
+ 	                    let type = '70';
+						let target = 'user02';
+						let content = '시험이 시작되었습니다.';
+						let loginUser = '${loginUser.getId()}';
+						let url = '컨트롤러 매핑값';
+						//socket.send("관리자,"+target+","+content+","+url);
+						socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
+	                  }
+	                  
+	                })
+				  
 				   $(document).on("keyup","#input-score", function(){
 					 if ($(this).val() > 100){
 						 $(this).val(100);
@@ -265,6 +274,7 @@
 						 $(this).val(0);
 					 }
 				   })
+				   
 			  })
             </script>
           </div>

@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 <style>
 .contents {
-    margin-left:250px;
     padding: 0;
     overflow: auto;
     background: #fff;
+    width: 100%;
     height: 900px; 
 }
 
@@ -122,8 +122,10 @@ width: 800px;
 
 </style>
 </head>
-<jsp:include page="../instructor/common/header.jsp"></jsp:include>
 <body marginwidth="0" marginheight="0" style="zoom: 1;">
+<div class="page-wrapper">
+	<div class="wrapper">
+	<jsp:include page="../instructor/common/header.jsp"></jsp:include>
        <div class="contents">
         <h2>학생출석체크</h5>
          
@@ -215,7 +217,8 @@ width: 800px;
 					
 				</tbody>
 				</table>
-
+		</div>
+		</div>
       </div>
     </body>
 
