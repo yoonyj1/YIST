@@ -64,11 +64,6 @@ public class instructorController {
 		return "instructor/teacher";
 	}
 	
-	@RequestMapping("login.ins")
-	public String login() {
-		return "instructor/LOGIN";
-	}
-	
 	@RequestMapping(value="insert.task")
 	public String insertTask(Task task,  MultipartFile upfile, HttpSession session, Model model) {
 		
