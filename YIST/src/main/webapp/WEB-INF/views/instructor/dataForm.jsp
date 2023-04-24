@@ -16,7 +16,6 @@
        			<div class="content"><!-- For Components documentaion -->
 	       			<div class="row">
 	       				<div class="col-10"><h4 align="center">자료목록</h4></div>
-	       				<div class="col"><button align="right" type="button" class="btn btn-primary px-1 py-1">등록하기</button></div>
 	       			</div>
 	         		<hr>
 	         		
