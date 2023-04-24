@@ -57,7 +57,7 @@ public class MemberController {
 			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
-				mainPage = "student/main";
+				mainPage = "student/studentMain";
 			} else {
 				hasMember = false;
 				mainPage = "redirect:login.ins";

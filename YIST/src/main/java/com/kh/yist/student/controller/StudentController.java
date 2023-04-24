@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class StudentController {
 
+	@RequestMapping("main.st")
+	public String main() {
+		return "student/studentMain";
+	}
+	
 	@RequestMapping("testList.st")
 	public String testList() {
 		return "student/studentTestList";
@@ -43,7 +48,7 @@ public class StudentController {
 	
 	@RequestMapping("myTest.st")
 	public String myTest() {
-		return "student/studentMyTest";
+		return "student/studentMyTestState";
 	}
 	
 	@RequestMapping("myAttendance.st")
