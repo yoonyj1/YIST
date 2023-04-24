@@ -15,9 +15,15 @@ public class Task {
 
 	private int taskNo;
 	private int subjectNo;
-	private String id;
+	private String instructorId;
 	private String taskTitle;
 	private String taskContent;
 	private Date startDate;			// 등록일
 	private Date endDate;			// 제출일
+	
+	private int fileNo;
+	private String originName;
+	private String changeName;
+	private int fileLevel;
+	private String status;
 }

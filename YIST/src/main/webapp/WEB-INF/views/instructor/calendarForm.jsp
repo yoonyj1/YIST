@@ -486,7 +486,9 @@ select.filter {
 								</button>
 							</div>
 							<div class="modal-body">
-
+								<input id="userName" type="hidden" value="${loginUser.name}">
+								<input id="userId" type="hidden" value="${loginUser.id}">
+								
 								<div class="row">
 									<div class="col">
 										<label class="col-xs-4" for="edit-allDay">하루종일</label> <input
@@ -578,11 +580,11 @@ select.filter {
 							</div>
 						</div>
 
-						<div class="col-lg-6">
+						<div class="col-lg-6" style="display: none">
 							<label for="calendar_view">등록자별</label>
 							<div class="input-group">
 								<label class="checkbox-inline"><input class='filter'
-									type="checkbox" value="정연" checked>정연</label> <label
+									type="checkbox" value="강사1" checked>강사1</label> <label
 									class="checkbox-inline"><input class='filter'
 									type="checkbox" value="다현" checked>다현</label> <label
 									class="checkbox-inline"><input class='filter'
@@ -613,6 +615,8 @@ select.filter {
 
 		$(function() {
 			var eventId = 1 + Math.floor(Math.random() * 1000);
+			console.log("이름 : " + '${loginUser.name}');
+			console.log("아이디 : " + '${loginUser.id}');
 		})
 	</script>
 

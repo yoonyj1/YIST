@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 선택창</title>
+<title>로그인</title>
 <style>
 
 div.title h6 {
@@ -90,11 +90,11 @@ div.title .titleP {
 </style>
 </head>
 <body>
-
-	<!-- <div class="contents">
+	<div class="contents">
         <div class="title">
             <h6 align="center">YIST</h6>
             <p class="titlep" align="center">
+            
                 YIST 에서는 수강생들을 위해 다양한 할인혜택과 정부 지원 서비를 연계하여<br>
                 온-오프라인의 수강료 절감 등 다양한 혜택과 부가 서비스를 제공하고 있습니다.
             </p>
@@ -103,22 +103,22 @@ div.title .titleP {
             <ul>
                 <li>
                     <p>학생 로그인</p>
-                    <a href="login.ins" class="next_join" title="다음단계"><button class="sbtn">로그인</button></a>
+                    <a href="login.ins?sort=3" class="next_join" title="다음단계"><button class="sbtn">로그인</button></a>
                 </li>
                 <li>
                     <p>강사 로그인</p>
-                    <a href="" class="next_join" title="다음단계"><button class="tbtn">로그인</button></a>
+                    <a href="login.ins?sort=2" class="next_join" title="다음단계"><button class="tbtn">로그인</button></a>
                 </li>
                 <li>
                     <p>관리자 로그인</p>
-                    <a href="" class="next_join" title="다음단계"><button class="gbtn">로그인</button></a>
+                    <a href="login.ins?sort=1" class="next_join" title="다음단계"><button class="gbtn">로그인</button></a>
                 </li>
             </ul>
         </div>   
 
-    </div> -->
+    </div>
 
-	<jsp:forward page="WEB-INF/views/student/studentMain.jsp"/>
+	
 </body>
 </html>
 

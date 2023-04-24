@@ -15,40 +15,60 @@ public class MemberController {
 
 	@Autowired
 	private MemberServiceImpl mService;
-
+	
+	private int memSort = 0;
+	private boolean loginCheck = true;
+	
+	@RequestMapping("login.ins")
+	public String loginPageController(int sort, Model model, HttpSession session) {
+		System.out.println("누구인가? : " + sort);
+		memSort = sort;
+		if (!loginCheck) {
+			loginCheck = true;
+			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
+		}
+		return "LOGIN";
+	}
+	
 	@RequestMapping("login.me")
-	public String loginMember(String sort, Member m, HttpSession session , Model model) {
-
-		// 암호화 작업 전에 했던 과정
-		System.out.println(m);
+	public String loginMember(Member m, HttpSession session , Model model) {
+		
+		System.out.println("sort 적용 됬나 ? " + memSort);
+		
+		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
 		
 		System.out.println(m);
+		
 		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
 			System.out.println("로그인실패");
-			model.addAttribute("alertMsg", "로그인 실패");
-			return "redirect:/";
-			
+			loginCheck = false;
+			return "redirect:login.ins?sort=" + memSort;
 		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
-			System.out.println("로그인 성공");
-			session.setAttribute("loginUser", loginUser);
-			return "instructor/taskForm";
+
+			boolean hasMember = true;
+			
+			String mainPage = "";
+			
+			System.out.println("m.getSort() : " + m.getSort());
+			
+			if (m.getSort() == 1) { // 관리자
+				mainPage = "admin/adminSidebar";
+			} else if(m.getSort() == 2) { // 강사
+				mainPage = "instructor/main";
+			} else if(m.getSort() == 3){ // 학생
+				mainPage = "student/main";
+			} else {
+				hasMember = false;
+				mainPage = "redirect:login.ins";
+			}
+			
+			if (hasMember) {
+				session.setAttribute("loginUser", loginUser);
+			}
+			
+			return mainPage;
 		}
 
-
-		/*
-		 * // 암호화 작업 후에 해야하는 과정 // Member m userId : 사용자가 입력한 아이디 // userPwd : 사용자가 입력한
-		 * 비번(평문)
-		 * 
-		 * Member loginUser = mService.loginMember(m); // loginUser : 오로지 아이디만을 가지고 조회한
-		 * 회원 // loginUser userPwd 필드 : db에 기록된 비번(암호문)
-		 * 
-		 * if (loginUser != null && bcryptPasswordEncoder.matches(m.getUserPwd(),
-		 * loginUser.getUserPwd())) { session.setAttribute("loginUser", loginUser);
-		 * mv.setViewName("redirect:/"); } else { mv.addObject("errorMsg", "로그인 실패!");
-		 * mv.setViewName("common/errorPage"); }
-		 * 
-		 * return mv;
-		 */
 	}
 }

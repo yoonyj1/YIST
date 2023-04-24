@@ -303,7 +303,8 @@ function filtering(event) {
     }
   }
 
-  return show_username && show_type;
+  //return show_username && show_type;
+  return show_type;
 }
 
 function calDateWhenResize(event) {
