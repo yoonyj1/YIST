@@ -32,6 +32,7 @@
 
 <script src="${pageContext.request.contextPath}/resources/student/js/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/student/js/jquery-ui.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/student/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/student/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/student/js/jquery-plugin-collection.js"></script>
 </head>
