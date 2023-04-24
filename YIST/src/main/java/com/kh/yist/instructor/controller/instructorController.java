@@ -105,7 +105,7 @@ public class instructorController {
 
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
-		int ranNum = (int) (Math.random() * 90000 + 10000); // 10000 ~ 99999 �궗�씠
+		int ranNum = (int) (Math.random() * 90000 + 10000); 
 
 		String ext = originName.substring(originName.lastIndexOf("."));
 
