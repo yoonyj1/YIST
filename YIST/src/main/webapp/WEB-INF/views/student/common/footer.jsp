@@ -31,7 +31,8 @@
   </footer>
 
 <!-- JS | Custom script for all pages -->
-<script src="resources/js/custom.js"></script>
+
+<!-- <script src="resources/js/custom.js"></script> -->
 
 </body>
 

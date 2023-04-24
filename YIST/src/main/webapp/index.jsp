@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 선택창</title>
+<title>로그인</title>
 <style>
 
 div.title h6 {
@@ -102,7 +102,7 @@ div.title .titleP {
             <ul>
                 <li>
                     <p>학생 로그인</p>
-                    <a href="login.ins?sort=1" class="next_join" title="다음단계"><button class="sbtn">로그인</button></a>
+                    <a href="login.ins?sort=3" class="next_join" title="다음단계"><button class="sbtn">로그인</button></a>
                 </li>
                 <li>
                     <p>강사 로그인</p>
@@ -110,7 +110,7 @@ div.title .titleP {
                 </li>
                 <li>
                     <p>관리자 로그인</p>
-                    <a href="login.ins?sort=3" class="next_join" title="다음단계"><button class="gbtn">로그인</button></a>
+                    <a href="login.ins?sort=1" class="next_join" title="다음단계"><button class="gbtn">로그인</button></a>
                 </li>
             </ul>
         </div>   

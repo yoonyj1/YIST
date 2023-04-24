@@ -487,6 +487,7 @@ select.filter {
 							</div>
 							<div class="modal-body">
 								<input id="userName" type="hidden" value="${loginUser.name}">
+								<input id="userId" type="hidden" value="${loginUser.id}">
 								
 								<div class="row">
 									<div class="col">
@@ -615,6 +616,7 @@ select.filter {
 		$(function() {
 			var eventId = 1 + Math.floor(Math.random() * 1000);
 			console.log("이름 : " + '${loginUser.name}');
+			console.log("아이디 : " + '${loginUser.id}');
 		})
 	</script>
 

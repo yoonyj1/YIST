@@ -78,13 +78,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
+<!-- 웹소켓 -->
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
-<!-- 폴더트리 -->
-
-
-<!-- 웹소켓 -->
 
 <style type="text/css">
 </style>
@@ -206,6 +203,14 @@
 								class="mdi mdi-calendar-check"></i> <span class="nav-text">출석</span>
 					</a></li>
 
+					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
+							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
+					</a></li>
+					
+					<li><a class="sidenav-item-link" href="dataForm.ins"> <i
+							class="mdi mdi-paperclip"></i> <span class="nav-text">자료</span>
+					</a></li>
+					
 					<li><a class="sidenav-item-link" href="taskForm.ins"> <i
 							class="mdi mdi-file-document-box-multiple"></i> <span
 							class="nav-text">과제</span>
@@ -215,13 +220,7 @@
 							class="mdi mdi-pencil"></i> <span class="nav-text">시험</span>
 					</a></li>
 
-					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
-							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
-					</a></li>
 
-					<li><a class="sidenav-item-link" href="chat.html"> <i
-							class="mdi mdi-paperclip"></i> <span class="nav-text">강의</span>
-					</a></li>
 
 					<li><a class="sidenav-item-link" href="contacts.html"> <i
 							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
@@ -276,12 +275,6 @@
 				</script>
 				
 				<ul class="nav navbar-nav">
-					<!-- Offcanvas -->
-					<li class="custom-dropdown"><a
-						class="offcanvas-toggler active custom-dropdown-toggler"
-						data-offcanvas="contact-off" href="javascript:"> <i
-							class="mdi mdi-contacts icon"></i>
-					</a></li>
 					<li class="custom-dropdown">
 						<button class="notify-toggler custom-dropdown-toggler">
 							<i class="mdi mdi-bell-outline icon"></i> <span

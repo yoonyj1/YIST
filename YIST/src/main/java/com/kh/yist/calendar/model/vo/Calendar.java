@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter					// getter 메소드
 @ToString
 public class Calendar {
-	private int calId;
+	private String calId;
 	private String title;
 	private String start;
 	private String end;

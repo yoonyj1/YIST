@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>선생메인</title>
+<title>강사메인페이지</title>
 <style>
 .mLeft .mtody {
 	position: relative;

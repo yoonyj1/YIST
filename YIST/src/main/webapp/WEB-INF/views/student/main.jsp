@@ -18,7 +18,7 @@
 	  <div class="container pt-60 pb-60">
 	    <div class="row">
 	      <div class="col-md-2">
-	        <img src="resources/images/yist/profile.png" alt="" style="width: 100%">
+	        <img src="${pageContext.request.contextPath}/resources/student/images/yist/profile.png" alt="" style="width: 100%">
 	      </div>
 	      <div class="col-md-10">
 	        <div class="section-content">

@@ -295,6 +295,7 @@ insert
           , #{changeName}
           , 1
           , 'Y'
-          )
-            
+          );
+
+SELECT * FROM MEMBER;
 commit;
