@@ -94,6 +94,7 @@ div.title .titleP {
         <div class="title">
             <h6 align="center">YIST</h6>
             <p class="titlep" align="center">
+            
                 YIST 에서는 수강생들을 위해 다양한 할인혜택과 정부 지원 서비를 연계하여<br>
                 온-오프라인의 수강료 절감 등 다양한 혜택과 부가 서비스를 제공하고 있습니다.
             </p>
