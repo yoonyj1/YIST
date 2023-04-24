@@ -24,6 +24,7 @@ public class MemberController {
 		System.out.println("누구인가? : " + sort);
 		memSort = sort;
 		if (!loginCheck) {
+			loginCheck = true;
 			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
 		}
 		return "LOGIN";
