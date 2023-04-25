@@ -618,65 +618,66 @@
 
 
         
-                        <tr>
-                            <th colspan="2">
-                                <div class="align-center">
-                                    <span class="redMark">*</span>
-                                    수강과목
-                                </div>
-                            </th>
-                        </tr>
-        
-                        <tr>
-                            <td colspan="2">
-                                <table id="subjectList" width="100%" style="text-align: center;">
-                                    <tr>
-                                        <td>과목명</td>
-                                        <td>정원</td>
-                                        <td>신청인원</td>
-                                        <td>수강일자</td>
-                                        <td>선택</td>
-                                    </tr>
-                                    <tr>
-                                        <td>자바의정석</td>
-                                        <td>10</td>
-                                        <td>8</td>
-                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                        <td>
-                                            <input type="radio" name="subject-choice">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>자바의정석</td>
-                                        <td>10</td>
-                                        <td>8</td>
-                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                        <td>
-                                            <input type="radio" name="subject-choice">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>자바의정석</td>
-                                        <td>10</td>
-                                        <td>8</td>
-                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                        <td>
-                                            <input type="radio" name="subject-choice">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>자바의정석</td>
-                                        <td>10</td>
-                                        <td>8</td>
-                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-                                        <td>
-                                            <input type="radio" name="subject-choice">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-        
+                        
+						<c:if test="${ m.sort eq 3 }">
+	                        <tr>
+	                            <th colspan="2">
+	                                <div class="align-center">
+	                                    <span class="redMark">*</span>
+	                                    수강과목
+	                                </div>
+	                            </th>
+	                        </tr>
+	                        <tr>
+	                            <td colspan="2">
+	                                <table id="subjectList" width="100%" style="text-align: center;">
+	                                    <tr>
+	                                        <td>과목명</td>
+	                                        <td>정원</td>
+	                                        <td>신청인원</td>
+	                                        <td>수강일자</td>
+	                                        <td>선택</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>자바의정석</td>
+	                                        <td>10</td>
+	                                        <td>8</td>
+	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+	                                        <td>
+	                                            <input type="radio" name="subject-choice">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>자바의정석</td>
+	                                        <td>10</td>
+	                                        <td>8</td>
+	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+	                                        <td>
+	                                            <input type="radio" name="subject-choice">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>자바의정석</td>
+	                                        <td>10</td>
+	                                        <td>8</td>
+	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+	                                        <td>
+	                                            <input type="radio" name="subject-choice">
+	                                        </td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>자바의정석</td>
+	                                        <td>10</td>
+	                                        <td>8</td>
+	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
+	                                        <td>
+	                                            <input type="radio" name="subject-choice">
+	                                        </td>
+	                                    </tr>
+	                                </table>
+	                            </td>
+	                        </tr>
+						</c:if>
                     </table>
                     <div class="btn-center">
                         <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="submitForm();">가입</button>

@@ -23,6 +23,7 @@ public class MemberController {
 	public String loginPageController(int sort, Model model, HttpSession session) {
 		System.out.println("누구인가? : " + sort);
 		memSort = sort;
+		model.addAttribute("sort", sort);
 		if (!loginCheck) {
 			loginCheck = true;
 			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
@@ -70,5 +71,13 @@ public class MemberController {
 			return mainPage;
 		}
 
+	}
+	
+	@RequestMapping("enrollForm.me")
+	public String enrollForm(int sort) {
+		Member m = new Member();
+		m.setSort(sort);
+		System.out.println(m);
+		return "/student/common/memberEnrollForm";
 	}
 }
