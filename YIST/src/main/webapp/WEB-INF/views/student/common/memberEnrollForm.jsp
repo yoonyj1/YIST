@@ -252,7 +252,7 @@
                                 </div>
                             </td>
                         </tr>
-
+						
                         <tr>
                             <th>
                                 <div class="align-center">
@@ -303,23 +303,28 @@
 
                         <script>
 
+                        	//플래그
                             let idFlag = false;
                             let pwdFlag = false;
                             let agreeFlag = false;
                             let verifiedFlag = false;
 
+							//유효성
                             const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
                             const num = /[0-9]/g;
                             const engSmall = /[a-z]/g;
                             const engLarge = /[A-Z]/g;
                             const spe = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
                             const hangulcheck = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                            
+                            
+                            //입력값
                             const idResult = $("#id-resultBox");
         
 
                             function idCheck(){
-                                let id = $("#userId").val();
 
+	                            const id = $("#userId").val();
                                 
                                 if(id.length <= 1){
                                     idResult.css("color","red");
@@ -435,6 +440,31 @@
                             }
         
                             $(function(){
+                            	
+                            	const $id = $("#userId").val();
+                            	
+    							$("#idCheck-btn").click(function() {
+    								console.log('버튼누른다');
+    								$.ajax({
+    									url:'AjaxIdCheck.me'
+    									,type:'post'
+    									,async: true
+    									,data:{id:$id}
+    									,success:(result)=>{
+    										console.log(result);
+    										if(result == "NNNNY"){
+    											alert("사용가능한 아이디입니다.");
+    										}else{
+    											alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+    										}
+    									},error:()=>{
+    										alert('연결실패!');
+    									}
+    								})	
+    							})				
+
+                            	
+                            	
                                 $("#userPWd").keyup(function(){
 
                                     if($("#userPWd").val().length > 5){

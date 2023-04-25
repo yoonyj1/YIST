@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.vo.Member;
@@ -21,7 +23,7 @@ public class MemberController {
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
-		System.out.println("누구인가? : " + sort);
+//		System.out.println("누구인가? : " + sort);
 		memSort = sort;
 		model.addAttribute("sort", sort);
 		if (!loginCheck) {
@@ -73,11 +75,66 @@ public class MemberController {
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * SH
+	 * @param sort:회원분류(1:관리자, 2:강사, 3:학생)
+	 * @return 회원가입 화면으로 이동
+	 */
 	@RequestMapping("enrollForm.me")
 	public String enrollForm(int sort) {
+		
 		Member m = new Member();
 		m.setSort(sort);
-		System.out.println(m);
+		
+//		System.out.println(m);
+		
 		return "/student/common/memberEnrollForm";
 	}
+	
+	
+	
+	/**
+	 * 회원가입시 입력한 ID 중복체크
+	 * @param checkId:입력한 ID
+	 * @return 중복확인값
+	 */
+	@ResponseBody
+	@RequestMapping("AjaxIdCheck.me")
+	public String ajaxIdCheck(String checkId) {
+		int count = mService.idCheck(checkId);
+		if(count>0) {
+			// 중복
+			return "NNNNN";
+		}else {
+			return "NNNNY";
+		}
+	}
+	
 }
