@@ -39,7 +39,7 @@ public class instructorController {
 		return "instructor/examForm";
 	}
 	
-	@RequestMapping("gradeForm.ins")
+	@RequestMapping("calendar.ins")
 	public String Calendar() {
 		return "instructor/calendarForm";
 	}
@@ -67,6 +67,11 @@ public class instructorController {
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
 		return "instructor/dataForm";
+	}
+	
+	@RequestMapping("gradeForm.ins")
+	public String gradeForm() {
+		return "instructor/gradeForm";
 	}
 	
 	@RequestMapping(value="insert.task")
