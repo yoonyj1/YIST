@@ -81,7 +81,7 @@ button {
 	            <td width="60%" style="text-align: left;">
 	              <input type="text" class="form-control" id="" name="" value="user01" readonly>
 	            </td>
-	            <th rowspan="4"><img src="resources/images/yist/profile.png" alt=""></th>
+	            <th rowspan="4"><img src="resources/student/images/yist/profile.png" alt=""></th>
 	          </tr>
 	          <tr>
 	            <th>비밀번호*</th>

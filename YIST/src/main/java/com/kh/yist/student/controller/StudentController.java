@@ -1,10 +1,16 @@
 package com.kh.yist.student.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kh.yist.student.model.service.StudentService;
+
 @Controller
 public class StudentController {
+	
+	@Autowired
+	private StudentService sService;
 
 	@RequestMapping("main.st")
 	public String main() {
