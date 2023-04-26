@@ -13,7 +13,6 @@ div {
 
 
 .leftMenu {
-    width: 25%;
     height: 100%;
     background: #f0f0f1;
     box-sizing: border-box;
@@ -170,7 +169,7 @@ tr {
                                     <option value="8">수료생</option>
                                    
                                 </select>
-                                <select style="width:226px; border-radius: 3px;" name="classNo" id="classNo">
+                                <select style="width:225px; border-radius: 3px;" name="classNo" id="classNo">
                                     <option value="" selected="">---- 학급 선택 ----</option>
                                     
                                         <option value="8655">자바프로그래밍</option>
@@ -227,7 +226,7 @@ tr {
                 <div class="infoStyle03">   
                     <div id="memberInfo" style="background-color: #f8f8f8;">
                         <br>
-                        <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 5px;">
+                        <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 30px;">
                             <div id="photoArea">
                                 <div class="photoGroup" style="margin: 20px;">
                                     <img id="memBerPhoto" src="" alt="">

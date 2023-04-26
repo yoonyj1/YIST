@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 <style>
 .contents {
+    margin-left:250px;
     padding: 0;
     overflow: auto;
     background: #fff;
-    width: 100%;
     height: 900px; 
 }
 
@@ -70,11 +70,17 @@ form {
 }
 
 .hak1_button {
-    width: 39px;
-    height: 24px;
+    width: 45px;
+    height: 30px;
     background-color:#02068D ;
     border: 0px;
     color: #ffffff;
+    border-radius: 5px;
+    margin-left: 1px;
+    margin-top: 0.5px;
+}
+.hak1_button:hover{
+    background-color: rgb(30, 92, 224);
 }
 <!-- 몇명인지 나오는 칸-->
 .attendStatus {
@@ -120,15 +126,25 @@ margin: 0 auto;
 width: 800px;
     }
 
+.btn01:hover,.btn02:hover,.btn03:hover{
+    background-color: rgb(144, 233, 108);
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+}
+.btn01,.btn02,.btn03{
+    border-radius: 5px;
+    width: 60px;
+    height: 25px;
+    border: solid 1px rgb(194, 194, 194);
+}
 </style>
 </head>
+<jsp:include page="../instructor/common/header.jsp"></jsp:include>
 <body marginwidth="0" marginheight="0" style="zoom: 1;">
-<div class="page-wrapper">
-	<div class="wrapper">
-	<jsp:include page="../instructor/common/header.jsp"></jsp:include>
-       <div class="contents">
-        <h2>학생출석체크</h5>
+    <div class="contents">
+            <h2>학생출석체크</h2>
          
+
        <div class="infoStyle04">
         <form name="f" method="get" action="">
           <div class="studySearch">
@@ -137,8 +153,8 @@ width: 800px;
                 <div class="std_00">학생
                 <input type="text" id="keyword" name="keyword" class="hak1_input" value="" placeholder="학생 이름을 입력해주세요">
                 <button type="button" class="hak1_button">검색</button>
-                <span class="theDate_sp">2023-04-11 (화)</span>
-                <input type="date" class="start">
+                <!-- <span class="theDate_sp">2023-04-11 (화)</span> -->
+                <input type="date" class="start" style="margin-left: 5px;">
               </div>
               </div>
             </div>
@@ -158,7 +174,7 @@ width: 800px;
        </div> 
         
        <table cellpadding="0" cellspacing="0" class="whTable02 stdcheck" align="center">
-					<colgroup>
+					<colgroup >
 						<col width="22px">
 						<col width="44px">
 						<col width="165px">
@@ -192,34 +208,84 @@ width: 800px;
 									<td align="center">
 										<div class="btn_group_bg">
 											<div class="btn_group_1" style="margin: 5px;">
-												<button type="button" id="btn01_0"  class="btn01 ">출석</button>
-												<button type="button" id="btn02_0"  class="btn02 ">지각</button>
-												<button type="button" id="btn04_0"  class="btn04 ">결석</button>
+												<button type="button" id="btn01_0"  class="btn01 " onclick="displayDate()">출석</button>
+												<button type="button" id="btn02_0"  class="btn02 " onclick="displayDate()">지각</button>
+												<button type="button" id="btn04_0"  class="btn03 " onclick="displayDate3()">결석</button>
 											</div>
-											<input type="text" name="inHour" id="inHour_0" value="" style="width: 80px;"> 
+											<input type="text" name="inHour" id="inHour_0" value="" style="width: 60px; text-align: center;">시 
 											: 
-											<input type="text" name="inMin" id="inMin_0" value="" style="width: 80px;">
+											<input type="text" name="inMin" id="inMin_0" value="" style="width: 60px; text-align: center;">분
 										</div>
 									</td>
 									<td align="center">
 										<div class="btn_group_bg">
-											<div class="btn_group_1">
-												<button type="button" id="btn11_0"  class="btn11 ">귀가</button>
-												<button type="button" id="btn03_0"  class="btn03 ">조퇴</button>
-												<button type="button" id="btn10_0"  class="btn10 ">도망</button>
+											<div class="btn_group_1" style="margin-top: 8px; margin-bottom: 5px;">
+												<button type="button" id="btn11_0"  class="btn01" onclick="displayDate2()">귀가</button>
+												<button type="button" id="btn03_0"  class="btn02 " onclick="displayDate2()">조퇴</button>
+												<button type="button" id="btn10_0"  class="btn03 " onclick="displayDate3()">도망</button>
 											</div>
-											<input type="text" name="outHour" id="outHour_0" value="" style="width: 80px;" > 
+											<input type="text" name="outHour" id="outHour_0" value="" style="width: 60px;  text-align: center;" >시 
 											: 
-											<input type="text" name="outMin" id="outMin_0" value="" style="width: 80px;">
+											<input type="text" name="outMin" id="outMin_0" value="" style="width: 60px; text-align: center;">분
 										</div>
 									</td>
 								</tr>
-					
-				</tbody>
-				</table>
-		</div>
-		</div>
+                                
+                            </tbody>
+                        </table>
+                        
+                        <button type="button" class="hak1_button" style="margin-left: 800px; margin-top: 10px;">저장</button>
+                        <button type="button" class="hak1_button" style="margin-left: 780px; margin-top: 10px; width: 80px;" onclick="return printPage();">프린트</button>
+      					<a href="#pop_info_1" class="btn_open">프린트하기</a>
       </div>
+      	
+       	
     </body>
+
+		<script>
+			function displayDate() {
+			  var d = new Date();
+			  var hour = d.getHours();
+			  var min = d.getMinutes();
+			  document.getElementById("inHour_0").value = hour;
+			  document.getElementById("inMin_0").value = min;
+			}
+			
+			function displayDate2() {
+				  var d = new Date();
+				  var hour = d.getHours();
+				  var min = d.getMinutes();
+				  document.getElementById("outHour_0").value = hour;
+				  document.getElementById("outMin_0").value = min;
+				}
+            
+             function displayDate3() {
+                  document.getElementById("outHour_0").value = "00";
+				  document.getElementById("outMin_0").value = "00";
+				  document.getElementById("inHour_0").value = "00";
+				  document.getElementById("inMin_0").value = "00";
+				}
+             
+             var initBodyHtml;
+             function printPage(){
+            	 window.print();
+             }
+             function beforePrint(){
+            	 initBodyHtml = document.body.innerHTML;
+            	 document.body.innerHTML = document.getElementById('pirint').innerHTML;
+             }
+             function afterPrint(){
+            	 document.body.innerHTML = initBodyHtml;
+             }
+             window.onbeforeprint = beforePrint;
+             window.onafterprint =afterPrint;
+             
+             var target = document.querySelectorAll('.btn_open');
+             var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+             var targetID;
+
+             
+		</script>
+
 
 </html>
