@@ -297,5 +297,6 @@ insert
           , 'Y'
           );
 
-SELECT * FROM MEMBER;
+
+
 commit;

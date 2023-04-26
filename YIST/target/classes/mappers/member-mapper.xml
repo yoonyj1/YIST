@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="end_date" property="endDate"></result>
 		<result column="status" property="status"></result>
 		<result column="sort" property="sort"></result>
-		<result column="employ_date" property="employDate"></result>
+		<result column="employee_date" property="employeeDate"></result>
 	</resultMap>
 
 	<resultMap id="alarmResultSet" type="Alarm">
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				, end_date
 				, status
 				, sort
-				, employ_date
+				, employee_date
 		from member
 		where id = #{id} and pwd = #{pwd} and status = 'Y' and sort = #{sort}
 	</select>
