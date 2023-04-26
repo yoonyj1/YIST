@@ -108,12 +108,9 @@ public class MemberController {
 	 * @return 회원가입 화면으로 이동
 	 */
 	@RequestMapping("enrollForm.me")
-	public String enrollForm(int sort) {
+	public String enrollForm(int sort,  Model model) {
 		
-		Member m = new Member();
-		m.setSort(sort);
-		
-//		System.out.println(m);
+		model.addAttribute("sort", sort);
 		
 		return "/student/common/memberEnrollForm";
 	}
@@ -128,13 +125,18 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("AjaxIdCheck.me")
 	public String ajaxIdCheck(String checkId) {
+		
 		int count = mService.idCheck(checkId);
+		System.out.println(count);
+		
 		if(count>0) {
 			// 중복
 			return "NNNNN";
 		}else {
 			return "NNNNY";
 		}
+		
+		
 	}
 	
 }

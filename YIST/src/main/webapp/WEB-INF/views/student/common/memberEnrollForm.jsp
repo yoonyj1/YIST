@@ -145,7 +145,17 @@
           font-family: 'LINESeedKR-Bd';
           font-weight: 700;
         }
+
+        .modal-body button.btn.btn-outline-primary{
+            color: #99da87;
+        }
         
+
+        .modal-body button.btn.btn-outline-primary:hover{
+            color: white;
+        }
+
+
         div.membership-area div.accordion div.card{
           float:none;
           text-align: left;
@@ -160,6 +170,8 @@
         div.card-header{
             background-color: transparent;
         }
+
+
     </style>
 
 </head>
@@ -167,8 +179,10 @@
 
 	<jsp:include page="header.jsp"/>
 
-    <div class="enroll-area">
 
+
+    <div class="enroll-area">
+	
         <div class="membership-area" style="width:80%; margin:50px auto;">
             <div class="accordion" id="accordionOne">
                 <div class="card border-0">
@@ -197,7 +211,7 @@
                     </div>
                 </div>
                 <div style="text-align: right; margin-top: 10px; padding-right: 20px;">
-                    <input type="radio" name="" id="member-agree-essential">
+                    <input type="radio" name="agreeOne" id="member-agree-essential">
                     <label for="member-agree-essential" style="font-family: 'LINESeedKR-Bd';">회원가입 약관에 동의합니다(필수)</label>
                 </div>
         
@@ -228,12 +242,13 @@
                     </div>
                 </div>
                 <div style="text-align: right; margin-top: 10px;  padding-right: 20px;">
-                    <input type="radio" name="" id="member-agree-essential">
+                    <input type="radio" name="agreeTwo" id="member-agree-essential">
                     <label for="member-agree-essential" style="font-family: 'LINESeedKR-Bd';">개인정보취급방침에 동의합니다(필수)</label>
                 </div>
 
 
-                <form action="" method="post">
+                <form action="enroll.me" method="post">
+                	<input type="hidden" value="${ sort }">
                     <table class="table-bordered" id="memberInsert-table">
                         <tr>
                             <th>
@@ -244,7 +259,7 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:50%; padding:5px 10px; display: flex; flex-wrap: nowrap;">
-                                    <input id="userId" type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" style="width:40%; float:left;">                        
+                                    <input id="id" type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" style="width:40%; float:left;">                        
                                     <button id="idCheck-btn" type="button" class="mb-1 btn btn-outline-primary" style="margin: 5px;">ID 중복확인</button>
                                 </div>
                                 <div id="id-resultBox" class="text-daborder-danger small mt-1" style="margin-left: 10px; padding-left:10px; width: 100%; text-align:left;">
@@ -262,7 +277,7 @@
                             </th>
                             <td id="pwd-td">
                                 <div class="input-group"  style="width:40%; padding: 10px 10px 0px 10px ;">
-                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" id="userPWd" style="width:100%; ">                                                           
+                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" id="pwd" style="width:100%; ">                                                           
                                 </div>
                                 <div id="pwd-resultBox-en" class="text-daborder-danger small mt-1" style="margin-left: 5px; padding-left:10px; width: 12%; float:left;">
                                     <span class="mdi mdi-check"></span>
@@ -304,10 +319,10 @@
                         <script>
 
                         	//플래그
-                            let idFlag = false;
-                            let pwdFlag = false;
-                            let agreeFlag = false;
-                            let verifiedFlag = false;
+                            let idFlag = false; //id중복검사
+                            let pwdFlag = false; //비밀번호유효성검사
+                            let agreeFlag = false; //개인정보동의
+                            let verifiedFlag = false; //이메일인증
 
 							//유효성
                             const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
@@ -324,7 +339,7 @@
 
                             function idCheck(){
 
-	                            const id = $("#userId").val();
+	                            const id = $("#id").val();
                                 
                                 if(id.length <= 1){
                                     idResult.css("color","red");
@@ -345,7 +360,7 @@
 
                             function chkPW(){
         
-                                let pw = $("#userPWd").val();
+                                let pw = $("#pwd").val();
                                 let pwCheck = $("#pwdCheck").val();
         
 
@@ -408,7 +423,8 @@
                                     $("#pwd-td .text-daborder-danger span").addClass("mdi-check-all").css("color","lightgreen");
 
                                     $("#pwd-td .text-daborder-danger").css("color","lightgreen");
-
+                                    
+		
                                     
 
                                 }
@@ -419,7 +435,7 @@
                             function pwdEqualCheck(){
  
 
-                                var pw = $("#userPWd").val();
+                                var pw = $("#pwd").val();
                                 var pwCheck = $("#pwdCheck").val();
                                 
                                 if(pwCheck.length >= 8 && reg.test(pw)){
@@ -430,7 +446,6 @@
                                         }else{
                                             $("#pwdCheck-resultBox").css("color","red");
                                             $("#pwdCheck-resultBox").text("비밀번호가 일치하지않습니다");
-                                            // $("#pwdCheck").select();
                                         }
                                 }else{
                                     $("#pwdCheck-resultBox").css("color","#8a909d");
@@ -438,36 +453,61 @@
                                 }
         
                             }
+                            
+                            function agreeCheck(){
+                            	const $agreeOne = $("input[name=agreeOne]").is(":checked");
+                            	const $agreeTwo = $("input[name=agreeTwo]").is(":checked");
+                            	
+                            	//필수 정보 동의 검사
+                            	if($agreeOne && $agreeTwo){
+
+                            		agreeFlag = true;
+                            		
+                            	}else{
+
+                            		agreeFlag = false;
+                            	}
+                            	
+                            }
         
+                            
+                            
                             $(function(){
                             	
-                            	const $id = $("#userId").val();
+
                             	
-    							$("#idCheck-btn").click(function() {
-    								console.log('버튼누른다');
+								//ID 중복 검사                                
+                                $("#idCheck-btn").click(function() {
+                                	
+                                    const $id = $("#id").val();
+                                    
     								$.ajax({
     									url:'AjaxIdCheck.me'
     									,type:'post'
     									,async: true
-    									,data:{id:$id}
+    									,data:{checkId:$id}
     									,success:(result)=>{
-    										console.log(result);
     										if(result == "NNNNY"){
-    											alert("사용가능한 아이디입니다.");
+    											idFlag = true;
+    		                                    idResult.css("color","lightgreen");
+    		                                    idResult.text("사용할 수 있는 아이디입니다. 멋진 아이디네요!");
     										}else{
-    											alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+    											idFlag = false;
+    		                                    idResult.css("color","red");
+    		                                    idResult.text("동일한 아이디가 존재합니다. 다른 아이디를 입력해주세요");
+    		                                    $id.focus();
     										}
     									},error:()=>{
-    										alert('연결실패!');
+    										console.log('ajax 통신 실패!');
     									}
     								})	
     							})				
 
                             	
-                            	
-                                $("#userPWd").keyup(function(){
+                            	//비밀번호 유효성 검사
+                                $("#pwd").keyup(function(){
 
-                                    if($("#userPWd").val().length > 5){
+                                    if($("#pwd").val().length > 5){
                                         chkPW();
                                     }else{
                                         $("#pwd-td .text-daborder-danger span").removeClass("mdi-check-all");
@@ -481,9 +521,9 @@
                                     pwdEqualCheck();
                                 })
 
-                                $("#userId").keyup(function(){
+                                $("#id").keyup(function(){
                                     
-                                    if($("#userId").val().length > 3){
+                                    if($("#id").val().length > 3){
                                         idCheck();
                                     }else{
                                         idResult.css("color","#8a909d");
@@ -507,7 +547,7 @@
                             </th>
                             <td>
                                 <div class="input-group" style="width:40%; padding: 10px;">
-                                    <input type="text" name="" class="form-control" placeholder="이름을 입력하세요"  style="width:100%;" >                        
+                                    <input type="text" name="name" class="form-control" placeholder="이름을 입력하세요"  style="width:100%;" >                        
                                 </div>
                             </td>
                         </tr> 
@@ -522,39 +562,64 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:50%; padding:5px 10px; display: flex; flex-wrap: nowrap;">
-                                    <input type="email" class="form-control" name="" placeholder="이메일을 입력하세요"  style="width:40%;" >                        
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요"  style="width:40%;" >                        
                                     <button type="button" id="verificationBtn" class="mb-1 btn btn-outline-primary" data-toggle="modal" data-target="#verificationModal" style="margin: 5px;">본인인증</button>
-        
+                                    
+
+
+
                                     <!-- 모달 -->
                                     <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="verificationModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
+
                                         <div class="modal-content">
+
                                             <div class="modal-header">
                                                 <h3 class="modal-title" id="verificationModalLabel">본인 인증</h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
+                                                    <span aria-hidden="true" style="font-size: 0.725em;">취소</span>
                                                 </button>
                                             </div>
+
                                             <div class="modal-body" style="text-align: center; color: black;">
-                                                <form action="" method="">
+
                                                     <div style="width: 80%; padding: 10px; margin: 0 auto;">
-                                                        <input type="text" name="" value="입력한이메일" readonly class="form-control" style="width:60%; float:left;">
-                                                        <button type="button" class="btn btn-outline-primary">인증코드 발송</button> 
-                                                        <div id="identity-resultBox" style="margin-left: 10px; width: 100%; height: 50px; padding: 10px 0px;">
-                                                            <span style="display: block; float: left;">입력한 이메일로 인증코드를 발송하였습니다.</span>
+                                                        <input type="email" name="userEmail" value="" readonly class="form-control" style="width:60%; float:left;">
+                                                        <button type="button" id="sendCordBtn" class="btn btn-outline-primary">인증코드 발송</button> 
+                                                        <div class="identity-area" style="display: none; width: 100%;">
+
+                                                            <div id="identity-resultBox" style="width: 100%; height: 50px; padding: 10px 0px;">
+                                                                <span style="display: block; float: left;"></span>
+                                                            </div>
+
+                                                            
+                                                            <button type="button" id="resendBtn" style="float: left; margin-left: 10px;">인증코드 재전송</button>
+                                                            <p style="position: relative; left: -12%; z-index: 12; top: 47px; color: red;     display: inline-block;" class="timer"></p>
+                                                            
+                                                            <div style="display: flex; width: 100%; position: absolute;">
+                                                                <input type="text" name="code" class="form-control" placeholder="인증코드를 입력하세요" style="display:block; width:45%; float:left;">
+                                                                <button type="button" id="authBtn" class="btn btn-outline-primary" style="float:left;" disabled>인증코드 확인</button>
+                                                            </div>
+
+                                                            <div id="code-resultBox" style="width: 100%; height: 50px; padding: 10px 0px;">
+                                                                <span style="display: block; float: left; margin-top: 40px;"></span>
+                                                            </div>
+
                                                         </div>
-                                                        <p style="float:right;">유효시간 5:00</p>
-                                                        <input type="text" name="" class="form-control" placeholder="인증코드를 입력하세요" style="width:100%; float:left;">
+
                                                     </div>
-                                                </form>
+
+
+
                                             <br>
                                             </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal" disabled>확인</button>
-                                            </div>
+
+
                                         </div>
                                     </div>
-                                        <!--모달 끝-->                   
+                                    <!--모달 끝-->             
+                                        
+                                        
         
                                     <div class="text-daborder-danger small mt-1" style="margin-left: 10px; width: 100%;">
                                         인증할 수 있는 이메일을 입력하세요
@@ -562,6 +627,228 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <script>
+
+                            // 코드 유효성 Flag
+                            let codeValid = false; 
+
+                            // 발송 후 지난 초
+                            let currentTime = 0;
+
+                            // 유효시간 
+                            let minutes;
+                            let seconds;
+                            let timerThread;
+
+
+
+                            // 타이머
+                            let $timer = $(".timer");
+
+                            //identity-area div
+                            let $identityArea = $(".identity-area");
+
+                            // 메세지 결과
+                            let $identityResult = $("#identity-resultBox span");
+
+                            // 코드 결과
+                            let $codeResult = $("#code-resultBox span");
+
+
+                            function getEmail(){
+
+                                let $email = $("#email").val();
+                                $("input[name=userEmail]").val($email);
+                               
+
+                            }
+
+                            // 인증코드 유효시간 카운트다운 및 화면 출력
+                            function timerStart(){
+
+                                
+                                // 인증코드 유효성 true
+                                codeValid = true;
+                                // 현재 발송 시간 초기화
+                                currentTime = 0;
+                                // 20초
+                                let count = 300;
+
+                                $timer.html("05:00");
+
+                                // 1초마다 실행
+                                timerThread = setInterval(function() {
+                                    
+                                    minutes = parseInt(count / 60, 10);
+                                    seconds = parseInt(count % 60, 10);
+                            
+                                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                            
+
+                                    $timer.html(minutes + ":" + seconds);
+
+                                    
+                                    // 타이머 끝
+                                    if (--count < 0) {
+                                        timerStop();
+                                        $timer.text("시간초과");
+                                        $timer.css("color","red");
+
+                                        $codeResult.text("인증코드가 만료되었습니다.");
+                                        $codeResult.css("color","red");
+                                    }
+
+                                    currentTime++
+
+                                }, 1000);
+                        
+                            } 
+
+                            // 타이머 종료
+                            function timerStop(){
+                                // 타이머 종료
+                                clearInterval(timerThread);
+                                // 유효시간 만료
+                                codeValid = false;
+                            }
+
+                            // 인증코드가 유효하면 true, 만료되었다면 false 반환
+                            function iscodeValid(){
+
+                                return codeValid;
+
+                            }
+
+                            // 인증코드 발송 후 10초가 지났는가? 지났으면 true, 안지났으면 false
+                            function isRerequest(){
+
+                                return  currentTime>=10?true:false;
+
+                            }
+
+                            $("#verificationBtn").click(function(){
+                                getEmail();
+                            })
+
+                            // 인증코드 발송 버튼 클릭시
+                            $("#sendCordBtn").click(function(){
+
+                                // 인증코드 발송 처리
+                                // 발송된 코드 
+                                let ResponseCode = "123456";
+
+
+
+                                // 화면 처리
+
+
+                                // 인증코드 발송 버튼 비활성
+                                $("#sendCordBtn").attr("disabled",true);
+
+                                $identityArea.css("display","block");
+
+                                // 타이머 설정 및 화면에 출력
+                                timerStart();
+
+
+                                $identityResult.text("인증코드 발송!");
+                                $identityResult.css("color","black");
+
+
+
+
+                            })
+
+
+                            $("input[name=code]").keyup(function(){
+                                let $length = $("input[name=code]").val().length;
+                                if($length>=5){
+                                    $("#authBtn").attr("disabled",false);
+                                }else{
+                                    $("#authBtn").attr("disabled",true);
+                                }
+                            })
+                            
+                            
+                            $("input[name=code]").blur(function(){
+                                
+                                if(!iscodeValid()){
+                                    
+                                    $codeResult.text("인증코드가 만료되었습니다.");
+                                    $codeResult.css("color","red");
+                                    
+                                }else{
+                                    
+                                    $("#authBtn").attr("disabled",false);
+
+                                }
+                            })
+
+                            
+
+                            // 인증코드 확인 버튼 클릭할 때
+                            $("#authBtn").click(function(){
+                                    let ResponseCode = "123456";
+                                    // 타이머 시간 초과 확인
+                                    if(iscodeValid()){
+                                        let $code = $("input[name=code]").val();
+                                        // 인증코드 일치성 검사 
+                                       
+                                        if(ResponseCode == $code){
+                                            // 통과
+                                            $codeResult.text("이메일 인증 성공!")
+                                            $codeResult.css("color","lightgreen");
+                                        }
+                                        else{
+                                            // 불일치
+                                            $codeResult.text("이메일 인증 실패! 인증코드를 확인하세요")
+                                            $codeResult.css("color","red");
+                                        }
+                                    }
+                                })
+
+                                // 인증코드 재발송 버튼 클릭할 때
+                                $("#resendBtn").click(function(){
+
+                                        // 인증코드 발송 후 10초가 지났는지 확인
+                                        if(isRerequest()){
+
+                                            //ResponseCode = "987654"
+
+                                            $identityResult.text("인증코드 발송!(발송 10초 후부터 재발송 가능합니다.)");
+                                            $identityResult.css("color","black");
+                                           
+
+                                            // 타이머 리셋
+                                            timerStop()
+                                            timerStart()
+                                        }
+                                        else{
+                                            // 인증코드 발송 거부
+                                            $identityResult.text("인증코드 발송 후 10초 뒤부터 재발송 가능합니다.");
+                                            $identityResult.css("color","red");
+
+                                        }
+
+
+                                })                            
+                            
+
+
+
+
+
+
+
+                        </script>
+
+
+
+
+
+
         
                         <tr>
                             <th>
@@ -571,7 +858,7 @@
                             </th>
                             <td>
                                 <div class="input-group" style="width:40%; padding: 10px;">
-                                    <input type="date" name="" class="form-control">
+                                    <input type="date" name="birth" class="form-control">
                                 </div> 
                             </td>
                         </tr>
@@ -585,7 +872,7 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="phone" name="" class="form-control" placeholder="연락처를 입력하세요"  style="width:100%;" >                        
+                                    <input type="phone" name="phone" class="form-control" placeholder="연락처를 입력하세요"  style="width:100%;" >                        
                                 </div>                        
                                 <div class="text-daborder-danger small mt-1" style="margin-left: 10px; padding-left:10px; width: 100%; text-align:left">
                                         - 없이 숫자만 입력하세요
@@ -635,21 +922,21 @@
                             </th>
                             <td>
                                 <div class="input-group" style="width:40%; padding-left: 10px; padding-top: 10px; padding-bottom: 5px; display:flex; flex-wrap: nowrap; ">
-                                    <input type="text" id="zipcode" placeholder="우편번호" style="width: 20%;" class="form-control">
+                                    <input type="text" id="zipcode" name="post" placeholder="우편번호" style="width: 20%;" class="form-control">
                                     <button id="zipcodeBtn" type="button" class="btn btn-outline-primary" onclick="selectZipcode();" style="width: 35%;">우편번호 검색</button><br>
                                 </div>
                                 <div class="input-group" style="width:80%; padding-left: 10px; padding-bottom: 10px;">
-                                    <input type="text" id="address" placeholder="주소" style="width: 40%;" class="form-control">
-                                    <input type="text" id="detailAddress" placeholder="상세주소" style="width: 40%;" class="form-control">
+                                    <input type="text" id="address" name="address" placeholder="주소" style="width: 40%;" class="form-control">
+                                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" style="width: 40%;" class="form-control">
                                 </div>                        
                             </td>
                         </tr>
                         
 
 
-        
+
                         
-						<c:if test="${ m.sort eq 3 }">
+						<c:if test="${ sort eq 3 }">
 	                        <tr>
 	                            <th colspan="2">
 	                                <div class="align-center">
@@ -674,7 +961,7 @@
 	                                        <td>8</td>
 	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
 	                                        <td>
-	                                            <input type="radio" name="subject-choice">
+	                                            <input type="radio" name="subject">
 	                                        </td>
 	                                    </tr>
 	                                    <tr>
@@ -683,7 +970,7 @@
 	                                        <td>8</td>
 	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
 	                                        <td>
-	                                            <input type="radio" name="subject-choice">
+	                                            <input type="radio" name="subject">
 	                                        </td>
 	                                    </tr>
 	                                    <tr>
@@ -692,7 +979,7 @@
 	                                        <td>8</td>
 	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
 	                                        <td>
-	                                            <input type="radio" name="subject-choice">
+	                                            <input type="radio" name="subject">
 	                                        </td>
 	                                    </tr>
 	                                    <tr>
@@ -701,7 +988,7 @@
 	                                        <td>8</td>
 	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
 	                                        <td>
-	                                            <input type="radio" name="subject-choice">
+	                                            <input type="radio" name="subject">
 	                                        </td>
 	                                    </tr>
 	                                </table>
@@ -710,19 +997,27 @@
 						</c:if>
                     </table>
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="submitForm();">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="return submitForm();">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
 
                 <script>
                     function submitForm(){
+                    	
+                    	agreeCheck();
+                    	
+                    	console.log("동의확인");
+                    	
                         if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
-
+                        	
+                        	alert("submitForm 결과: true");
+				
                             return true;
                             
                         }else{
-
+                        	
+                        	alert("submitForm 결과: false");
                             return false;
                         }
                     }

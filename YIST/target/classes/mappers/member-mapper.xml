@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*)
 		from member
 		where
-		user_id = #{checkId}
+		id = #{checkId}
 	</select>
 
 	<!-- 알람삽입 -->
