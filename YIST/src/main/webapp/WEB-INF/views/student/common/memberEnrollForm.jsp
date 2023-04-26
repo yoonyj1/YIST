@@ -737,7 +737,17 @@
 
                                 // 인증코드 발송 처리
                                 // 발송된 코드 
-                                let ResponseCode = "123456";
+                                let responseCode = $.ajax({
+                                    url:'AjaxSendCode.me'
+                                    ,type:'post'
+                                    ,async:true
+                                    ,data:{userEmail:$("#email").val()}
+                                    ,success:()=>{
+                                        return code;
+                                    },error:()=>{
+                                        alert('ajax 통신 실패!');
+                                    }
+                                })
 
 
 
@@ -753,7 +763,7 @@
                                 timerStart();
 
 
-                                $identityResult.text("인증코드 발송!");
+                                $identityResult.text("입력한 이메일로 인증코드 발송했습니다.");
                                 $identityResult.css("color","black");
 
 
@@ -764,7 +774,7 @@
 
                             $("input[name=code]").keyup(function(){
                                 let $length = $("input[name=code]").val().length;
-                                if($length>=5){
+                                if($length>=6){
                                     $("#authBtn").attr("disabled",false);
                                 }else{
                                     $("#authBtn").attr("disabled",true);
@@ -817,7 +827,7 @@
 
                                             //ResponseCode = "987654"
 
-                                            $identityResult.text("인증코드 발송!(발송 10초 후부터 재발송 가능합니다.)");
+                                            $identityResult.text("입력한 이메일로 인증코드 발송했습니다.");
                                             $identityResult.css("color","black");
                                            
 
@@ -827,7 +837,7 @@
                                         }
                                         else{
                                             // 인증코드 발송 거부
-                                            $identityResult.text("인증코드 발송 후 10초 뒤부터 재발송 가능합니다.");
+                                            $identityResult.text("인증코드 발송 후 10초 뒤부터 재발송이 가능합니다.");
                                             $identityResult.css("color","red");
 
                                         }

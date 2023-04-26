@@ -5,11 +5,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.yist.member.model.service.MemberServiceImpl;
+import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -20,6 +20,8 @@ public class MemberController {
 	
 	private int memSort = 0;
 	private boolean loginCheck = true;
+	
+	private SendCodeService sendCode;
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
@@ -137,6 +139,15 @@ public class MemberController {
 		}
 		
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("AjaxSendCode.me")
+	public String ajaxSendCode(String userEmail) {
+		
+		System.out.println(userEmail);
+		
+		return sendCode.joinEmail(userEmail);
 	}
 	
 }
