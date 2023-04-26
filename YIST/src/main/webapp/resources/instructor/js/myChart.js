@@ -1,5 +1,8 @@
 /*======== 7. HORIZONTAL BAR CHART2 ========*/
 var horBarChart2 = document.querySelector("#horizontal-bar-chart2");
+
+
+
 if (horBarChart2 !== null) {
   var options = {
     chart: {
@@ -39,14 +42,14 @@ if (horBarChart2 !== null) {
     },
     series: [
       {
-        data: [44, 55, 41, 64, 22, 43, 21],
+        data: [2, 55],
       },
       {
-        data: [53, 32, 33, 52, 13, 44, 32],
+        data: [53, 32],
       },
     ],
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+      categories: [],
     },
     tooltip: {
       theme: "dark",
@@ -55,12 +58,20 @@ if (horBarChart2 !== null) {
       },
       y: {
         title: {
-          formatter: (seriesName) => "Sales",
+          formatter: (seriesName) => "점수",
         },
       },
     },
   };
-
+ 
+ 
+  
+let grade = [{testTitle:'자바기초',testAvg:80}, {testTitle:'타입',testAvg:70}];
+					
+for (let i in grade){
+	console.log(grade[i].testTitle);
+	options.xaxis.categories.push(grade[i].testTitle);
+}
   var chart = new ApexCharts(horBarChart2, options);
 
   chart.render();

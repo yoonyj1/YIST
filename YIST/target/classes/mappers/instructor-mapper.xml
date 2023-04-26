@@ -5,6 +5,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="instructorMapper">
 
+	<resultMap id="taskResultSet" type="Task">
+		<result column="task_no" property="taskNo"></result>
+		<result column="file_no" property="fileNo"></result>
+		<result column="subject_no" property="subjectNo"></result>
+		<result column="id" property="instructorId"></result>
+		<result column="task_title" property="taskTitle"></result>
+		<result column="task_content" property="taskContent"></result>
+		<result column="start_date" property="startDate"></result>
+		<result column="end_date" property="endDate"></result>
+		<result column="origin_name" property="originName"></result>
+		<result column="change_name" property="changeName"></result>
+		<result column="file_level" property="fileLevel"></result>
+		<result column="status" property="status"></result>
+	</resultMap>
+
 	<insert id="insertTask">
 		insert
 		    into task
@@ -50,6 +65,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          , 'Y'
 		          )
 	</insert>
+	
+	<select id="selectTaskListCount" resultType="_int">
+		select count(task_no) as "taskListCount"
+		from task			
+		where id = #{id}
+	</select>
+	
+	<select id="selectTaskList" resultMap="taskResultSet">
+		select 
+		        task_no
+		      , file_no
+		      , subject_no
+		      , id
+		      , task_title
+		      , task_content
+		      , to_char(start_date, 'YYYY-MM-DD') as "start_date"
+		      , to_char(end_date, 'YYYY-MM-DD') as "end_date"
+		      , origin_name
+		      , change_name
+		      , file_level
+		      , status
+		from task 
+		join task_file using (task_no)
+		where id = #{id}
+	</select>
 </mapper>
 
 

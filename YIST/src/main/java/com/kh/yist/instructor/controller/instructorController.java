@@ -3,6 +3,7 @@ package com.kh.yist.instructor.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -11,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
+import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.common.template.Pagination;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -25,8 +30,20 @@ public class instructorController {
 	private TaskService tService;
 	
 	@RequestMapping("taskForm.ins")
-	public String taskForm() {
-		return "instructor/taskForm";
+	public ModelAndView taskForm(@RequestParam(value = "cpage", defaultValue = "1") 
+	                        int currentPage, ModelAndView mv, HttpSession session) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+				
+		int taskListCount = tService.selectTaskListCount(m.getId());
+		
+		PageInfo pi = Pagination.getPageInfo(taskListCount, currentPage, 10, 5);
+		
+		ArrayList<Task> taskList = tService.selectTaskList(pi, m.getId());
+		
+		mv.addObject("pi", pi).addObject("taskList", taskList).setViewName("instructor/taskForm");
+		
+		return mv;
 	}
 	
 	@RequestMapping("detail.task")
@@ -83,8 +100,8 @@ public class instructorController {
 			
 			String changeName = saveFile(upfile, session);
 			
-			task.setOriginName(upfile.getOriginalFilename());
-			task.setChangeName("resources/uploadFiles/" + changeName);
+			//task.setOriginName(upfile.getOriginalFilename());
+			//task.setChangeName("resources/uploadFiles/" + changeName);
 
 		}
 		

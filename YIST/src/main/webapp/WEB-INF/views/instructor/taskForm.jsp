@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -82,7 +83,19 @@
             
             <script>
             	$(function(){
-            		$(".task-list-table>tbody tr").on("click", function(){
+            		
+            		
+            	})
+            	
+				// 과제 등록 알람            	
+				$(document).ready(function(){
+					
+					$(".task-set-btn").each(function(){
+						console.log($(this).html());
+					})
+					
+					
+					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
 	            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
             			}
@@ -103,11 +116,7 @@
             				
             			}
             		})
-            		
-            	})
-            	
-				// 과제 등록 알람            	
-				$(document).ready(function(){
+					
 					$(".task-insert").on("click",function(){
 							let type = '70';
 							let target = 'user02';
@@ -177,133 +186,84 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="col" class="task-num">1</td>
-                    <th colspan="7">자료형과 연산자1</td>
-                    <th>종료</td>
-                    <th>
-					 <button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리</button>
-                      <!-- 과제 수정, 삭제 모달 -->
-		              <div class="modal fade" id="taskUpdate1" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
-						  <div class="modal-dialog" role="document">
-						   <form method="post" action="#" enctype="multipart/form-data">
-						   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
-						   <input type="hidden" name="subjectNo" value="1">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalFormTitle">과제 관리1</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">×</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						          <div class="form-group">
-									    <label for="upfile">과제 파일 선택</label>
-		    							<input type="file" class="form-control-file" id="upfile" name="upfile">
-						          </div>
-						          <br>
-						          
-						          <div class="form-group">
-						            <label for="exampleInputPassword1">기간설정</label>
-						            <br>
-						            <label style="margin-right: 5px;">시작일</label>
-						            <input type="date" class="task-start" name="startDate">
-						            <label>~</label>
-						            <label style="margin-right: 5px;">마감일</label>
-						            <input type="date" class="task-end" name="endDate">
-						          </div>
-						          <br>
-						          
-						          <!-- 과제 제목 -->
-								  <div class="form-group">
-								     <label for="taskTitle">과제제목</label>
-								     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목">
-								  </div>
-								  
-								  <!-- 과제 내용 -->
-								  <div class="form-group">
-								    <label for="exampleFormControlTextarea1">과제 내용</label>
-								    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent"></textarea>
-								  </div>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="button" class="task-delete btn btn-primary btn-pill">삭제하기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
-						      </div>
-						    </div>
-						    </form>
-						  </div>
-						</div>	
-						<!-- 과제 수정, 삭제 모달 끝 -->				
-                    </th>
-                  </tr>
-                  
-                  <tr>
-                    <th scope="col" class="task-num">2</td>
-                    <th colspan="7">자료형과 연산자2</td>
-                    <th>2023-04-17 ~ 2023-04-18</td>
-                    <th>
-						<button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리</button>
-					<!-- 과제 수정, 삭제 모달 -->
-		              <div class="modal fade" id="taskUpdate2" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
-						  <div class="modal-dialog" role="document">
-						   <form method="post" action="#" enctype="multipart/form-data">
-						   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
-						   <input type="hidden" name="subjectNo" value="1">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="exampleModalFormTitle">과제 관리2</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">×</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						          <div class="form-group">
-									    <label for="upfile">과제 파일 선택</label>
-		    							<input type="file" class="form-control-file" id="upfile" name="upfile">
-						          </div>
-						          <br>
-						          
-						          <div class="form-group">
-						            <label for="exampleInputPassword1">기간설정</label>
-						            <br>
-						            <label style="margin-right: 5px;">시작일</label>
-						            <input type="date" class="task-start" name="startDate">
-						            <label>~</label>
-						            <label style="margin-right: 5px;">마감일</label>
-						            <input type="date" class="task-end" name="endDate">
-						          </div>
-						          <br>
-						          
-						          <!-- 과제 제목 -->
-								  <div class="form-group">
-								     <label for="taskTitle">과제제목</label>
-								     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목">
-								  </div>
-								  
-								  <!-- 과제 내용 -->
-								  <div class="form-group">
-								    <label for="exampleFormControlTextarea1">과제 내용</label>
-								    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent"></textarea>
-								  </div>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-						        <button type="submit" class="task-delete btn btn-primary btn-pill">삭제하기</button>
-						        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
-						      </div>
-						    </div>
-						    </form>
-						  </div>
-						</div>	
-						<!-- 과제 수정, 삭제 모달 끝 -->						
-                    </th>
-                  </tr>
+                	
+                	<!-- 과제 조회 시작 -->
+                	<c:forEach var="t" items="${taskList}" varStatus="status">
+                	<tr>
+	                    <th scope="col" class="task-num">${t.taskNo}</td>
+	                    <th colspan="7">${t.taskTitle}</td>
+	                    <th>${t.startDate} ~ ${t.endDate}</td>
+	                    <th>
+						 <button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리${t.taskNo}</button>
+	                      <!-- 과제 수정, 삭제 모달 -->
+			              <div class="modal fade" id="taskUpdate${t.taskNo}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
+							  <div class="modal-dialog" role="document">
+							   <form method="post" action="#" enctype="multipart/form-data">
+							   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
+							   <input type="hidden" name="subjectNo" value="1">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalFormTitle">과제 관리</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">×</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							          <div class="form-group">
+										    <label for="upfile">과제 파일 선택</label>
+										    <c:choose>
+										    	<c:when test="${ t.originName ne 'none' }">
+										    		<a href="${ t.changeName }" download="${ t.originName }">${ t.originName }</a>
+										    	</c:when>
+											    <c:otherwise>
+											    	<input type="file" class="form-control-file" id="upfile" name="upfile">
+											    </c:otherwise>
+										    </c:choose>
+							          </div>
+							          <br>
+							          
+							          <div class="form-group">
+							            <label for="exampleInputPassword1">기간설정</label>
+							            <br>
+							            <label style="margin-right: 5px;">시작일</label>
+							            <input type="date" class="task-start" name="startDate" value="${t.startDate}">
+							            <label>~</label>
+							            <label style="margin-right: 5px;">마감일</label>
+							            <input type="date" class="task-end" name="endDate" value="${t.endDate}">
+							          </div>
+							          <br>
+							          
+							          <!-- 과제 제목 -->
+									  <div class="form-group">
+									     <label for="taskTitle">과제제목</label>
+									     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목" value="${t.taskTitle}">
+									  </div>
+									  
+									  <!-- 과제 내용 -->
+									  <div class="form-group">
+									    <label for="exampleFormControlTextarea1">과제 내용</label>
+									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent">${t.taskContent}</textarea>
+									  </div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
+							        <button type="button" class="task-delete btn btn-primary btn-pill">삭제하기</button>
+							        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
+							      </div>
+							    </div>
+							    </form>
+							  </div>
+							</div>	
+							<!-- 과제 수정, 삭제 모달 끝 -->				
+	                    </th>
+                  	</tr>
+                	</c:forEach>
+                	<!-- 과제 조회 끝 -->
+                		
                 </tbody>
               </table>
 				
-              <!-- 페이징 -->
+              <!-- 페이지 이동 시작 -->
               <div class="card card-default align-items-center">
                 <div class="card-header">
                   <h2></h2>
@@ -312,31 +272,66 @@
               
                   <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                      </li>
-                      <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
-                          <span class="sr-only">Next</span>
-                        </a>
-                      </li>
+                    
+                   <c:choose>
+	                      <c:when test="${ pi.currentPage eq 1 }">
+		                      <li class="page-item disabled">
+		                        <a class="page-link" href="" aria-label="Previous">
+		                          <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+		                          <span class="sr-only">이전</span>
+		                        </a>
+	 	                      </li>
+	                      </c:when>
+	                      <c:otherwise>
+	                      	<li class="page-item">
+		                      	<a class="page-link" href="taskForm.ins?cpage=${ pi.currentPage-1 }" aria-label="Previous">
+		                          <span aria-hidden="true" class="mdi mdi-chevron-left"></span>
+		                          <span class="sr-only">이전</span>
+		                        </a>
+	                        </li>
+	                      </c:otherwise>
+                   </c:choose>
+                      
+                      <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+	                      <li class="page-item li-num">
+	                        <a class="page-link page-num" href="taskForm.ins?cpage=${p}">${ p }</a>
+	                      </li>	
+                      </c:forEach>
+                      
+                      <c:choose>
+	                      <c:when test="${ pi.currentPage eq pi.maxPage }">
+		                      <li class="page-item disabled">
+		                        <a class="page-link" href="#" aria-label="Next">
+		                          <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+		                          <span class="sr-only">다음</span>
+		                        </a>
+		                      </li>
+	                      </c:when>
+	                      <c:otherwise>
+	                      	<li class="page-item">
+		                        <a class="page-link" href="taskForm.ins?cpage=${pi.currentPage + 1}" aria-label="Next">
+		                          <span aria-hidden="true" class="mdi mdi-chevron-right"></span>
+		                          <span class="sr-only">다음</span>
+		                        </a>
+		                      </li>
+	                      </c:otherwise>
+                      </c:choose>
+                      
                     </ul>
                   </nav>
                 </div>
               </div>
+              <!-- 페이지 이동 끝 -->
+              <script>
+              	$(function(){
+              		console.log("현재 페이지 : " + ${pi.currentPage});
+              		console.log("a 태그 : " + $(".page-num").html());
+              		
+              		$(".page-num").hasClass("active");
+              	})
+              	
+              </script>
+              
             </div>
           </div>
 

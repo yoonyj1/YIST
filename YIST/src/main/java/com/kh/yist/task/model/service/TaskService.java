@@ -1,9 +1,12 @@
 package com.kh.yist.task.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.task.model.dao.TaskDao;
 import com.kh.yist.task.model.vo.Task;
 
@@ -22,6 +25,14 @@ public class TaskService {
 
 	public int insertTaskFile(Task task) {
 		return tDao.insertTaskFile(sqlSession, task);
+	}
+
+	public int selectTaskListCount(String id) {
+		return tDao.selectTaskListCount(sqlSession, id);
+	}
+
+	public ArrayList<Task> selectTaskList(PageInfo pi, String id) {
+		return tDao.selectTaskList(sqlSession, pi, id);
 	}
 	
 }
