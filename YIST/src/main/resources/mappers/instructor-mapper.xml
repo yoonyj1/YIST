@@ -68,8 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectTaskListCount" resultType="_int">
 		select count(task_no) as "taskListCount"
-		from task			
-		where id = #{id}
+		from task
+		left join task_file using (task_no)			
+		where id = #{id} and status = 'Y'
 	</select>
 	
 	<select id="selectTaskList" resultMap="taskResultSet">
@@ -87,8 +88,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      , file_level
 		      , status
 		from task 
-		join task_file using (task_no)
-		where id = #{id}
+		left join task_file using (task_no)
+		where id = #{id} and status = 'Y'
 	</select>
 </mapper>
 

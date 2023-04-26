@@ -245,48 +245,4 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
-
--- 과제 총 갯수 구하기
-select count(task_no) as "task_count"
-from task
-where id = 'INSTRUCTOR01';
-
--- 과제 목록 조회
-select 
-        task_no
-      , file_no
-      , subject_no
-      , id
-      , task_title
-      , task_content
-      , to_char(start_date, 'YYYY-MM-DD') as "start_date"
-      , to_char(end_date, 'YYYY-MM-DD') as "end_date"
-      , origin_name
-      , change_name
-      , file_level
-      , status
-from task 
-join task_file using (task_no)
-where id = 'INSTRUCTOR01';
-
--- 과제 첨부파일 목록 조회
-select * from task_file;
-select 
-        file_no
-      , task_no
-      , origin_name
-      , change_name
-      , file_level
-      , status
-from task_file
-join task using (task_no)
-where id = 'INSTRUCTOR01';
-
-update task_file
-set change_name = 'resources/instructor/uploadFiles/java_task6.png'
-where file_no = 11;
 commit;
-
-
-
-

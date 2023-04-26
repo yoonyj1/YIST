@@ -82,19 +82,34 @@
             </div>
             
             <script>
-            	$(function(){
+            	// 과제 관리(수정, 삭제)
+	            function postFormSubmit(param, idx){
+            		let formId = "#udpatePost" + idx;
+            		let startDate = "#startDate" + idx;
+            		let endDate = "#endDate" + idx;
+					
+            		let startArray = $(startDate).val().split('-');
+         	        let endArray = $(endDate).val().split('-');
+         	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
+         	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
+
+         	        if(start_date.getTime() > end_date.getTime()) {
+         	            alert("종료날짜보다 시작날짜가 작아야합니다.");
+         	            return false;
+         	        } else {
+		        		if (param == 'update'){
+		        			$(formId).attr("action", "update.task").submit();
+		        		} else {
+		        			$(formId).attr("action", "delete.task").submit();
+		        		} 
+         	        } 
             		
-            		
-            	})
-            	
-				// 과제 등록 알람            	
+	        		
+	        	}            
+            
 				$(document).ready(function(){
-					
-					$(".task-set-btn").each(function(){
-						console.log($(this).html());
-					})
-					
-					
+
+					// 과제 상세 페이지로 이동
 					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
 	            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
@@ -102,21 +117,13 @@
             			
             		})
             		
+            		// 과제 관리 모달 열기
             		$(".task-set-btn").on("click", function(e){
 						let taskSetModalId = '#taskUpdate' + $(this).parents('tr').find(".task-num").html();
             			$(taskSetModalId).modal('show');
             		})
-            		
-            		$(".task-delete").click(function(){
-            			if (confirm('정말 삭제하시겠습니까?')){
-            				// ajax ~~
-            				// success 되면
-            				location.reload();
-            				alert("??? 과제 삭제가 완료되었습니다.");
-            				
-            			}
-            		})
 					
+					// 과제 등록 알람            	
 					$(".task-insert").on("click",function(){
 							let type = '70';
 							let target = 'user02';
@@ -126,7 +133,10 @@
 							//socket.send("관리자,"+target+","+content+","+url);
 							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
 				    });
-		
+					
+					// 날짜 비교
+					$(".start")
+					
 				})
             </script>
             
@@ -175,7 +185,7 @@
                 </div>
               </div>
 
-
+			  <div style="height: 400px">
               <table class="table task-list-table" style="text-align: center;">
                 <thead style="background-color: lightgray;">
                   <tr>
@@ -194,17 +204,19 @@
 	                    <th colspan="7">${t.taskTitle}</td>
 	                    <th>${t.startDate} ~ ${t.endDate}</td>
 	                    <th>
-						 <button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리${t.taskNo}</button>
+						 <button type="button" class="task-set-btn btn btn-primary btn-pill py-1">관리</button>
 	                      <!-- 과제 수정, 삭제 모달 -->
 			              <div class="modal fade" id="taskUpdate${t.taskNo}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle" aria-hidden="true" style="text-align: left">
-							  <div class="modal-dialog" role="document">
-							   <form method="post" action="#" enctype="multipart/form-data">
+							  <div class="modal-dialog modal-lg" role="document">
+							   <form id="udpatePost${t.taskNo}" method="post" action="" enctype="multipart/form-data">
 							   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
-							   <input type="hidden" name="subjectNo" value="1">
+							   <input type="hidden" name="taskNo" value="${t.taskNo}">
+							   <input type="hidden" name="subjectNo" value="${t.subjectNo}">
+							   <input type="hidden" name="status" value="${t.status}">
 							    <div class="modal-content">
 							      <div class="modal-header">
 							        <h5 class="modal-title" id="exampleModalFormTitle">과제 관리</h5>
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="history.go(0)">
 							          <span aria-hidden="true">×</span>
 							        </button>
 							      </div>
@@ -214,6 +226,8 @@
 										    <c:choose>
 										    	<c:when test="${ t.originName ne 'none' }">
 										    		<a href="${ t.changeName }" download="${ t.originName }">${ t.originName }</a>
+										    		<input type="hidden" name="originName" value="${t.originName}">
+										    		<input type="hidden" name="changeName" value="${t.changeName}">
 										    	</c:when>
 											    <c:otherwise>
 											    	<input type="file" class="form-control-file" id="upfile" name="upfile">
@@ -226,10 +240,10 @@
 							            <label for="exampleInputPassword1">기간설정</label>
 							            <br>
 							            <label style="margin-right: 5px;">시작일</label>
-							            <input type="date" class="task-start" name="startDate" value="${t.startDate}">
+							            <input type="date" id="startDate${t.taskNo}" class="task-start" name="startDate" value="${t.startDate}">
 							            <label>~</label>
 							            <label style="margin-right: 5px;">마감일</label>
-							            <input type="date" class="task-end" name="endDate" value="${t.endDate}">
+							            <input type="date" id="endDate${t.taskNo}" class="task-end" name="endDate" value="${t.endDate}">
 							          </div>
 							          <br>
 							          
@@ -242,13 +256,20 @@
 									  <!-- 과제 내용 -->
 									  <div class="form-group">
 									    <label for="exampleFormControlTextarea1">과제 내용</label>
-									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent">${t.taskContent}</textarea>
+									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent" >${t.taskContent}</textarea>
 									  </div>
+									  
+									  	<c:if test="${ t.changeName ne 'none' }">
+									  		<div class="card">
+									  			<img src="${t.changeName }" class="card-img-top" alt="...">
+									  		</div>
+									  	</c:if>
+									  
 							      </div>
 							      <div class="modal-footer">
-							        <button type="button" class="close-btn btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-							        <button type="button" class="task-delete btn btn-primary btn-pill">삭제하기</button>
-							        <button type="submit" class="task-btn btn btn-primary btn-pill">수정하기</button>
+							        <button type="button" class="close-btn btn btn-danger btn-pill" onClick="history.go(0)">닫기</button>
+							        <button type="button" class="task-delete btn btn-primary btn-pill" onclick="postFormSubmit('delete', ${t.taskNo})";>삭제하기</button>
+							        <button type="button" class="task-btn btn btn-primary btn-pill" onclick="postFormSubmit('update', ${t.taskNo})";>수정하기</button>
 							      </div>
 							    </div>
 							    </form>
@@ -262,7 +283,7 @@
                 		
                 </tbody>
               </table>
-				
+			</div>
               <!-- 페이지 이동 시작 -->
               <div class="card card-default align-items-center">
                 <div class="card-header">
@@ -293,8 +314,8 @@
                    </c:choose>
                       
                       <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
-	                      <li class="page-item li-num">
-	                        <a class="page-link page-num" href="taskForm.ins?cpage=${p}">${ p }</a>
+	                      <li class="page-item page-num">
+	                        <a class="page-link" href="taskForm.ins?cpage=${p}">${ p }</a>
 	                      </li>	
                       </c:forEach>
                       
@@ -324,10 +345,12 @@
               <!-- 페이지 이동 끝 -->
               <script>
               	$(function(){
-              		console.log("현재 페이지 : " + ${pi.currentPage});
-              		console.log("a 태그 : " + $(".page-num").html());
-              		
-              		$(".page-num").hasClass("active");
+              		// 페이지 번호 색상 표시
+					$(".page-num").each(function(){
+						if (${pi.currentPage} == $(this).children().html()){
+							$(this).addClass("active");
+						}
+					})
               	})
               	
               </script>
