@@ -259,7 +259,7 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:50%; padding:5px 10px; display: flex; flex-wrap: nowrap;">
-                                    <input id="id" type="text" class="form-control" name="" placeholder="사용할 아이디를 입력하세요" style="width:40%; float:left;">                        
+                                    <input id="id" name="id" type="text" class="form-control"placeholder="사용할 아이디를 입력하세요" style="width:40%; float:left;">                        
                                     <button id="idCheck-btn" type="button" class="mb-1 btn btn-outline-primary" style="margin: 5px;">ID 중복확인</button>
                                 </div>
                                 <div id="id-resultBox" class="text-daborder-danger small mt-1" style="margin-left: 10px; padding-left:10px; width: 100%; text-align:left;">
@@ -277,7 +277,7 @@
                             </th>
                             <td id="pwd-td">
                                 <div class="input-group"  style="width:40%; padding: 10px 10px 0px 10px ;">
-                                    <input type="password" class="form-control" name="" placeholder="사용할 비밀번호를 입력하세요" id="pwd" style="width:100%; ">                                                           
+                                    <input name="pwd" type="password" class="form-control"placeholder="사용할 비밀번호를 입력하세요" id="pwd" style="width:100%; ">                                                           
                                 </div>
                                 <div id="pwd-resultBox-en" class="text-daborder-danger small mt-1" style="margin-left: 5px; padding-left:10px; width: 12%; float:left;">
                                     <span class="mdi mdi-check"></span>
@@ -472,7 +472,8 @@
                             	
                             }
 
-                            function submitForm(){
+                            function submitForm(event){
+                                event.preventDefault();
 
                                 agreeCheck();
                                 
@@ -1041,7 +1042,7 @@
                     
                     
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm(); return false;">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm(); /*return false;*/">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>

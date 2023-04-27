@@ -166,7 +166,7 @@ public class MemberController {
 	
 	@RequestMapping("enroll.me")
 	public String insertMember(Member m, HttpSession session, Model model) {
-		System.out.println("컨트롤 시~작~");
+
 		System.out.println(m);
 		
 		
