@@ -1,5 +1,7 @@
 package com.kh.yist.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +9,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.service.SubjectServiceImpl;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
 public class MemberController {
 
 	@Autowired
 	private MemberServiceImpl mService;
+	
+	@Autowired
+	private SubjectServiceImpl sService;
 	
 	private int memSort = 0;
 	private boolean loginCheck = true;
@@ -104,12 +112,17 @@ public class MemberController {
 	 * @param sort:회원분류(1:관리자, 2:강사, 3:학생)
 	 * @return 회원가입 화면으로 이동
 	 */
-	@RequestMapping("enrollForm.me")
-	public String enrollForm(int sort,  Model model) {
+	@RequestMapping(value="enrollForm.me")
+	public ModelAndView enrollForm(int sort,  ModelAndView mv) {
 		
-		model.addAttribute("sort", sort);
+		ArrayList<Subject> list = new ArrayList<Subject>();
 		
-		return "/student/common/memberEnrollForm";
+		if(sort==3) {
+			list = sService.selectSubjectList();
+		}
+		
+		mv.addObject("sort",sort).addObject("list", list).setViewName("/student/common/memberEnrollForm");
+		return mv;
 	}
 	
 	
@@ -143,6 +156,12 @@ public class MemberController {
 		System.out.println(userEmail);
 		
 		return sendCode.joinEmail(userEmail);
+		
+		
+		
+		
+		
+		
 	}
 	
 
@@ -159,7 +178,7 @@ public class MemberController {
 
 
 
-
+}//end
 
 
 
