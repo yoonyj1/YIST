@@ -248,7 +248,7 @@
 
 
                 <form action="enroll.me" method="post">
-                	<input type="hidden" value="${ sort }">
+                	<input type="hidden" name="sort" value="${ sort }">
                     <table class="table-bordered" id="memberInsert-table">
                         <tr>
                             <th>
@@ -455,19 +455,46 @@
                             }
                             
                             function agreeCheck(){
-                            	const $agreeOne = $("input[name=agreeOne]").is(":checked");
-                            	const $agreeTwo = $("input[name=agreeTwo]").is(":checked");
+                            	let $agreeOne = $("input[name=agreeOne]").is(":checked");
+                            	let $agreeTwo = $("input[name=agreeTwo]").is(":checked");
                             	
                             	//필수 정보 동의 검사
                             	if($agreeOne && $agreeTwo){
 
                             		agreeFlag = true;
-                            		
+                            		console.log("agreeFlag : "+ agreeFlag );
                             	}else{
 
                             		agreeFlag = false;
+                            		console.log("agreeFlag : "+ agreeFlag );
+
                             	}
                             	
+                            }
+
+                            function submitForm(){
+
+                                agreeCheck();
+                                
+                                
+                                if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
+                                    
+                                    if(confirm("정말 가입하시겠습니까?")){
+                                        
+                                        return true;
+
+                                    }else{
+
+                                        return false;
+
+                                    };
+                                    
+                                    
+                                }else{
+                                    
+                                    alert("submitForm 결과: false");
+                                    return false;
+                                }
                             }
         
                             
@@ -531,6 +558,14 @@
                                     }
                                 })       
 
+
+
+
+
+
+
+
+
                             })
 
 
@@ -577,7 +612,7 @@
                                             <div class="modal-header">
                                                 <h3 class="modal-title" id="verificationModalLabel">본인 인증</h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true" style="font-size: 0.725em;">취소</span>
+                                                    <span aria-hidden="true" style="font-size: 0.725em;">닫기</span>
                                                 </button>
                                             </div>
 
@@ -641,7 +676,8 @@
                             let seconds;
                             let timerThread;
 
-
+                            // 인증코드
+                            let responseCode = "";
 
                             // 타이머
                             let $timer = $(".timer");
@@ -737,21 +773,17 @@
 
                                 // 인증코드 발송 처리
                                 // 발송된 코드 
-                                let responseCode = $.ajax({
+                                $.ajax({
                                     url:'AjaxSendCode.me'
                                     ,type:'post'
-                                    ,async:true
                                     ,data:{userEmail:$("#email").val()}
-                                    ,success:()=>{
-                                        return code;
+                                    ,success:(data)=>{
+                                    	responseCode = data;
+                                    	console.log(responseCode);
                                     },error:()=>{
                                         alert('ajax 통신 실패!');
                                     }
-                                })
-
-
-
-                                // 화면 처리
+                                });
 
 
                                 // 인증코드 발송 버튼 비활성
@@ -765,8 +797,6 @@
 
                                 $identityResult.text("입력한 이메일로 인증코드 발송했습니다.");
                                 $identityResult.css("color","black");
-
-
 
 
                             })
@@ -800,21 +830,27 @@
 
                             // 인증코드 확인 버튼 클릭할 때
                             $("#authBtn").click(function(){
-                                    let ResponseCode = "123456";
                                     // 타이머 시간 초과 확인
                                     if(iscodeValid()){
+                                    	
                                         let $code = $("input[name=code]").val();
-                                        // 인증코드 일치성 검사 
                                        
-                                        if(ResponseCode == $code){
+                                        	
+                                        // 인증코드 일치 검사 
+                                        if(responseCode == $code){
                                             // 통과
                                             $codeResult.text("이메일 인증 성공!")
                                             $codeResult.css("color","lightgreen");
+                                            verifiedFlag = true;
+                                            console.log("verifiedFlag"+verifiedFlag);
                                         }
                                         else{
                                             // 불일치
                                             $codeResult.text("이메일 인증 실패! 인증코드를 확인하세요")
                                             $codeResult.css("color","red");
+                                            verifiedFlag = false;
+                                            console.log("verifiedFlag"+verifiedFlag);
+
                                         }
                                     }
                                 })
@@ -825,15 +861,27 @@
                                         // 인증코드 발송 후 10초가 지났는지 확인
                                         if(isRerequest()){
 
-                                            //ResponseCode = "987654"
 
                                             $identityResult.text("입력한 이메일로 인증코드 발송했습니다.");
                                             $identityResult.css("color","black");
+                                            
+                                            $.ajax({
+                                                url:'AjaxSendCode.me'
+                                                ,type:'post'
+                                                ,data:{userEmail:$("#email").val()}
+                                                ,success:(data)=>{
+                                                	responseCode = data;
+                                                	console.log(responseCode);
+                                                },error:()=>{
+                                                    alert('ajax 통신 실패!');
+                                                }
+                                            });
                                            
 
                                             // 타이머 리셋
                                             timerStop()
                                             timerStart()
+
                                         }
                                         else{
                                             // 인증코드 발송 거부
@@ -844,13 +892,6 @@
 
 
                                 })                            
-                            
-
-
-
-
-
-
 
                         </script>
 
@@ -889,6 +930,8 @@
                                 </div>
                             </td>
                         </tr>
+                        
+                        
                         <script  src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                         <script>
         
@@ -923,7 +966,9 @@
                                 // ,theme: themeObj
                                 });
                             }
-                        </script>        
+                        </script> 
+                        
+                               
                         <tr>
                             <th>
                                 <div class="align-center">
@@ -991,13 +1036,10 @@
                         
                     </table>
                     
-                    <script></script>
-                    
-                    
                     
                     
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="return submitForm();">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick="submitForm();return false;">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
@@ -1005,24 +1047,7 @@
                 <script>
                 
                 
-                    function submitForm(){
-                    	
-                    	agreeCheck();
-                    	
-                    	console.log("동의확인");
-                    	
-                        if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
-                        	
-                        	alert("submitForm 결과: true");
-				
-                            return true;
-                            
-                        }else{
-                        	
-                        	alert("submitForm 결과: false");
-                            return false;
-                        }
-                    }
+
                 </script>
 
             </div>

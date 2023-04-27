@@ -59,29 +59,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertMember">
 		insert
-		into member
-		(
-		user_id
-		, user_pwd
-		, user_name
-		, email
-		, gender
-		, age
-		, phone
-		, address
-		)
+		  into member
+				(
+					id
+					, name
+					, pwd
+					, birth
+					, phone
+					, image
+					, email
+					, post
+					, address
+					, detail_address
+					, subject
+					, enroll_date
+					, start_date
+					, end_date
+					, status
+					, sort
+					, employee_date
+				)
 		values
-		(
-		#{userId}
-		, #{userPwd}
-		,
-		#{userName}
-		, #{email}
-		, #{gender}
-		, #{age}
-		, #{phone}
-		, #{address}
-		)
+				(
+					#{id}
+					, #{name}
+					, #{pwd}
+					, #{birth}
+					, #{phone}
+					, default
+					, #{email}
+					, #{post}
+					, #{address}
+					, #{detailAddress}
+					, #{subject}
+					, sysdate
+					, #{start_date}
+					, #{end_date}
+					, 'Y'
+					, #{sort}
+					, sysdate
+				)
 	</insert>
 
 	<update id="updateMember">
