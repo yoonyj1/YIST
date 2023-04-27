@@ -955,7 +955,7 @@
                                     </div>
                                 </th>
                             </tr>
-                        </c:if>
+
                         <tr>
                             <td colspan="2">
                                 <table id="subjectList" width="100%" style="text-align: center;">
@@ -967,7 +967,7 @@
                                         <td>선택</td>
                                     </tr>
                                     <c:choose>
-                                        <c:when test="${ empty list }">
+                                        <c:when test="${ empty list and sort eq 3 }">
                                             <tr><td colspan="5">수강할 수 있는 과목이 없습니다.</td></tr>
                                         </c:when>
                                         <c:otherwise>
@@ -978,7 +978,7 @@
                                                     <td>${ s.currentSeats }</td>
                                                     <td>${ s.startDate } ~ ${ s.endDate }</td>
                                                     <td>
-                                                        <input type="radio" name="subject">
+                                                        <input type="radio" name="subject" value="${s.subjectNo}">
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -987,7 +987,7 @@
                                 </table>
                             </td>
                         </tr>
-                        
+                    </c:if>
                         
                     </table>
                     
