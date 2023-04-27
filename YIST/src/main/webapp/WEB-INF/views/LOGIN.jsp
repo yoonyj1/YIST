@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,13 +123,13 @@ div.title .titleP {
 				<ul align="center">
 					<li><a href="" style="text-decoration-line: none;">아이디찾기</a></li>
 					<li><a href="" style="text-decoration-line: none;">비밀번호찾기</a></li>
-					<li><a href="" style="text-decoration-line: none;">회원가입</a></li>
+					<li><a href="enrollForm.me?sort=${sort}"  style="text-decoration-line: none;">회원가입</a></li>
 				</ul>
 			</form>
 		</div>
 
 	</div>
-
+	
 	<!-- <script src="${pageContext.request.contextPath}/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 </body>
 </html>

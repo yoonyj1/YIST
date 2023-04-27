@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.yist.member.model.service.MemberServiceImpl;
+import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -19,10 +21,13 @@ public class MemberController {
 	private int memSort = 0;
 	private boolean loginCheck = true;
 	
+	private SendCodeService sendCode;
+	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
-		System.out.println("누구인가? : " + sort);
+//		System.out.println("누구인가? : " + sort);
 		memSort = sort;
+		model.addAttribute("sort", sort);
 		if (!loginCheck) {
 			loginCheck = true;
 			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
@@ -72,12 +77,74 @@ public class MemberController {
 
 	}
 	
+
+	
+	
 	@RequestMapping("logout.me")
 	public String logOut(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
-}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * SH
+	 * @param sort:회원분류(1:관리자, 2:강사, 3:학생)
+	 * @return 회원가입 화면으로 이동
+	 */
+	@RequestMapping("enrollForm.me")
+	public String enrollForm(int sort,  Model model) {
+		
+		model.addAttribute("sort", sort);
+		
+		return "/student/common/memberEnrollForm";
+	}
+	
+	
+	
+	/**
+	 * 회원가입시 입력한 ID 중복체크
+	 * @param checkId:입력한 ID
+	 * @return 중복확인값
+	 */
+	@ResponseBody
+	@RequestMapping("AjaxIdCheck.me")
+	public String ajaxIdCheck(String checkId) {
+		
+		int count = mService.idCheck(checkId);
+		System.out.println(count);
+		
+		if(count>0) {
+			// 중복
+			return "NNNNN";
+		}else {
+			return "NNNNY";
+		}
+		
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("AjaxSendCode.me")
+	public String ajaxSendCode(String userEmail) {
+		
+		System.out.println(userEmail);
+		
+		return sendCode.joinEmail(userEmail);
+	}
+	
 
 
 
