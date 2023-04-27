@@ -4,10 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <title>Insert title here</title>
-
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+.btn-dark {
+	position: absolute;
+	z-index: 999;
+}
+</style>
 </head>
 <body>
 
@@ -30,8 +36,21 @@
 	              <li>김시연 강사님</li>
 	              <br>
 	              <li>
-	                <a href="#" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</a>
-	                <a href="#" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
+	              <a href='' class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
+	                <!-- <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</button> -->
+	                <button type="button" class="btn btn-dark btn-theme-colored btn-circled position-relative" 
+	                tabindex="0" data-toggle="popover" data-bs-trigger="focus" title="알림" data-html="true" data-content="
+                      <a href='testList.st'>채점이 완료되었습니다.</a>
+                      <hr>
+                      <a href='testList.st'>공지사항이 등록되었습니다.</a>
+                      <hr>
+                      <a href='testList.st'>등록하신 게시글에 댓글이 달렸습니다.</a>
+
+                      " data-placement="right">&nbsp;&nbsp;알림&nbsp;&nbsp;
+                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+					    5
+					  </span>
+                      </button>
 	              </li>
 	            </ul>
 	          </div>
@@ -40,7 +59,39 @@
 	    </div>
 	  </div>
 	</section>
-
+	
+	<script>
+      $(function () {
+        $('[data-toggle="popover"]').popover()
+      });
+    </script>
+	
+	<!-- <div class="modal" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">알림</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+	      <div class="modal-body">
+			
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-theme-colored" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div> -->
+	
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		  $(".btn").click(function() {
+		    $("#myModal").modal();
+		  });
+		});
+	</script> -->
+	
     <section>
       <div class="container">
         <div class="row multi-row-clearfix">

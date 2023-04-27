@@ -9,8 +9,6 @@ import com.kh.yist.student.model.service.StudentService;
 @Controller
 public class StudentController {
 	
-	@Autowired
-	private StudentService sService;
 
 	@RequestMapping("main.st")
 	public String main() {
