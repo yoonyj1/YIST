@@ -106,9 +106,41 @@ public class instructorController {
 	}
 	
 	@RequestMapping("update.task")
-	public void updateTask(Task task) {
-		System.out.println("업데이트");
-		System.out.println(task);
+	public String updateTask(Task task, MultipartFile reupfile, HttpSession session, Model model) {
+
+		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
+		System.out.println("원본 파일 : " + task.getOriginName());
+		
+		if (!reupfile.getOriginalFilename().equals("")) {// 수정할 첨부 파일이 있을 경우
+			
+			if (task.getOriginName() != null) { // 원본 파일이 있을 경우
+				new File(session.getServletContext().getRealPath(task.getChangeName())).delete(); // 원본 파일 삭제
+			}
+			
+			String changeName = saveFile(reupfile, session);
+			
+			task.setOriginName(reupfile.getOriginalFilename());
+			task.setChangeName("resources/instructor/uploadFiles/" + changeName);
+		}
+		
+		int result = tService.updateTask(task);
+		
+		if (result > 0) {
+			model.addAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
+		} else {
+			model.addAttribute("alertMsg", "게시글 수정에 실패했습니다.");
+		}
+		
+		return "redirect:taskForm.ins";
+		
+	}
+	
+	@RequestMapping("delete.task")
+	public String deleteTask(Task task) {
+		
+		
+		
+		return "redirect:taskForm.ins";
 	}
 	
 	@RequestMapping("taskForm.ins")
@@ -139,9 +171,9 @@ public class instructorController {
 
 		String ext = originName.substring(originName.lastIndexOf("."));
 
-		String changeName = currentTime + ranNum + ext;
+		String changeName = originName;
 
-		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+		String savePath = session.getServletContext().getRealPath("/resources/instructor/uploadFiles/");
 
 		try {
 			upfile.transferTo(new File(savePath + changeName));

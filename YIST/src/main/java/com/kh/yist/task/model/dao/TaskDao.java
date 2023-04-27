@@ -38,4 +38,17 @@ public class TaskDao {
 		return (ArrayList) sqlSession.selectList("instructorMapper.selectTaskList", id, rowBounds);
 	}
 
+	public int updateTask(SqlSessionTemplate sqlSession, Task task) {
+		
+		int update1, update2 = 0;
+		
+		update1 = sqlSession.update("instructorMapper.updateTask", task);
+		
+		if (update1 > 0) {
+			update2 = sqlSession.update("instructorMapper.updateTaskFile", task);
+		}
+		
+		return update2; 
+	}
+
 }

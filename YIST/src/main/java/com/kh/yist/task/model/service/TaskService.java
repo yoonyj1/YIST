@@ -34,5 +34,9 @@ public class TaskService {
 	public ArrayList<Task> selectTaskList(PageInfo pi, String id) {
 		return tDao.selectTaskList(sqlSession, pi, id);
 	}
+
+	public int updateTask(Task task) {
+		return tDao.updateTask(sqlSession, task);
+	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -134,8 +135,7 @@
 							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
 				    });
 					
-					// 날짜 비교
-					$(".start")
+
 					
 				})
             </script>
@@ -223,15 +223,14 @@
 							      <div class="modal-body">
 							          <div class="form-group">
 										    <label for="upfile">과제 파일 선택</label>
+										    <input type="file" class="form-control-file" id="upfile" name="reupfile">
 										    <c:choose>
 										    	<c:when test="${ t.originName ne 'none' }">
+										    		다운로드 : 
 										    		<a href="${ t.changeName }" download="${ t.originName }">${ t.originName }</a>
 										    		<input type="hidden" name="originName" value="${t.originName}">
 										    		<input type="hidden" name="changeName" value="${t.changeName}">
 										    	</c:when>
-											    <c:otherwise>
-											    	<input type="file" class="form-control-file" id="upfile" name="upfile">
-											    </c:otherwise>
 										    </c:choose>
 							          </div>
 							          <br>
@@ -241,9 +240,11 @@
 							            <br>
 							            <label style="margin-right: 5px;">시작일</label>
 							            <input type="date" id="startDate${t.taskNo}" class="task-start" name="startDate" value="${t.startDate}">
+							            <input type="hidden" value="${t.startDate}">
 							            <label>~</label>
 							            <label style="margin-right: 5px;">마감일</label>
 							            <input type="date" id="endDate${t.taskNo}" class="task-end" name="endDate" value="${t.endDate}">
+							            <input type="hidden" value="${t.endDate}">
 							          </div>
 							          <br>
 							          

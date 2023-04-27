@@ -144,6 +144,7 @@ public class MemberController {
 		
 		return sendCode.joinEmail(userEmail);
 	}
+}
 	
 
 
