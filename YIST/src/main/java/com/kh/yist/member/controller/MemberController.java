@@ -163,6 +163,7 @@ public class MemberController {
 		
 		
 	}
+}
 	
 
 
@@ -178,7 +179,6 @@ public class MemberController {
 
 
 
-}//end
 
 
 
