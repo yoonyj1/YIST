@@ -77,19 +77,14 @@ public class MemberController {
 
 	}
 	
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("logout.me")
+	public String logOut(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	
 	
@@ -150,4 +145,25 @@ public class MemberController {
 		return sendCode.joinEmail(userEmail);
 	}
 	
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
