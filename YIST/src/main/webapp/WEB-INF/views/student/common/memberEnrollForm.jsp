@@ -1024,6 +1024,8 @@
                                                     <td>${ s.startDate } ~ ${ s.endDate }</td>
                                                     <td>
                                                         <input type="radio" name="subject" value="${s.subjectNo}">
+                                                        <input type="hidden" name="startDate" value="${s.startDate}">
+                                                        <input type="hidden" name="endDate" value="${s.endDate}">
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -1039,7 +1041,7 @@
                     
                     
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick="submitForm();return false;">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm(); return false;">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
