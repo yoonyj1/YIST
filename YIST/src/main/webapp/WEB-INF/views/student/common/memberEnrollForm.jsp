@@ -946,66 +946,56 @@
 
 
                         
-						<c:if test="${ sort eq 3 }">
-	                        <tr>
-	                            <th colspan="2">
-	                                <div class="align-center">
-	                                    <span class="redMark">*</span>
-	                                    수강과목
-	                                </div>
-	                            </th>
-	                        </tr>
-	                        <tr>
-	                            <td colspan="2">
-	                                <table id="subjectList" width="100%" style="text-align: center;">
-	                                    <tr>
-	                                        <td>과목명</td>
-	                                        <td>정원</td>
-	                                        <td>신청인원</td>
-	                                        <td>수강일자</td>
-	                                        <td>선택</td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>자바의정석</td>
-	                                        <td>10</td>
-	                                        <td>8</td>
-	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-	                                        <td>
-	                                            <input type="radio" name="subject">
-	                                        </td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>자바의정석</td>
-	                                        <td>10</td>
-	                                        <td>8</td>
-	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-	                                        <td>
-	                                            <input type="radio" name="subject">
-	                                        </td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>자바의정석</td>
-	                                        <td>10</td>
-	                                        <td>8</td>
-	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-	                                        <td>
-	                                            <input type="radio" name="subject">
-	                                        </td>
-	                                    </tr>
-	                                    <tr>
-	                                        <td>자바의정석</td>
-	                                        <td>10</td>
-	                                        <td>8</td>
-	                                        <td>20XX.XX.XX ~ 20XX.XX.XX</td>
-	                                        <td>
-	                                            <input type="radio" name="subject">
-	                                        </td>
-	                                    </tr>
-	                                </table>
-	                            </td>
-	                        </tr>
-						</c:if>
+                        <c:if test="${ sort eq 3 }">
+                            <tr>
+                                <th colspan="2">
+                                    <div class="align-center">
+                                        <span class="redMark">*</span>
+                                        수강과목
+                                    </div>
+                                </th>
+                            </tr>
+                        </c:if>
+                        <tr>
+                            <td colspan="2">
+                                <table id="subjectList" width="100%" style="text-align: center;">
+                                    <tr>
+                                        <td>과목명</td>
+                                        <td>정원</td>
+                                        <td>신청인원</td>
+                                        <td>수강일자</td>
+                                        <td>선택</td>
+                                    </tr>
+                                    <c:choose>
+                                        <c:when test="${ empty list }">
+                                            <tr><td colspan="5">수강할 수 있는 과목이 없습니다.</td></tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach var='s' items="${ list }">
+                                                <tr>
+                                                    <td>${ s.subjectName }</td>
+                                                    <td>${ s.maximumSeats }</td>
+                                                    <td>${ s.currentSeats }</td>
+                                                    <td>${ s.startDate } ~ ${ s.endDate }</td>
+                                                    <td>
+                                                        <input type="radio" name="subject">
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        
                     </table>
+                    
+                    <script></script>
+                    
+                    
+                    
+                    
                     <div class="btn-center">
                         <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="return submitForm();">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
@@ -1013,6 +1003,8 @@
                 </form>
 
                 <script>
+                
+                
                     function submitForm(){
                     	
                     	agreeCheck();
