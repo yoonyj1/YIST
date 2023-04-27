@@ -12,8 +12,8 @@
       NProgress.start();
 </script>
 
+	<jsp:include page="common/header.jsp"/>
 <div class="wrapper">
-	<jsp:include page="adminSidebar.jsp"/>
 	
 	<div class="page-wrapper">
         
