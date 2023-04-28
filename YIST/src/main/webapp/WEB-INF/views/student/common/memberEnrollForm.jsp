@@ -472,30 +472,31 @@
                             	
                             }
 
-                            function submitForm(event){
+                            function submitForm(){
+                                console.log("submitForm 함수 탔음")
                                 event.preventDefault();
 
-                                agreeCheck();
+                                // agreeCheck();
                                 
                                 
-                                if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
+                                // if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
                                     
-                                    if(confirm("정말 가입하시겠습니까?")){
+                                //     if(confirm("정말 가입하시겠습니까?")){
                                         
-                                        return true;
+                                //         return true;
 
-                                    }else{
+                                //     }else{
 
-                                        return false;
+                                //         return false;
 
-                                    };
+                                //     };
                                     
                                     
-                                }else{
+                                // }else{
                                     
-                                    alert("submitForm 결과: false");
-                                    return false;
-                                }
+                                //     alert("submitForm 결과: false");
+                                //     return false;
+                                // }
                             }
         
                             
@@ -1024,9 +1025,9 @@
                                                     <td>${ s.currentSeats }</td>
                                                     <td>${ s.startDate } ~ ${ s.endDate }</td>
                                                     <td>
-                                                        <input type="radio" name="subject" value="${s.subjectNo}">
-                                                        <input type="hidden" name="startDate" value="${s.startDate}">
-                                                        <input type="hidden" name="endDate" value="${s.endDate}">
+                                                        <input type="radio" name="subject" value="">
+                                                        <input type="hidden" name="startDate" value="">
+                                                        <input type="hidden" name="endDate" value="">
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -1042,13 +1043,16 @@
                     
                     
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm(); /*return false;*/">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm();">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
 
                 <script>
-                
+                $("#test").click(function(){
+                    console.log(event);
+                    event.preventDefault();
+                })
                 
 
                 </script>

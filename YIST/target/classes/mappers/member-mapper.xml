@@ -93,8 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					, #{detailAddress}
 					, #{subject}
 					, sysdate
-					, #{start_date}
-					, #{end_date}
+					, #{startDate}
+					, #{endDate}
 					, 'Y'
 					, #{sort}
 					, sysdate
