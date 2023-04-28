@@ -141,8 +141,8 @@ public class MemberController {
 	@RequestMapping("AjaxIdCheck.me")
 	public String ajaxIdCheck(String checkId) {
 		
+		
 		int count = mService.idCheck(checkId);
-		System.out.println(count);
 		
 		if(count>0) {
 			// 중복
@@ -158,7 +158,6 @@ public class MemberController {
 	@RequestMapping("AjaxSendCode.me")
 	public String ajaxSendCode(String userEmail) {
 		
-		
 		return sendCode.joinEmail(userEmail);
 		
 	}
@@ -167,20 +166,24 @@ public class MemberController {
 	@RequestMapping("enroll.me")
 	public String insertMember(Member m, HttpSession session, Model model) {
 
-		System.out.println(m);
-		
 		
 		//암호화
 		String encPwd = bcryptPasswordEncoder.encode(m.getPwd());
-		
-		System.out.println(m.getPwd());
-		System.out.println(encPwd);
 		
 		m.setPwd(encPwd);
 		
 		int result = mService.insertMember(m);
 		
+		
 		if(result > 0) {
+			int sort = m.getSort();
+			
+			if(sort==3) {
+				
+				int subjectNo = Integer.parseInt(m.getSubject());
+				int count = sService.increaseCurrentSeats(subjectNo);
+			}
+			
 			
 			session.setAttribute("alertMsg", "YIST에 함께 해주셔서 감사합니다!");
 			return "redirect:/";

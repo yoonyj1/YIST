@@ -212,7 +212,7 @@
                 </div>
                 <div style="text-align: right; margin-top: 10px; padding-right: 20px;">
                     <input type="radio" name="agreeOne" id="member-agree-essential">
-                    <label for="member-agree-essential" style="font-family: 'LINESeedKR-Bd';">회원가입 약관에 동의합니다(필수)</label>
+                    <label for="member-agree-essential" style="font-family: 'LINESeedKR-Bd'; font-size:1.25em;">회원가입 약관에 동의합니다(필수)</label>
                 </div>
         
         
@@ -242,8 +242,8 @@
                     </div>
                 </div>
                 <div style="text-align: right; margin-top: 10px;  padding-right: 20px;">
-                    <input type="radio" name="agreeTwo" id="member-agree-essential">
-                    <label for="member-agree-essential" style="font-family: 'LINESeedKR-Bd';">개인정보취급방침에 동의합니다(필수)</label>
+                    <input type="radio" name="agreeTwo" id="member-agree-essential2">
+                    <label for="member-agree-essential2" style="font-family: 'LINESeedKR-Bd'; font-size:1.25em;">개인정보취급방침에 동의합니다(필수)</label>
                 </div>
 
 
@@ -462,41 +462,50 @@
                             	if($agreeOne && $agreeTwo){
 
                             		agreeFlag = true;
-                            		console.log("agreeFlag : "+ agreeFlag );
+                                    
                             	}else{
 
                             		agreeFlag = false;
-                            		console.log("agreeFlag : "+ agreeFlag );
 
                             	}
                             	
                             }
 
                             function submitForm(){
-                                console.log("submitForm 함수 탔음")
-                                event.preventDefault();
 
-                                // agreeCheck();
+                                
+
+                                agreeCheck();
                                 
                                 
-                                // if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
+                                if(idFlag && pwdFlag && agreeFlag && verifiedFlag){
                                     
-                                //     if(confirm("정말 가입하시겠습니까?")){
+                                    if(confirm("정말 가입하시겠습니까?")){
                                         
-                                //         return true;
+                                        return true;
 
-                                //     }else{
+                                    }else{
+										
+                                        return false;
 
-                                //         return false;
-
-                                //     };
+                                    };
                                     
                                     
-                                // }else{
+                                }else{
+									
+                                    if(!agreeFlag){
+                                        alert("필수 약관에 동의해주세요!");
+                                    }else if(!idFlag){
+                                        alert("아이디 중복 확인이 필요합니다!");                                       
+                                    }else if(!verifiedFlag){
+                                        alert("이메일 본인 인증이 필요합니다.");
+
+                                    }
+                                    event.preventDefault();
                                     
-                                //     alert("submitForm 결과: false");
-                                //     return false;
-                                // }
+                                    return false;
+
+                                }
                             }
         
                             
@@ -524,7 +533,8 @@
     											idFlag = false;
     		                                    idResult.css("color","red");
     		                                    idResult.text("동일한 아이디가 존재합니다. 다른 아이디를 입력해주세요");
-    		                                    $id.focus();
+    		                                    $("#id").focus();
+    		                                    $("#id").select();
     										}
     									},error:()=>{
     										console.log('ajax 통신 실패!');
@@ -558,8 +568,18 @@
                                         idResult.css("color","#8a909d");
                                         idResult.text("아이디는 필수 입력 사항입니다.");
                                     }
-                                })       
+                                })  
+                                
+                                $("#ok-btn").click(function(){
 
+                                    if(verifiedFlag){
+                                        $("#verificationBtn").text("인증완료");
+                                        $("#verificationBtn").attr("disabled",true);
+                                        $("#verificationBtn").css("color","white").css("background-color","#93cf82");
+                                    }
+
+                                })
+                                
 
 
 
@@ -641,6 +661,13 @@
                                                             <div id="code-resultBox" style="width: 100%; height: 50px; padding: 10px 0px;">
                                                                 <span style="display: block; float: left; margin-top: 40px;"></span>
                                                             </div>
+
+                                                            <div class="d-grid gap-2" style="width: 100%;">
+
+                                                                <button id="ok-btn" type="button" class="btn btn-outline-primary btn-block" data-dismiss="modal" aria-label="Close" disabled>확인</button>
+
+                                                            </div>
+
 
                                                         </div>
 
@@ -790,9 +817,9 @@
 
                                 // 인증코드 발송 버튼 비활성
                                 $("#sendCordBtn").attr("disabled",true);
-
                                 $identityArea.css("display","block");
-
+                                $("#ok-btn").attr("disabled",true);
+                                
                                 // 타이머 설정 및 화면에 출력
                                 timerStart();
 
@@ -841,24 +868,30 @@
                                         // 인증코드 일치 검사 
                                         if(responseCode == $code){
                                             // 통과
+                                            $("#authBtn").attr("disabled",true);
+                                            $("input[name=code]").attr("readonly",true);
+                                            $("#ok-btn").attr("disabled",false);
+                                            $("#resendBtn").attr("disabled",true);
+                                            timerStop();
+
                                             $codeResult.text("이메일 인증 성공!")
                                             $codeResult.css("color","lightgreen");
+
+                                            
                                             verifiedFlag = true;
-                                            console.log("verifiedFlag"+verifiedFlag);
                                         }
                                         else{
                                             // 불일치
                                             $codeResult.text("이메일 인증 실패! 인증코드를 확인하세요")
                                             $codeResult.css("color","red");
                                             verifiedFlag = false;
-                                            console.log("verifiedFlag"+verifiedFlag);
 
                                         }
                                     }
-                                })
+                            })
 
-                                // 인증코드 재발송 버튼 클릭할 때
-                                $("#resendBtn").click(function(){
+                             // 인증코드 재발송 버튼 클릭할 때
+                            $("#resendBtn").click(function(){
 
                                         // 인증코드 발송 후 10초가 지났는지 확인
                                         if(isRerequest()){
@@ -893,7 +926,11 @@
                                         }
 
 
-                                })                            
+                            })  
+                            
+
+                                
+                                
 
                         </script>
 
@@ -1023,11 +1060,16 @@
                                                     <td>${ s.subjectName }</td>
                                                     <td>${ s.maximumSeats }</td>
                                                     <td>${ s.currentSeats }</td>
-                                                    <td>${ s.startDate } ~ ${ s.endDate }</td>
+                                                    <td class="subjectDate">${ s.startDate } ~ ${ s.endDate }</td>
                                                     <td>
-                                                        <input type="radio" name="subject" value="">
-                                                        <input type="hidden" name="startDate" value="">
-                                                        <input type="hidden" name="endDate" value="">
+                                                    	<c:choose>
+                                                    		<c:when test="${ s.currentSeats eq s.maximumSeats }">
+		                                                        <input type="radio" name="subject" value="${s.subjectNo}" disabled>
+                                                    		</c:when>
+                                                    		<c:otherwise>
+		                                                        <input type="radio" name="subject" value="${s.subjectNo}">
+                                                    		</c:otherwise>
+                                                    	</c:choose>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -1038,24 +1080,37 @@
                         </tr>
                     </c:if>
                         
+                    <input type="hidden" name="startDate" value="">
+                    <input type="hidden" name="endDate" value="">
                     </table>
                     
                     
                     
                     <div class="btn-center">
-                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick=" submitForm();">가입</button>
+                        <button class="btn btn-primary btn-pill mr-2" type="submit" onclick="return submitForm();">가입</button>
                         <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
                     </div> 
                 </form>
-
-                <script>
-                $("#test").click(function(){
-                    console.log(event);
-                    event.preventDefault();
-                })
+                
                 
 
+                <script>
+
+	                $("#subjectList tbody tr td input[type=radio]").click(function(){
+	                	
+	                    
+	                    const $subjectDate = $(this).parent("td").siblings('.subjectDate').text();
+	                    const [startDate, endDate] = $subjectDate.split(" ~ ");
+	                    
+	                    
+	                    $("input[name=startDate]").val(startDate);
+	                    $("input[name=endDate]").val(endDate);
+	                    
+	                    
+	                });
+                
                 </script>
+                
 
             </div>
             
