@@ -1,6 +1,7 @@
 package com.kh.yist.task.model.dao;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,11 +22,11 @@ public class TaskDao {
 		return sqlSession.insert("instructorMapper.insertTaskFile", task);
 	}
 
-	public int selectTaskListCount(SqlSessionTemplate sqlSession, String id) {
-		return sqlSession.selectOne("instructorMapper.selectTaskListCount", id);
+	public int selectTaskListCount(SqlSessionTemplate sqlSession, Map<String, String> optMap) {
+		return sqlSession.selectOne("instructorMapper.selectTaskListCount", optMap);
 	}
 
-	public ArrayList<Task> selectTaskList(SqlSessionTemplate sqlSession, PageInfo pi, String id) {
+	public ArrayList<Task> selectTaskList(SqlSessionTemplate sqlSession, PageInfo pi, Map<String, String> optMap) {
 
 		// 몇 개의 게시글을 건너 뛸건지
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
@@ -35,7 +36,7 @@ public class TaskDao {
 
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList) sqlSession.selectList("instructorMapper.selectTaskList", id, rowBounds);
+		return (ArrayList) sqlSession.selectList("instructorMapper.selectTaskList", optMap, rowBounds);
 	}
 
 	public int updateTask(SqlSessionTemplate sqlSession, Task task) {

@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        )
 		        values
 		        (
-		            seq_task_no.nextval
+		            seq_taskno.nextval
 		          , #{subjectNo}
 		          , #{instructorId}
 		          , #{taskTitle}
@@ -57,8 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        )
 		        values
 		        (
-		            seq_file_no.nextval
-		          , seq_task_no.currval
+		            seq_tfno.nextval
+		          , seq_taskno.currval
 		          , #{originName}
 		          , #{changeName}
 		          , 1
@@ -66,14 +66,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		          )
 	</insert>
 	
-	<select id="selectTaskListCount" resultType="_int">
+	<select id="selectTaskListCount" resultType="_int" parameterType="Map">
 		select count(task_no) as "taskListCount"
 		from task
 		left join task_file using (task_no)			
 		where id = #{id} and status = 'Y'
+		<if test="startDate != 'none'">
+			and start_date between to_date(#{startDate},'RRRR-MM-DD') and to_date(#{endDate},'RRRR-MM-DD')
+		</if>
+		<if test="keyword != 'none'">
+			and task_title like '%' || #{keyword} || '%'
+		</if>
 	</select>
 	
-	<select id="selectTaskList" resultMap="taskResultSet">
+	<select id="selectTaskList" resultMap="taskResultSet" parameterType="Map">
 		select 
 		        task_no
 		      , file_no
@@ -90,6 +96,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from task 
 		left join task_file using (task_no)
 		where id = #{id} and status = 'Y'
+		<if test="startDate != 'none'">
+			and start_date between to_date(#{startDate},'RRRR-MM-DD') and to_date(#{endDate},'RRRR-MM-DD')
+		</if>
+		<if test="keyword != 'none'">
+			and task_title like '%'||#{keyword}||'%'
+		</if>
+		order by task_no desc
 	</select>
 	
 	<update id="updateTask">

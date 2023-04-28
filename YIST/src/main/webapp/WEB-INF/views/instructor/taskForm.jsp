@@ -26,71 +26,14 @@
 		<div class="content-wrapper table-hover">
         <div class="content">
           <!-- 여기서부터  -->
-          <div class="row">
-              <!-- 과제 등록 모달 -->
-              <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
-				  aria-hidden="true">
-				  <div class="modal-dialog" role="document">
-				   <form method="post" action="insert.task" enctype="multipart/form-data">
-				   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
-				   <input type="hidden" name="subjectNo" value="1">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">×</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-				          <div class="form-group">
-							    <label for="upfile">과제 파일 선택</label>
-    							<input type="file" class="form-control-file" id="upfile" name="upfile">
-				          </div>
-				          <br>
-				          
-				          <div class="form-group">
-				            <label for="exampleInputPassword1">기간설정</label>
-				            <br>
-				            <label style="margin-right: 5px;">시작일</label>
-				            <input type="date" class="task-start" name="startDate">
-				            <label>~</label>
-				            <label style="margin-right: 5px;">마감일</label>
-				            <input type="date" class="task-end" name="endDate">
-				          </div>
-				          <br>
-				          
-				          <!-- 과제 제목 -->
-						  <div class="form-group">
-						     <label for="taskTitle">과제제목</label>
-						     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목">
-						  </div>
-						  
-						  <!-- 과제 내용 -->
-						  <div class="form-group">
-						    <label for="exampleFormControlTextarea1">과제 내용</label>
-						    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent"></textarea>
-						  </div>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				        <button type="submit" class="task-insert btn btn-primary btn-pill">등록하기</button>
-				      </div>
-				    </div>
-				    </form>
-				  </div>
-				</div>	
-				<!-- 과제 등록 모달 끝 -->
-            </div>
-            
             <script>
+            
             	// 조건 검색
             	function optSearch(){
             		let startArray = $("#opt-start").val().split('-');
          	        let endArray = $("#opt-end").val().split('-');
          	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
          	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
-					
-         	        let taskCheck = $("#task-check").is(':checked');
          	        
          	        let keyword = $("#keyword").val();
          	        
@@ -100,11 +43,30 @@
         	       } else {
         	    	   console.log("시작일 : " + $("#opt-start").val());
         	    	   console.log("종료일 : " + $("#opt-end").val());
-        	    	   console.log("지난과제 체크여부 : " + taskCheck);
         	    	   console.log("검색어 : " + keyword);
+        	    	   location.href = "taskForm.ins?keyword=" + keyword + "&startDate=" + $("#opt-start").val() + "&endDate=" + $("#opt-end").val();    
         	       } 
             	}
             
+            	// 과제 등록
+            	function taskInsertForm(){
+            		let startArray = $(".task-start").val().split('-');
+         	        let endArray = $(".task-end").val().split('-');
+         	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
+         	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
+         	        
+         	        let keyword = $("#keyword").val();
+         	        
+         	       if(start_date.getTime() > end_date.getTime()) {
+        	            alert("종료날짜보다 시작날짜가 작아야합니다.");
+        	       } else {
+        	    	   $("#insertForm").attr("action", "update.task").submit();
+        	    	   
+        	    	   // 과제 알람 보내기
+        	    	   taskAlarm();
+        	       }
+            	}
+            	
             	// 과제 관리(수정, 삭제)
 	            function postFormSubmit(param, idx){
             		let formId = "#udpatePost" + idx;
@@ -129,7 +91,31 @@
 	        		
 	        	}            
             	
+	            function previewFile(input) {
+	            	  let file = input.files[0];
+	            	  console.log("열려있냐? : " + $("#preview-card").is(":visible"));
+		              
+	            	  $('#preview-card').html(" <img src='"+URL.createObjectURL(file)+"' class=\"card-img-top\"/> ");
+	            	  
+	            	  if ($("#preview-card").css("display") == "none"){
+	            		  $('#preview-card').show();            	  
+	            	  } else {
+	            		  $('#preview-card').hide();
+	            	  }
+	            }
+            	
+	            function taskAlarm(){
+	            	let type = '70';
+					let target = 'user02';
+					let content = '자료형과 연산자 과제가 등록 되었습니다.';
+					let loginUser = '${loginUser.getId()}';
+					let url = '컨트롤러 매핑값';
+					//socket.send("관리자,"+target+","+content+","+url);
+					socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
+	            }
+	            
 				$(document).ready(function(){
+				
 					// 과제 상세 페이지로 이동
 					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
@@ -144,20 +130,82 @@
             			$(taskSetModalId).modal('show');
             		})
 					
-					// 과제 등록 알람            	
-					$(".task-insert").on("click",function(){
-							let type = '70';
-							let target = 'user02';
-							let content = '자료형과 연산자 과제가 등록 되었습니다.';
-							let loginUser = '${loginUser.getId()}';
-							let url = '컨트롤러 매핑값';
-							//socket.send("관리자,"+target+","+content+","+url);
-							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
-				    });
+            		// 과제 관리 등록(파일 선택시 미리보기 버튼 생성)
+					$(".form-control-file").on("change", function(){
+						console.log("과제 수정 파일 변경");
+						console.log("현재 변경된 과제 아이디 : " + $(this).attr("id"));
+						let currentId = "#" + $(this).attr("id");
+						
+						// 여기에서 번호 추출
+						let regex = /[^0-9]/g;				
+						let num = currentId.replace(regex, "");
+						
+						let previewBtn = "#preview-btn" + num;
+						
+						if ($(currentId)[0].files[0] != null){
+							$(previewBtn).show();
+						} else {
+							$(previewBtn).hide();
+						}
+					})
+            		
+            		// 과제 등록(파일 선택시 미리보기 버튼 생성)
+					$("#upfile").on("change", function(){
+						console.log("뭔가 선택됨");
+						
+						console.log($(this)[0].files[0].type); // image/png
+						
+						if ($(this)[0].files[0].type == 'image/png'){
+							console.log("png 파일 입니다.");
+						}
+						
+						if ($(this)[0].files[0] != null){
+							$("#preview-btn").show();
+						} else {
+							$("#preview-btn").hide();
+						}
+						
+					})
 					
-					// 조회기간 + 예전과제 + 검색
+					// 과제 초기화
+					$("#reset-btn").on("click", function(){
+						$("#upfile").val("");
+						$("#preview-btn").hide();
+						$('#preview-card').hide();
+						$(".taskTitle").val("");
+						$(".taskContent").val("");
+						$(".task-start").val("");
+						$(".task-end").val("");
+					})
+            		
+					// 과제 관리에서 과제 미리보기
+					$(".preview-btn").on("click", function(){
+						let currentId = "#" + $(this).attr("id");
+						
+						let regex = /[^0-9]/g;				
+						let num = currentId.replace(regex, "");
+						
+						let previewBtn = "#preview-btn" + num;
+						
+						previewFile($(previewBtn)[0]);
+						
+					})
+					
+					// 과제 미리보기
+					$("#preview-btn").on("click", function(){
+						previewFile($("#upfile")[0]);
+					})
+					
+					// 조회기간 + 검색 (버튼 클릭)
 					$("#search-btn").click(function(){
 						optSearch();
+					})
+					
+					// 조회기간 + 검색 (버튼 엔터)
+					$("#keyword").keyup(function(e){
+						if (e.keyCode == 13){
+							optSearch();
+						}
 					})
 					
 				})
@@ -175,21 +223,81 @@
 				<div class="col">
               		<!-- 과제 등록 버튼 -->
                   	<button type="button" class="btn btn-primary btn btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
+                  	<!-- 과제 등록 모달 -->
+		              <div class="modal fade" id="taskInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
+						  aria-hidden="true">
+						  <div class="modal-dialog modal-lg" role="document">
+						   <form id="insertForm" method="post" action="insert.task" enctype="multipart/form-data">
+						   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
+						   <input type="hidden" name="subjectNo" value="1">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="history.go(0)">
+						          <span aria-hidden="true">×</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						          <div class="form-group">
+									    <label for="upfile">과제 파일 선택</label>
+									    <div class="row">
+									    	<div class="col">
+				    							<input type="file" class="form-control-file" id="upfile" name="upfile">
+									    	</div>
+									    	<div class="col" id="reset-panel">
+				    							<button type="button" class="btn btn-primary py-1 px-1" id="reset-btn">초기화</button>
+				    							<button type="button" class="btn btn-primary px-1 py-1" id="preview-btn" style="display: none">미리보기</button>
+									    	</div>
+									    </div>
+						          </div>
+						          <br>
+						          
+						          <div class="form-group">
+						            <label for="exampleInputPassword1">기간설정</label>
+						            <br>
+						            <label style="margin-right: 5px;">시작일</label>
+						            <input type="date" class="task-start" name="startDate">
+						            <label>~</label>
+						            <label style="margin-right: 5px;">마감일</label>
+						            <input type="date" class="task-end" name="endDate">
+						          </div>
+						          <br>
+						          
+						          <!-- 과제 제목 -->
+								  <div class="form-group">
+								     <label for="taskTitle">과제제목</label>
+								     <input type="text" class="taskTitle form-control" id="taskTitle" name="taskTitle" placeholder="과제 제목">
+								  </div>
+								  
+								  <!-- 과제 내용 -->
+								  <div class="form-group">
+								    <label for="exampleFormControlTextarea1">과제 내용</label>
+								    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent"></textarea>
+								  </div>
+								  
+								  <!-- 미리보기 -->
+								  <div class="card" id="preview-card" style="display: none">
+									  
+								  </div>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal" onClick="history.go(0)">닫기</button>
+						        <button type="button" class="task-insert btn btn-primary btn-pill" onclick="taskInsertForm();">등록하기</button>
+						      </div>
+						    </div>
+						    </form>
+						  </div>
+						</div>	
+						<!-- 과제 등록 모달 끝 -->
               	</div>
                 <div class="col-md-auto" style="margin-left: -10px; margin-top: 2px;">
-                  <label style="margin-right: px; font-size: 13px;">조회기간</label>
+                  <label style="font-size: 13px;">조회기간</label>
                   <input type="date" id="opt-start" class="start">
                   <label>~</label>
                   <input type="date" id="opt-end" class="end">
-                </div>
+                </div> 
                 <div class="col-md-auto">
-                  <div class="custom-control custom-checkbox d-inline-block mr-5 mb-3">
-                    <input type="checkbox" class="custom-control-input" id="task-check" checked="checked">
-                    <label class="custom-control-label" for="task-check" style="font-size: 13px; margin-top: 8px">지난과제</label>
-                  </div>
-                </div>
-                <div class="col-md-auto" style="margin-left: -30px;">
-                  <input type="text" id="keyword" style="margin-top: 5px;" placeholder="과제검색">
+                  <input type="text" id="keyword" style="margin-top: 3px;" placeholder="과제검색">
                   <button type="button" id="search-btn" class="btn btn-primary px-1 py-1" style="height: 30px;">검색</button>
                 </div>
               </div>
@@ -232,7 +340,14 @@
 							      <div class="modal-body">
 							          <div class="form-group">
 										    <label for="upfile">과제 파일 선택</label>
-										    <input type="file" class="form-control-file" id="upfile" name="reupfile">
+										    <div class="row">
+										    	<div class="col">
+										    		<input type="file" class="form-control-file" id="upfile${t.taskNo}" name="reupfile">
+										    	</div>
+										    	<div class="col">
+				    								<button type="button" class="btn btn-primary px-1 py-1 preview-btn" id="preview-btn${t.taskNo}" style="display: none">미리보기</button>
+										    	</div>
+										    </div>
 										    <c:choose>
 										    	<c:when test="${ t.originName ne 'none' }">
 										    		다운로드 : 
@@ -269,9 +384,15 @@
 									  
 									  	<c:if test="${ t.changeName ne 'none' }">
 									  		<div class="card">
+									  			<label for="">원본 이미지</label>
 									  			<img src="${t.changeName }" class="card-img-top" alt="...">
 									  		</div>
 									  	</c:if>
+									  	
+									  	<!-- 미리보기 -->
+								  		<div class="card" id="preview-card" style="display: none">
+											<label for="">수정 이미지</label>												  
+								  		</div>
 									  
 							      </div>
 							      <div class="modal-footer">

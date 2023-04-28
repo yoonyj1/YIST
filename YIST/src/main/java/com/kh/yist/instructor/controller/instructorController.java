@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -151,17 +153,28 @@ public class instructorController {
 	
 	@RequestMapping("taskForm.ins")
 	public ModelAndView taskForm(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-			                     String period, ModelAndView mv, HttpSession session) {
+			                     @RequestParam(value = "keyword", defaultValue = "none") String keyword,
+			                     @RequestParam(value = "startDate", defaultValue = "none") String startDate,
+			                     @RequestParam(value = "endDate", defaultValue = "none") String endDate,
+			                     ModelAndView mv, HttpSession session) {
 		
-		System.out.println(period);
+		System.out.println("키워드 : " + keyword);
+		System.out.println("시작날짜 : " + startDate);
 		
 		Member m = (Member) session.getAttribute("loginUser");
 
-		int taskListCount = tService.selectTaskListCount(m.getId());
+		Map<String,String> optMap = new HashMap<String,String>();
+		
+		optMap.put("id", m.getId());
+		optMap.put("keyword", keyword);
+		optMap.put("startDate", startDate);
+		optMap.put("endDate", endDate);
+		
+		int taskListCount = tService.selectTaskListCount(optMap);
 
 		PageInfo pi = Pagination.getPageInfo(taskListCount, currentPage, 10, 5);
 
-		ArrayList<Task> taskList = tService.selectTaskList(pi, m.getId());
+		ArrayList<Task> taskList = tService.selectTaskList(pi, optMap);
 
 		mv.addObject("pi", pi).addObject("taskList", taskList).setViewName("instructor/taskForm");
 

@@ -211,7 +211,7 @@
 							class="mdi mdi-paperclip"></i> <span class="nav-text">자료</span>
 					</a></li>
 					
-					<li><a class="sidenav-item-link" href="taskForm.ins?period=default"> <i
+					<li><a class="sidenav-item-link" href="taskForm.ins"> <i
 							class="mdi mdi-file-document-box-multiple"></i> <span
 							class="nav-text">과제</span>
 					</a></li>

@@ -245,11 +245,26 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
-SELECT * FROM task WHERE REG_DATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD');
+select count(task_no) as "taskListCount"
+		from task
+		left join task_file using (task_no)			
+		where id = 'INSTRUCTOR01' and status = 'Y' and task_title like '%연산자%';
 
-update
-		task_file
-			set status = 'Y'
-		where task_no = 1;
-
-commit;
+select 
+		        task_no
+		      , file_no
+		      , subject_no
+		      , id
+		      , task_title
+		      , task_content
+		      , to_char(start_date, 'RRRR-MM-DD') as "start_date"
+		      , to_char(end_date, 'RRRR-MM-DD') as "end_date"
+		      , origin_name
+		      , change_name
+		      , file_level
+		      , status
+		from task 
+		left join task_file using (task_no)
+		where id = 'INSTRUCTOR01' and status = 'Y'
+                   and start_date between to_date('2022-11-03','RRRR-MM-DD') and to_date('2022-11-05','RRRR-MM-DD');
+        
