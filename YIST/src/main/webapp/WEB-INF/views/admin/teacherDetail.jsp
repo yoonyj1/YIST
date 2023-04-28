@@ -21,7 +21,7 @@
 		<div class="card-body" align="center">
 	    	<div class="card card-profile" style='border:none;'>
 	    		<div align='center'>
-		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg)"></div>
+		    		<div class="card-header-bg" style="background-image:./resources/common/image/userImg.png"></div>
 		    			<div class="card-body card-profile-body">
 		    				<div class="profile-avata">
 					          <img class="rounded-circle" src="images/user/user-md-01.jpg" alt="Avata Image">
@@ -108,7 +108,7 @@
                           <div class="input-group-prepend">
                           	<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;주소&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           </div>
-                          <input type="text" class="form-control" aria-label="email" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" aria-label="address" aria-describedby="basic-addon1">
                       </div>
                   </div>
 
