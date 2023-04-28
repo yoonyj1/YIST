@@ -9,23 +9,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class SendCodeService {
+	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
+	
 	private int authNumber; 
 	
 	public void makeRandomNumber() {
 		// 난수의 범위 111111 ~ 999999 (6자리 난수)
 		Random r = new Random();
 		int checkNum = r.nextInt(888888) + 111111;
-		System.out.println("인증번호 : " + checkNum);
+		
 		authNumber = checkNum;
 	}
 	
 	public String joinEmail(String userEmail) {
+		
+		
 		makeRandomNumber();
+		
+		
 		String setFrom = "yist0303@gmail.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
 		String toMail = userEmail;
 		String title = "YIST 회원 가입 인증 이메일 입니다."; // 이메일 제목 
@@ -49,7 +56,7 @@ public class SendCodeService {
 		        +"<table  border='0' cellpadding='0' cellspacing='0' width='100%'>"
 		        +"<tr style='color:#ffffff'>"
 		        +"<th>인증코드</th>"
-		        +"<th>000000</th>"
+		        +"<th>"+authNumber+"</th>"
 		        +"</tr>"
 		        +"</table>"
 		        +"</td>"
@@ -63,7 +70,7 @@ public class SendCodeService {
 		+"</body>"
 		+"</html>";
 		
-		mailSend(setFrom, toMail, title, content);
+//		mailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNumber);
 	}
 	
