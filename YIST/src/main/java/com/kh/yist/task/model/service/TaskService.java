@@ -38,5 +38,9 @@ public class TaskService {
 	public int updateTask(Task task) {
 		return tDao.updateTask(sqlSession, task);
 	}
+
+	public int deleteTask(Task task) {
+		return tDao.deleteTask(sqlSession, task);
+	}
 	
 }

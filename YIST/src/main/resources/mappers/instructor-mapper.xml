@@ -109,6 +109,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  , change_name = #{changeName}
 		where task_no = #{taskNo}
 	</update>
+	
+	<update id="deleteTask">
+		update
+		task_file
+			set status = 'N'
+		where task_no = #{taskNo}
+	</update>
 </mapper>
 
 

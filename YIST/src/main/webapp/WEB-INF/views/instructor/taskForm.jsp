@@ -83,6 +83,28 @@
             </div>
             
             <script>
+            	// 조건 검색
+            	function optSearch(){
+            		let startArray = $("#opt-start").val().split('-');
+         	        let endArray = $("#opt-end").val().split('-');
+         	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
+         	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
+					
+         	        let taskCheck = $("#task-check").is(':checked');
+         	        
+         	        let keyword = $("#keyword").val();
+         	        
+         	       if(start_date.getTime() > end_date.getTime()) {
+        	            alert("종료날짜보다 시작날짜가 작아야합니다.");
+        	            
+        	       } else {
+        	    	   console.log("시작일 : " + $("#opt-start").val());
+        	    	   console.log("종료일 : " + $("#opt-end").val());
+        	    	   console.log("지난과제 체크여부 : " + taskCheck);
+        	    	   console.log("검색어 : " + keyword);
+        	       } 
+            	}
+            
             	// 과제 관리(수정, 삭제)
 	            function postFormSubmit(param, idx){
             		let formId = "#udpatePost" + idx;
@@ -93,7 +115,7 @@
          	        let endArray = $(endDate).val().split('-');
          	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
          	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
-
+		
          	        if(start_date.getTime() > end_date.getTime()) {
          	            alert("종료날짜보다 시작날짜가 작아야합니다.");
          	            return false;
@@ -104,12 +126,10 @@
 		        			$(formId).attr("action", "delete.task").submit();
 		        		} 
          	        } 
-            		
 	        		
 	        	}            
-            
+            	
 				$(document).ready(function(){
-
 					// 과제 상세 페이지로 이동
 					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
@@ -135,53 +155,42 @@
 							socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
 				    });
 					
-
+					// 조회기간 + 예전과제 + 검색
+					$("#search-btn").click(function(){
+						optSearch();
+					})
 					
 				})
             </script>
             
             <!-- 과제목록  -->
-            <div class="col-10">  
+            <div class="col">  
               <div class="row">
-              	<div class="col-10 py-3">
-              		<h6 style="font-weight: bolder;">과제목록</h6>
-              	</div>
               	<div class="col">
-              		<!-- 과제 등록 버튼 -->
-                  	<button type="button" class="btn btn-primary btn btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
+              		<h4 align="center">과제목록</h6>
               	</div>
               </div>
               <hr>
-              <br>
-              <div class="d-flex flex-row mb-1">
-                <div class="col-md-auto" style="margin-left: -10px; margin-top: 3px">
-                  <label style="font-size: 13px;">기간별</label>
-                </div>
-                <div class="col-md-auto"  style="margin-left: -25px;">
-                  <div class="btn-group" role="group" aria-label="Basic example" style="font-size: 10px;">
-                    <button type="button" class="aa period btn btn-primary" value="today"
-                      style="height: 30px; line-height: 9px; font-size: 10px;">오늘</button>
-                    <button type="button" class="period btn btn-primary" value="week"
-                      style="height: 30px; line-height: 9px; font-size: 12px;">일주일</button>
-                    <button type="button" class="period btn btn-primary" value="month"
-                      style="height: 30px; line-height: 9px; font-size: 12px;">1개월</button>
-                  </div>
-                </div>
+               <div class="d-flex justify-content-end mb-1">
+				<div class="col">
+              		<!-- 과제 등록 버튼 -->
+                  	<button type="button" class="btn btn-primary btn btn-pill py-1 px-3" data-toggle="modal" data-target="#taskInsert">과제등록하기</button>
+              	</div>
                 <div class="col-md-auto" style="margin-left: -10px; margin-top: 2px;">
-                  <label style="margin-right: px; font-size: 13px;">기간</label>
-                  <input type="date" class="start">
+                  <label style="margin-right: px; font-size: 13px;">조회기간</label>
+                  <input type="date" id="opt-start" class="start">
                   <label>~</label>
-                  <input type="date" class="end">
+                  <input type="date" id="opt-end" class="end">
                 </div>
                 <div class="col-md-auto">
-                  <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3">
-                    <input type="checkbox" class="custom-control-input" id="customCheck3" checked="checked">
-                    <label class="custom-control-label" for="customCheck3" style="font-size: 13px; margin-top: 8px">지난과제</label>
+                  <div class="custom-control custom-checkbox d-inline-block mr-5 mb-3">
+                    <input type="checkbox" class="custom-control-input" id="task-check" checked="checked">
+                    <label class="custom-control-label" for="task-check" style="font-size: 13px; margin-top: 8px">지난과제</label>
                   </div>
                 </div>
                 <div class="col-md-auto" style="margin-left: -30px;">
-                  <input type="text" style="margin-top: 3px;" placeholder="과제검색">
-                  <button type="button" class="btn btn-primary px-1 py-1" style="height: 27px;">검색</button>
+                  <input type="text" id="keyword" style="margin-top: 5px;" placeholder="과제검색">
+                  <button type="button" id="search-btn" class="btn btn-primary px-1 py-1" style="height: 30px;">검색</button>
                 </div>
               </div>
 
@@ -240,11 +249,9 @@
 							            <br>
 							            <label style="margin-right: 5px;">시작일</label>
 							            <input type="date" id="startDate${t.taskNo}" class="task-start" name="startDate" value="${t.startDate}">
-							            <input type="hidden" value="${t.startDate}">
 							            <label>~</label>
 							            <label style="margin-right: 5px;">마감일</label>
 							            <input type="date" id="endDate${t.taskNo}" class="task-end" name="endDate" value="${t.endDate}">
-							            <input type="hidden" value="${t.endDate}">
 							          </div>
 							          <br>
 							          

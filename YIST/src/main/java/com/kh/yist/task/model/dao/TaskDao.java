@@ -51,4 +51,8 @@ public class TaskDao {
 		return update2; 
 	}
 
+	public int deleteTask(SqlSessionTemplate sqlSession, Task task) {
+		return sqlSession.update("instructorMapper.deleteTask", task);
+	}
+
 }

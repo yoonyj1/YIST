@@ -245,4 +245,11 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
+SELECT * FROM task WHERE REG_DATE >= TO_CHAR(SYSDATE-7,'YYYYMMDD');
+
+update
+		task_file
+			set status = 'Y'
+		where task_no = 1;
+
 commit;

@@ -126,9 +126,9 @@ public class instructorController {
 		int result = tService.updateTask(task);
 		
 		if (result > 0) {
-			model.addAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다");
+			session.setAttribute("alertMsg", "성공적으로 과제가 수정되었습니다");
 		} else {
-			model.addAttribute("alertMsg", "게시글 수정에 실패했습니다.");
+			session.setAttribute("alertMsg", "과제 수정에 실패했습니다.");
 		}
 		
 		return "redirect:taskForm.ins";
@@ -136,17 +136,25 @@ public class instructorController {
 	}
 	
 	@RequestMapping("delete.task")
-	public String deleteTask(Task task) {
+	public String deleteTask(Task task, HttpSession session, Model model) {
 		
+		int result = tService.deleteTask(task);
 		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 과제가 삭제되었습니다.");
+		} else {
+			session.setAttribute("alertMsg", "과제 수정에 실패했습니다.");
+		}
 		
 		return "redirect:taskForm.ins";
 	}
 	
 	@RequestMapping("taskForm.ins")
-	public ModelAndView taskForm(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv,
-			HttpSession session) {
-
+	public ModelAndView taskForm(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+			                     String period, ModelAndView mv, HttpSession session) {
+		
+		System.out.println(period);
+		
 		Member m = (Member) session.getAttribute("loginUser");
 
 		int taskListCount = tService.selectTaskListCount(m.getId());
