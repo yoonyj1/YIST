@@ -71,7 +71,7 @@ public class MemberController {
 			System.out.println("m.getSort() : " + m.getSort());
 			
 			if (m.getSort() == 1) { // 관리자
-				mainPage = "admin/adminSidebar";
+				mainPage = "admin/common/header";
 			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
