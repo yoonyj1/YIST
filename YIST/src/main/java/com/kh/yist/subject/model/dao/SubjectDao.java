@@ -15,6 +15,10 @@ public class SubjectDao {
 		return (ArrayList)sqlSession.selectList("subjectMapper.selectSubjectList");
 	}
 	
-	
+	public int increaseCurrentSeats(SqlSession sqlSession, int subjectNo) {
+		
+		return sqlSession.update("subjectMapper.increaseCurrentSeats", subjectNo);
+				
+	}
 	
 }

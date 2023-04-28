@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +27,14 @@ public class MemberController {
 	@Autowired
 	private SubjectServiceImpl sService;
 	
+	@Autowired
+	private SendCodeService sendCode;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	private int memSort = 0;
 	private boolean loginCheck = true;
-	
-	private SendCodeService sendCode;
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
@@ -136,8 +141,8 @@ public class MemberController {
 	@RequestMapping("AjaxIdCheck.me")
 	public String ajaxIdCheck(String checkId) {
 		
+		
 		int count = mService.idCheck(checkId);
-		System.out.println(count);
 		
 		if(count>0) {
 			// 중복
@@ -153,17 +158,49 @@ public class MemberController {
 	@RequestMapping("AjaxSendCode.me")
 	public String ajaxSendCode(String userEmail) {
 		
-		System.out.println(userEmail);
-		
 		return sendCode.joinEmail(userEmail);
 		
+	}
+	
+	
+	@RequestMapping("enroll.me")
+	public String insertMember(Member m, HttpSession session, Model model) {
+
+		
+		//암호화
+		String encPwd = bcryptPasswordEncoder.encode(m.getPwd());
+		
+		m.setPwd(encPwd);
+		
+		int result = mService.insertMember(m);
 		
 		
-		
-		
+		if(result > 0) {
+			int sort = m.getSort();
+			
+			if(sort==3) {
+				
+				int subjectNo = Integer.parseInt(m.getSubject());
+				int count = sService.increaseCurrentSeats(subjectNo);
+			}
+			
+			
+			session.setAttribute("alertMsg", "YIST에 함께 해주셔서 감사합니다!");
+			return "redirect:/";
+			
+		}else {
+			
+			model.addAttribute("errorMsg","회원가입에 실패했습니다. 다시 시도해주세요");
+			return "/student/common/errorPage";
+			
+		}
 		
 	}
-}
+	
+	
+	
+	
+}//Controller end
 	
 
 

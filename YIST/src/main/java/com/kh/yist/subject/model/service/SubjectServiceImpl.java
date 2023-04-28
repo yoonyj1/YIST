@@ -26,4 +26,9 @@ public class SubjectServiceImpl implements SubjectService{
 		return sDao.selectSubjectList(sqlSession);
 	}
 
+	@Override
+	public int increaseCurrentSeats(int subjectNo) {
+		return sDao.increaseCurrentSeats(sqlSession, subjectNo);
+	}
+
 }

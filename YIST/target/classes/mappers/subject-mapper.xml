@@ -34,5 +34,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 order
 		    by start_date
 	</select>
+	
+	<update id="increaseCurrentSeats">
+		update
+				subject
+		   set
+		   		current_seats = current_seats+1
+		 where
+		 		subject_no = #{subjectNo} 			
+	</update>
 
 </mapper>
