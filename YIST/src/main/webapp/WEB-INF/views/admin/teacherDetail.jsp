@@ -19,7 +19,7 @@
 		</div>
 		
 		<div class="card-body" align="center">
-	    	<div class="card card-default card-profile">
+	    	<div class="card card-profile" style='border:none;'>
 	    		<div align='center'>
 		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg)"></div>
 		    			<div class="card-body card-profile-body">
