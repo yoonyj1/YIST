@@ -91,16 +91,23 @@
 	        		
 	        	}            
             	
-	            function previewFile(input) {
+	            function previewFile(input, num) {
+	            	
 	            	  let file = input.files[0];
-	            	  console.log("열려있냐? : " + $("#preview-card").is(":visible"));
+	            	  let previewCard = "#preview-card"; 
+                      let imgSrc = "<img src='"+URL.createObjectURL(file)+"' class=\"card-img-top\"/>";
+                      
+	            	  if (num != 0){  // 과제 관리 reupfile시
+	            		  previewCard += num;
+	            		  imgSrc = "<br><label for=\"\">수정 이미지</label>" + imgSrc;
+	            	  }
 		              
-	            	  $('#preview-card').html(" <img src='"+URL.createObjectURL(file)+"' class=\"card-img-top\"/> ");
+	            	  $(previewCard).html(imgSrc);
 	            	  
-	            	  if ($("#preview-card").css("display") == "none"){
-	            		  $('#preview-card').show();            	  
+	            	  if ($(previewCard).css("display") == "none"){
+	            		  $(previewCard).show();            	  
 	            	  } else {
-	            		  $('#preview-card').hide();
+	            		  $(previewCard).hide();
 	            	  }
 	            }
             	
@@ -119,7 +126,7 @@
 					// 과제 상세 페이지로 이동
 					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
-	            			location.href= "detail.task?tno=" + $(this).children().eq(0).html();
+	            			location.href= "detail.task?taskNo=" + $(this).children().eq(0).html();
             			}
             			
             		})
@@ -132,8 +139,7 @@
 					
             		// 과제 관리 등록(파일 선택시 미리보기 버튼 생성)
 					$(".form-control-file").on("change", function(){
-						console.log("과제 수정 파일 변경");
-						console.log("현재 변경된 과제 아이디 : " + $(this).attr("id"));
+						
 						let currentId = "#" + $(this).attr("id");
 						
 						// 여기에서 번호 추출
@@ -141,12 +147,24 @@
 						let num = currentId.replace(regex, "");
 						
 						let previewBtn = "#preview-btn" + num;
+						let resetBtn = "#reset-btn" + num;
+						let upfile = "#upfile" + num
+						let previewCard = '#preview-card' + num;
 						
 						if ($(currentId)[0].files[0] != null){
 							$(previewBtn).show();
+							$(resetBtn).show();
 						} else {
 							$(previewBtn).hide();
+							$(resetBtn).hide();
 						}
+						
+						$(resetBtn).on("click", function(){
+							$(upfile).val("");
+							$(previewBtn).hide();
+							$(this).css("display", "none");
+							$(previewCard).hide();
+						})
 					})
             		
             		// 과제 등록(파일 선택시 미리보기 버튼 생성)
@@ -185,15 +203,17 @@
 						let regex = /[^0-9]/g;				
 						let num = currentId.replace(regex, "");
 						
-						let previewBtn = "#preview-btn" + num;
+						let previewBtn = "#upfile" + num;
 						
-						previewFile($(previewBtn)[0]);
+						console.log("무슨 버튼 : " + previewBtn);
+						
+						previewFile($(previewBtn)[0], num);
 						
 					})
 					
-					// 과제 미리보기
+					// 과제 등록에서 과제 미리보기
 					$("#preview-btn").on("click", function(){
-						previewFile($("#upfile")[0]);
+						previewFile($("#upfile")[0], 0);
 					})
 					
 					// 조회기간 + 검색 (버튼 클릭)
@@ -345,6 +365,7 @@
 										    		<input type="file" class="form-control-file" id="upfile${t.taskNo}" name="reupfile">
 										    	</div>
 										    	<div class="col">
+										    		<button type="button" class="btn btn-primary py-1 px-1" id="reset-btn${t.taskNo}" style="display: none">파일 취소</button>
 				    								<button type="button" class="btn btn-primary px-1 py-1 preview-btn" id="preview-btn${t.taskNo}" style="display: none">미리보기</button>
 										    	</div>
 										    </div>
@@ -390,8 +411,8 @@
 									  	</c:if>
 									  	
 									  	<!-- 미리보기 -->
-								  		<div class="card" id="preview-card" style="display: none">
-											<label for="">수정 이미지</label>												  
+								  		<div class="card" id="preview-card${t.taskNo}" style="display: none">
+											
 								  		</div>
 									  
 							      </div>

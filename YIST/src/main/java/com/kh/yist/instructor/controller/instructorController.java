@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
+import com.kh.yist.task.model.vo.TaskSubmit;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.member.model.vo.Member;
@@ -31,11 +32,6 @@ public class instructorController {
 
 	@Autowired
 	private TaskService tService;
-
-	@RequestMapping("detail.task")
-	public String detailTask() {
-		return "instructor/detailTaskForm";
-	}
 
 	@RequestMapping("examForm.ins")
 	public String examForm() {
@@ -180,7 +176,23 @@ public class instructorController {
 
 		return mv;
 	}
-
+	
+	/**
+	 * 과제 상세 페이지 조회
+	 * @param taskNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("detail.task")
+	public String detailTask(int taskNo, Model model) {
+		System.out.println("taskNo : " + taskNo);
+		
+		ArrayList<TaskSubmit> submitList = tService.selectSubmitList(taskNo);
+		
+		model.addAttribute("submitList", submitList);
+		
+		return "instructor/detailTaskForm";
+	}
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 

@@ -18,8 +18,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName"></result>
 		<result column="file_level" property="fileLevel"></result>
 		<result column="status" property="status"></result>
+		
 	</resultMap>
-
+	
+	<resultMap id="taskSubmitResultSet" type="TaskSubmit">
+		<result column="task_no" property="taskNo"></result>
+		<result column="id" property="id"></result>
+		<result column="task_title" property="taskTitle"></result>
+		<result column="submit_content" property="submitContent"></result>
+		<result column="name" property="name"></result>
+		<result column="submit_date" property="submitDate"></result>
+		<result column="modify_date" property="modifyDate"></result>
+		<result column="status" property="status"></result>
+	</resultMap>
+	
 	<insert id="insertTask">
 		insert
 		    into task
@@ -129,6 +141,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			set status = 'N'
 		where task_no = #{taskNo}
 	</update>
+	
+	<select id="selectSubmitList" resultMap="taskSubmitResultSet">
+		SELECT 
+		        t.task_no as "task_no"
+		      , t.task_title as "task_title"
+		      , submit_content as "submit_content"
+		      , name
+			  , submit_date
+		      , s.status as "status"
+		FROM task_submit s
+		join member m on (s.id = m.id)
+		join task t on (s.task_no = t.task_no)
+		where s.task_no = #{taskNo}
+	</select>
 </mapper>
 
 

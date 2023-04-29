@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.task.model.dao.TaskDao;
 import com.kh.yist.task.model.vo.Task;
+import com.kh.yist.task.model.vo.TaskSubmit;
 
 @Service
 public class TaskService {
@@ -42,6 +43,10 @@ public class TaskService {
 
 	public int deleteTask(Task task) {
 		return tDao.deleteTask(sqlSession, task);
+	}
+
+	public ArrayList<TaskSubmit> selectSubmitList(int taskNo) {
+		return tDao.selectSubmitList(sqlSession, taskNo);
 	}
 	
 }

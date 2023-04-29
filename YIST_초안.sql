@@ -245,26 +245,21 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
-select count(task_no) as "taskListCount"
-		from task
-		left join task_file using (task_no)			
-		where id = 'INSTRUCTOR01' and status = 'Y' and task_title like '%연산자%';
+SELECT 
+        t.task_no
+      , t.task_title
+      , submit_content
+      , name
+      , submit_date
+      , s.status
+FROM task_submit s
+join member m on (s.id = m.id)
+join task t on (s.task_no = t.task_no)
+where s.task_no = 1;
 
-select 
-		        task_no
-		      , file_no
-		      , subject_no
-		      , id
-		      , task_title
-		      , task_content
-		      , to_char(start_date, 'RRRR-MM-DD') as "start_date"
-		      , to_char(end_date, 'RRRR-MM-DD') as "end_date"
-		      , origin_name
-		      , change_name
-		      , file_level
-		      , status
-		from task 
-		left join task_file using (task_no)
-		where id = 'INSTRUCTOR01' and status = 'Y'
-                   and start_date between to_date('2022-11-03','RRRR-MM-DD') and to_date('2022-11-05','RRRR-MM-DD');
-        
+commit;
+
+insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
+insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
+commit;
+

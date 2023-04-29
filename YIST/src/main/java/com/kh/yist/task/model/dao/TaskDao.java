@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.task.model.vo.Task;
+import com.kh.yist.task.model.vo.TaskSubmit;
 
 @Repository
 public class TaskDao {
@@ -54,6 +55,10 @@ public class TaskDao {
 
 	public int deleteTask(SqlSessionTemplate sqlSession, Task task) {
 		return sqlSession.update("instructorMapper.deleteTask", task);
+	}
+
+	public ArrayList<TaskSubmit> selectSubmitList(SqlSessionTemplate sqlSession, int taskNo) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectSubmitList", taskNo);
 	}
 
 }
