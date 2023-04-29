@@ -2,6 +2,8 @@ package com.kh.yist.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminCotroller {
@@ -9,7 +11,7 @@ public class AdminCotroller {
 	
 	//강의
 	@RequestMapping("classAdminList.ad")
-	public String classAdminList() {
+	public String classAdminList(@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
 		return "admin/class/classListView";
 	}
 	
