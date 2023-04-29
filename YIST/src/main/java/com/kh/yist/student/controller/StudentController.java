@@ -1,14 +1,23 @@
 package com.kh.yist.student.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.common.template.Pagination;
 import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Notice;
 
 @Controller
 public class StudentController {
 	
+	@Autowired
+	private StudentService sService;
 
 	@RequestMapping("main.st")
 	public String main() {
@@ -25,9 +34,22 @@ public class StudentController {
 		return "student/studentCertificate";
 	}
 	
+	/*
+	 * @RequestMapping("noticeList.st") public String noticeList() { return
+	 * "student/studentNoticeList"; }
+	 */
 	@RequestMapping("noticeList.st")
-	public String noticeList() {
-		return "student/studentNoticeList";
+	public ModelAndView noticeList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		int listCount = sService.noticeListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Notice> list = sService.selectList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentNoticeList");
+		
+		return mv;
 	}
 	
 	@RequestMapping("videoList.st")
