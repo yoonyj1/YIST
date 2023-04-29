@@ -147,6 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        t.task_no as "task_no"
 		      , t.task_title as "task_title"
 		      , submit_content as "submit_content"
+		      , s.id
 		      , name
 			  , submit_date
 		      , s.status as "status"
@@ -155,6 +156,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		join task t on (s.task_no = t.task_no)
 		where s.task_no = #{taskNo}
 	</select>
+	
+	<update id="checkTaskSubmit">
+		update task_submit
+			set status = 'Y'
+		where task_no = #{taskNo} and id = #{id}
+	</update>
 </mapper>
 
 

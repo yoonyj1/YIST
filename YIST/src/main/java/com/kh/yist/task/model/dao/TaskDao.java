@@ -61,4 +61,8 @@ public class TaskDao {
 		return (ArrayList)sqlSession.selectList("instructorMapper.selectSubmitList", taskNo);
 	}
 
+	public int checkTaskSubmit(SqlSessionTemplate sqlSession, TaskSubmit ts) {
+		return sqlSession.update("instructorMapper.checkTaskSubmit", ts);
+	}
+
 }

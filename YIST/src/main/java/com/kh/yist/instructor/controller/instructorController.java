@@ -194,6 +194,24 @@ public class instructorController {
 		return "instructor/detailTaskForm";
 	}
 	
+	@RequestMapping("taskCheck.ins")
+	public String checkTaskSubmit(TaskSubmit ts, HttpSession session) {
+		
+		int result = tService.checkTaskSubmit(ts);
+		
+		String msg = "";
+		
+		if (result > 0) {
+			msg = "확인이 완료되었습니다."; 
+		} else {
+			msg = "확인 실패하였습니다.";
+		}
+		
+		session.setAttribute("alertMsg", msg);
+		
+		return "redirect:detail.task?taskNo=" + ts.getTaskNo();
+	}
+	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 
 		String originName = upfile.getOriginalFilename(); // flower.png

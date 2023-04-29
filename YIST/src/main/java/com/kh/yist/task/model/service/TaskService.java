@@ -48,5 +48,9 @@ public class TaskService {
 	public ArrayList<TaskSubmit> selectSubmitList(int taskNo) {
 		return tDao.selectSubmitList(sqlSession, taskNo);
 	}
+
+	public int checkTaskSubmit(TaskSubmit ts) {
+		return tDao.checkTaskSubmit(sqlSession, ts);
+	}
 	
 }

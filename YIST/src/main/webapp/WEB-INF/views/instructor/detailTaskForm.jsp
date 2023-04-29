@@ -39,9 +39,7 @@
 										<th scope="col">제목</th>
 										<th scope="col">이름</th>
 										<th scope="col">제출일</th>
-										<th scope="col">완료여부</th>
 										<th scope="col">확인여부</th>
-										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -51,33 +49,43 @@
 										<th scope="col">${t.taskTitle}</th>
 										<th scope="col">${t.name }</th>
 										<th scope="col">${t.submitDate }</th>
-										<th scope="col">아직미정</th>
-										<th scope="col">아직미정</th>
+										<c:choose>
+											<c:when test="${t.status eq 'Y'}">
+												<th scope="col">확인</th>
+											</c:when>
+											<c:otherwise>
+												<th scope="col">-</th>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 									<!-- 과제 모달 시작 -->
-				                    <div class="modal fade" id="taskModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				                      aria-hidden="true">
-				                      <div class="modal-dialog modal-xl" role="document">
-				                        <div class="modal-content">
-				                          <div class="modal-header">
-				                            <h5 class="modal-title" id="exampleModalLabel">정수의합 (조진원)</h5>
-				                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				                              <span aria-hidden="true">×</span>
-				                            </button>
-				                          </div>
-				                          <div class="modal-body">
-				                          	  <!-- 학생답 시작 -->
-				                              <label for="exampleFormControlTextarea1">과제 내용</label>
-										    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent" >${t.submitContent}</textarea>
-											  <!-- 학생답끝 -->
-				                          </div>
-				                          <div class="modal-footer">
-				                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-				                            <button type="button" class="btn btn-primary btn-pill">확인하기</button>
-				                          </div>
-				                        </div>
-				                      </div>
-				                    </div>
+									<form action="taskCheck.ins" method="post">
+										<input type="hidden" name="taskNo" value="${t.taskNo}">
+										<input type="hidden" name="id" value="${t.id}">
+					                    <div class="modal fade" id="taskModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+					                      aria-hidden="true">
+					                      <div class="modal-dialog modal-xl" role="document">
+					                        <div class="modal-content">
+					                          <div class="modal-header">
+					                            <h5 class="modal-title" id="exampleModalLabel">${t.taskTitle} (${t.name})</h5>
+					                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                              <span aria-hidden="true">×</span>
+					                            </button>
+					                          </div>
+					                          <div class="modal-body">
+					                          	<!-- 학생답 시작 -->
+					                            <label for="exampleFormControlTextarea1">과제 내용</label>
+											    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="10" name="taskContent" style="resize: none">${t.submitContent}</textarea>
+												<!-- 학생답끝 -->
+					                          </div>
+					                          <div class="modal-footer">
+					                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
+					                            <button type="submit" class="btn btn-primary btn-pill">확인하기</button>
+					                          </div>
+					                        </div>
+					                      </div>
+					                    </div>
+				                    </form>
 				                    <!-- 과제 모달 끝 -->
 				                    </c:forEach>
 								</tbody>
@@ -128,6 +136,8 @@
 										let taskModalId = '#taskModal' + $(this).children('th').eq(0).html();
 										$(taskModalId).modal('show');
 									})
+									
+									
 								})
 							</script>
 						</div>
