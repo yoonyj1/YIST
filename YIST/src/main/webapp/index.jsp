@@ -118,7 +118,7 @@ div.title .titleP {
 
     </div> -->
 
-	<jsp:forward page="WEB-INF/views/student/studentMain.jsp"/>
+	<jsp:forward page="WEB-INF/views/student/studentTestDetail.jsp"/>
 </body>
 </html>
 

@@ -51,31 +51,31 @@
         <tbody>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                    1. 문자열을 담을 수 있는 자료형을 쓰고 str 변수에 "java"라는 값을 담으시오. (20점) <br>
+                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                    2. 산술연사자에서 각 연산자가 어떠한 기능을 하는지 서술하시오. (20점) <br>
+                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                    3. 전위 연산자와 후위 연산자를 설명하시오. (20점) <br>
+                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                    4. 다음 연산자들 목록에서 연산자의 우선순위가 높은 순서대로 기술하시오. (20점) <br>
+                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                    5. 아래의 메인클래스를 작성하고, 메인에서 아래와 같은 실행결과가 나오도록 코딩하시오. (20점) <br>
+                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
