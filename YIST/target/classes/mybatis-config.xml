@@ -11,6 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
 		<typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.yist.task.model.vo.Task" alias="Task"/>
+		<typeAlias type="com.kh.yist.task.model.vo.TaskSubmit" alias="TaskSubmit"/>
 		<typeAlias type="com.kh.yist.member.model.vo.Alarm" alias="Alarm"/>
 		<typeAlias type="com.kh.yist.message.Message" alias="Message"/>
 		<typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>

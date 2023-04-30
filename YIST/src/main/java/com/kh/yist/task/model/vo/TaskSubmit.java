@@ -13,5 +13,10 @@ public class TaskSubmit {
 
 	private int taskNo;
 	private String id;
+	private String taskTitle;
+	private String submitContent;
+	private String name;
+	private String submitDate; 
+	private String modifyDate;
 	private String status;
 }

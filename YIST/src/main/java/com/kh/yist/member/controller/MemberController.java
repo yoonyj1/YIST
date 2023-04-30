@@ -38,7 +38,6 @@ public class MemberController {
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
-//		System.out.println("누구인가? : " + sort);
 		memSort = sort;
 		model.addAttribute("sort", sort);
 		if (!loginCheck) {
@@ -161,6 +160,7 @@ public class MemberController {
 		return sendCode.joinEmail(userEmail);
 		
 	}
+
 	
 	
 	@RequestMapping("enroll.me")
