@@ -33,11 +33,23 @@
     background-color: #eee;
     font-weight: bold;
   }
+  
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  body * {
+  	font-family: 'Pretendard-Regular';
+  }
+  
 </style>
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container">
     <table style="margin-bottom: 80px">
@@ -156,6 +168,6 @@
     </table>
   </div>
   
-  <jsp:include page="../common/footer.jsp"/>
+  <jsp:include page="common/footer.jsp"/>
 </body>
 </html>

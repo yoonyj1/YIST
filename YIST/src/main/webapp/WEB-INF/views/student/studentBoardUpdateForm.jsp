@@ -73,7 +73,7 @@ button {
 </style>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container" >
 	
@@ -146,6 +146,6 @@ button {
 	</script>
 	
 	
-	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<jsp:include page="common/footer.jsp"></jsp:include>
 </body>
 </html>
