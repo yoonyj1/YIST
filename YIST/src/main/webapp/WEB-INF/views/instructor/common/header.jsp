@@ -203,7 +203,7 @@
 								class="mdi mdi-calendar-check"></i> <span class="nav-text">출석</span>
 					</a></li>
 
-					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
+					<li><a class="sidenav-item-link" href="calendar.ins"> <i
 							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
 					</a></li>
 					
@@ -222,7 +222,7 @@
 
 
 
-					<li><a class="sidenav-item-link" href="contacts.html"> <i
+					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
 							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
 					</a></li>
 				</ul>
@@ -483,7 +483,7 @@
 							</a></li>
 
 							<li class="dropdown-footer"><a class="dropdown-link-item"
-								href="sign-in.html"> <i class="mdi mdi-logout"></i> Log Out
+								href="logout.me"> <i class="mdi mdi-logout"></i>로그아웃
 							</a></li>
 						</ul>
 					</li>
