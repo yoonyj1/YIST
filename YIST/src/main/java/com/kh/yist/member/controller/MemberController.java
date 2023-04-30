@@ -160,7 +160,7 @@ public class MemberController {
 		return sendCode.joinEmail(userEmail);
 		
 	}
-}
+
 	
 	
 	@RequestMapping("enroll.me")

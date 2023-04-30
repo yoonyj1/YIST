@@ -245,21 +245,20 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
-SELECT 
-        t.task_no
-      , t.task_title
-      , submit_content
-      , name
-      , submit_date
-      , s.status
-FROM task_submit s
-join member m on (s.id = m.id)
-join task t on (s.task_no = t.task_no)
-where s.task_no = 1;
-
-commit;
+insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자료형과 연산자', sysdate, 1, DEFAULT);
+insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
 
 insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
 insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
-commit;
 
+select
+    test_no
+  , id
+  , subject_no
+  , test_title
+  , exam_date
+  , exam_time
+from exam
+where id = 'INSTRUCTOR01';
+
+commit;
