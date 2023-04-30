@@ -23,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
+import com.sun.tools.javac.code.Attribute.Array;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -34,7 +36,14 @@ public class instructorController {
 	private TaskService tService;
 
 	@RequestMapping("examForm.ins")
-	public String examForm() {
+	public String examForm(HttpSession session, Model model) {
+		
+		Member ins = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
+		
+		model.addAttribute("examList", examList);
+		
 		return "instructor/examForm";
 	}
 

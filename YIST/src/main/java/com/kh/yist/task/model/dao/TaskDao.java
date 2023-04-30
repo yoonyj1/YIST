@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
 
@@ -63,6 +64,10 @@ public class TaskDao {
 
 	public int checkTaskSubmit(SqlSessionTemplate sqlSession, TaskSubmit ts) {
 		return sqlSession.update("instructorMapper.checkTaskSubmit", ts);
+	}
+
+	public ArrayList<Exam> selectExamList(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamList", id);
 	}
 
 }

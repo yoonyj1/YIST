@@ -256,8 +256,9 @@ select
   , id
   , subject_no
   , test_title
-  , exam_date
+  , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
   , exam_time
+  , status
 from exam
 where id = 'INSTRUCTOR01';
 

@@ -17,6 +17,7 @@ public class Exam {
 	private String id;
 	private int subjectNo;
 	private String testTitle;
-	private Date startDate;
-	private Date endDate;
+	private String examDate;
+	private int examTime;
+	private String status;
 }
