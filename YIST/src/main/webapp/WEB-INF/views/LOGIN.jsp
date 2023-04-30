@@ -91,12 +91,12 @@ div.title .titleP {
 	<c:if test="${not empty alertMsg}">
 		<script type="text/javascript">
 			alertify.alert("${alertMsg}");
-		//<c:remove var="alertMsg" scope="session"/>
 		</script>
+			<c:remove var="alertMsg" scope="session"/>
 	</c:if>
 	<script type="text/javascript">
 		$(function(){
-			console.log("dd");
+			//console.log("dd");
 		})
 	</script>
 	<div class="contents" align="center">

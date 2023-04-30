@@ -1,16 +1,22 @@
 package com.kh.yist.member.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.service.SubjectServiceImpl;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
 public class MemberController {
@@ -18,10 +24,17 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl mService;
 	
+	@Autowired
+	private SubjectServiceImpl sService;
+	
+	@Autowired
+	private SendCodeService sendCode;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	private int memSort = 0;
 	private boolean loginCheck = true;
-	
-	private SendCodeService sendCode;
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
@@ -57,11 +70,11 @@ public class MemberController {
 			System.out.println("m.getSort() : " + m.getSort());
 			
 			if (m.getSort() == 1) { // 관리자
-				mainPage = "admin/adminSidebar";
+				mainPage = "admin/common/header";
 			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
-				mainPage = "student/main";
+				mainPage = "student/studentMain";
 			} else {
 				hasMember = false;
 				mainPage = "redirect:login.ins";
@@ -103,12 +116,17 @@ public class MemberController {
 	 * @param sort:회원분류(1:관리자, 2:강사, 3:학생)
 	 * @return 회원가입 화면으로 이동
 	 */
-	@RequestMapping("enrollForm.me")
-	public String enrollForm(int sort,  Model model) {
+	@RequestMapping(value="enrollForm.me")
+	public ModelAndView enrollForm(int sort,  ModelAndView mv) {
 		
-		model.addAttribute("sort", sort);
+		ArrayList<Subject> list = new ArrayList<Subject>();
 		
-		return "/student/common/memberEnrollForm";
+		if(sort==3) {
+			list = sService.selectSubjectList();
+		}
+		
+		mv.addObject("sort",sort).addObject("list", list).setViewName("/student/common/memberEnrollForm");
+		return mv;
 	}
 	
 	
@@ -122,8 +140,8 @@ public class MemberController {
 	@RequestMapping("AjaxIdCheck.me")
 	public String ajaxIdCheck(String checkId) {
 		
+		
 		int count = mService.idCheck(checkId);
-		System.out.println(count);
 		
 		if(count>0) {
 			// 중복
@@ -139,13 +157,51 @@ public class MemberController {
 	@RequestMapping("AjaxSendCode.me")
 	public String ajaxSendCode(String userEmail) {
 		
-		System.out.println(userEmail);
-		
 		return sendCode.joinEmail(userEmail);
+		
 	}
 }
 	
+	
+	@RequestMapping("enroll.me")
+	public String insertMember(Member m, HttpSession session, Model model) {
 
+		
+		//암호화
+		String encPwd = bcryptPasswordEncoder.encode(m.getPwd());
+		
+		m.setPwd(encPwd);
+		
+		int result = mService.insertMember(m);
+		
+		
+		if(result > 0) {
+			int sort = m.getSort();
+			
+			if(sort==3) {
+				
+				int subjectNo = Integer.parseInt(m.getSubject());
+				int count = sService.increaseCurrentSeats(subjectNo);
+			}
+			
+			
+			session.setAttribute("alertMsg", "YIST에 함께 해주셔서 감사합니다!");
+			return "redirect:/";
+			
+		}else {
+			
+			model.addAttribute("errorMsg","회원가입에 실패했습니다. 다시 시도해주세요");
+			return "/student/common/errorPage";
+			
+		}
+		
+	}
+	
+	
+	
+	
+}//Controller end
+	
 
 
 
