@@ -76,6 +76,35 @@
            and subject_no = #{subjectNo}
 	</select>
 	
+	<insert id="insertSubject" parameterType="Subject">
+		insert 
+		    into subject
+		    (
+		        SUBJECT_NO
+		      ,  CLASS_NO
+		      ,  SUBJECT_NAME
+		      ,  START_DATE
+		      ,  END_DATE
+		      ,  STATUS
+		      ,  DAY
+		      ,  MAXIMUM_SEATS
+		      ,  CURRENT_SEATS
+		      ,  FEE
+		    )
+		    values
+		    (
+		        SEQ_SNO.nextval
+		      , #{classNo}
+		      , #{subjectName}
+		      , #{startDate}
+		      , #{endDate}
+		      , 'Y'
+		      , #{day}
+		      , #{maximumSeats}
+		      , #{currentSeats}
+		      , fee
+		    )	
+	</insert>
 	
 
 </mapper>

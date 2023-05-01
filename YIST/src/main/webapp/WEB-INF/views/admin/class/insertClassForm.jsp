@@ -42,8 +42,8 @@
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 	<jsp:include page="../common/header.jsp"/>
-	
-	
+
+
 	<div class="card card-default">
 		<div class="card-header">
 				<h2>강의 등록</h2>

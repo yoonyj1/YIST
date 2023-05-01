@@ -33,5 +33,5 @@ public interface MemberService {
 	ArrayList<Member> selectInstructorList();
 	
 	// 강사 배정
-	int updateInstructor(String id, int classNo);
+	int updateInstructor(String id, int subjectNo);
 }

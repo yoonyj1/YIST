@@ -98,8 +98,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateInstructor(String id, int classNo) {
-		return mDao.updateInstructor(sqlSession, id, classNo);
+	public int updateInstructor(String id, int subjectNo) {
+		return mDao.updateInstructor(sqlSession, id, subjectNo);
 	}
 
 }

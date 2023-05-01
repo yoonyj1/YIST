@@ -207,8 +207,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="updateInstructor">
-	
-	
+	    update 
+	            member
+	       set subject = #{subjectNo}
+	     where
+	            id = #{id}		
+		   and sort = 2	
 	</update>
 
 </mapper>

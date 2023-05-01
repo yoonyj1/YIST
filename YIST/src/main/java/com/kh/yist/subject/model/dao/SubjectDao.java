@@ -53,4 +53,8 @@ public class SubjectDao {
 		return (ArrayList)sqlSession.selectList("classMapper.selectClassList");
 	}
 	
+	public int insertSubject(SqlSession sqlSession, Subject s) {
+		return sqlSession.insert("subjectMapper.insertSubject", s);
+	}
+	
 }

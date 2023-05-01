@@ -66,16 +66,19 @@ public class SubjectController {
 	}
 	
 	@RequestMapping("insertSubject.cl")
-	public String insertSubject(Subject s, @RequestParam("id") String id, Model m) {
+	public String insertSubject(Subject s, HttpServletRequest request, Model m) {
 		
 				
 		System.out.println(s);
+		
+		String id = request.getParameter("id");
+		
 		System.out.println(id);
 		
 		
 		int result = sService.insertSubject(s);
-		int classNo = s.getClassNo();
-		int iResult = mService.updateInstructor(id, classNo);
+		int subjectNo = s.getSubjectNo()();
+		int iResult = mService.updateInstructor(id, subjectNo);
 
 		if(result>0 && iResult>0) {
 			

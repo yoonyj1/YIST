@@ -34,4 +34,9 @@ public class MemberDao {
 	public ArrayList<Member> selectInstructorList(SqlSession sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
 	}
+	
+	public int updateInstructor(SqlSession sqlSession, String id, int subjectNo) {
+		return sqlSession.update("memberMapper.updateInstructor", id, subjectNo);
+	}
+	
 }

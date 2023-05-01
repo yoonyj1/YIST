@@ -45,7 +45,7 @@ public class SubjectServiceImpl implements SubjectService{
 
 	@Override
 	public int insertSubject(Subject s) {
-		return 0;
+		return sDao.insertSubject(sqlSession, s);
 	}
 
 	@Override
