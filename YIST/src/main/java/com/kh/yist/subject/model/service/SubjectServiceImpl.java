@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.subject.model.dao.SubjectDao;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -29,6 +30,36 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public int increaseCurrentSeats(int subjectNo) {
 		return sDao.increaseCurrentSeats(sqlSession, subjectNo);
+	}
+
+	@Override
+	public int selectSubjectListCount() {
+		return sDao.selectSubjectListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Subject> selectSubjectList(PageInfo pi) {
+		return sDao.selectSubjectList(sqlSession, pi);
+	}
+
+	@Override
+	public int insertSubject(Subject s) {
+		return 0;
+	}
+
+	@Override
+	public Subject selectSubject(int subjectNo) {
+		return null;
+	}
+
+	@Override
+	public int updateSubject(Subject s) {
+		return 0;
+	}
+
+	@Override
+	public int deleteSubject(int subjectNo) {
+		return 0;
 	}
 
 }

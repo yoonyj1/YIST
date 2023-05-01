@@ -69,7 +69,10 @@
 			<h2>강의</h2>
 			<div class="btn-right" style="float: right">
 				<button id="addClass" type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
-				<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
+				
+			    <c:if test="${ loginUser.sort eq 1 }">
+					<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
+            	</c:if>
 
 				<!-- 모달 -->
 				<div class="modal fade" id="classDeleteModal" tabindex="-1" role="dialog" aria-labelledby="classDeleteModalLabel" aria-hidden="true">
@@ -112,127 +115,19 @@
 					</tr>
 				</thead>
 				<tbody>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">1</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">2</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">3</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">4</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">5</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">6</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">7</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">8</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">9</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
-					<tr>
-						<td><input type="checkbox"></td>
-						<td class="classNo">10</td>
-						<td>자바의정석</td>
-						<td>남성</td>
-						<td>10</td>
-						<td>8</td>
-						<td>
-							<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-						</td>
-					</tr>
-
+					<c:forEach var='s' items="${ list }">
+						<tr>
+							<td><input type="checkbox"></td>
+							<td class="classNo">${ s.subjectNo }</td>
+							<td>${ s.subjectName }</td>
+							<td>${ s.instructor }</td>
+							<td>${ s.maximumSeats }</td>
+							<td>${ s.currentSeats }</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-outline-warning">수정</button>
+							</td>
+						</tr>
+					</c:forEach>
 
 				</tbody>
 			</table>
@@ -254,15 +149,14 @@
                     
 	                //수정화면이동
 					$("#classTable>tbody>tr>td>button").click(function(){
-						//location.href='modify.cl?cno=' + $(this).children(".cno").text();
-						location.href='update.cl';
+						location.href='update.cl?page=' + $(this).parent("td").siblings('.classNo').text();
 					})
 					
 					//조회화면이동
 					$('#classTable').on('click', 'tr td:nth-child(3)', function() {
 						var classNo = $(this).siblings('.classNo').text();
 
-						location.href = 'detail.cl';
+						location.href = 'detail.cl?sNo='+classNo;
 						
 					});
 					
@@ -301,33 +195,51 @@
 
 				<nav aria-label="Page navigation example" style="margin-top: 50px;">
 					<ul class="pagination pagination-seperated pagination-seperated-rounded">
-						<li class="page-item">
-							<a class="page-link" href="#" aria-label="Previous"> 
-								<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
-								<span class="sr-only">Previous</span>
-							</a>
-						</li>
-						<li class="page-item active">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">4</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">5</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#" aria-label="Next"> Next 
-								<span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
-								<span class="sr-only">Next</span>
-							</a>
-						</li>
+						<c:choose>
+							<c:when test="${ pi.currentPage eq 1 }">
+								<li class="page-item disabled">
+									<a class="page-link" href="" aria-label="Previous"> 
+										<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+									<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage -1 }" aria-label="Previous"> 
+										<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>							
+							</c:otherwise>
+						</c:choose>
+					
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<li class="page-item active">
+								<a class="page-link" href="classAdminList.ad?page=${ p }">${ p }</a>
+							</li>
+						</c:forEach>
+						
+						<c:choose>
+							<c:when test="${ pi.currentPage eq pi.maxPage }">
+								<li class="page-item disabled">
+									<a class="page-link" href="" aria-label="Next"> 
+										<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+										<span class="sr-only">Next</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+									<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage + 1 }" aria-label="Next"> 
+										<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+										<span class="sr-only">Next</span>
+									</a>
+								</li>							
+							</c:otherwise>
+						</c:choose>
+						
+
 					</ul>
 				</nav>
 				
