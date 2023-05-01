@@ -24,5 +24,6 @@ public class Subject {
 	private int currentSeats;
 	private int fee;
 	private String instructor;
+	private String className;
 	
 }

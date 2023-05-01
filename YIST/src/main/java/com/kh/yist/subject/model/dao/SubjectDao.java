@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
 @Repository
@@ -42,5 +43,14 @@ public class SubjectDao {
 		return (ArrayList)sqlSession.selectList("subjectMapper.selectSubjectList", null, rowBounds);
 	}
 	
+	public Subject selectSubject(SqlSession sqlSession, int subjectNo) {
+		
+		return sqlSession.selectOne("subjectMapper.selectSubject", subjectNo);
+		
+	}
+	
+	public ArrayList<Class> selectClassList(SqlSession sqlSession){
+		return (ArrayList)sqlSession.selectList("classMapper.selectClassList");
+	}
 	
 }

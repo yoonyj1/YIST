@@ -29,4 +29,9 @@ public interface MemberService {
 	ArrayList<Message> messageList(String userId);
 	
 	int updateMessage(String userId);
+	
+	ArrayList<Member> selectInstructorList();
+	
+	// 강사 배정
+	int updateInstructor(String id, int classNo);
 }

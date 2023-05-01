@@ -149,7 +149,7 @@
                     
 	                //수정화면이동
 					$("#classTable>tbody>tr>td>button").click(function(){
-						location.href='update.cl?page=' + $(this).parent("td").siblings('.classNo').text();
+						location.href='updateForm.cl?sNo=' + $(this).parent("td").siblings('.classNo').text();
 					})
 					
 					//조회화면이동
@@ -162,7 +162,7 @@
 					
 					//등록화면이동
 					$("#addClass").click(function(){
-						location.href='insert.cl';
+						location.href='insertForm.cl';
 					})
 					
 					

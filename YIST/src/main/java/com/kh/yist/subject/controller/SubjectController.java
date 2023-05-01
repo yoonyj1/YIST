@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.service.MemberService;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.service.SubjectService;
+import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
@@ -18,6 +22,9 @@ public class SubjectController {
 	
 	@Autowired
 	private SubjectService sService;
+	
+	@Autowired
+	private MemberService mService;
 	
 	//강의
 	@RequestMapping("classAdminList.ad")
@@ -28,22 +35,50 @@ public class SubjectController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
 		
 		ArrayList<Subject> list = sService.selectSubjectList(pi);
-		System.out.println(pi);
-		System.out.println(list);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/class/classListView");
 		
 		return mv;
 	}
 	
-	@RequestMapping("update.cl")
-	public String updateClassForm() {
+	@RequestMapping("updateForm.cl")
+	public String updateClassForm(int sNo, Model m) {
+		
+		Subject s = sService.selectSubject(sNo);
+		
+		m.addAttribute("s", s);
 		return "admin/class/updateClassForm";
 	}
 	
-	@RequestMapping("insert.cl")
-	public String insertClassForm(){
+	@RequestMapping("insertForm.cl")
+	public String insertClassForm(Model m){
+		
+		ArrayList<Class> cList = sService.selectClassList();
+		ArrayList<Member> aList = mService.selectInstructorList();
+		
+		m.addAttribute("cList", cList);
+		m.addAttribute("aList",aList);
+		
 		return "admin/class/insertClassForm";
+	}
+	
+	@RequestMapping("insertSubject.cl")
+	public String insertSubject(Subject s, String id, Model m) {
+		
+		int result = sService.insertSubject(s);
+		int classNo = s.getClassNo()
+		int iResult = mService.updateInstructor(id, classNo);
+
+		if(result>0 && iResult>0) {
+			
+			m.addAttribute("alertMsg", "강의 등록 성공!");
+			
+		}else {
+			m.addAttribute("alertMsg", "강의 등록 실패!");
+		}
+		
+		return "admin/class/classListView";
+		
 	}
 	
 	@RequestMapping("delete.cl")
@@ -52,9 +87,17 @@ public class SubjectController {
 	}
 	
 	@RequestMapping("detail.cl")
-	public String selectClass() {
+	public String selectClass(int sNo, Model m) {
+		
+		Subject s = sService.selectSubject(sNo);
+		
+		
+		m.addAttribute("s", s);
+		
 		return "admin/class/detailClass";
 	}
+	
+	
 	
 
 }

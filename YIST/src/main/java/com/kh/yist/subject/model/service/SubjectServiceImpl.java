@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.subject.model.dao.SubjectDao;
+import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
 @Service
@@ -49,7 +50,7 @@ public class SubjectServiceImpl implements SubjectService{
 
 	@Override
 	public Subject selectSubject(int subjectNo) {
-		return null;
+		return sDao.selectSubject(sqlSession, subjectNo);
 	}
 
 	@Override
@@ -61,5 +62,12 @@ public class SubjectServiceImpl implements SubjectService{
 	public int deleteSubject(int subjectNo) {
 		return 0;
 	}
+
+	@Override
+	public ArrayList<Class> selectClassList() {
+		return sDao.selectClassList(sqlSession);
+	}
+
+
 
 }

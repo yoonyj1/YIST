@@ -1,5 +1,8 @@
 package com.kh.yist.member.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -28,4 +31,7 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
 	}
 
+	public ArrayList<Member> selectInstructorList(SqlSession sqlSession){
+		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
+	}
 }

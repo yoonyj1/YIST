@@ -92,4 +92,14 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public ArrayList<Member> selectInstructorList() {
+		return mDao.selectInstructorList(sqlSession);
+	}
+
+	@Override
+	public int updateInstructor(String id, int classNo) {
+		return mDao.updateInstructor(sqlSession, id, classNo);
+	}
+
 }

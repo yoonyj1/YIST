@@ -3,6 +3,7 @@ package com.kh.yist.subject.model.service;
 import java.util.ArrayList;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
 public interface SubjectService {
@@ -31,5 +32,8 @@ public interface SubjectService {
 	// 강의 삭제
 	int deleteSubject(int subjectNo);
 	
+	// 과정 조회
+	ArrayList<Class> selectClassList();
 	
+
 }

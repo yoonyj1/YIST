@@ -189,7 +189,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 order
 		    by start_date
 	</select>
-
+	
+	<select id="selectInstructorList" resultMap="memberResultSet">
+		select
+		    NAME
+		    , SUBJECT
+		    , STATUS
+		    , SORT
+		from 
+		    member
+		where
+		    sort = 2
+		    and status = 'Y'
+		    and subject is null
+		order by
+		        name		
+	</select>
+	
+	<update id="updateInstructor">
+	
+	
+	</update>
 
 </mapper>
 
