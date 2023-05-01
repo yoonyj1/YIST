@@ -34,16 +34,12 @@ public class StudentController {
 		return "student/studentCertificate";
 	}
 	
-	/*
-	 * @RequestMapping("noticeList.st") public String noticeList() { return
-	 * "student/studentNoticeList"; }
-	 */
 	@RequestMapping("noticeList.st")
 	public ModelAndView noticeList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
 		
 		int listCount = sService.noticeListCount();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Notice> list = sService.selectList(pi);
 		

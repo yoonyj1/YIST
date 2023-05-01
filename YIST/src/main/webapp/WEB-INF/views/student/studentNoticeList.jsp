@@ -114,7 +114,7 @@ button {
 	      </c:choose>			
            	
           <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-          	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ p }">${ p }</a></li>
+          	<li class="page-item"><a class="page-link" href="noticeList.st?cpage=${ p }">${ p }</a></li>
           </c:forEach>
           
           <c:choose>
