@@ -10,6 +10,13 @@
 </head>
 <body>
 	<script>
+		function examSetForm(){
+			console.log("등록");
+			let setTime = $('input[name=examSet]:checked').val();
+			console.log("시간 : " + setTime);
+			$("#examForm").attr("action", "examStart.ins").submit();
+		}
+	
 		function checkInputNum() {
 			if ((event.keyCode < 48) || (event.keyCode > 57)) {
 				event.returnValue = false;
@@ -17,47 +24,7 @@
 		}
 
 		$(function() {
-			$(".close, #close").click(function() {
-				let getId = '#' + $(this).parents(".s-modal").attr('id');
-				console.log(getId);
-				$(getId).modal('hide');
-
-			})
-
-			$(".test-end").click(function() {
-				if (confirm("평가를 종료 하시겠습니까?")) {
-					$(this).prev().attr("disabled", true);
-					$(this).attr("disabled", true);
-					alert("평가가 종료되었습니다");
-				}
-			})
-		})
-
-		$(document).ready(function() {
-					$(".test-start").on("click",function() {
-								let title = $(this).parents("tr").children()
-										.eq(2).html();
-
-								if (confirm("[" + title + "] 평가를 시작하시겠습니까?")) {
-									alert("평가가 시작되었습니다");
-									$(this).attr("disabled", true);
-									$(this).next().attr("disabled", false);
-									$(this).next().next().attr("disabled",
-											false);
-
-									let type = '70';
-									let target = 'user02';
-									let content = '시험이 시작되었습니다.';
-									let loginUser = '${loginUser.getId()}';
-									let url = '컨트롤러 매핑값';
-									//socket.send("관리자,"+target+","+content+","+url);
-									socket.send('${loginUser.name},' + target
-											+ "," + content + "," + url + ","
-											+ loginUser);
-								}
-
-							})
-
+			$(document).ready(function() {
 					$(document).on("keyup", "#input-score", function() {
 						if ($(this).val() > 100) {
 							$(this).val(100);
@@ -66,9 +33,9 @@
 						if ($(this).val() < 0) {
 							$(this).val(0);
 						}
-					})
-
 				})
+			})
+		})
 	</script>
 
 	<div class="page-wrapper">
@@ -125,23 +92,40 @@
 										<!-- 과제 등록 모달 -->
 							              <div class="modal fade" id="examStart" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
 											  aria-hidden="true">
-											  <div class="modal-dialog modal-lg" role="document">
-											   <form id="insertForm" method="post" action="insert.task" enctype="multipart/form-data">
+											  <div class="modal-dialog" role="document">
+											   <form id="examForm" method="post" action="">
 											   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
 											   <input type="hidden" name="subjectNo" value="1">
 											    <div class="modal-content">
 											      <div class="modal-header">
-											        <h5 class="modal-title" id="exampleModalFormTitle">과제 등록</h5>
+											        <h5 class="modal-title" id="exampleModalFormTitle">시험 설정</h5>
 											        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="history.go(0)">
 											          <span aria-hidden="true">×</span>
 											        </button>
 											      </div>
 											      <div class="modal-body">
-											          
+											         <div class="form-check">
+														  <input type="radio" name="examSet" id="examSet1" value="1" checked>
+														  <label for="examSet1">
+														    1분
+														  </label>
+														</div>
+														<div class="form-check">
+														  <input type="radio" name="examSet" id="examSet2" value="2">
+														  <label for="examSet2">
+														     2분
+														  </label>
+														</div>
+														<div class="form-check">
+														  <input type="radio" name="examSet" id="examSet3" value="3">
+														  <label for="examSet3">
+														     3분
+														  </label>
+														</div>
 											      </div>
 											      <div class="modal-footer">
-											        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal" onClick="history.go(0)">닫기</button>
-											        <button type="button" class="task-insert btn btn-primary btn-pill" onclick="taskInsertForm();">등록하기</button>
+											        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal" onClick="history.go(0);">닫기</button>
+											        <button type="button" id="exam-btn" class="btn btn-primary btn-pill" onclick="examSetForm();">설정</button>
 											      </div>
 											    </div>
 											    </form>

@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,11 @@ public class instructorController {
 	@Autowired
 	private TaskService tService;
 
+	/*
+	 * @Scheduled(fixedDelay = 3000) public void test() {
+	 * System.out.println("3초 지났다."); }
+	 */
+	
 	@RequestMapping("examForm.ins")
 	public String examForm(HttpSession session, Model model) {
 		
