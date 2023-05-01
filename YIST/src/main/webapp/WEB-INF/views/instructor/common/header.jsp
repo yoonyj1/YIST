@@ -198,11 +198,11 @@
 					<li class="sider"><a class="sidenav-item-link" href="teacher.ins"> <i
 								class="mdi mdi-account-group"></i> <span class="nav-text">강사</span>
 					</a></li>
-
+					
 					<li><a class="sidenav-item-link" href="yistcheck.ins"> <i
 								class="mdi mdi-calendar-check"></i> <span class="nav-text">출석</span>
 					</a></li>
-
+					
 					<li><a class="sidenav-item-link" href="calendar.ins"> <i
 							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
 					</a></li>

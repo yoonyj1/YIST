@@ -63,7 +63,7 @@ button {
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="common/header.jsp"/>
 
 	<div class="container">
 	    <div class="sub08_title">
@@ -81,7 +81,7 @@ button {
 	            <td width="60%" style="text-align: left;">
 	              <input type="text" class="form-control" id="" name="" value="user01" readonly>
 	            </td>
-	            <th rowspan="4"><img src="resources/images/yist/profile.png" alt=""></th>
+	            <th rowspan="4"><img src="resources/student/images/yist/profile.png" alt=""></th>
 	          </tr>
 	          <tr>
 	            <th>비밀번호*</th>
@@ -262,6 +262,6 @@ button {
 	      
 	    </div>       
   </div>
-  <jsp:include page="../common/footer.jsp"/>
+  <jsp:include page="common/footer.jsp"/>
 </body>
 </html>

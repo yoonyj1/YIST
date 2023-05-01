@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +36,9 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalFormTitle">강사배정</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                      </button>
+	                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                      </button>
                     </div>
                     <div class="modal-body">
                       <form>
@@ -45,10 +46,9 @@
                             <label for="exampleInputEmail1">강사 선택</label>
                             <br>
                             <select name="teacherList" id="teacherList" style="width: 300px;">
-                                <option value="강사1">강사1</option>                            
-                                <option value="강사2">강사2</option>                            
-                                <option value="강사3">강사3</option>                            
-                                <option value="강사4">강사4</option>                            
+                            	<c:forEach var="t" items="${ nonSubjectList }">
+									<option value="${ t.name }">${ t.name }</option>	
+                            	</c:forEach>
                             </select>
                           </div>
                           <div class="form-group">
@@ -59,7 +59,7 @@
                               <option value="강의2">강의2</option>                            
                               <option value="강의3">강의3</option>                            
                               <option value="강의4">강의4</option>                            
-                          </select>
+                          	</select>
                           </div>
                           
                           
@@ -86,100 +86,63 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>윤여진</td>
-                    <td>010-1234-5678</td>
-                    <td>자바</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton" onclick="location.href='teacherDetail.do'">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Catrin</td>
-                    <td>Seidl</td>
-                    <td>C</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Lilli</td>
-                    <td>Kirsh</td>
-                    <td>파이썬</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Else</td>
-                    <td>Voigt</td>
-                    <td>@voigt</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Ursel</td>
-                    <td>Harms</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>@Anke</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  <tr>
-                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
-                    <td>Anke</td>
-                    <td>Sauter</td>
-                    <td>-</td>
-                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton">조회</button></td>
-                  </tr>
-                  
+                	<c:forEach var="i" items="${ list }">
+	                  <tr>
+	                    <td class="checkTeacher" style="display: none;"><input type="checkbox"></td>
+	                    <td>${ i.name }</td>
+	                    <c:choose>
+	                    	<c:when test="${ not empty i.phone }">
+	                    		<td>${ i.phone }</td>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<td>-</td>
+	                    	</c:otherwise>
+	                    </c:choose>
+	                    <c:choose>
+	                    	<c:when test="${ not empty i.subject }">
+			                    <td>${ i.subject }</td>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<td>-</td>
+	                    	</c:otherwise>
+	                    </c:choose>
+	                    <td align="center"><button class="btn btn-sm btn-primary selectTeacherButton" onclick="location.href='teacherDetail.do?id=${i.id}">조회</button></td>
+	                  </tr>
+                	</c:forEach>
                 </tbody>
               </table>
               </div>
         
+        <div class="card card-default align-items-center" style="margin-left:0px;">
+		  <div class="card-body">
+		
+		    <nav aria-label="Page navigation example">
+		      <ul class="pagination">
+		        <c:choose>
+             		<c:when test="${ pi.currentPage eq 1 }">
+                    	<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                   	</c:when>
+					<c:otherwise>                    	
+                    	<li class="page-item"><a class="page-link" href="teacherList.do?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                   	</c:otherwise>
+                   </c:choose>
+		        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.maxPage }">
+                	<li class="page-item"><a class="page-link" href="teacherList.do?cpage=${ p }">${ p }</a></li>
+                </c:forEach>
+		        <c:choose>
+                  <c:when test="${ pi.currentPage eq pi.maxPage }">
+                 	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+                  </c:when>
+                 <c:otherwise>
+                 	<li class="page-item"><a class="page-link" href="teacherList.do?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                 </c:otherwise>
+                 </c:choose>
+		      </ul>
+		    </nav>
+		  </div>
+		</div>
    	</div>
    	 <script>
-       // function deleteTeacher(){
-       //   $('.selectTeacher').removeAttr("style");
-       //   $('.checkTeacher').removeAttr("style");
-
-       //   $('.selectTeacherButton').removeClass('btn-primary').addClass('btn-danger').text('삭제').click(function(){
-       //     $(location).attr('href', 'sign-up.html')
-       //   });
-
-       //   $('thead').prepend('<th colspan="5" align="right">' + '<button class="btn btn-sm btn-danger">삭제</button>');
-       // }
-
-       // $(function(){
-       //   $("#deleteTeacher").click(function(){
-       //     $('.selectTeacher').removeAttr("style");
-       //     $('.checkTeacher').removeAttr("style");
-
-       //     $('.selectTeacherButton').removeClass('btn-primary').addClass('btn-danger').text('삭제').click(function(){
-       //     $(location).attr('href', 'sign-up.html')
-       //     });
-
-       //     $('thead').prepend('<th colspan="5" align="right">' + '<button class="btn btn-sm btn-danger">삭제</button>');
-       //     })
-       // })
-
        $(function(){
          $("#deleteTeacher").one('click', function(){
            $('.selectTeacher').removeAttr("style");

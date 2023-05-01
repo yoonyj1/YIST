@@ -21,7 +21,7 @@
 		<div class="card-body" align="center">
 	    	<div class="card card-profile" style='border:none;'>
 	    		<div align='center'>
-		    		<div class="card-header-bg" style="background-image:./resources/common/image/userImg.png"></div>
+		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg)"></div>
 		    			<div class="card-body card-profile-body">
 		    				<div class="profile-avata">
 					          <img class="rounded-circle" src="images/user/user-md-01.jpg" alt="Avata Image">

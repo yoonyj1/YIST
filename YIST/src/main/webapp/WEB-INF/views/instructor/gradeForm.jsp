@@ -20,27 +20,8 @@
 			<!-- 성적관리 스크립트 시작 -->
 			<script>
 				$(function(){
-					console.log("성적관리 랜더링");
-					/*
-						자바기초
-						타입
-						연산자
-						제어문
-						배열
-						클래스
-						메소드와 생성자
-						제어자
-						클래스 맴버
-						상속
-						다형성
-					*/
-					let grade = [{testTitle:'자바기초',testAvg:80}, {testTitle:'타입',testAvg:70}];
-					
-					console.log(typeof(grade));
-					for (let i in grade){
-						console.log(grade[i].testTitle);
-					}
-					console.log(options.categories);
+					$(".apexcharts-legend-text").eq(0).html("1번");
+					$(".apexcharts-legend-text").eq(1).html("2번");
 				})
 			</script>
 			<!-- 성적관리 스크립트 끝 -->

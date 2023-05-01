@@ -38,7 +38,6 @@ public class MemberController {
 	
 	@RequestMapping("login.ins")
 	public String loginPageController(int sort, Model model, HttpSession session) {
-//		System.out.println("누구인가? : " + sort);
 		memSort = sort;
 		model.addAttribute("sort", sort);
 		if (!loginCheck) {
@@ -75,7 +74,7 @@ public class MemberController {
 			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
-				mainPage = "student/main";
+				mainPage = "student/studentMain";
 			} else {
 				hasMember = false;
 				mainPage = "redirect:login.ins";
@@ -161,6 +160,7 @@ public class MemberController {
 		return sendCode.joinEmail(userEmail);
 		
 	}
+
 	
 	
 	@RequestMapping("enroll.me")
