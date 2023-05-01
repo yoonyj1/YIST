@@ -1,6 +1,9 @@
 package com.kh.yist.subject.controller;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,10 +66,15 @@ public class SubjectController {
 	}
 	
 	@RequestMapping("insertSubject.cl")
-	public String insertSubject(Subject s, String id, Model m) {
+	public String insertSubject(Subject s, @RequestParam("id") String id, Model m) {
+		
+				
+		System.out.println(s);
+		System.out.println(id);
+		
 		
 		int result = sService.insertSubject(s);
-		int classNo = s.getClassNo()
+		int classNo = s.getClassNo();
 		int iResult = mService.updateInstructor(id, classNo);
 
 		if(result>0 && iResult>0) {
