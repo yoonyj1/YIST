@@ -57,5 +57,13 @@ public class TaskService {
 	public ArrayList<Exam> selectExamList(String id) {
 		return tDao.selectExamList(sqlSession, id);
 	}
+
+	public ArrayList<Exam> selectExamSubmitList(int testNo) {
+		return tDao.selectExamSubmitList(sqlSession, testNo);
+	}
+
+	public Exam selectQuestion(int testNo) {
+		return tDao.selectQuestion(sqlSession, testNo);
+	}
 	
 }

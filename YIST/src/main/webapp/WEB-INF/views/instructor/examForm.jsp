@@ -17,25 +17,7 @@
 			$("#examForm").attr("action", "examStart.ins").submit();
 		}
 	
-		function checkInputNum() {
-			if ((event.keyCode < 48) || (event.keyCode > 57)) {
-				event.returnValue = false;
-			}
-		}
 
-		$(function() {
-			$(document).ready(function() {
-					$(document).on("keyup", "#input-score", function() {
-						if ($(this).val() > 100) {
-							$(this).val(100);
-						}
-
-						if ($(this).val() < 0) {
-							$(this).val(0);
-						}
-				})
-			})
-		})
 	</script>
 
 	<div class="page-wrapper">
@@ -63,6 +45,8 @@
 								</thead>
 								<tbody>
 									<c:forEach var="e" items="${examList}" varStatus="status">
+									<form action="scoreForm.ins" method="post">
+									<input type="hidden" name="testNo" value="${e.testNo}">
 									<tr>
 										<td scope="row">${status.count}</td>
 										<td>${e.testTitle}</td>
@@ -79,16 +63,17 @@
 											<c:choose>
 												<c:when test="${e.status eq 'Y'}">
 													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal" data-target="#examStart" disabled>시작</button>
-													<button type="button" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;">채점</button>
+													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;">채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>
 												</c:when>
 												<c:otherwise>
 													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal" data-target="#examStart">시작</button>
-													<button type="button" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
+													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>												
 												</c:otherwise>
 											</c:choose>
 										</td>
+										</form>
 										<!-- 과제 등록 모달 -->
 							              <div class="modal fade" id="examStart" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
 											  aria-hidden="true">

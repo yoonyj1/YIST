@@ -70,4 +70,13 @@ public class TaskDao {
 		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamList", id);
 	}
 
+	public ArrayList<Exam> selectExamSubmitList(SqlSessionTemplate sqlSession, int testNo) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamSubmitList", testNo);
+	}
+
+	public Exam selectQuestion(SqlSessionTemplate sqlSession, int testNo) {
+		return sqlSession.selectOne("instructorMapper.selectQuestion", testNo);
+	}
+	
+
 }

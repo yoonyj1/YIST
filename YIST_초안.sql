@@ -262,4 +262,38 @@ select
 from exam
 where id = 'INSTRUCTOR01';
 
+
+select 
+        test_no
+      , test_title
+      , q1
+      , q2
+      , q3
+      , q4
+      , q5
+      , a1
+      , a2
+      , a3
+      , a4
+      , a5
+from exam_question
+join exam using (test_no)
+where test_no = 2;
+
+select 
+        test_no
+      , e.id as "id"
+      , name
+      , a1
+      , a2
+      , a3
+      , a4
+      , a5
+      , e.status
+      , nvl(score, 0) as "score"
+from exam_answer e
+join member m on (e.id = m.id)
+where test_no = 2 and e.id = 'USER01';
+
+
 commit;

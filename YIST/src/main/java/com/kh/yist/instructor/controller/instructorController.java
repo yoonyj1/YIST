@@ -35,11 +35,18 @@ public class instructorController {
 
 	@Autowired
 	private TaskService tService;
-
-	/*
-	 * @Scheduled(fixedDelay = 3000) public void test() {
-	 * System.out.println("3초 지났다."); }
-	 */
+	
+	@RequestMapping("scoreForm.ins")
+	public String scoreForm(HttpSession session, Model model, int testNo) {
+		
+		Exam question = tService.selectQuestion(testNo);
+		ArrayList<Exam> examSubmitList = tService.selectExamSubmitList(testNo);
+		
+		model.addAttribute("question", question);
+		model.addAttribute("examSubmitList", examSubmitList);
+		
+		return "instructor/detailExamForm";
+	}
 	
 	@RequestMapping("examForm.ins")
 	public String examForm(HttpSession session, Model model) {
