@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 
 @Controller
@@ -34,6 +35,7 @@ public class StudentController {
 		return "student/studentCertificate";
 	}
 	
+	// 공지사항 목록 조회
 	@RequestMapping("noticeList.st")
 	public ModelAndView noticeList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
 		
@@ -53,9 +55,19 @@ public class StudentController {
 		return "student/studentVideoList";
 	}
 	
+	// 학습자료 목록 조회
 	@RequestMapping("boardList.st")
-	public String boardList() {
-		return "student/studentBoardList";
+	public ModelAndView boardList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		int listCount = sService.boardListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Material> list = sService.boardList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
+		
+		return mv;
 	}
 	
 	@RequestMapping("myPage.st")
