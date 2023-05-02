@@ -18,10 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="DETAIL_ADDRESS" property="detailAddress"/>
 		<result column="SUBJECT" property="subject"/>
 		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="START_DATE" property="startDate"/>
 		<result column="END_DATE" property="endDate"/>
 		<result column="STAUTS" property="status"/>
 		<result column="SORT" property="sort"/>
-		<result column="EMPLOYEE_DATE" property="employeDate"/>
+		<result column="EMPLOYEE_DATE" property="employeeDate"/>
 	</resultMap>
 
 	
@@ -59,6 +60,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  		member
   		where subject is null
   			and sort = 2
+  			and status = 'Y'
+	</select>
+	
+	<update id="checkDeleteInstuctor">
+		update
+			member
+		set
+			status='N'
+		where id = #{id}
+		  and sort = 2
+	</update>
+	
+	<select id="selectTeacher" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
+		  , email
+		  , subject_name as "subject"
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 2 and id = #{ id }
 	</select>
 
+	<select id="selectStudentListCount" resultType="_int">
+		select
+			count(*)
+		from member
+		where
+			status = 'Y'
+		and
+			sort = 3
+	</select>
+	
+	<select id="selectStudentList">
+		select
+			id
+		  , subject_name as "subject"
+		  , a.count / 
+	</select>
 </mapper>

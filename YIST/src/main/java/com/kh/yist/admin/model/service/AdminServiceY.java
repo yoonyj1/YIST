@@ -31,4 +31,19 @@ public class AdminServiceY {
 		return aDao.selectNonSubjectList(sqlSession);
 	}
 	
+	public int checkDeleteInstuctor(String valueArr) {
+		return aDao.checkDeleteInstuctor(sqlSession, valueArr);
+	}
+	
+	public Member selectTeacher(String id) {
+		return aDao.selectTeacher(sqlSession, id);
+	}
+	
+	public int selectStudentListCount() {
+		return aDao.selectStudentListCount(sqlSession);
+	}
+	
+	public ArrayList<Member> selectStudentList(PageInfo pi) {
+		return aDao.selectStudentList(sqlSession, pi);
+	}
 }
