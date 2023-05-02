@@ -81,12 +81,10 @@
 		<div class="card-header">
 			<h2>강의</h2>
 			<div class="btn-right" style="float: right">
-				<button id="addClass" type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
-				<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
-			    <!-- <c:if test="${ loginUser.sort eq 1 }">
+			    <c:if test="${ loginUser.sort eq 1 }">
 					<button id="addClass" type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
 					<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
-            	</c:if> -->
+            	</c:if>
 
 				<!-- 모달 -->
 				<div class="modal fade" id="classDeleteModal" tabindex="-1" role="dialog" aria-labelledby="classDeleteModalLabel" aria-hidden="true">
