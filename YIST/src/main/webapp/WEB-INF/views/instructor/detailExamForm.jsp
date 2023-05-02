@@ -16,7 +16,6 @@
 			<!-- 헤더 -->
 			<jsp:include page="../instructor/common/header.jsp"></jsp:include>
 			
-			
 				<script type="text/javascript">
 						function checkInputNum() {
 							if ((event.keyCode < 48) || (event.keyCode > 57)) {
@@ -28,11 +27,11 @@
 							let currentId = "";
 							
 							$(".score-btn").on("click",function(){
-								currentId = "." + $(this).attr('id') + 'input-score';
+								currentId = "." + $(this).attr("id") + 'input-score';
 								console.log("currentId : " + currentId);
 							})
 							
-							$(currentId).on('keyup', function(){
+							$(document).on('keyup',currentId, function(){
 								let sum = 0;
 								
 								$(currentId).each(function(){
