@@ -9,32 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminCotroller {
 
 	
-	//강의
-	@RequestMapping("classAdminList.ad")
-	public String classAdminList(@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
-		return "admin/class/classListView";
-	}
-	
-	@RequestMapping("update.cl")
-	public String updateClassForm() {
-		return "admin/class/updateClassForm";
-	}
-	
-	@RequestMapping("insert.cl")
-	public String insertClassForm(){
-		return "admin/class/insertClassForm";
-	}
-	
-	@RequestMapping("delete.cl")
-	public String deleteClassForm(){
-		return "admin/class/deleteClassForm";
-	}
-	
-	@RequestMapping("detail.cl")
-	public String selectClass() {
-		return "admin/class/detailClass";
-	}
-	
+
 	
 	//공지사항
 	@RequestMapping("noticeAdminList.ad")
