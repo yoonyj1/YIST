@@ -93,7 +93,7 @@ div.title .titleP {
 <body>
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alert(${alertMsg});
+			alert('${alertMsg}');
 		</script>
 		<c:remove var="alertMsg" scope="session" />
 	</c:if>

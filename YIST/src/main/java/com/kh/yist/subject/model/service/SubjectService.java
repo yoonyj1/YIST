@@ -35,5 +35,8 @@ public interface SubjectService {
 	// 과정 조회
 	ArrayList<Class> selectClassList();
 	
+	// currval 조회
+	int selectCurrval();
+	
 
 }

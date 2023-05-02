@@ -57,4 +57,16 @@ public class SubjectDao {
 		return sqlSession.insert("subjectMapper.insertSubject", s);
 	}
 	
+	public int updateSubject(SqlSession sqlSession, Subject s) {
+		return sqlSession.update("subjectMapper.updateSubject", s);
+	}
+	
+	public int deleteSubject(SqlSession sqlSession, int subjectNo) {
+		return sqlSession.update("subjectMapper.deleteSubject", subjectNo);
+	}
+	
+	public int selectCurrval(SqlSession sqlSession) {
+		return sqlSession.selectOne("subjectMapper.selectCurrval");
+	}
+	
 }

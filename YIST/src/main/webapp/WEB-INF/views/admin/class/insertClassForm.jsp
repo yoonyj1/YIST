@@ -69,11 +69,11 @@
 						<th>* 강사명</th>
 						<td>
 							<div class="form-group">
-								<select name="id" class="js-example-basic-multiple form-control" onchange="getId();" required>
+								<select name="id" class="js-example-basic-multiple form-control" required>
 									
-									<c:forEach var="a" items="${ aList }">
+									<c:forEach var="i" items="${ iList }">
 									
-										<option value="${ a.id }">${ a.name }</option>
+										<option value="${ i.id }">${ i.name }</option>
 										
 									</c:forEach>
 
@@ -81,12 +81,7 @@
 							</div>
 						</td>
 						
-						<script>
-							function getId() {
-								const $id =	$("select[name=id]");
-								console.log($id.val());
-							}
-						</script>
+
 						
 						<th>* 강의과목</th>
 						<td>

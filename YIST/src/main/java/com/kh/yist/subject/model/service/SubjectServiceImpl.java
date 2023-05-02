@@ -55,17 +55,22 @@ public class SubjectServiceImpl implements SubjectService{
 
 	@Override
 	public int updateSubject(Subject s) {
-		return 0;
+		return sDao.updateSubject(sqlSession, s);
 	}
 
 	@Override
 	public int deleteSubject(int subjectNo) {
-		return 0;
+		return sDao.deleteSubject(sqlSession, subjectNo);
 	}
 
 	@Override
 	public ArrayList<Class> selectClassList() {
 		return sDao.selectClassList(sqlSession);
+	}
+
+	@Override
+	public int selectCurrval() {
+		return sDao.selectCurrval(sqlSession);
 	}
 
 

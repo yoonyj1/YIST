@@ -16,7 +16,6 @@
 		<result column="FEE" property="fee"></result>
 		<result column="INSTRUCTOR" property="instructor"></result>
 		<result column="ClASS_NAME" property="className"></result>
-		
 	</resultMap>
 	
 	
@@ -59,6 +58,7 @@
 	<select id="selectSubject" resultMap="subjectResultSet">
 		select
 			SUBJECT_NO
+			,CLASS_NO 
 			,CLASS_NAME as class_name
 			,SUBJECT_NAME
             ,NAME as INSTRUCTOR
@@ -96,15 +96,43 @@
 		        SEQ_SNO.nextval
 		      , #{classNo}
 		      , #{subjectName}
-		      , #{startDate}
-		      , #{endDate}
+		      , to_date(#{startDate},'RR/MM/DD')
+		      , to_date(#{endDate},'RR/MM/DD')
 		      , 'Y'
 		      , #{day}
 		      , #{maximumSeats}
 		      , #{currentSeats}
-		      , fee
+		      , #{fee}
 		    )	
 	</insert>
 	
+	<update id="updateSubject">
+		update 
+				subject
+		   set
+				subject_name = #{subjectName}
+			 ,  maximum_seats = #{maximumSeats}
+			 ,  fee = #{fee}
+			 ,  start_date = #{startDate}
+			 ,  end_date = #{endDate}
+			 ,  day = #{day}
+		 where 
+		 		subject_no = #{subjectNo}			 
+	</update>
+	
+	<update id="deleteSubject">
+		update
+				subject
+		   set
+		   		status = 'N'
+		 where 
+		 		subject_no = #{subjectNo}  		
+	</update>
+	
+	<select id="selectCurrval" resultType="_int">
+		select 
+			seq_sno.currval 
+		  from dual
+	</select>
 
 </mapper>

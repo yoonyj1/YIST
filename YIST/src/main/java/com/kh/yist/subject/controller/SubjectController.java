@@ -4,6 +4,7 @@ import java.net.http.HttpRequest;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,52 +50,127 @@ public class SubjectController {
 		
 		Subject s = sService.selectSubject(sNo);
 		
+		String subject = String.valueOf(sNo);
+		
+		ArrayList<Member> iList = mService.selectInstructorList();
+		Member i = mService.selectInstructor(subject);
+		
 		m.addAttribute("s", s);
+		m.addAttribute("iList", iList);
+		m.addAttribute("i", i);
+		
 		return "admin/class/updateClassForm";
 	}
+	
+	
+	@RequestMapping("update.cl")
+	public String updateClass(Subject s, String id, String instructorId, HttpSession session) {
+		
+		System.out.println(s);
+		int result = sService.updateSubject(s);
+		int deleteFlag = 1;
+		int updateFlag = 1;
+		
+		System.out.println(id);
+		System.out.println(instructorId);
+		
+		Member i = new Member();
+		i.setId(id);
+		i.setSubject(String.valueOf(s.getSubjectNo()));
+		
+		if(!id.equals(instructorId)) {
+			
+			System.out.println("기존강사널로바꾸기");
+			int deleteResult = mService.deleteInstructor(instructorId);
+			System.out.println(deleteResult);
+			
+				if(deleteResult>0) {
+					deleteFlag = 1;
+				}else {
+					deleteFlag = 0;
+				}
+			
+			System.out.println("새강사로바꾸기");
+			int updateResult = mService.updateInstructor(i);
+			System.out.println(updateResult);
+			
+				if(updateResult>0) {
+					updateFlag = 1;
+				}else {
+					updateFlag = 0;
+				}
+		}
+		
+		if(result>0 && deleteFlag>0 && updateFlag>0 ) {
+			session.setAttribute("alertMsg", "강의 수정이 성공했습니다");
+		}else {
+			session.setAttribute("alertMsg", "강의 수정이 실패했습니다");
+		}
+		
+		return "redirect:updateForm.cl?sNo="+s.getSubjectNo();
+		
+	}
+	
+	
 	
 	@RequestMapping("insertForm.cl")
 	public String insertClassForm(Model m){
 		
 		ArrayList<Class> cList = sService.selectClassList();
-		ArrayList<Member> aList = mService.selectInstructorList();
-		
+		ArrayList<Member> iList = mService.selectInstructorList();
+
 		m.addAttribute("cList", cList);
-		m.addAttribute("aList",aList);
+		m.addAttribute("iList",iList);
 		
 		return "admin/class/insertClassForm";
 	}
 	
 	@RequestMapping("insertSubject.cl")
-	public String insertSubject(Subject s, HttpServletRequest request, Model m) {
+	public String insertSubject(Subject s, HttpServletRequest request, HttpSession session) {
 		
-				
-		System.out.println(s);
 		
 		String id = request.getParameter("id");
 		
-		System.out.println(id);
-		
-		
 		int result = sService.insertSubject(s);
-		int subjectNo = s.getSubjectNo()();
-		int iResult = mService.updateInstructor(id, subjectNo);
+		
+		int subject= sService.selectCurrval();
+		
+		Member i = new Member();
+		i.setId(id);
+		i.setSubject(String.valueOf(subject));		
+		
+		System.out.println(i);
+		
+		
+		int iResult = mService.updateInstructor(i);
 
 		if(result>0 && iResult>0) {
-			
-			m.addAttribute("alertMsg", "강의 등록 성공!");
+			session.setAttribute("alertMsg", "강의 등록 성공!");
 			
 		}else {
-			m.addAttribute("alertMsg", "강의 등록 실패!");
+			session.setAttribute("alertMsg", "강의 등록 실패!");
 		}
 		
-		return "admin/class/classListView";
+		return "redirect:classAdminList.ad";
 		
 	}
 	
 	@RequestMapping("delete.cl")
-	public String deleteClassForm(){
-		return "admin/class/deleteClassForm";
+	public String deleteClassForm(String subject, HttpSession session){
+		
+		int subjectNo = Integer.parseInt(subject);
+		
+		
+		int result = sService.deleteSubject(subjectNo);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "강의 삭제 성공!");
+			
+		}else {
+			session.setAttribute("alertMsg", "강의 삭제 실패!");
+		}
+		
+		return "redirect:classAdminList.ad";
 	}
 	
 	@RequestMapping("detail.cl")

@@ -30,8 +30,17 @@ public interface MemberService {
 	
 	int updateMessage(String userId);
 	
+	// 미배정 강사 리스트 조회
 	ArrayList<Member> selectInstructorList();
 	
-	// 강사 배정
-	int updateInstructor(String id, int subjectNo);
+	// 강사 배정(강의생성시)
+	int updateInstructor(Member i);
+	
+	// 담당 강사 조회
+	Member selectInstructor(String subject);
+	
+	// 담당 강사에서 해제
+	int deleteInstructor(String id);
+	
+
 }
