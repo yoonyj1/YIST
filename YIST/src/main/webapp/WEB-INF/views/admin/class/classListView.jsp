@@ -220,13 +220,13 @@
 
 
 			<div class="search-area">
-				<form action="" method="get">
-					<select class="custom-select my-1 mr-sm-2 w-auto" id="classSearchCondition">
-						<option selected name="" value="teacher">강사명</option>
-						<option value="className">강의명</option>
-						<option value="classNo">강의번호</option>
+				<form action="search.cl" method="get">
+					<select name="condition" class="custom-select my-1 mr-sm-2 w-auto" id="classSearchCondition">
+						<option selected name="" value="name">강사명</option>
+						<option value="subjectName">강의명</option>
+						<option value="subjectNo">강의번호</option>
 					</select> 
-					<input type="text" class="form-control rounded-pill" name="keyword" style="width: 50%;">
+					<input type="text" name="keyword" class="form-control rounded-pill" style="width: 50%;">
 					<button type="submit" class="btn btn-outline-primary">검색</button>
 				</form>
 			</div>

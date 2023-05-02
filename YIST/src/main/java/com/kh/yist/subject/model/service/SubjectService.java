@@ -1,6 +1,7 @@
 package com.kh.yist.subject.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.yist.common.model.vo.PageInfo;
@@ -41,5 +42,10 @@ public interface SubjectService {
 	// currval 조회
 	int selectCurrval();
 	
+	// 검색 게시글 수 조회
+	int selectSearchCount();
+	
+	// 검색 게시글 조회
+	ArrayList<Subject> selectSearchList(HashMap<String, String> map, PageInfo pi);
 
 }
