@@ -45,67 +45,83 @@
                     
 				<tr>
 					<th colspan="2"> 강의명</th>
-					<td colspan="2">자바의정석</td>
+					<td colspan="2">${ s.subjectName }</td>
 				</tr>
 
 				<tr>
                       <th>담당강사</th>
                       <td>
-                          강사이름
+                          ${ s.instructor }
                       </td>
                       <th> 강의과목</th>
                       <td>
-                          자바
+                          ${ s.className }
                       </td>
 				</tr>
 
 				<tr>
                       <th>수강정원</th>
                       <td>
-                          10
+                          ${ s.currentSeats } / ${ s.maximumSeats }
                       </td>
                       <th>수강료</th>
                       <td>
-                          300,000 원
+                          ${ s.fee }
                       </td>
 				</tr>
 
 				<tr>
                       <th>개강일</th>
                       <td>
-                        2023.03.17
+                        ${ s.startDate }
                       </td>
                       <th>종강일</th>
                       <td>
-                        2023.06.15
+                        ${ s.endDate }
                       </td>
 				</tr>
 
 				<tr>
                       <th colspan="2">수업요일</th>
                       <td colspan="2">
-                          <input type="checkbox" name="day" value="mon" id="mon">
+                          <input type="checkbox" name="day" value="월" id="mon" disabled>
                           <label for="mon">월</label>
-                          <input type="checkbox" name="day" value="mon" id="tue">
+                          <input type="checkbox" name="day" value="화" id="tue" disabled>
                           <label for="tue">화</label>
-                          <input type="checkbox" name="day" value="mon" id="wed">
+                          <input type="checkbox" name="day" value="수" id="wed" disabled>
                           <label for="wed">수</label>
-                          <input type="checkbox" name="day" value="mon" id="thu">
+                          <input type="checkbox" name="day" value="목" id="thu" disabled>
                           <label for="thu">목</label>
-                          <input type="checkbox" name="day" value="mon" id="fri">
+                          <input type="checkbox" name="day" value="금" id="fri" disabled>
                           <label for="fri">금</label>
-                          <input type="checkbox" name="day" value="mon" id="sat">
+                          <input type="checkbox" name="day" value="토" id="sat" disabled>
                           <label for="sat">토</label>
-                          <input type="checkbox" name="day" value="mon"id="sun">
+                          <input type="checkbox" name="day" value="일"id="sun" disabled>
                           <label for="sun">일</label>
-
                       </td>
 				</tr>
 
 
 			</table>
 
+		<script>
+	        $(function(){
+	        	
+				const day = "${s.day}";
+				// "" | "value,value,value"
+				
+				$("input[type=checkbox]").each(function(){
+					// $(this) : 순차적으로 접근한 체크박스 요소
+					// $(this).value : 체크박스의 value
+					if(day.search($(this).val()) != -1){
+						// 검색할값.search("검색대상") : 없을시 -1 반환
+						$(this).attr("checked",true);
+					}
+				})
 
+	            
+	         })
+		</script>
 
 
 
@@ -198,7 +214,7 @@
                 
                 
 		<div class="btn-center">
-			<button class="btn btn-light btn-pill" type="submit">뒤로가기</button>
+			<button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로가기</button>
 		</div>
 
 	</div>
