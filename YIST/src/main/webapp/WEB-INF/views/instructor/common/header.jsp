@@ -97,6 +97,61 @@
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
 	<script>
+		window.onload=function(){
+			let date = Math.round(new Date() / 1000);
+			console.log("현재시간 : " + date.toString());
+			
+			function countdown(elementId, seconds){
+			  var element, endTime, hours, mins, msLeft, time;
+	
+			  function updateTimer(){
+				msLeft = endTime - (+new Date);
+				if ( msLeft < 0 ) {
+				  alert("끄읏~");
+				} else {
+				  time = new Date( msLeft );
+				  hours = time.getUTCHours();
+				  mins = time.getUTCMinutes();
+				  element.innerHTML = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+				  setTimeout( updateTimer, time.getUTCMilliseconds());
+				}
+			  }
+	
+			  element = document.getElementById(elementId);
+			  endTime = (+new Date) + 1000 * seconds;
+			  updateTimer();
+			}
+			countdown('countdown', Number('${loginUser.examTime}'));	 
+		}
+	
+		/* function countdown(elementName, minutes, seconds){
+			let endTime, hours, mins, msLeft, time;
+			
+			function twoDigits(n){
+				return (n <= 9 ? "0" + n : n);
+			}
+			
+			function updateTimer(){
+				msLeft = endTime - (+new Date);
+				
+				if (msLeft < 1000){
+					alert("평가가 종료되었습니다.");
+					$("" + elementName).remove();
+					location.reload();
+				} else {
+					time = new Date(msLeft);
+					hours = time.getUTCHours();
+					mins = time.getUTCMinutes();
+					$("" + elementName).html((hours ? hours + ':' + twoDigits(mins) : twoDigits(mins)) 
+				    + ':' + twoDigits(time.getUTCSeconds()));
+					setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+				}
+			}
+			
+			endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+			updateTimer();
+		} */
+	
 		NProgress.configure({
 			showSpinner : false
 		});
@@ -220,12 +275,16 @@
 							class="mdi mdi-pencil"></i> <span class="nav-text">시험</span>
 					</a></li>
 
-
-
 					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
 							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
 					</a></li>
+					
 				</ul>
+				
+				<span id="countdown"></span>
+				<br>
+				<span id="ajaxCount"></span>
+				
 			</div>
 		</div>
 	</aside>

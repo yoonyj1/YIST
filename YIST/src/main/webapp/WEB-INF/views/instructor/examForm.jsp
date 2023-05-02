@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,16 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		function examSetForm(){
-			console.log("등록");
-			let setTime = $('input[name=examSet]:checked').val();
-			console.log("시간 : " + setTime);
-			$("#examForm").attr("action", "examStart.ins").submit();
-		}
-	
 
-	</script>
 
 	<div class="page-wrapper">
 		<div class="wrapper">
@@ -53,7 +45,7 @@
 										<td>${e.examDate}</td>
 										<c:choose>
 											<c:when test="${e.status eq 'Y'}">
-												<td>종료</td>
+												<td><div class="timeout">-</div></td>
 											</c:when>
 											<c:otherwise>
 												<td>-</td>
@@ -62,12 +54,12 @@
 										<td>
 											<c:choose>
 												<c:when test="${e.status eq 'Y'}">
-													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal" data-target="#examStart" disabled>시작</button>
+													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal">시작</button>
 													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;">채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>
 												</c:when>
 												<c:otherwise>
-													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal" data-target="#examStart">시작</button>
+													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal">시작</button>
 													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>												
 												</c:otherwise>
@@ -78,7 +70,6 @@
 							              <div class="modal fade" id="examStart" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
 											  aria-hidden="true">
 											  <div class="modal-dialog" role="document">
-											   <form id="examForm" method="post" action="">
 											   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
 											   <input type="hidden" name="subjectNo" value="1">
 											    <div class="modal-content">
@@ -90,21 +81,21 @@
 											      </div>
 											      <div class="modal-body">
 											         <div class="form-check">
-														  <input type="radio" name="examSet" id="examSet1" value="1" checked>
+														  <input type="radio" name="examSet" id="examSet1" value="5" checked>
 														  <label for="examSet1">
-														    1분
+														    5초
 														  </label>
 														</div>
 														<div class="form-check">
-														  <input type="radio" name="examSet" id="examSet2" value="2">
+														  <input type="radio" name="examSet" id="examSet2" value="30">
 														  <label for="examSet2">
-														     2분
+														     30초
 														  </label>
 														</div>
 														<div class="form-check">
-														  <input type="radio" name="examSet" id="examSet3" value="3">
+														  <input type="radio" name="examSet" id="examSet3" value="60">
 														  <label for="examSet3">
-														     3분
+														     1분
 														  </label>
 														</div>
 											      </div>
@@ -113,7 +104,6 @@
 											        <button type="button" id="exam-btn" class="btn btn-primary btn-pill" onclick="examSetForm();">설정</button>
 											      </div>
 											    </div>
-											    </form>
 											  </div>
 											</div>	
 											<!-- 과제 등록 모달 끝 -->
@@ -128,5 +118,42 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		function examSetForm(){
+			let setTime = $('input[name=examSet]:checked').val();
+			
+			//$("#examForm").attr("action", "examStart.ins").submit();
+			
+			let date = Math.round(new Date() / 1000);
+			console.log("현재시간 : " + date.toString());
+			
+			$.ajax({
+				url:"examTime.ins",
+				data:{setTime:Number(setTime)},
+				success:function(result){
+					console.log("성공");
+					//$("<div class='timeout'></div>").insertAfter($("#email"));
+					//countdown(".timeout", setTime, 0);
+					
+					$("#ajaxCount").html('${loginUser.examTime}');
+					
+					$("#examStart").modal('hide');
+				},
+				error:function(){
+					alert("ajax 통신 실패");
+				}
+			});
+			
+		}
+		
+		$(function(){
+			$(".test-start").click(function(){
+				if(confirm('평가를 시작하시겠습니까?')){
+					$("#examStart").modal('show');
+				}
+			})
+		})
+	</script>
 </body>
 </html>

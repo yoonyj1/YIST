@@ -7,9 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="toast.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-	
 
 	<div class="page-wrapper">
 		<div class="wrapper">
@@ -24,6 +26,9 @@
 						}
 						
 						$(document).ready(function() {
+							$("<div class='timeout'></div>").insertAfter($("#email"));
+							countdown(".timeout", 0.5, 0);
+							
 							let currentId = "";
 							
 							$(".score-btn").on("click",function(){
@@ -53,20 +58,24 @@
 										$(this).val(0);
 									}
 							})
+							
+							$("#tt").click(function(){
+								toastr.info('hi');
+							})
 						})
 				</script>
 			<div class="content-wrapper table-hover">
 				<div class="content">
-
+					
 					<div class="row">
 						<div class="col">
 							<div align="center" style="font-size: 25px; color: black;">${question.testTitle}</div>
 							<hr>
 							<!-- 시험참여 학생 목록 -->
 							<div class="table-hover">
-							<script src="${pageContext.request.contextPath}/resources/instructor/js/custom.js"></script>
-							<a id="toaster-success" href="javascript:" class="btn btn-success btn-pill">Success</a>
-								<table class="table">
+							<button type="button" id="tt" class="btn btn-primary">토스터</button>
+							
+								<table class="table" style="text-align: center">
 									<thead style="background-color: darkgray;">
 										<tr>
 											<th scope="col">번호</th>
@@ -128,7 +137,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.id}input-score" id="input-score1" type="number" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score1" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -157,7 +166,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.id}input-score" id="input-score2" type="number" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score2" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -186,7 +195,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.id}input-score" id="input-score3" type="number" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score3" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -215,7 +224,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.id}input-score" id="input-score4" type="number" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score4" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -244,7 +253,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.id}input-score" id="input-score5" type="number" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score5" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -261,7 +270,7 @@
 															    <div class="py-4">총점수 : </div>
 																  <div class="p-2">
 							                                            <div class="form-group">
-																		    <input class="form-control total-score" id="total-score" type="number" value="10" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																		    <input class="form-control total-score" id="total-score" type="text" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																		</div>
 																  </div>
 															</div>
@@ -285,7 +294,8 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	
 			
 </body>

@@ -89,8 +89,6 @@ public class MemberController {
 
 	}
 	
-
-	
 	
 	@RequestMapping("logout.me")
 	public String logOut(HttpSession session) {
@@ -98,7 +96,18 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="examTime.ins", produces = "text/html; charset=UTF-8")
+	public String examTime(int setTime, HttpSession session) {
+		
+		Member examMember = (Member)session.getAttribute("loginUser");
+		examMember.setExamTime(setTime);
+		System.out.println("시간 : " + setTime);
+		
+		session.setAttribute("loginUser", examMember);
+		
+		return "instructor/examForm";
+	}
 	
 	
 	
