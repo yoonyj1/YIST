@@ -1,6 +1,7 @@
 package com.kh.yist.subject.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,11 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public int selectCurrval() {
 		return sDao.selectCurrval(sqlSession);
+	}
+
+	@Override
+	public int deleteSubject(List<String> subjectNo) {
+		return sDao.deleteSubject(sqlSession, subjectNo);
 	}
 
 

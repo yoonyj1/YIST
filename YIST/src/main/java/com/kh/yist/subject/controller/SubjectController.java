@@ -2,6 +2,7 @@ package com.kh.yist.subject.controller;
 
 import java.net.http.HttpRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.common.model.vo.PageInfo;
@@ -80,9 +82,7 @@ public class SubjectController {
 		
 		if(!id.equals(instructorId)) {
 			
-			System.out.println("기존강사널로바꾸기");
 			int deleteResult = mService.deleteInstructor(instructorId);
-			System.out.println(deleteResult);
 			
 				if(deleteResult>0) {
 					deleteFlag = 1;
@@ -90,9 +90,7 @@ public class SubjectController {
 					deleteFlag = 0;
 				}
 			
-			System.out.println("새강사로바꾸기");
 			int updateResult = mService.updateInstructor(i);
-			System.out.println(updateResult);
 			
 				if(updateResult>0) {
 					updateFlag = 1;
@@ -156,12 +154,12 @@ public class SubjectController {
 	}
 	
 	@RequestMapping("delete.cl")
-	public String deleteClassForm(String subject, HttpSession session){
+	public String deleteClassForm(String subjectNo, HttpSession session){
 		
-		int subjectNo = Integer.parseInt(subject);
+		int sNo = Integer.parseInt(subjectNo);
 		
 		
-		int result = sService.deleteSubject(subjectNo);
+		int result = sService.deleteSubject(sNo);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "강의 삭제 성공!");
@@ -184,7 +182,21 @@ public class SubjectController {
 		return "admin/class/detailClass";
 	}
 	
+	@ResponseBody
+	@RequestMapping("ajaxDelete.cl")
+	public String ajaxDeleteClass(@RequestParam("classNoArr[]") List<String> subjectNo) {
 	
-	
+		int result = sService.deleteSubject(subjectNo);
+		if(result>0) {
+			
+			return "YYYY";
+			
+		}else {
+			
+			return "NNNN";
+
+		}
+		
+	}
 
 }

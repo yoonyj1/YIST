@@ -120,13 +120,25 @@
 		 		subject_no = #{subjectNo}			 
 	</update>
 	
-	<update id="deleteSubject">
+	<update id="deleteSubjectAjax">
 		update
 				subject
 		   set
 		   		status = 'N'
 		 where 
-		 		subject_no = #{subjectNo}  		
+		 		subject_no in 
+		 		<foreach item="item" collection="list" open="(" separator="," close=")">
+			        #{item}
+			    </foreach>		
+	</update>
+	
+		<update id="deleteSubject">
+		update
+				subject
+		   set
+		   		status = 'N'
+		 where 
+		 		subject_no = ${subjectNo}	
 	</update>
 	
 	<select id="selectCurrval" resultType="_int">

@@ -50,7 +50,13 @@
           border-color: #99da87;
 	}
 	
-	a.page-link:hover{
+	nav > ul > li.page-item.active > a.page-link:hover{
+          background-color: #99da87;
+          border-color: #99da87;
+		  color: white;
+	}
+	
+	nav > ul > li.page-item > a.page-link:hover{
 		color:#99da87;
 		background-color: white;
 		border-color: #99da87;
@@ -76,10 +82,11 @@
 			<h2>강의</h2>
 			<div class="btn-right" style="float: right">
 				<button id="addClass" type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
-				
-			    <c:if test="${ loginUser.sort eq 1 }">
+				<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
+			    <!-- <c:if test="${ loginUser.sort eq 1 }">
+					<button id="addClass" type="button" class="mb-1 btn btn-pill btn-primary">등록</button>
 					<button type="button" class="mb-1 btn btn-pill btn-danger" id="classDeleteBtn" data-toggle="modal" data-target="#classDeleteModal">삭제</button>
-            	</c:if>
+            	</c:if> -->
 
 				<!-- 모달 -->
 				<div class="modal fade" id="classDeleteModal" tabindex="-1" role="dialog" aria-labelledby="classDeleteModalLabel" aria-hidden="true">
@@ -95,7 +102,7 @@
 								삭제된 강의는 복구할 수 없습니다. <br> 정말 삭제하시겠습니까?
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-danger btn-pill btn-block" data-dismiss="modal" onsubmit="deleteClass();">삭제</button>
+								<button type="submit" class="btn btn-danger btn-pill btn-block" data-dismiss="modal" onclick="deleteClass();">삭제</button>
 							</div>
 						</div>
 					</div>
@@ -140,7 +147,35 @@
 			</table>
 
 			<script>
-				
+				function deleteClass(){
+					let $classNoArr = [];
+
+					$('#classTable tbody tr').each(function(){
+						if ($(this).find('td:first-child input[type="checkbox"]').is(':checked')) {
+							let $classNo = $(this).find('td.classNo').text();
+							$classNoArr.push($classNo);
+							console.log($classNoArr);
+						}
+					})
+
+					$.ajax({
+						type: 'POST',
+						url: 'ajaxDelete.cl',
+						data: { classNoArr: $classNoArr },
+						success: function(result) {
+							if(result == "YYYY"){
+								alert("강의 삭제에 성공했습니다.");
+							}else{
+								alert("강의 삭제에 실패했습니다. \n다시 시도해주세요.");
+							}
+
+						},
+						error: function() {
+							alert("오류가 발생했습니다! \n잠시 후 다시 시도해주세요.");
+						}
+					});
+
+				}
 
 			
                 $(function(){
@@ -222,9 +257,18 @@
 						</c:choose>
 					
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-							<li class="page-item active">
-								<a class="page-link" href="classAdminList.ad?page=${ p }">${ p }</a>
-							</li>
+							<c:choose>
+								<c:when test="${ pi.currentPage ==  p  }">
+									<li class="page-item active">
+										<a class="page-link"  onclick="return false;">${ p }</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item">
+										<a class="page-link" href="classAdminList.ad?page=${ p }">${ p }</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 						
 						<c:choose>

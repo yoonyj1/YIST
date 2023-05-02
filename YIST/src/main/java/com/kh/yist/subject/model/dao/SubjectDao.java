@@ -1,6 +1,7 @@
 package com.kh.yist.subject.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -63,6 +64,10 @@ public class SubjectDao {
 	
 	public int deleteSubject(SqlSession sqlSession, int subjectNo) {
 		return sqlSession.update("subjectMapper.deleteSubject", subjectNo);
+	}
+	
+	public int deleteSubject(SqlSession sqlSession, List<String> subjectNo) {
+		return sqlSession.update("subjectMapper.deleteSubjectAjax", subjectNo);
 	}
 	
 	public int selectCurrval(SqlSession sqlSession) {
