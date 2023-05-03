@@ -339,18 +339,14 @@
 
 		<script>
 			$(function(){
-				const cP = '${pi.currentPage}';
-				console.log(cP);
 
+				const cP = '${pi.currentPage}';
 				const $pageLinks = $('a.page-link');
 
 				$pageLinks.each(function(index, link) {
 
 					let text = link.innerText;
-					console.log(text)
 					
-					console.log(text===cP)
-
 					if (text === cP) {
 						$(link).parent('li').addClass('active');
 					}

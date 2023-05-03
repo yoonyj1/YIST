@@ -30,4 +30,10 @@ public class NoticeDao {
 		
 	}
 	
+	
+	public Notice selectNotice(SqlSession sqlSession,int boardNo) {
+		
+		return sqlSession.selectOne("noticeMapper.selectNotice", boardNo);
+		
+	}
 }

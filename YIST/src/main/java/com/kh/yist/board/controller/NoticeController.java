@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,12 +43,21 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("detail.no")
-	public String selectNtotice() {
+	public String selectNtotice(@RequestParam(value="no") int boardNo, Model m) {
+		
+		Notice n = nService.selectNotice(boardNo);
+		
+		m.addAttribute("n", n);
+		
 		return "admin/notice/detailNotice";
 	}
 	
-	@RequestMapping("update.no")
-	public String UpdateNotice() {
+	@RequestMapping("updateForm.no")
+	public String UpdateNotice(@RequestParam(value="no") int boardNo, Model m) {
+		
+		Notice n = nService.selectNotice(boardNo);
+		m.addAttribute("n", n);
+		
 		return "admin/notice/updateNoticeForm";
 	}
  

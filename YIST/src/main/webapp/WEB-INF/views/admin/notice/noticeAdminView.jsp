@@ -115,7 +115,7 @@
 	                  <thead>
 	                    <tr>
 	                      <th><input type="checkbox"></th>
-	                      <th>공지사항번호</th>
+	                      <th>글번호</th>
 	                      <th>제목</th>
 	                      <th>작성자</th>
 	                      <th>작성일자</th>
@@ -165,15 +165,14 @@
                     
 	                //수정화면이동
 					$("#noticeTable>tbody>tr>td>button").click(function(){
-						//location.href='modify.cl?cno=' + $(this).children(".cno").text();
-						location.href='update.no';
+						let $cno = $(this).parent("td").siblings('.boardNo').text()
+						location.href='updateForm.no?no='+ $cno;
 					})
                     
 					
 					$('#noticeTable').on('click', 'tr td:nth-child(3)', function() {
-						var noticeNo = $(this).siblings('.noticeNo').text();
-
-						location.href = 'detail.no';
+						let noticeNo = $(this).siblings('.boardNo').text();
+						location.href = 'detail.no?no=' + noticeNo;
 						
 					});
                     
@@ -307,17 +306,13 @@
 	<script>
 		$(function(){
 			const cP = '${pi.currentPage}';
-			console.log(cP);
 
 			const $pageLinks = $('a.page-link');
 
 			$pageLinks.each(function(index, link) {
 
 				let text = link.innerText;
-				console.log(text)
 				
-				console.log(text===cP)
-
 				if (text === cP) {
 					$(link).parent('li').addClass('active');
 				}

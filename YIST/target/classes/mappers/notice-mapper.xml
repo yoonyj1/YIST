@@ -38,7 +38,28 @@
 		 where
 		 		status = 'Y'
 		 order
-		    by create_date desc 
+		    by board_no desc 
+	</select>
+	
+	<select id="selectNotice" resultMap="NoticeResultSet">
+	
+		select
+				board_no
+			  , board_title
+			  , board_writer
+			  , board_content
+			  , originName
+			  , changeName
+			  , count
+			  , status
+			  , to_char(create_date,'RRRR/MM/DD') as create_date
+			  , views
+		  from 
+		  		notice
+		 where
+		 		status = 'Y'
+		   and  board_no = #{ boardNo}			
+	
 	</select>
 	
 	

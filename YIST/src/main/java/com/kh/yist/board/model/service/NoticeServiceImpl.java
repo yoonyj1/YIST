@@ -36,7 +36,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public Notice selectNotice(int boardNo) {
-		return null;
+		return nDao.selectNotice(sqlSession, boardNo);
 	}
 
 	@Override
