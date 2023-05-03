@@ -3,7 +3,7 @@
 
 <mapper namespace="noticeMapper">
 	
-	<resultMap id="NoticeResultSet" type="Notice">
+	<resultMap id="NoticeResultSet" type="NoticeA">
 		<result column="BOARD_NO" property="boardNo"></result>
 		<result column="BOARD_TITLE" property="boardTitle"></result>
 		<result column="BOARD_WRITER" property="boardWriter"></result>

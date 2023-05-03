@@ -129,7 +129,9 @@
 				<tbody>
 
 					<c:if test="${ empty list }">
-						강의가 없습니다.
+						<tr>
+							<td colspan="6" style="text-align: center;">조회된 강의가 없습니다.</td>
+						</tr>
 					</c:if>
 
 					<c:forEach var='s' items="${ list }">

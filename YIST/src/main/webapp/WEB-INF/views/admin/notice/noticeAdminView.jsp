@@ -125,8 +125,10 @@
 
 	                  <tbody>
 
-							<c:if test="">
-								공지사항이 없습니다.
+							<c:if test="${ empty list }">
+								<tr>
+									<td colspan="6" style="text-align: center;">조회된 공지사항이 없습니다.</td>
+								</tr>
 							</c:if>
 
 							<c:forEach var='n' items="${ list }">
