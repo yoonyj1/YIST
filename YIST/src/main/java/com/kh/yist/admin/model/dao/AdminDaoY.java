@@ -30,4 +30,26 @@ public class AdminDaoY {
 	public ArrayList<Member> selectNonSubjectList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectNonSubjectList");
 	}
+	
+	public int checkDeleteInstuctor(SqlSessionTemplate sqlSession, String valueArr) {
+		return sqlSession.update("adminMapper.checkDeleteInstuctor", valueArr);
+	}
+	
+	public Member selectTeacher(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectTeacher", id);
+	}
+	
+	public int selectStudentListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.selectStudentListCount");
+	}
+	
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		// 총 몇개를 조회해갈건지
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", null, rowBounds);
+	}
 }
