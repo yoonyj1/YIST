@@ -555,12 +555,12 @@
 							<button class="dropdown-toggle nav-link" data-toggle="dropdown">
 								<img src="${pageContext.request.contextPath}/resources/admin/images/user/user-xs-01.jpg"
 									class="user-image rounded-circle" alt="User Image" /> <span
-									class="d-none d-lg-inline-block">John Doe</span>
+									class="d-none d-lg-inline-block">${ loginUser.name }</span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a class="dropdown-link-item" href="user-profile.html">
-										<i class="mdi mdi-account-outline"></i> <span class="nav-text">My
-											Profile</span>
+										<i class="mdi mdi-account-outline"></i> 
+										<span class="nav-text">My Profile</span>
 								</a></li>
 								<li><a class="dropdown-link-item" href="email-inbox.html">
 										<i class="mdi mdi-email-outline"></i> <span class="nav-text">Message</span>
