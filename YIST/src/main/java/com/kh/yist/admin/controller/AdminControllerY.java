@@ -16,7 +16,6 @@ import com.kh.yist.admin.model.service.AdminServiceY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.member.model.vo.Member;
-import com.sun.tools.javac.util.List;
 
 @Controller
 public class AdminControllerY {
@@ -63,14 +62,16 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("studentList.do")
-	public String studentListForm(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView studentListForm(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
 		int listCount = aService.selectStudentListCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		ArrayList<Member> list = aService.selectStudentList(pi);
 		
-		return "admin/studentList";
+		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/studentList");
+		
+		return mv;
 	}
 	
 	@RequestMapping("teacherDetail.do")

@@ -24,6 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="SORT" property="sort"/>
 		<result column="EMPLOYEE_DATE" property="employeeDate"/>
 	</resultMap>
+	
+	<resultMap type="Attendance" id="attendanceResultSet">
+		<result column="ID" property="id"/>
+		<result column="COUNT" property="count"/>
+		<result column="ATTENDANCE_DATE" property="attendanceDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+	</resultMap>
 
 	
 	<select id="selectListCount" resultType="_int">
@@ -99,10 +107,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			sort = 3
 	</select>
 	
-	<select id="selectStudentList">
-		select
-			id
-		  , subject_name as "subject"
-		  , a.count / 
+	<select id="selectStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "count"  
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3
 	</select>
 </mapper>
