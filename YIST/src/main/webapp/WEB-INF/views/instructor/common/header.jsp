@@ -92,30 +92,29 @@
 
 	<c:if test="${loginUser.examTime > 0}">
 		<script>
-			$(function(){
-				console.log("헤더");
+			$(document).ready(function() {
+			console.log("셋팅시간");
+				
+				let currentTime = Math.round(new Date() / 1000);
+				let examTime = Number('${loginUser.examTime}'); 
 				
 				examTimeManage();
 				
 				function examTimeManage(){
-					
-					let currentTime = Math.round(new Date() / 1000);
-					let examTime = Number('${loginUser.examTime}'); 
-					
 					$.ajax({
 						url:"getTime.ins",
+						type: "POST",
 						data: {
 							setTime:Number(examTime),
 							userTime:Number(currentTime) // 현재시간
 						},
 						success : function(getTime){
-							console.log("컨트롤러 : " + getTime);
+							console.log("뭐가날라옴? : " + getTime);
 							countdown('timeDisplay', examTime - getTime);
 						},
 						error : function(){
-							elert("헤더쪽 에러남");
+							alert("시험 에러");
 						}
-						
 					})
 					
 					function countdown(elementId, seconds){
@@ -125,8 +124,16 @@
 						msLeft = endTime - (+new Date);
 						if ( msLeft < 0 ) {
 						  $("#timeDisplay").val("");
-						  alert("시험종료");
-						  ${loginUser.examTime = 0};
+						  
+						  $.ajax({
+							  url:"endExam.ins",
+							  success : function(){
+								  alert("시험이 종료되었습니다.");								  
+							  },
+							  error : function(){
+								  alert("시험 종료 에러");
+							  }
+						  })
 						} else {
 						  time = new Date( msLeft );
 						  hours = time.getUTCHours();

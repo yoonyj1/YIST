@@ -26,9 +26,6 @@
 						}
 						
 						$(document).ready(function() {
-							$("<div class='timeout'></div>").insertAfter($("#email"));
-							countdown(".timeout", 0.5, 0);
-							
 							let currentId = "";
 							
 							$(".score-btn").on("click",function(){

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -99,41 +100,53 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="examTime.ins", produces = "text/html; charset=UTF-8")
 	public String examTime(int setTime, int userTime, HttpSession session) {
-		Member examMember = (Member)session.getAttribute("loginUser");
+		Member loginUser = (Member)session.getAttribute("loginUser");
 
-		examMember.setExamTime(setTime);
+		loginUser.setExamTime(setTime);
 		
-		examMember.setUserTime(userTime);
+		loginUser.setUserTime(userTime);
 		
-		session.setAttribute("loginUser", examMember);
+		session.setAttribute("loginUser", loginUser);
 		
-		return "instructor/examForm";
+		return "";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="getTime.ins", produces = "text/html; charset=UTF-8")
-	public String getTime(int setTime, int userTime, HttpSession session) {
+	@RequestMapping(value="getTime.ins", method=RequestMethod.POST)
+	public String getExamTime(int setTime, int userTime, HttpSession session) {
 		
-		Member examMember = (Member)session.getAttribute("loginUser");
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		System.out.println("헤더에서 가져온 시간 : " + userTime);
-		System.out.println("설정한 시험 시간 : " +  examMember.getExamTime());
+		int originTime = 0;
 		
-		int originTime = examMember.getUserTime(); // 기존 시간
+		if (loginUser != null){
+			System.out.println("기존 시간 : " + loginUser.getUserTime());
+			originTime = loginUser.getUserTime(); // 기존 시간
+		} else {
+			System.out.println("기존 시간 없다");
+		}
+		
 		int newTime = userTime; // 새로 받아온시간 
 		
-		examMember.setUserTime(setTime);
-		examMember.setUserTime(newTime-originTime);
+		loginUser.setExamTime(setTime);
+		loginUser.setUserTime(originTime);
 		
-		System.out.println("새로 할당한 시간 : " + examMember.getUserTime());
-		
-		session.setAttribute("loginUser", examMember);
+		session.setAttribute("loginUser", loginUser);
 		
 		int resultTime = newTime-originTime;
 
-		return "" + resultTime;
+		return ""+resultTime;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="endExam.ins")
+	public void endExam(HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		loginUser.setExamTime(0);
+		
+	}
 	
 	
 	
