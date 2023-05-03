@@ -32,7 +32,7 @@
 		select
 				count(*)
 		  from subject
-		 where status = 'Y'  
+		 where status = 'N'  
 	</select>	
 	
 	<select id="selectSubjectList" resultMap="subjectResultSet">
@@ -49,7 +49,7 @@
 			,FEE
 		  from subject s 
           join member m on(subject_no = subject)
-         where s.status = 'Y' 
+         where s.status = 'N' 
            and m.sort = 2  
 		 order
 		    by SUBJECT_NO desc          
@@ -71,7 +71,7 @@
 		  from subject s 
           join member on(subject_no = subject)
           join class using(class_no)
-         where s.status = 'Y' 
+         where s.status = 'N' 
            and sort = 2
            and subject_no = #{subjectNo}
 	</select>
@@ -149,26 +149,42 @@
 	
 	 <select id="selectSearchCount" resultType="_int">
      
-		select 
-		        count(*)
-		  from board b
-		  join member on(board_writer = user_no)
-		 where b.status = 'Y'
-		 <if test="condition == 'id'">
-		   and id 
-		 </if> 
-		 <if test="condition == 'subjectName'">
-		   and subject_name
-		 </if>
-		 <if test="condition == 'subjectNo'">
-		   and subject_no
-		 </if> 
-		 like '%'||#{ keyword }||'%'
-		   
+		select
+			count(*)
+		from (
+			select
+				SUBJECT_NO
+				,CLASS_NO
+				,SUBJECT_NAME
+	            ,NAME as INSTRUCTOR
+				,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
+				,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
+				,DAY
+				,MAXIMUM_SEATS
+				,CURRENT_SEATS
+				,FEE
+			  from subject s 
+	          join member m on(subject_no = subject)
+	         where s.status = 'N' 
+	           and m.sort = 2  
+				<choose>
+				    <when test="condition == 'name'">
+				        and name like '%'|| #{ keyword } ||'%'
+				    </when>
+				    <when test="condition == 'subjectName'">
+				        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+				    </when>    
+				    <otherwise>
+				        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
+				    </otherwise>
+				</choose>
+			)
+
+
+
   	</select>
   	
   	<select id="selectSearchList" resultMap="subjectResultSet">
-  		<!-- parameterType 생략 가능 -->
 		select
 			SUBJECT_NO
 			,CLASS_NO
@@ -181,21 +197,20 @@
 			,CURRENT_SEATS
 			,FEE
 		  from subject s 
-          join member on(subject_no = subject)
-         where s.status = 'Y' 
-           and sort = 2  
-		 <choose>
-		 	<when test="condition == 'id'">
-			   and id
-		 	</when>
-		 	<when test="condition == 'subjectName'">
-			   and subject_name
-		 	</when>	
-		 	<otherwise>
-			   and subject_no
-		 	</otherwise>
-		 </choose>
-		 	like '%'|| #{ keyword } ||'%'
+          join member m on(subject_no = subject)
+         where s.status = 'N' 
+           and m.sort = 2  
+			<choose>
+			    <when test="condition == 'name'">
+			        and name like '%'|| #{ keyword } ||'%'
+			    </when>
+			    <when test="condition == 'subjectName'">
+			        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+			    </when>    
+			    <otherwise>
+			        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
+			    </otherwise>
+			</choose>
 		 order
 		    by SUBJECT_NO desc   
   	</select>

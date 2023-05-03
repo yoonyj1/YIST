@@ -81,13 +81,13 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public int selectSearchCount() {
-		return 0;
+	public int selectSearchCount(HashMap<String, String> map) {
+		return sDao.selectSearchCount(sqlSession, map);
 	}
 
 	@Override
 	public ArrayList<Subject> selectSearchList(HashMap<String, String> map, PageInfo pi) {
-		return null;
+		return sDao.selectSearchList(sqlSession, map, pi);
 	}
 
 

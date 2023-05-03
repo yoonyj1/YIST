@@ -2,6 +2,7 @@ package com.kh.yist.subject.controller;
 
 import java.net.http.HttpRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +38,10 @@ public class SubjectController {
 	public ModelAndView classAdminList(@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
 		
 		int listCount = sService.selectSubjectListCount();
-		System.out.println(listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
-		System.out.println(pi);
 		
 		ArrayList<Subject> list = sService.selectSubjectList(pi);
-		System.out.println(list);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/class/classListView");
 		
 		return mv;
@@ -75,8 +73,6 @@ public class SubjectController {
 		int deleteFlag = 1;
 		int updateFlag = 1;
 		
-		System.out.println(id);
-		System.out.println(instructorId);
 		
 		Member i = new Member();
 		i.setId(id);
@@ -139,7 +135,6 @@ public class SubjectController {
 		i.setId(id);
 		i.setSubject(String.valueOf(subject));		
 		
-		System.out.println(i);
 		
 		
 		int iResult = mService.updateInstructor(i);
@@ -199,6 +194,28 @@ public class SubjectController {
 
 		}
 		
+	}
+	
+	@RequestMapping("search.cl")
+	public ModelAndView selectSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("condition",condition);
+		map.put("keyword", keyword);
+		
+		int listCount = sService.selectSearchCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		
+		ArrayList<Subject> list = sService.selectSearchList(map, pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("condition",condition);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pi", pi).setViewName("admin/class/classListView");
+		
+		return mv;
 	}
 
 }

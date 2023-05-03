@@ -88,10 +88,14 @@
                       <td>
                         <div class="form-group">
                           <select name="id" class="js-example-basic-multiple form-control" required>
-                            <option value="${ i.id }" selected>${ i.name } [담당강사]</option>
+                            <option value="${ i.id }" selected>${ i.name } </option>
+
+                            <optgroup  LABEL="---------------------------------------"></optgroup>   
+
                             <c:forEach var="i" items="${ iList }">
                               <option value="${ i.id }">${ i.name }</option>
-                            </c:forEach>
+                            </c:forEach>                             
+                                                  
                           </select>
                         </div>
                       </td>

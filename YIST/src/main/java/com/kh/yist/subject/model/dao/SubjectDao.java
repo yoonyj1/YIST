@@ -1,6 +1,7 @@
 package com.kh.yist.subject.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -74,4 +75,19 @@ public class SubjectDao {
 		return sqlSession.selectOne("subjectMapper.selectCurrval");
 	}
 	
+	public int selectSearchCount(SqlSession sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("subjectMapper.selectSearchCount", map);
+	}
+	
+	public ArrayList<Subject> selectSearchList(SqlSession sqlSession, HashMap<String, String> map, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("subjectMapper.selectSearchList", map, rowBounds);
+		
+	}
 }
