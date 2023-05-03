@@ -152,7 +152,6 @@
 						if ($(this).find('td:first-child input[type="checkbox"]').is(':checked')) {
 							let $classNo = $(this).find('td.classNo').text();
 							$classNoArr.push($classNo);
-							console.log($classNoArr);
 						}
 					})
 

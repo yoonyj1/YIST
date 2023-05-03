@@ -168,7 +168,7 @@
 			<!-- Aplication Brand -->
 			<div class="app-brand">
 				<a href="/index.html"> 
-					<img src="${pageContext.request.contextPath}/resources/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
+					<img src="${pageContext.request.contextPath}/resources/admin/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
 					<span class="brand-name">YIST</span>
 				</a>
 			</div>
@@ -284,7 +284,7 @@
 					<span class="sr-only">Toggle navigation</span>
 				</button>
 
-				<span class="page-title">tabs</span>
+				<span class="page-title"></span>
 
 				<div class="navbar-right ">
 

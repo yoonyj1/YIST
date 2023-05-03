@@ -48,9 +48,9 @@
 			,CURRENT_SEATS
 			,FEE
 		  from subject s 
-          join member on(subject_no = subject)
+          join member m on(subject_no = subject)
          where s.status = 'Y' 
-           and sort = 2  
+           and m.sort = 2  
 		 order
 		    by SUBJECT_NO desc          
 	</select>

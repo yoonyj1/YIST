@@ -88,10 +88,10 @@
                       <td>
                         <div class="form-group">
                           <select name="id" class="js-example-basic-multiple form-control" required>
-                            <option value="${ i.id }" selected>${ i.name }</option>
-							<c:forEach var="i" items="${ iList }">
-								<option value="${ i.id }">${ i.name }</option>
-							</c:forEach>
+                            <option value="${ i.id }" selected>${ i.name } [담당강사]</option>
+                            <c:forEach var="i" items="${ iList }">
+                              <option value="${ i.id }">${ i.name }</option>
+                            </c:forEach>
                           </select>
                         </div>
                       </td>
@@ -214,7 +214,7 @@
                   <div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="submit" onclick="formSubmit(1);">수정</button>
                     <button class="btn  btn-pill mr-2 btn-danger" type="submit" onclick="if(confirm('삭제된 강의는 복구할 수 없습니다. 정말 삭제하시겠습니까?')){ formSubmit(2); }">삭제</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    <button class="btn btn-light btn-pill" type="button" onclick="location.href='classAdminList.ad';">취소</button>
                   </div>
                   
                 </form>

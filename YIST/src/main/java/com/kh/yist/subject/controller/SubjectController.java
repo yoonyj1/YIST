@@ -37,11 +37,13 @@ public class SubjectController {
 	public ModelAndView classAdminList(@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
 		
 		int listCount = sService.selectSubjectListCount();
+		System.out.println(listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		System.out.println(pi);
 		
 		ArrayList<Subject> list = sService.selectSubjectList(pi);
-		
+		System.out.println(list);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/class/classListView");
 		
 		return mv;
