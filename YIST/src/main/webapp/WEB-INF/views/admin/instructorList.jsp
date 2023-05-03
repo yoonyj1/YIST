@@ -26,53 +26,10 @@
 		</div>
 
 		<div class="card-body">
-			<button type="button" class="btn btn-outline-primary"
-				data-toggle="modal" data-target="#exampleModalForm">강사배정</button>
 			<button type="button" id="deleteTeacher"
 				class="btn btn-outline-danger">강사삭제</button>
-
-			<!-- 모달 시작 -->
-			<div class="modal fade" id="exampleModalForm" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalFormTitle"
-				aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalFormTitle">강사배정</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group">
-									<label for="exampleInputEmail1">강사 선택</label> <br> <select
-										name="teacherList" id="teacherList" style="width: 300px;">
-										<c:forEach var="t" items="${ nonSubjectList }">
-											<option value="${ t.name }">${ t.name }</option>
-										</c:forEach>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputPassword1">강의 선택</label> <br> <select
-										name="lectureList" id="lectureList" style="width: 300px;">
-										<option value="강의1">강의1</option>
-										<option value="강의2">강의2</option>
-										<option value="강의3">강의3</option>
-										<option value="강의4">강의4</option>
-									</select>
-								</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-outline-success">저장</button>
-						</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- 모달 끝 -->
 		</div>
+		
 		<!-- 강사 목록 테이블 -->
 		<div class="card-body">
 			<table class="table">

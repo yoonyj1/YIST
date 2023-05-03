@@ -17,10 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ADDRESS" property="address"/>
 		<result column="DETAIL_ADDRESS" property="detailAddress"/>
 		<result column="SUBJECT" property="subject"/>
+		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
 		<result column="ENORLL_DATE" property="enrollDate"/>
 		<result column="START_DATE" property="startDate"/>
 		<result column="END_DATE" property="endDate"/>
-		<result column="STAUTS" property="status"/>
+		<result column="STATUS" property="status"/>
 		<result column="SORT" property="sort"/>
 		<result column="EMPLOYEE_DATE" property="employeeDate"/>
 	</resultMap>
@@ -60,16 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by subject		
 	</select>
 	
-	<select id="selectNonSubjectList" resultMap="memberResultSet">
-		select
-			id
-		  , name
-	  	from
-	  		member
-  		where subject is null
-  			and sort = 2
-  			and status = 'Y'
-	</select>
+	
 	
 	<update id="checkDeleteInstuctor">
 		update
@@ -112,10 +104,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				id
 			, name
 			, s.subject_name as "subject" 
-			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "count"  
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
 		from member m 
 		join attendance a using(id)
 		join subject s on (m.subject = s.subject_no)
-		where sort = 3
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		order by m.status
 	</select>
 </mapper>

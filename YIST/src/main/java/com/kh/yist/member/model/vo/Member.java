@@ -34,6 +34,7 @@ public class Member {
 	private String address;
 	private String detailAddress;
 	private String subject;
+	private double attendanceRate;
 	private String enrollDate;
 	private String startDate;
 	private String endDate;

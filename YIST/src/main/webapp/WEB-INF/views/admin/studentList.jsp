@@ -33,7 +33,6 @@
 			
 			<div class="tab-content mt-5" id="nav-tabContent">
 			  <div class="tab-pane fade show active" id="nav-tabs-java" role="tabpanel" aria-labelledby="nav-java-tab">
-			    자바
 			    <table class="table" style="text-align:center;">
 				  <thead>
 				    <tr>
@@ -46,12 +45,21 @@
 				  <tbody>
 				  	<c:forEach var="s" items="${ list }">
 		  				<tr>
-					      <td scope="row">${ s.name }</td>
-					      <td>${ s.subject }</td>
-					      <td>${ s.count }</td>
-					      <td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-					      <td align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ s.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
-					      <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+					      <c:choose>
+					      	<c:when test="${s.status eq 'A'}">
+					      		<td scope="row">${ s.name }</td>
+						      	<td>${ s.subject }</td>
+						     	<td>${ s.attendanceRate }</td>
+						      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ s.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+					      	</c:when>
+					      	<c:otherwise>
+						      	<td scope="row">${ s.name }</td>
+						     	<td>${ s.subject }</td>
+						      	<td>${ s.attendanceRate }</td>
+						      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+							    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+					      	</c:otherwise>
+				      	  </c:choose>
 					    </tr>
 				  	</c:forEach>
 				  </tbody>
