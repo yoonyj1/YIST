@@ -120,25 +120,46 @@
 	</div>
 	
 	<script>
+		function countdown(elementId, seconds){
+		  var element, endTime, hours, mins, msLeft, time;
+	
+		  function updateTimer(){
+			msLeft = endTime - (+new Date);
+			if ( msLeft < 0 ) {
+			  $("#timeDisplay").val("");
+			  alert("시험종료");
+			} else {
+			  time = new Date( msLeft );
+			  hours = time.getUTCHours();
+			  mins = time.getUTCMinutes();
+			  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
+			  element.value = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+			  setTimeout( updateTimer, time.getUTCMilliseconds());
+			}
+		  }
+	
+		  element = document.getElementById(elementId);
+		  endTime = (+new Date) + 1000 * seconds;
+		  updateTimer();
+		
+		}
+	
 		function examSetForm(){
 			let setTime = $('input[name=examSet]:checked').val();
 			
-			//$("#examForm").attr("action", "examStart.ins").submit();
-			
-			let date = Math.round(new Date() / 1000);
-			console.log("현재시간 : " + date.toString());
+			let userTime = Math.round(new Date() / 1000);
 			
 			$.ajax({
 				url:"examTime.ins",
-				data:{setTime:Number(setTime)},
+				data:{
+					setTime:Number(setTime), 
+					userTime:Number(userTime)				
+				},
 				success:function(result){
-					console.log("성공");
-					//$("<div class='timeout'></div>").insertAfter($("#email"));
-					//countdown(".timeout", setTime, 0);
-					
-					$("#ajaxCount").html('${loginUser.examTime}');
-					
+					console.log("시험 시작 성공");
 					$("#examStart").modal('hide');
+					
+					countdown('timeDisplay', setTime);
 				},
 				error:function(){
 					alert("ajax 통신 실패");

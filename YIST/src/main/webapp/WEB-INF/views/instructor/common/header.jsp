@@ -88,70 +88,74 @@
 
 </head>
 
-
 <body class="navbar-fixed sidebar-fixed" id="body">
+
+	<c:if test="${loginUser.examTime > 0}">
+		<script>
+			$(function(){
+				console.log("헤더");
+				
+				examTimeManage();
+				
+				function examTimeManage(){
+					
+					let currentTime = Math.round(new Date() / 1000);
+					let examTime = Number('${loginUser.examTime}'); 
+					
+					$.ajax({
+						url:"getTime.ins",
+						data: {
+							setTime:Number(examTime),
+							userTime:Number(currentTime) // 현재시간
+						},
+						success : function(getTime){
+							console.log("컨트롤러 : " + getTime);
+							countdown('timeDisplay', examTime - getTime);
+						},
+						error : function(){
+							elert("헤더쪽 에러남");
+						}
+						
+					})
+					
+					function countdown(elementId, seconds){
+					  var element, endTime, hours, mins, msLeft, time;
+			
+					  function updateTimer(){
+						msLeft = endTime - (+new Date);
+						if ( msLeft < 0 ) {
+						  $("#timeDisplay").val("");
+						  alert("시험종료");
+						  ${loginUser.examTime = 0};
+						} else {
+						  time = new Date( msLeft );
+						  hours = time.getUTCHours();
+						  mins = time.getUTCMinutes();
+						  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
+						  element.value = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+						  setTimeout( updateTimer, time.getUTCMilliseconds());
+						}
+					  }
+			
+					  element = document.getElementById(elementId);
+					  endTime = (+new Date) + 1000 * seconds;
+					  updateTimer();
+					}
+					
+				}
+			})
+		</script>
+	</c:if>
+	
 	<c:if test="${ not empty alertMsg }">
 		<script type="text/javascript">
 			alert("${alertMsg}");
 		</script>
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
+	
+	
 	<script>
-		window.onload=function(){
-			let date = Math.round(new Date() / 1000);
-			console.log("현재시간 : " + date.toString());
-			
-			function countdown(elementId, seconds){
-			  var element, endTime, hours, mins, msLeft, time;
-	
-			  function updateTimer(){
-				msLeft = endTime - (+new Date);
-				if ( msLeft < 0 ) {
-				  alert("끄읏~");
-				} else {
-				  time = new Date( msLeft );
-				  hours = time.getUTCHours();
-				  mins = time.getUTCMinutes();
-				  element.innerHTML = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
-				  setTimeout( updateTimer, time.getUTCMilliseconds());
-				}
-			  }
-	
-			  element = document.getElementById(elementId);
-			  endTime = (+new Date) + 1000 * seconds;
-			  updateTimer();
-			}
-			countdown('countdown', Number('${loginUser.examTime}'));	 
-		}
-	
-		/* function countdown(elementName, minutes, seconds){
-			let endTime, hours, mins, msLeft, time;
-			
-			function twoDigits(n){
-				return (n <= 9 ? "0" + n : n);
-			}
-			
-			function updateTimer(){
-				msLeft = endTime - (+new Date);
-				
-				if (msLeft < 1000){
-					alert("평가가 종료되었습니다.");
-					$("" + elementName).remove();
-					location.reload();
-				} else {
-					time = new Date(msLeft);
-					hours = time.getUTCHours();
-					mins = time.getUTCMinutes();
-					$("" + elementName).html((hours ? hours + ':' + twoDigits(mins) : twoDigits(mins)) 
-				    + ':' + twoDigits(time.getUTCSeconds()));
-					setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
-				}
-			}
-			
-			endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
-			updateTimer();
-		} */
-	
 		NProgress.configure({
 			showSpinner : false
 		});
@@ -281,10 +285,6 @@
 					
 				</ul>
 				
-				<span id="countdown"></span>
-				<br>
-				<span id="ajaxCount"></span>
-				
 			</div>
 		</div>
 	</aside>
@@ -306,11 +306,7 @@
 				<div class="search-form">
 					<!-- <form action="index.html" method="get"> -->
 						<div class="input-group input-group-sm" id="input-group-search">
-							<input type="text" autocomplete="off" name="query"
-								id="search-input" class="form-control" placeholder="Search..." />
-							<div class="input-group-append">
-								<button class="send-msg" type="button">/</button>
-							</div>
+							<input type="text" id="timeDisplay" class="form-control" readonly="readonly" style="color: black" />
 						</div>
 					<!-- </form> -->
 					<ul class="dropdown-menu dropdown-menu-search">
@@ -335,7 +331,7 @@
 				
 				<ul class="nav navbar-nav">
 					<li class="custom-dropdown">
-						<button class="notify-toggler custom-dropdown-toggler">
+						<button class="notify-toggler custom-dropdown-toggler" >
 							<i class="mdi mdi-bell-outline icon"></i> <span
 								class="alarm-badge badge badge-xs rounded-circle">0</span>
 						</button>

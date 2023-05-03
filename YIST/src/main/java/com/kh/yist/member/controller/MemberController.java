@@ -98,17 +98,41 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="examTime.ins", produces = "text/html; charset=UTF-8")
-	public String examTime(int setTime, HttpSession session) {
-		
+	public String examTime(int setTime, int userTime, HttpSession session) {
 		Member examMember = (Member)session.getAttribute("loginUser");
+
 		examMember.setExamTime(setTime);
-		System.out.println("시간 : " + setTime);
+		
+		examMember.setUserTime(userTime);
 		
 		session.setAttribute("loginUser", examMember);
 		
 		return "instructor/examForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="getTime.ins", produces = "text/html; charset=UTF-8")
+	public String getTime(int setTime, int userTime, HttpSession session) {
+		
+		Member examMember = (Member)session.getAttribute("loginUser");
+		
+		System.out.println("헤더에서 가져온 시간 : " + userTime);
+		System.out.println("설정한 시험 시간 : " +  examMember.getExamTime());
+		
+		int originTime = examMember.getUserTime(); // 기존 시간
+		int newTime = userTime; // 새로 받아온시간 
+		
+		examMember.setUserTime(setTime);
+		examMember.setUserTime(newTime-originTime);
+		
+		System.out.println("새로 할당한 시간 : " + examMember.getUserTime());
+		
+		session.setAttribute("loginUser", examMember);
+		
+		int resultTime = newTime-originTime;
+
+		return "" + resultTime;
+	}
 	
 	
 	
