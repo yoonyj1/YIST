@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 public class Task {
 
+	/*
 	private int taskNo;
 	private int subjectNo;
 	private String id;
@@ -18,4 +19,17 @@ public class Task {
 	private String taskContent;
 	private String startDate;
 	private String endDate;
+	*/
+	
+	private int taskNo;
+    private int subjectNo;
+    private String id;
+    private String taskTitle;
+    private String taskContent;
+    private String startDate;
+    private String endDate;
+    private String submitContent;
+    private String submitDate;
+    private String modifyDate;
+    private String status;
 }

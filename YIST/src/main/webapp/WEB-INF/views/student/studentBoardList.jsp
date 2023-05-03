@@ -122,49 +122,155 @@ button {
 	 function showMaterials() {
 	  
 	  $.ajax({
-		  url: "boardList.st",
-		  type: "POST"
-	  })
-	  $("#materials").css("background", "#c1e5fb");
-	  $("#task").css("background", "white");
-	  $("#qna").css("background", "white");
-	 }
-	 
-	// 과제
-	 function showTask() {
-	  
-	  $.ajax({
-		  url: "taskList.st",
+		  url: "MaterialList.st",
 		  type: "POST",
 		  success: function(list) {
+			  $("#materials").css("background", "#c1e5fb");
+			  $("#task").css("background", "white");
+			  $("#qna").css("background", "white");
+			  
 			  var html = "";
 			  var value = "";
 			  
 			  value += "<tr higth='20px'>";
 			  value += "<th width='5%'>번호</th>";
 			  value += "<th width='15%'>카테고리</th>";
-			  value += "<th width='50%'>제목</th>";
-			  value += "<th width='10%'>작성자</th>";
+			  value += "<th width='45%'>제목</th>";
+			  value += "<th width='15%'>작성자</th>";
 			  value += "<th width='10%'>작성일</th>";
 			  value += "<th width='10%'>조회수</th>";
 			  value += "</tr>";
 			  
 			  $("#result thead").html(value);
+			  
+			  if (list.length == 0) {
+				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+			} else {
+				for ( var i in list) {
+					html += "<tr>";
+					html += "<td>" + list[i].boardNo + "</td>";
+					html += "<td>학습자료</td>";
+					html += "<td>" + list[i].boardTitle + "</td>";
+					html += "<td>" + list[i].boardWriter + "</td>";
+					html += "<td>" + list[i].createDate + "</td>";
+					html += "<td>" + list[i].count + "</td>";
+					html += "</tr>";
+				}
+				$("#result tbody").html(html);
+			}
+		  },
+		  error : function(jqXHR, textStatus, errorThrown) {
+              	  console.log("Error: " + textStatus + " " + errorThrown);
 		  }
-		  
-	  })
-	  $("#task").css("background", "#c1e5fb");
-	  $("#materials").css("background", "white");
-	  $("#qna").css("background", "white");
-	
+	  });
+	 }
+	 
+	// 과제
+	 function showTask() {
+
+		$.ajax({
+		  url: "taskList.st",
+		  type: "POST",
+		  success: function(list) {
+			  $("#task").css("background", "#c1e5fb");
+			  $("#materials").css("background", "white");
+			  $("#qna").css("background", "white");
+			  
+			  var html = "";
+			  var value = "";
+			  
+			  value += "<tr higth='20px'>";
+			  value += "<th width='5%'>번호</th>";
+			  value += "<th width='15%'>카테고리</th>";
+			  value += "<th width='45%'>제목</th>";
+			  value += "<th width='15%'>작성자</th>";
+			  value += "<th width='10%'>등록일</th>";
+			  value += "<th width='10%'>마감일</th>";
+			  value += "</tr>";
+			  
+			  $("#result thead").html(value);
+
+			  if (list.length == 0) {
+				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+				
+			} else {
+				for ( var i in list) {
+					html += "<tr>";
+					html += "<td>" + list[i].taskNo + "</td>";
+					html += "<td>과제</td>";
+					html += "<td>" + list[i].taskTitle + "</td>";
+					html += "<td>" + list[i].id + "</td>";
+					html += "<td>" + list[i].startDate + "</td>";
+					html += "<td>" + list[i].endDate + "</td>";
+					html += "</tr>";
+					
+					// taskSubmit 정보가 있는 경우
+                    if (list[i].submitContent != null) {
+                        html += "<tr>";
+                        html += "<td></td>";
+                        html += "<td></td>";
+                        html += "<td> re: " + list[i].taskTitle + "</td>";
+                        html += "<td>" + list[i].id + "</td>";
+                        html += "<td>" + list[i].submitDate + "</td>";
+                        html += "<td style='color: red;'>마감</td>";
+                        html += "</tr>";
+                    }
+				}
+				$("#result tbody").html(html);
+			}
+		  },
+		  error : function(jqXHR, textStatus, errorThrown) {
+              	  console.log("Error: " + textStatus + " " + errorThrown);
+		  }
+	  });
 	 }	
 	 
 	// Q&A
 	 function showQnA() {
-	  
-	  $("#qna").css("background", "#c1e5fb");
-	  $("#materials").css("background", "white");
-	  $("#task").css("background", "white");
+		
+		 $.ajax({
+			  url: "qnaList.st",
+			  type: "POST",
+			  success: function(list) {
+				  
+				  $("#qna").css("background", "#c1e5fb");
+				  $("#materials").css("background", "white");
+				  $("#task").css("background", "white");
+					
+				  var html = "";
+				  var value = "";
+				  
+				  value += "<tr higth='20px'>";
+				  value += "<th width='5%'>번호</th>";
+				  value += "<th width='15%'>카테고리</th>";
+				  value += "<th width='45%'>제목</th>";
+				  value += "<th width='15%'>작성자</th>";
+				  value += "<th width='10%'>작성일</th>";
+				  value += "<th width='10%'>조회수</th>";
+				  value += "</tr>";
+				  
+				  $("#result thead").html(value);
+				  
+				  if (list.length == 0) {
+					html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+				} else {
+					for ( var i in list) {
+						html += "<tr>";
+						html += "<td>" + list[i].boardNo + "</td>";
+						html += "<td>Q&A</td>";
+						html += "<td>" + list[i].boardTitle + "</td>";
+						html += "<td>" + list[i].boardWriter + "</td>";
+						html += "<td>" + list[i].createDate + "</td>";
+						html += "<td>" + list[i].count + "</td>";
+						html += "</tr>";
+					}
+					$("#result tbody").html(html);
+				}
+			  },
+			  error : function(jqXHR, textStatus, errorThrown) {
+	              	  console.log("Error: " + textStatus + " " + errorThrown);
+			  }
+		  });
 	 }
 	</script>
 	
