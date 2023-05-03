@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+
+<mapper namespace="noticeMapper">
+	
+	<resultMap id="NoticeResultSet" type="Notice">
+		<result column="BOARD_NO" property="boardNo"></result>
+		<result column="BOARD_TITLE" property="boardTitle"></result>
+		<result column="BOARD_WRITER" property="boardWriter"></result>
+		<result column="BOARD_CONTENT" property="boardContent"></result>
+		<result column="ORIGIN_NAME" property="originName"></result>
+		<result column="CHANGE_NAME" property="changeName"></result>
+		<result column="COUNT" property="count"></result>
+		<result column="CREATE_DATE" property="createDate"></result>
+		<result column="STATUS" property="status"></result>
+		<result column="VIEWS" property="view"></result>
+	</resultMap>
+	
+	<select id="selectNoticeCount" resultType="_int">
+		select
+				count(*)
+		  from
+		  		notice
+		 where
+		 		status = 'Y'	
+	</select>
+	
+	<select id="selectNoticeList" resultMap="NoticeResultSet">
+		select
+				board_no
+			  , board_title
+			  , board_writer
+			  , status
+			  , to_char(create_date,'RRRR/MM/DD') as create_date
+			  , views
+		  from 
+		  		notice
+		 where
+		 		status = 'Y'
+		 order
+		    by create_date desc 
+	</select>
+	
+	
+</mapper>

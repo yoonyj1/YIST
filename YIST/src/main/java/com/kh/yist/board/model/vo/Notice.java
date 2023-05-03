@@ -20,7 +20,7 @@ public class Notice {
 	private String originName;
 	private String changeName;
 	private int count;
-	private Date createDate;
+	private String createDate;
 	private String status;
 	private int view;
 }

@@ -11,26 +11,7 @@ public class AdminCotroller {
 	
 
 	
-	//공지사항
-	@RequestMapping("noticeAdminList.ad")
-	public String noticeAdminList() {
-		return "admin/notice/noticeAdminView";
-	}
-	
-	@RequestMapping("insert.no")
-	public String InserNtotice() {
-		return "admin/notice/insertNoticeForm";
-	}
-	
-	@RequestMapping("detail.no")
-	public String selectNtotice() {
-		return "admin/notice/detailNotice";
-	}
-	
-	@RequestMapping("update.no")
-	public String UpdateNotice() {
-		return "admin/notice/updateNoticeForm";
-	}
+
 	
 	
 	//수업자료

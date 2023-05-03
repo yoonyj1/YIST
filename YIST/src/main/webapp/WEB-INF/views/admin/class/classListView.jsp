@@ -127,6 +127,11 @@
 					</tr>
 				</thead>
 				<tbody>
+
+					<c:if test="${ empty list }">
+						강의가 없습니다.
+					</c:if>
+
 					<c:forEach var='s' items="${ list }">
 						<tr>
 							<td><input type="checkbox"></td>
