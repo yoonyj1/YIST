@@ -15,7 +15,7 @@ public class Attendance {
 
 	private String Id;
 	private int count;
-	private Date attendanceDate;
+	private String attendanceDate;
 	private String status;
 	private int subjectNo;
 	
