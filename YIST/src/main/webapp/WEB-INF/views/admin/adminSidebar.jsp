@@ -28,7 +28,8 @@
         <!-- Aplication Brand -->
         <div class="app-brand">
           <a href="index.html">
-            <img src="./resources/admin/images/YIST.png" alt="Mono">
+           <img src="${pageContext.request.contextPath}/resources/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;">
+           <span class="brand-name">YIST</span>
           </a>
         </div>
         <!-- begin sidebar scrollbar -->
@@ -56,6 +57,7 @@
                 </a>
               </li>
           </ul>
+        </div>
         </div>
         
       </aside>

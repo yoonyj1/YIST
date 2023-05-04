@@ -91,5 +91,10 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
-
+	
+	//학생정보 조회
+	@Override
+	public ArrayList<Member> selectList(){
+		return mDao.selectList(sqlSession);
+	}
 }

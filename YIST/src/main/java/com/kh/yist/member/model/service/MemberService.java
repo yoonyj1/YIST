@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
@@ -29,4 +30,6 @@ public interface MemberService {
 	ArrayList<Message> messageList(String userId);
 	
 	int updateMessage(String userId);
+	
+	ArrayList<Member> selectList();
 }

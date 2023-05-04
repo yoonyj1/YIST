@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,69 +152,52 @@ tr {
         <div class="leftMenu">
             <div class="topBtnBox" style="background-color: #979cc4; height: 75px;">   
                 <div class="topBtnBox_left"><h1 style="font-size: 20px; color: white; margin-top: 27px;">학생관리</h1></div>
-                <div class="topBtnBox_right">
-                    <button type="button" class="bBtn03"onclick="locationGo('member','0','W','student_write.asp','left_student.asp');" title=""><strong style="font-size:13pt">+</strong> 학생등록</button>
-                </div>
             </div>
             <div class="topBtnBox2Line" style="margin-top: 15px;">
-                <form name="fSch" method="get">
+                
+                <form name="search.bo" method="get">
                 <div class="search">
                     <table cellpadding="0" cellspacing="0" width="100%" style="margin-left: 7px;">
                         <tbody >
-                            <tr>
+                             <tr>
                             <td>
-                                <select style="width:95px; border-radius: 3px;" name="nowState" id="nowState">
-                                    <option value="9">전체</option>
-                                    <option value="2" selected="">수강생</option>
-                                    <option value="1">퇴원생</option>
-                                    <option value="8">수료생</option>
-                                   
+                                <select style="width:95px; border-radius: 3px;" name="searchType">
+                                    <option value="studentname">학생이름</option>
+                                    <option value="stuphone">핸드폰번호</option>
                                 </select>
-                                <select style="width:225px; border-radius: 3px;" name="classNo" id="classNo">
-                                    <option value="" selected="">---- 학급 선택 ----</option>
-                                    
-                                        <option value="8655">자바프로그래밍</option>
-                                    
-                                        <option value="8663">JAVA</option>
-                                    
-                                </select>
+                                <input type="text" name="searchValue" id="searchName" style="width:226px; border-radius: 3px;" value="${ keyword }">
                             </td>
-                            <td rowspan="2" valign="top" align="right"><button type="button" class="bBtn08" style="width:70px; height:65px;background-color: #02068D; border-radius: 5px; color: white; margin-right: 14px;" 
-                                onclick="document.fSch.nowState.disabled=false;document.fSch.classNo.disabled=false;document.fSch.keytype.disabled=false;document.fSch.submit();">검색</button></td>
+                            <td rowspan="2" valign="top" align="right"><button type="submit" class="bBtn08" style="width:70px; height:35px;background-color: #02068D; border-radius: 5px; color: white; margin-right: 14px;" 
+                                onclick="getSearchList()">검색</button></td>
                         </tr>
-                        <tr>
-                            <td>
-                                <select style="width:95px; border-radius: 3px;" name="keytype" id="keytype">
-                                    <option value="name">학생이름</option>
-                                    <option value="id">학생번호</option>
-                                    <option value="rfcardNo">핸드폰번호</option>
-                                </select>
-                                <input type="text" name="keyword" id="keyword" style="width:226px; border-radius: 3px;" value="">
-                            </td>
-                        </tr>
+                       
                     </tbody>
                     </table>
                 </div>
+                	
+               
 
                     <table cellpadding="0" cellspacing="0" width="100%" class="leftMemList" style="margin-top: 10px;">
                         <tbody style="background-color: #979cc4; height: 40px;">
                             <tr>
                             <th width="30"><input type="checkbox" name="check" onclick="revcheck(this.form);" title="문자발송" style="margin-left: 10px;"></th>
-                            <th width="40" style="color: rgb(255, 255, 255); font-size: 17px;">No</th>
-                            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="document.fMemPcsList.orderby.value='name desc';document.fMemPcsList.submit();">▼</a></span></th>
-                            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;">학생휴대폰</th>
+                            <th width="40" style="color: rgb(255, 255, 255); font-size: 17px;" name="idx">No</th>
+                            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;" name="name">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="">▼</a></span></th>
+                            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;" name="ph">학생휴대폰</th>
                         </tr>
                     </tbody>
                 </table>
                  
                     <table cellpadding="0" cellspacing="0" width="100%" class="leftMemList">
                                 <tbody style="height: 40px; color: black;">
+                                	<c:forEach var="b" items="${list}">
                                     <tr id="listItem_user03" class="on">
-                                    <td width="30" align="center"><input type="checkbox" name="mobileNo" id="listItemMobileNo_user03" value="user03|김누구|"></td>
-                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03">1</td>
-                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">김누구</div></td>
-                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">010-5285-0376</td>
+                                    <td width="30" align="center"><input type="checkbox" name="mobileNo" id="listItemMobileNo_user03" value=""></td>
+                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">1</td>
+                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
+                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.phone}</td>
                                 </tr>
+                               		</c:forEach>
                                 </tbody>
                                 
                 </table>
@@ -226,7 +210,7 @@ tr {
                 <div class="infoStyle03">   
                     <div id="memberInfo" style="background-color: #f8f8f8;">
                         <br>
-                        <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 30px;">
+                        <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 50px;">
                             <div id="photoArea">
                                 <div class="photoGroup" style="margin: 20px;">
                                     <img id="memBerPhoto" src="" alt="">
@@ -250,7 +234,6 @@ tr {
                                     <td>
                                         <input type="radio" name="sex" value="남" checked="">남 
                                         <input type="radio" name="sex" value="여">여
-                                        &nbsp;(26세)
                                     </td>
                                 </tr>
                                 <tr>
@@ -308,4 +291,13 @@ tr {
 		</div>
        	
     </body>
+    
+    	<script>
+    		$(function(){
+    			$("#leftMemList>tbody>tr").click(function(){
+    				location.href='detail.bo?bno'+$(this).children(".bno").text();
+    			})
+    		})
+		</script>
+    
 </html>

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container">
     <div class="sub08_title">
@@ -44,9 +44,9 @@
             </tr>
         </tbody>
     </table>    
-    <div><img alt="" src="resources/images/yist/certificate.jpg">  </div>
+    <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div>
   </div>
 
-	<jsp:include page="../common/footer.jsp"/>
+	<jsp:include page="common/footer.jsp"/>
 </body>
 </html>

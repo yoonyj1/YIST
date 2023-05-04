@@ -30,16 +30,16 @@ public class Member {
 	private String phone;
 	private String image;
 	private String email;
-	private int post;
+	private String post;
 	private String address;
 	private String detailAddress;
 	private String subject;
-	private Date enrollDate;
-	private Date startDate;
-	private Date endDate;
+	private String enrollDate;
+	private String startDate;
+	private String endDate;
 	private String status;
 	private int sort;
-	private Date employeeDate;
+	private String employeeDate;
 
 	// private String uName;
 	// 롬복을 쓸때는 필드명 작성시 적어도 소문자 두글자 이상으로 시작할 것

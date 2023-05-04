@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,7 @@ button {
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"/>
+	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container">
 	    <div class="sub08_title">
@@ -87,76 +88,15 @@ button {
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <tr>
-	            <td>1</td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>관리자</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td>2</td>
-	            <td style="text-align: left;">2023.01.01 ~ 2023.12.31 훈련장려금 인상 안내</td>
-	            <td>관리자</td>
-	            <td>2023-03-25</td>
-	            <td>6</td>
-	          </tr>
-	          <tr>
-	            <td>3</td>
-	            <td style="text-align: left;">HRD-Net모바일 어플 OS업그레이드 작업 안내</td>
-	            <td>관리자</td>
-	            <td>2023-03-21</td>
-	            <td>16</td>
-	          </tr>
-	          <tr>
-	            <td>4</td>
-	            <td style="text-align: left;">폭우로 인한 금일 지각자 출석인정 방법 및 원격훈련 전환 공지</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>4</td>
-	          </tr>
-	          <tr>
-	            <td>5</td>
-	            <td style="text-align: left;">자습실 이용시 주의사항</td>
-	            <td>관리자</td>
-	            <td>2023-03-21</td>
-	            <td>5</td>
-	          </tr>
-	          <tr>
-	            <td>6</td>
-	            <td style="text-align: left;">KH수강생을 위한 식권 판매 변경된 제도 안내 입니다.</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>3</td>
-	          </tr>
-	          <tr>
-	            <td>7</td>
-	            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>4</td>
-	          </tr>
-	          <tr>
-	            <td>8</td>
-	            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>6</td>
-	          </tr>
-	          <tr>
-	            <td>9</td>
-	            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>10</td>
-	          </tr>
-	          <tr>
-	            <td>10</td>
-	            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-	            <td>관리자</td>
-	            <td>2023-03-19</td>
-	            <td>8</td>
-	          </tr>
+	        	<c:forEach var="b" items="${ list }">
+		          <tr>
+		            <td>${ b.boardNo }</td>
+		            <td style="text-align: left;">${ b.boardTitle }</td>
+		            <td>${ b.boardWriter }</td>
+		            <td>${ b.createDate }</td>
+		            <td>${ b.count }</td>
+		          </tr>
+	        	</c:forEach>
 	        </tbody>
 	      </table>
 	    </div>       
@@ -164,21 +104,27 @@ button {
 	
 	  <nav style="text-align: center;">
 	    <ul class="pagination">
-	      <li>
-	        <a href="#" aria-label="Previous">
-	          <span aria-hidden="true">&laquo;</span>
-	        </a>
-	      </li>
-	      <li><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-	        <a href="#" aria-label="Next">
-	          <span aria-hidden="true">&raquo;</span>
-	        </a>
-	      </li>
+	      <c:choose>
+	      	<c:when test="${ pi.currentPage eq 1 }">
+	      		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+       	  	</c:when>
+	       	<c:otherwise>
+	        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+	        </c:otherwise>
+	      </c:choose>			
+           	
+          <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+          	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ p }">${ p }</a></li>
+          </c:forEach>
+          
+          <c:choose>
+        	<c:when test="${ pi.currentPage eq pi.maxPage }">
+            	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+        	</c:when>
+        	<c:otherwise>
+            	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }">Next</a></li>
+        	</c:otherwise>
+          </c:choose>   
 	    </ul>
 	  </nav>
 	
@@ -196,7 +142,7 @@ button {
 	    </form>
 	  </div>
 	  
-	  <jsp:include page="../common/footer.jsp"/>
+	  <jsp:include page="common/footer.jsp"/>
   
 </body>
 </html>

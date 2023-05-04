@@ -16,8 +16,8 @@ public class Subject {
 	private int subjectNo;
 	private int classNo;
 	private String subjectName;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private String status;
 	private String day;
 	private int maximumSeats;

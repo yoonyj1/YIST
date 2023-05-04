@@ -146,13 +146,13 @@ width: 800px;
          
 
        <div class="infoStyle04">
-        <form name="f" method="get" action="">
+        <form name="f" method="get" action="search.bo">
           <div class="studySearch">
             <div class="hak1_left">
               <div class="hak1">
                 <div class="std_00">학생
                 <input type="text" id="keyword" name="keyword" class="hak1_input" value="" placeholder="학생 이름을 입력해주세요">
-                <button type="button" class="hak1_button">검색</button>
+                <button type="submit" class="hak1_button" onclick="getSearchList()">검색</button>
                 <!-- <span class="theDate_sp">2023-04-11 (화)</span> -->
                 <input type="date" class="start" style="margin-left: 5px;">
               </div>
@@ -286,6 +286,6 @@ width: 800px;
 
              
 		</script>
-
+		
 
 </html>

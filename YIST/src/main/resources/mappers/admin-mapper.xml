@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="adminMapper">
+
+	<resultMap type="Member" id="memberResultSet">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="PWD" property="pwd"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="PHONE" property="phone"/>
+		<result column="IMAGE" property="image"/>
+		<result column="EMAIL" property="email"/>
+		<result column="POST" property="post"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDRESS" property="detailAddress"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STAUTS" property="status"/>
+		<result column="SORT" property="sort"/>
+		<result column="EMPLOYEE_DATE" property="employeDate"/>
+	</resultMap>
+
+	
+	<select id="selectListCount" resultType="_int">
+	select
+		count(*)
+	from member
+	where
+		status = 'Y'
+	and
+		sort = 2
+	</select>
+
+	<select id="selectList" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , subject_name as "subject"
+	  	from 
+	  		member m
+  		left join subject s on(m.subject = s.subject_no)
+  		where
+  			m.status = 'Y'
+  		 and
+  		 	sort = 2
+		order by subject		
+	</select>
+	
+	<select id="selectNonSubjectList" resultMap="memberResultSet">
+		select
+			id
+		  , name
+	  	from
+	  		member
+  		where subject is null
+  			and sort = 2
+	</select>
+
+</mapper>
