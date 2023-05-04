@@ -93,7 +93,6 @@
 	<c:if test="${loginUser.examTime > 0}">
 		<script>
 			$(document).ready(function() {
-			console.log("셋팅시간");
 				
 				let currentTime = Math.round(new Date() / 1000);
 				let examTime = Number('${loginUser.examTime}'); 
@@ -109,7 +108,6 @@
 							userTime:Number(currentTime) // 현재시간
 						},
 						success : function(getTime){
-							console.log("뭐가날라옴? : " + getTime);
 							countdown('timeDisplay', examTime - getTime);
 						},
 						error : function(){
@@ -124,11 +122,14 @@
 						msLeft = endTime - (+new Date);
 						if ( msLeft < 0 ) {
 						  $("#timeDisplay").val("");
-						  
 						  $.ajax({
 							  url:"endExam.ins",
 							  success : function(){
-								  alert("시험이 종료되었습니다.");								  
+								  if ($("#timeDisplay").val() != ""){
+								  		alert("시험종료");
+								  		$("#timeDisplay").val("");	
+								  		$(".test-score").attr("disabled",false);
+									}
 							  },
 							  error : function(){
 								  alert("시험 종료 에러");
@@ -313,7 +314,7 @@
 				<div class="search-form">
 					<!-- <form action="index.html" method="get"> -->
 						<div class="input-group input-group-sm" id="input-group-search">
-							<input type="text" id="timeDisplay" class="form-control" readonly="readonly" style="color: black" />
+							<input type="text" id="timeDisplay" class="form-control" readonly="readonly" style="color: blue" />
 						</div>
 					<!-- </form> -->
 					<ul class="dropdown-menu dropdown-menu-search">

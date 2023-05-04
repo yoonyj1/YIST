@@ -197,6 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  , status
 		from exam
 		where id = #{id}
+		order by test_no
 	</select>
 	
 	<select id = "selectQuestion" resultMap="examResultSet">

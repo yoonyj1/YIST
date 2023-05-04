@@ -120,11 +120,8 @@ public class MemberController {
 		int originTime = 0;
 		
 		if (loginUser != null){
-			System.out.println("기존 시간 : " + loginUser.getUserTime());
 			originTime = loginUser.getUserTime(); // 기존 시간
-		} else {
-			System.out.println("기존 시간 없다");
-		}
+		} 
 		
 		int newTime = userTime; // 새로 받아온시간 
 		
@@ -145,6 +142,8 @@ public class MemberController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		loginUser.setExamTime(0);
+		
+		session.setAttribute("loginUser", loginUser);
 		
 	}
 	

@@ -55,12 +55,12 @@
 											<c:choose>
 												<c:when test="${e.status eq 'Y'}">
 													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal">시작</button>
-													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;">채점</button>
+													<button type="submit" id="test-score" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>
 												</c:when>
 												<c:otherwise>
 													<button type="button" class="test-start mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" data-toggle="modal">시작</button>
-													<button type="submit" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" disabled>채점</button>
+													<button type="submit" id="test1-score" class="test-score mb-1 btn btn-pill btn-secondary" style="height: 25px; line-height: 10px;" >채점</button>
 													<button type="button" class="test-end mb-1 btn btn-pill btn-primary" style="height: 25px; line-height: 10px;" disabled>종료</button>												
 												</c:otherwise>
 											</c:choose>
@@ -126,8 +126,11 @@
 		  function updateTimer(){
 			msLeft = endTime - (+new Date);
 			if ( msLeft < 0 ) {
-			  $("#timeDisplay").val("");
-			  alert("시험종료");
+				if ($("#timeDisplay").val() != ""){
+			  		alert("시험종료");
+			  		$("#timeDisplay").val("");	
+			  		$(".test-score").attr("disabled",false);
+				}
 			} else {
 			  time = new Date( msLeft );
 			  hours = time.getUTCHours();
@@ -156,7 +159,6 @@
 					userTime:Number(userTime)				
 				},
 				success:function(result){
-					console.log("시험 시작 성공");
 					$("#examStart").modal('hide');
 					
 					countdown('timeDisplay', setTime);

@@ -27,7 +27,6 @@
         <div class="content">
           <!-- 여기서부터  -->
             <script>
-            
             	// 조건 검색
             	function optSearch(){
             		let startArray = $("#opt-start").val().split('-');
@@ -77,7 +76,12 @@
          	        let endArray = $(endDate).val().split('-');
          	        let start_date = new Date(startArray[0], startArray[1], startArray[2]);
          	        let end_date = new Date(endArray[0], endArray[1], endArray[2]);
-		
+         	        
+         	        if (startArray == "" || endArray == ""){
+         	        	alert("날짜를 입력해주세요");
+         	        	return false;
+         	        }
+         	        
          	        if(start_date.getTime() > end_date.getTime()) {
          	            alert("종료날짜보다 시작날짜가 작아야합니다.");
          	            return false;
@@ -122,7 +126,6 @@
 	            }
 	            
 				$(document).ready(function(){
-				
 					// 과제 상세 페이지로 이동
 					$(".task-list-table>tbody tr").on("click", function(){
             			if (!$('body').hasClass('modal-open')){
@@ -379,7 +382,7 @@
 										    </c:choose>
 							          </div>
 							          <br>
-							          
+
 							          <div class="form-group">
 							            <label for="exampleInputPassword1">기간설정</label>
 							            <br>
