@@ -110,15 +110,15 @@
                     <div class="writer-area">
                       <h5>${ n.boardWriter }</h5>
                       <p class="date-p">${ n.createDate }</p>
-                      <span class="count-span">${ n.count }</span>
+                      <span class="count-span">조회수 ${ n.count }</span>
                     </div>                     
                     
                   </div>
                   
                   <div class="content-area">
-					<pre>
-						${ n.boardContent }
-					</pre>
+					
+					${ n.boardContent }
+					
 
 	                  <div class="attach-area">
 	                  	<c:choose>

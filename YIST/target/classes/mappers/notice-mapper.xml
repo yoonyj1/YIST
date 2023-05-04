@@ -48,8 +48,8 @@
 			  , board_title
 			  , board_writer
 			  , board_content
-			  , originName
-			  , changeName
+			  , origin_name
+			  , change_name
 			  , count
 			  , status
 			  , to_char(create_date,'RRRR/MM/DD') as create_date
