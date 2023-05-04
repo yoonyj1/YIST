@@ -3,6 +3,7 @@ package com.kh.yist.board.model.service;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDao nDao;
 	
 	@Autowired
-	private SqlSession sqlSession;
+	private SqlSessionTemplate sqlSession;
 
 	@Override
 	public int selectNoticeCount() {
