@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ADMIN-공지사항상세조회</title>
+<c:set var="URL" value="${pageContext.request.requestURL}" />
 
 
 <style>
@@ -77,6 +78,13 @@
 		border-color: #8eca7d;
 	}
 	
+	#kakaotalk-sharing-btn{
+		background-color:#FFEB00;
+		color: black;
+    	font-family: 'LINESeedKR-Bd';
+    	margin-right: 0.625rem;
+	}
+	
 </style>
 
 
@@ -143,17 +151,78 @@
 
                 </div>
 
-
+				
 
                 <div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="button" onclick="modify();">수정</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+
+                    
+                    
+                    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js" integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+                    <script>
+                    
+	        			if (!Kakao.isInitialized()) {
+	        				  Kakao.init('1dd209811fb46e598ddaea624e530cb2');
+	        			}
+	        			
+	        			
+	        			//Kakao.Share.createCustomButton({
+	        			    //container: '#kakaotalk-sharing-btn',
+	        			    //templateId: 93424,
+	        			    //templateArgs: {
+	        			      //title: '${n.boardTitle}',
+	        			      //description: '${n.boardContent}',
+	        			      //url:'${URL}'
+	        			    //},
+	        			//});
+	        			
+					    function shareMessage() {
+					        Kakao.Share.sendDefault({
+					            objectType: 'feed',
+					            content: {
+					                title: '${n.boardTitle}',
+					                description: 'YIST에서 작성된 게시글입니다.',
+					                imageUrl: 'https://file.notion.so/f/s/7610af1b-6726-46fe-9215-a4473493a00b/YIST_%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png?id=1ca55a43-6cec-44a3-8a84-d5764cec6fe9&table=block&spaceId=2c34fcf9-feb3-465e-8056-d029fc770287&expirationTimestamp=1683349548027&signature=rztH1rG-1o-SSPbRLB6LWltsk-v4byDKGIxxouPQ1Ek&downloadName=YIST+%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png',
+					                link: {
+					                    webUrl: 'http://localhost:8848',
+					                },
+					            },
+					            buttons: [
+					                {
+					                    title: '자세히보기',
+					                    link: {
+					                        webUrl: '${URL}',
+					                    },
+					                },
+					            ],
+					        });
+					    }
+	        			    
+	        			    
+	        		</script>    
+                    
+                    
+                    
+                    <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-pill" onclick="shareMessage();">
+					  <!--
+					  	<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" alt="카카오톡 공유 보내기 버튼" style="width:50px;"/>
+					  -->
+					  카카오톡 공유하기
+					</a>
+					
+                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로</button>         
+	        		       
                  </div> 
+                 
 
 
 		</div>
 
 		<script>
+		
+
+			
+		
 			function modify() {
 				location.href="updateForm.no?no="+${ n.boardNo};
 			}
