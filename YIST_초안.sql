@@ -245,55 +245,19 @@ TEXTCOLOR VARCHAR2(50),
 ALLDAY VARCHAR2(50)
 );
 
+--------------------------------------------------------------------------------------------------------------------------
+
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자료형과 연산자', sysdate, 1, DEFAULT);
+insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험2', null, null, DEFAULT);
+insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험3', null, null, DEFAULT);
+insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험4', null, null, DEFAULT);
+insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험5', null, null, DEFAULT);
 insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
 
 insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
 insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
 
-select
-    test_no
-  , id
-  , subject_no
-  , test_title
-  , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
-  , exam_time
-  , status
-from exam
-where id = 'INSTRUCTOR01';
 
-
-select 
-        test_no
-      , test_title
-      , q1
-      , q2
-      , q3
-      , q4
-      , q5
-      , a1
-      , a2
-      , a3
-      , a4
-      , a5
-from exam_question
-join exam using (test_no)
-where test_no = 2;
-
-select 
-        test_no
-      , e.id as "id"
-      , name
-      , a1
-      , a2
-      , a3
-      , a4
-      , a5
-      , e.status
-      , nvl(score, 0) as "score"
-from exam_answer e
-join member m on (e.id = m.id)
-where test_no = 2 and e.id = 'USER01';
 
 
 commit;

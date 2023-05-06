@@ -128,8 +128,8 @@ public class instructorController {
 	@RequestMapping("update.task")
 	public String updateTask(Task task, MultipartFile reupfile, HttpSession session, Model model) {
 
-		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
-		System.out.println("원본 파일 : " + task.getOriginName());
+//		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
+//		System.out.println("원본 파일 : " + task.getOriginName());
 		
 		if (!reupfile.getOriginalFilename().equals("")) {// 수정할 첨부 파일이 있을 경우
 			

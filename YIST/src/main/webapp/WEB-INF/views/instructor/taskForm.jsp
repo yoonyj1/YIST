@@ -59,7 +59,7 @@
          	       if(start_date.getTime() > end_date.getTime()) {
         	            alert("종료날짜보다 시작날짜가 작아야합니다.");
         	       } else {
-        	    	   $("#insertForm").attr("action", "update.task").submit();
+        	    	   $("#insertForm").attr("action", "insert.task").submit();
         	    	   
         	    	   // 과제 알람 보내기
         	    	   taskAlarm();
