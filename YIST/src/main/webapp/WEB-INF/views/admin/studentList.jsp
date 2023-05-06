@@ -66,10 +66,70 @@
 				</table>
 			  </div>
 			  <div class="tab-pane fade" id="nav-phython" role="tabpanel" aria-labelledby="nav-python-tab">
-			    파이썬
+			  <table class="table" style="text-align:center;">
+				  <thead>
+				    <tr>
+				      <th scope="col">이름</th>
+				      <th scope="col">수강과목</th>
+				      <th scope="col">출석률</th>
+				      <th scope="col" colspan='3'>관리</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+			    <c:forEach var="p" items="${ pList }">
+	  				<tr>
+				      <c:choose>
+				      	<c:when test="${p.status eq 'A'}">
+				      		<td scope="row">${ p.name }</td>
+					      	<td>${ p.subject }</td>
+					     	<td>${ p.attendanceRate }</td>
+					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ p.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+				      	</c:when>
+				      	<c:otherwise>
+					      	<td scope="row">${ p.name }</td>
+					     	<td>${ p.subject }</td>
+					      	<td>${ p.attendanceRate }</td>
+					      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+				      	</c:otherwise>
+			      	  </c:choose>
+				    </tr>
+			  	</c:forEach>
+			  	</tbody>
+			  	</table>
 			  </div>
 		   	  <div class="tab-pane fade" id="nav-c" role="tabpanel" aria-labelledby="nav-c-tab">
-			    C
+		   	  <table class="table" style="text-align:center;">
+				  <thead>
+				    <tr>
+				      <th scope="col">이름</th>
+				      <th scope="col">수강과목</th>
+				      <th scope="col">출석률</th>
+				      <th scope="col" colspan='3'>관리</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+			   	<c:forEach var="c" items="${ cList }">
+	  				<tr>
+				      <c:choose>
+				      	<c:when test="${c.status eq 'A'}">
+				      		<td scope="row">${ c.name }</td>
+					      	<td>${ c.subject }</td>
+					     	<td>${ c.attendanceRate }</td>
+					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ c.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+				      	</c:when>
+				      	<c:otherwise>
+					      	<td scope="row">${ c.name }</td>
+					     	<td>${ c.subject }</td>
+					      	<td>${ c.attendanceRate }</td>
+					      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+				      	</c:otherwise>
+			      	  </c:choose>
+				    </tr>
+			  	</c:forEach>
+			  	</tbody>
+			  	</table>
 			  </div>
 			</div>
 		</div>

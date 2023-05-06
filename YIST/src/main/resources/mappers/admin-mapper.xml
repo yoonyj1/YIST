@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			sort = 3
 	</select>
 	
-	<select id="selectStudentList" resultMap="memberResultSet">
+	<select id="selectJavaStudentList" resultMap="memberResultSet">
 		select 
 				id
 			, name
@@ -111,6 +111,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		join attendance a using(id)
 		join subject s on (m.subject = s.subject_no)
 		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 1
+		order by m.status
+	</select>
+	
+	<select id="selectPythonStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 2
+		order by m.status
+	</select>
+	
+	<select id="selectCStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 3
 		order by m.status
 	</select>
 </mapper>

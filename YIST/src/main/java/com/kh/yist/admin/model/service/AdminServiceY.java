@@ -43,7 +43,15 @@ public class AdminServiceY {
 		return aDao.selectStudentListCount(sqlSession);
 	}
 	
-	public ArrayList<Member> selectStudentList() {
-		return aDao.selectStudentList(sqlSession);
+	public ArrayList<Member> selectJavaStudentList() {
+		return aDao.selectJavaStudentList(sqlSession);
+	}
+	
+	public ArrayList<Member> selectPythonStudentList() {
+		return aDao.selectPythonStudentList(sqlSession);
+	}
+	
+	public ArrayList<Member> selectCStudentList() {
+		return aDao.selectCStudentList(sqlSession);
 	}
 }

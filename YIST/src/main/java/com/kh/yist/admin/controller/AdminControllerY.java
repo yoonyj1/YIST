@@ -62,9 +62,11 @@ public class AdminControllerY {
 	@RequestMapping("studentList.do")
 	public ModelAndView studentListForm(ModelAndView mv) {
 		
-		ArrayList<Member> list = aService.selectStudentList();
+		ArrayList<Member> list = aService.selectJavaStudentList();
+		ArrayList<Member> pList = aService.selectPythonStudentList();
+		ArrayList<Member> cList = aService.selectCStudentList();
 		
-		mv.addObject("list", list).setViewName("admin/studentList");
+		mv.addObject("list", list).addObject("pList", pList).addObject("cList", cList).setViewName("admin/studentList");
 		
 		return mv;
 	}

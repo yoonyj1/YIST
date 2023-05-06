@@ -43,7 +43,15 @@ public class AdminDaoY {
 		return sqlSession.selectOne("adminMapper.selectStudentListCount");
 	}
 	
-	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList");
+	public ArrayList<Member> selectJavaStudentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectJavaStudentList");
+	}
+	
+	public ArrayList<Member> selectPythonStudentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectPythonStudentList");
+	}
+	
+	public ArrayList<Member> selectCStudentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectCStudentList");
 	}
 }
