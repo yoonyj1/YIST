@@ -23,8 +23,8 @@
 		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg)"></div>
 		    			<div class="card-body card-profile-body">
 		    				<div class="profile-avata">
-					          <img class="rounded-circle" src="images/user/user-md-01.jpg" alt="Avata Image">
-					          <span class="h5 d-block mt-3 mb-2">Albrecht Straub</span>
+					          <img class="rounded-circle" src="${ td.image }" width=30% height=30%>
+					          <span class="h5 d-block mt-3 mb-2">${ td.name }</span>
 					        </div>
 	    			</div>
     			</div>
@@ -34,10 +34,10 @@
 		<div class="card-footer card-profile-footer">
 	        <ul class="nav nav-border-top justify-content-center">
 	          <li class="nav-item">
-	            <a class="nav-link" href="teacherDetail.do">프로필</a>
+	            <a class="nav-link" href="teacherDetail.do?id=${ td.id }">프로필</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link active" href="teacherDetail-lecture.do">강의</a>
+	            <a class="nav-link active" href="teacherDetail-lecture.do?id=${ td.id }">강의</a>
 	          </li>
 	        </ul>
   		</div>
@@ -46,7 +46,7 @@
       		
     <div class="card">
       <div class="card-header">
-        <h1>JAVA</h1>
+        <h1>${ td.subject }</h1>
       </div>
       <div class="card-body">
         <h5>학생목록</h5>

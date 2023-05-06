@@ -37,7 +37,7 @@
 		            <a class="nav-link active" href="teacherDetail.do?id=${ td.id }">프로필</a>
 		          </li>
 		          <li class="nav-item">
-		            <a class="nav-link" href="teacherDetail-lecture.do">강의</a>
+		            <a class="nav-link" href="teacherDetail-lecture.do?id=${ td.id }">강의</a>
 		          </li>
 		        </ul>
       		</div>
