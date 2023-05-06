@@ -68,7 +68,21 @@
 
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+
+
+
 	<jsp:include page="../common/header.jsp"/>
+
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
+
+
+
 
 	<div class="card card-default">
 	
@@ -76,7 +90,7 @@
 			<h2>공지사항</h2>
 			
 			<div class="btn-right" style="float:right">
-				<button type="button" class="mb-1 btn btn-pill btn-primary" onclick="location='insert.no'">등록</button>
+				<button type="button" class="mb-1 btn btn-pill btn-primary" onclick="noticeInsert();">등록</button>
                 <button type="button" class="mb-1 btn btn-pill btn-danger" id="noticeDeleteBtn" data-toggle="modal" data-target="#noticeDeleteModal">삭제</button>
 				
 					<div class="modal fade" id="noticeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="noticeDeleteModalLabel" aria-hidden="true">
@@ -107,6 +121,14 @@
 
                </div>
 			</div>
+
+
+			<script>
+				function noticeInsert(){
+					location.href="insertForm.no";
+				}
+			</script>
+
 
 			<div class="card-body">
 

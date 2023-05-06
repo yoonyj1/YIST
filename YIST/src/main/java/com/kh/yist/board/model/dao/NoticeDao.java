@@ -36,4 +36,10 @@ public class NoticeDao {
 		return sqlSession.selectOne("noticeMapper.selectNotice", boardNo);
 		
 	}
+	
+	public int insertNotice(SqlSessionTemplate sqlSession, Notice n) {
+		
+		return sqlSession.insert("noticeMapper.insertNotice", n);
+		
+	}
 }

@@ -220,7 +220,7 @@
 							<div class="sub-menu">
 
 								<li>
-									<a class="sidenav-item-link" href="insert.no"> 
+									<a class="sidenav-item-link" href="insertForm.no"> 
 										<span class="nav-text">공지사항 작성</span>
 									</a>
 								</li>

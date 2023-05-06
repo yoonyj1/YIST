@@ -159,9 +159,11 @@ public class SubjectController {
 		int result = sService.deleteSubject(sNo);
 		
 		if(result>0) {
+			
 			session.setAttribute("alertMsg", "강의 삭제 성공!");
 			
 		}else {
+			
 			session.setAttribute("alertMsg", "강의 삭제 실패!");
 		}
 		

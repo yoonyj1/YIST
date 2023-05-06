@@ -22,5 +22,5 @@ public class Notice {
 	private int count;
 	private String createDate;
 	private String status;
-	private int view;
+	private String views;
 }

@@ -62,5 +62,35 @@
 	
 	</select>
 	
+	<insert id="insertNotice">
+		insert
+			into notice
+			(
+				BOARD_NO
+				,	BOARD_TITLE
+				,	BOARD_WRITER
+				,	BOARD_CONTENT
+				,	ORIGIN_NAME
+				,	CHANGE_NAME
+				,	COUNT
+				,	CREATE_DATE
+				,	STATUS
+				,	VIEWS
+			)
+			values
+			(
+				SEQ_NNO.nextval
+				,	#{ boardTitle }
+				,	#{ boardWriter }
+				,	#{ boardContent }
+				,	#{ originName }
+				,	#{ changeName }
+				,	#{ count }
+				,	#{ createDate }
+				,	'Y'
+				,	#{ views }
+			)	
+	
+	</insert>
 	
 </mapper>

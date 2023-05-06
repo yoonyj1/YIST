@@ -15,7 +15,7 @@ public interface NoticeService {
 	ArrayList<Notice> selectNoticeList(PageInfo pi);
 	
 	//	2. 게시글 작성
-	int insertNotice(Notice b);
+	int insertNotice(Notice n);
 	
 	//	3. 게시글 상세 조회
 	
@@ -26,7 +26,7 @@ public interface NoticeService {
 	int deleteNotice(int boardNo);
 	
 	//	5. 게시글 수정
-	int	updateNotice(Notice b);
+	int	updateNotice(Notice n);
 	
 
 
