@@ -58,4 +58,8 @@ public class AdminDaoY {
 	public Member selectStudent(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.selectOne("adminMapper.selectStudent", id);
 	}
+	
+	public int updateTeacherInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("adminMapper.updateTeacherInfo", m);
+	}
 }

@@ -52,7 +52,7 @@
       							<div class="input-group-prepend">
                             		<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                            		 </div>
-                           		 <input type="text" class="form-control" placeholder="UserId" aria-label="UserId" aria-describedby="basic-addon1" value="${ td.id }" readonly>
+                           		 <input type="text" class="form-control" placeholder="UserId" name="id" aria-describedby="basic-addon1" value="${ td.id }" readonly>
       						</div>
       					</div>
       				</div>
@@ -62,7 +62,7 @@
                             	<div class="input-group-prepend">
                             		<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;이름&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             	</div>
-                            <input type="text" class="form-control" placeholder="Username" name="userName" aria-describedby="basic-addon1" value="${ td.name }" required>
+                            <input type="text" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1" value="${ td.name }" required>
                         </div>
 
                         <div class="input-group mb-3 col">
@@ -114,7 +114,7 @@
 
                     <div class="row">
                         <div class="col-12" align="right">
-                            <button type="submit" class="btn btn-sm btn-primary" id="changeInfo" style="margin-right: 15px;">수정</button>
+                            <button type="button" class="btn btn-sm btn-primary" id="changeInfo" style="margin-right: 15px;">수정</button>
                         </div>
                     </div>
       			</form>
@@ -126,23 +126,9 @@
 <script>
 	$(function(){
 		$("#changeInfo").click(function(){
-			$.ajax({
-				url:"changeTeacherInfo.do",
-				data:{name: $("input[name='userName']").val(),
-					  phone: $("input[name='phone']").val(),
-					  email:$("input[name='email']").val(),
-					  address:$("input[name='address']").val()
-					},
-				success:function(result){
-					alert("정보수정 완료");
-					location.reload();
-				},
-				error:function(){
-					console.log("정보수정 ajax 통신 실패!");
-				}	
-				
-			})
+			location.href='changeTeacherInfo.do';
 		})
+		
 	})
 </script>
 
