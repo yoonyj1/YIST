@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -92,6 +93,21 @@ public class StudentController {
 		ArrayList<Task> list = sService.taskList();
 
 		return new Gson().toJson(list);
+	}
+	
+	// 과제 상세 조회
+	@RequestMapping("taskDetail.st")
+	public ModelAndView selectTask(int tno, ModelAndView mv) {
+		
+		Task t = sService.selectTask(tno);
+		
+		if (t != null) {
+			mv.addObject("t", t).setViewName("student/studentTaskDetail");
+		} else {
+			mv.setViewName("student/common/errorPage");
+		}
+		
+		return mv;
 	}
 	
 	// 우리반 게시판 Q&A 목록 조회
