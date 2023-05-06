@@ -24,8 +24,8 @@
 		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg); height:80px"></div>
 		    			<div class="card-body card-profile-body">
 		    				<div class="profile-avata">
-					          <img class="rounded-circle" src="./resources/common/image/userImg.png" width=30% height=30% alt="Avata Image">
-					          <span class="h5 d-block mt-3 mb-2">Albrecht Straub</span>
+					          <img class="rounded-circle" src="${ sd.image }" width=30% height=30%>
+					          <span class="h5 d-block mt-3 mb-2">${ sd.name }</span>
 					        </div>
 	    			</div>
     			</div>
@@ -45,7 +45,7 @@
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="UserId" aria-label="Username" aria-describedby="basic-addon1" value="학생아이디" readonly>
+	                            <input type="text" class="form-control" placeholder="UserId" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.id }" readonly>
 	                        </div>
 	                    </div>
       				
@@ -54,14 +54,14 @@
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp; 이름&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+	                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.name }" required>
 	                        </div>
 	
 	                        <div class="input-group mb-3 col">
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">전화번호</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="phone" aria-label="Username" aria-describedby="basic-addon1" required>
+	                            <input type="text" class="form-control" placeholder="phone" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.phone }" required>
 	                        </div>
                     	</div>
                     
@@ -70,7 +70,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">수강과목</span>
                             </div>
-                            <input type="text" style="width: 500px; border:none;" readonly disabled>
+                            <input type="text" style="width: 500px; border:none;" value="&nbsp;&nbsp;${ sd.subject }" readonly disabled>
                         </div>
                     </div>
 
@@ -79,14 +79,14 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">수강일자</span>
                             </div>
-                            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.startDate }" disabled>
                         </div>
 
                         <div class="input-group mb-3 col-6">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;이메일&nbsp;&nbsp;</span>
                             </div>
-                            <input type="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" required>
+                            <input type="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="${ sd.email }" required>
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                           <div class="input-group-prepend">
                           	<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;주소&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           </div>
-                          <input type="text" class="form-control" aria-label="address" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" aria-label="address" aria-describedby="basic-addon1" value="${ sd.address }">
                       </div>
                   </div>
 

@@ -54,4 +54,8 @@ public class AdminServiceY {
 	public ArrayList<Member> selectCStudentList() {
 		return aDao.selectCStudentList(sqlSession);
 	}
+	
+	public Member selectStudent(String id) {
+		return aDao.selectStudent(sqlSession, id);
+	}
 }
