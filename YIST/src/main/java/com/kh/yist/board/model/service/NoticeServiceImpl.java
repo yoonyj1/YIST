@@ -46,8 +46,13 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public int updateNotice(Notice b) {
-		return 0;
+	public int updateNotice(Notice n) {
+		return nDao.updateNotice(sqlSession, n);
+	}
+
+	@Override
+	public int increaseCount(int boardNo) {
+		return nDao.increaseCount(sqlSession, boardNo);
 	}
 
 }

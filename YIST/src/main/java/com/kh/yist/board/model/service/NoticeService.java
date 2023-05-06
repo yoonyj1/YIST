@@ -29,7 +29,7 @@ public interface NoticeService {
 	int	updateNotice(Notice n);
 	
 
-
+	int increaseCount(int boardNo);
 	
 	
 }

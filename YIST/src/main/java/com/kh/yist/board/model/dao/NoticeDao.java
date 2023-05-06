@@ -42,4 +42,15 @@ public class NoticeDao {
 		return sqlSession.insert("noticeMapper.insertNotice", n);
 		
 	}
+	
+	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
+		
+		return sqlSession.update("noticeMapper.updateNotice", n);
+		
+	}
+	
+	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("noticeMapper.increaseCount", boardNo);
+	}
 }

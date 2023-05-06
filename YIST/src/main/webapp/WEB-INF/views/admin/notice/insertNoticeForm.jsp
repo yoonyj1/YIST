@@ -85,7 +85,8 @@
 
 		<div class="card-body">
 			<form method="post" action="insert.no" enctype="multipart/form-data">
-				<table class="table table-bordered" id="addNotice-table">
+				<input type="hidden" name="boardWriter" value="${ loginUser.id }">
+        <table class="table table-bordered" id="addNotice-table">
                     
                     <tr>
                       <th>제목</th>
@@ -119,7 +120,7 @@
                     <tr>
                       <th>첨부파일</th>
                       <td>
-                        <input type="file" name="originName">
+                        <input type="file" name="upfile">
                       </td>
                     </tr>
 

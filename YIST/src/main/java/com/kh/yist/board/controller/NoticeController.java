@@ -79,13 +79,28 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("detail.no")
-	public String selectNtotice(@RequestParam(value="no") int boardNo, Model m) {
+	public String selectNtotice(@RequestParam(value="no") int boardNo, Model m, HttpSession session) {
 		
-		Notice n = nService.selectNotice(boardNo);
 		
-		m.addAttribute("n", n);
+		int result = nService.increaseCount(boardNo);
 		
-		return "admin/notice/detailNotice";
+		
+		if(result>0) {
+		
+			Notice n = nService.selectNotice(boardNo);
+			m.addAttribute("n", n);
+			return "admin/notice/detailNotice";
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "해당 공지사항 조회에 실패했습니다!");
+			return "redirect:noticeAdminList.ad";
+		}
+		
+		
+		
+		
+		
 	}
 	
 	@RequestMapping("updateForm.no")
@@ -100,30 +115,19 @@ public class NoticeController {
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 		
-		// 파일명 수정 ("origin.jpg" -> "yyyyMMddHHmmss"+"랜덤숫자5개".jpg)
 
-		// 원본 파일의 이름
 		String originName = upfile.getOriginalFilename();
 
-		// 현재 시간
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
-		// 난수 생성
 		int ranNum = (int) (Math.random() * 90000 + 10000);
 
-		// 확장자
 		String ext = originName.substring(originName.lastIndexOf("."));
 
 		String changeName = currentTime + ranNum + ext;
 
-		// 서버 업로드
-
-		// 업로드할 폴더의 물리적인 경로 찾기
-
 		String savePath = session.getServletContext().getRealPath("/resources/noticeUploadFiles/");
-		// getRealPath(/resources/uploadFiles/) 폴더 안에 저장해야하니까 마지막 / 꼭 쓰기
 
-		// 서버에 업로드
 		try {
 		    upfile.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException e1) {
@@ -136,6 +140,40 @@ public class NoticeController {
 		return changeName;
 	}	
 	
-	
+	@RequestMapping("update.no")
+	public String updateBoard(Notice n, MultipartFile reupfile, HttpSession session) {
+		
+		if(!reupfile.getOriginalFilename().equals("")) {
+			// 새로 넘어온 첨부파일이 있을 경우
+			
+			if(n.getOriginName() != null) {
+				// 기존 첨부파일 있는 경우 : 기존 첨부파일 삭제
+				new File( session.getServletContext().getRealPath(n.getChangeName()) ).delete();
+			}
+			
+			// 새 첨부파일 서버 업로드
+			String changeName = saveFile(reupfile, session);
+			
+			n.setOriginName(reupfile.getOriginalFilename());
+			n.setChangeName("resources/noticeUploadFiles/"+changeName);
+			
+			
+		}
+
+
+		int result = nService.updateNotice(n);
+		
+		if(result>0) {
+			
+			session.setAttribute("alertMsg", "공지사항 수정에 성공했습니다!");
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "공지사항 수정에 실패했습니다!");
+		}
+		
+		return "redirect:detail.no?no="+n.getBoardNo();
+		
+	}	
  
 }

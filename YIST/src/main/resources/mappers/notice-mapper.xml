@@ -13,7 +13,7 @@
 		<result column="COUNT" property="count"></result>
 		<result column="CREATE_DATE" property="createDate"></result>
 		<result column="STATUS" property="status"></result>
-		<result column="VIEWS" property="view"></result>
+		<result column="VIEWS" property="views"></result>
 	</resultMap>
 	
 	<select id="selectNoticeCount" resultType="_int">
@@ -58,7 +58,7 @@
 		  		notice
 		 where
 		 		status = 'Y'
-		   and  board_no = #{ boardNo}			
+		   and  board_no = #{ boardNo }			
 	
 	</select>
 	
@@ -85,12 +85,36 @@
 				,	#{ boardContent }
 				,	#{ originName }
 				,	#{ changeName }
-				,	#{ count }
-				,	#{ createDate }
+				,	0
+				,	sysdate
 				,	'Y'
 				,	#{ views }
 			)	
 	
 	</insert>
+	
+	<update id="updateNotice">
+		update 
+				NOTICE
+		   set 
+		  		BOARD_TITLE = #{ boardTitle }
+		  		, BOARD_CONTENT = #{ boardContent }
+		  		, ORIGIN_NAME = #{ originName }
+		  		, CHANGE_NAME = #{ changeName }
+		  		, VIEWS = #{ views }
+		  where
+		  		BOARD_NO = ${ boardNo }
+	</update>
+	
+	<update id="increaseCount">
+		update
+				NOTICE
+		   set
+		   		COUNT  = COUNT+1
+		 where
+		 		BOARD_NO = #{ boardNo }  			
+	
+	</update>
+	
 	
 </mapper>

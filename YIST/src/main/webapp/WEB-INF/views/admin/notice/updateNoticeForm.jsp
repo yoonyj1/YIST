@@ -81,8 +81,22 @@
 			<h2>공지사항 수정</h2>
 		</div>
 
+
+		<c:if test="${ not empty alertMsg }">
+			<script>
+				alert('${alertMsg}');
+			</script>
+			<c:remove var="alertMsg" scope="session" />
+		</c:if>
+
+
+
+
 		<div class="card-body">
-			<form method="post" action="">
+			<form method="post" action="update.no" enctype="multipart/form-data">
+				<input type="hidden" name="boardWriter" value="${ n.boardWriter }">
+				<input type="hidden" name="boardNo" value="${ n.boardNo }">
+
 				<table class="table table-bordered" id="updateNotice-table">
 	
 						<tr>
@@ -99,7 +113,7 @@
 		                      <th>읽기권한</th>
 		                      <td>
 		                        <div class="form-group" style="width: 30%;">
-		                          <select name="view" class="js-example-basic-multiple form-control" required>
+		                          <select name="views" class="js-example-basic-multiple form-control" required>
 		                            <option value="3">전체공개</option>
 		                            <option value="2">강사</option>
 		                            <option value="1">운영자</option>
@@ -135,14 +149,17 @@
 		                    <tr>
 		                      <th>첨부파일</th>
 		                      <td>
+								<input type="file" name="reupfile" id="upfile">
+
 		                      	<c:choose>
 		                      		<c:when test="${ empty n.originName }">
-				                      	<input type="file" name="" id="">
 		                      			첨부파일이 없습니다
 		                      		</c:when>
 		                      		
 		                      		<c:otherwise>
-				                      	<input type="file" name="" id="">
+										현재 첨부파일 | <a href="${ n.changeName } " download="${ n.originName }">${ n.originName }</a>
+										<input type="hidden" name="originName" value="${ n.originName }">
+										<input type="hidden" name="changeName" value="${ n.changeName }">
 		                      		</c:otherwise>
 				                      		
 		                      	</c:choose>
