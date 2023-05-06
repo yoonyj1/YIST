@@ -36,6 +36,7 @@ public class AdminDaoY {
 	}
 	
 	public Member selectTeacher(SqlSessionTemplate sqlSession, String id) {
+		System.out.println("Dao: " + id);
 		return sqlSession.selectOne("adminMapper.selectTeacher", id);
 	}
 	

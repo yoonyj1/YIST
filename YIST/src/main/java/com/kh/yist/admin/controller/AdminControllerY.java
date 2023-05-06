@@ -74,7 +74,9 @@ public class AdminControllerY {
 	
 	@RequestMapping("teacherDetail.do")
 	public String teacherDetail(String id, Model model) {
+		System.out.println(id);
 		Member m = aService.selectTeacher(id);
+		System.out.println(m);
 				
 		model.addAttribute("td", m);
 		
@@ -86,10 +88,11 @@ public class AdminControllerY {
 		System.out.println(m);
 		int result = aService.updateTeacherInfo(m);
 		
+		System.out.println(result);
+		
 		if(result > 0) {
 			session.setAttribute("td", aService.selectTeacher(m.getId()));
 			
-			session.setAttribute("alertMsg", "강사 정보 수정 완료");
 			
 			return "redirect:teacherDetail.do?id=" + m.getId();
 		} else {
@@ -101,7 +104,9 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail-lecture.do")
-	public String teacherDetailLecture() {
+	public String teacherDetailLecture(String id) {
+		Member m = aService.selectTeacher(id);
+		
 		return "admin/teacherDetail-lecture";
 	}
 	

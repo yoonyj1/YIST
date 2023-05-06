@@ -36,6 +36,7 @@ public class AdminServiceY {
 	}
 	
 	public Member selectTeacher(String id) {
+		System.out.println("서비스: " + id);
 		return aDao.selectTeacher(sqlSession, id);
 	}
 	
