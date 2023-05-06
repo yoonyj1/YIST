@@ -89,8 +89,7 @@
 		                      <th>제목</th>
 		                      <td>
 		                        <div class="input-group mb-3">
-		                          <input type="text" name="className" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
-		                            aria-describedby="basic-addon2">
+		                          <input type="text" name="boardTitle" class="form-control" value="${ n.boardTitle }">
 		
 		                        </div>
 		                      </td>
@@ -109,16 +108,45 @@
 		                      </td>
 		                      
 		                </tr>
-		
+						
+						<script>
+							$(function() {
+								let option = $("option");
+								option.each(function(op){
+									let value = op.val();
+									let views = '${ n.views }';
+									if(value === views){
+										op.attr('selected',true)
+									}
+								})
+							})
+						
+						</script>
+						
+						
 		                <tr>
 		                      <th colspan="2" style="width: 100%;">
-		                        <textarea name="content" id="materialSummer" class="summernote" style="width: 100%; resize: none;"></textarea>
+		                        <textarea name="boardContent" id="materialSummer" class="summernote" style="width: 100%; resize: none;">
+		                        	${ n.boardContent }
+		                        </textarea>
 		                      </th>
 		                    </tr>
 		
 		                    <tr>
 		                      <th>첨부파일</th>
-		                      <td><input type="file" name="" id=""></td>
+		                      <td>
+		                      	<c:choose>
+		                      		<c:when test="${ empty n.originName }">
+				                      	<input type="file" name="" id="">
+		                      			첨부파일이 없습니다
+		                      		</c:when>
+		                      		
+		                      		<c:otherwise>
+				                      	<input type="file" name="" id="">
+		                      		</c:otherwise>
+				                      		
+		                      	</c:choose>
+		                      </td>
 		                </tr>
 	
 					</table>

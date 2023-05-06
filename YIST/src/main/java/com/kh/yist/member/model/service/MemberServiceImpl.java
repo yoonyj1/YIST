@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.yist.member.model.dao.MemberDao;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
+import com.kh.yist.subject.model.vo.Class;
 
 // @Component
 @Service
@@ -91,5 +93,34 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
+
+	// 미배정강사리스트조회
+	@Override
+	public ArrayList<Member> selectInstructorList() {
+		return mDao.selectInstructorList(sqlSession);
+	}
+	
+	// 강사배정
+	@Override
+	public int updateInstructor(Member i) {
+		
+		return mDao.updateInstructor(sqlSession, i);
+	}
+
+	//담당강사조회
+	@Override
+	public Member selectInstructor(String subject) {
+		return mDao.selectInstructor(sqlSession, subject);
+	}
+
+	//담당강사해제
+	@Override
+	public int deleteInstructor(String id) {
+		System.out.println("서비스타나?");
+		return mDao.deleteInstructor(sqlSession, id);
+	}
+
+
+
 
 }
