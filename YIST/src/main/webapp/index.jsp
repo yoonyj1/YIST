@@ -85,7 +85,6 @@ div.title .titleP {
     padding: 0.36rem 2rem;
     border-radius: 5px;
     font-weight: 400;
-
 }
 
 </style>

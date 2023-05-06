@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
+import com.sun.tools.javac.code.Attribute.Array;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -32,9 +35,28 @@ public class instructorController {
 
 	@Autowired
 	private TaskService tService;
-
+	
+	@RequestMapping("scoreForm.ins")
+	public String scoreForm(HttpSession session, Model model, int testNo) {
+		
+		Exam question = tService.selectQuestion(testNo);
+		ArrayList<Exam> examSubmitList = tService.selectExamSubmitList(testNo);
+		
+		model.addAttribute("question", question);
+		model.addAttribute("examSubmitList", examSubmitList);
+		
+		return "instructor/detailExamForm";
+	}
+	
 	@RequestMapping("examForm.ins")
-	public String examForm() {
+	public String examForm(HttpSession session, Model model) {
+		
+		Member ins = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
+		
+		model.addAttribute("examList", examList);
+		
 		return "instructor/examForm";
 	}
 
@@ -106,8 +128,8 @@ public class instructorController {
 	@RequestMapping("update.task")
 	public String updateTask(Task task, MultipartFile reupfile, HttpSession session, Model model) {
 
-		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
-		System.out.println("원본 파일 : " + task.getOriginName());
+//		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
+//		System.out.println("원본 파일 : " + task.getOriginName());
 		
 		if (!reupfile.getOriginalFilename().equals("")) {// 수정할 첨부 파일이 있을 경우
 			

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.task.model.dao.TaskDao;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
@@ -51,6 +52,18 @@ public class TaskService {
 
 	public int checkTaskSubmit(TaskSubmit ts) {
 		return tDao.checkTaskSubmit(sqlSession, ts);
+	}
+
+	public ArrayList<Exam> selectExamList(String id) {
+		return tDao.selectExamList(sqlSession, id);
+	}
+
+	public ArrayList<Exam> selectExamSubmitList(int testNo) {
+		return tDao.selectExamSubmitList(sqlSession, testNo);
+	}
+
+	public Exam selectQuestion(int testNo) {
+		return tDao.selectQuestion(sqlSession, testNo);
 	}
 	
 }

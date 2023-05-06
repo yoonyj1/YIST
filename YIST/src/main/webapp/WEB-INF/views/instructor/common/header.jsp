@@ -88,14 +88,81 @@
 
 </head>
 
-
 <body class="navbar-fixed sidebar-fixed" id="body">
+
+	<c:if test="${loginUser.examTime > 0}">
+		<script>
+			$(document).ready(function() {
+				
+				let currentTime = Math.round(new Date() / 1000);
+				let examTime = Number('${loginUser.examTime}'); 
+				
+				examTimeManage();
+				
+				function examTimeManage(){
+					$.ajax({
+						url:"getTime.ins",
+						type: "POST",
+						data: {
+							setTime:Number(examTime),
+							userTime:Number(currentTime) // 현재시간
+						},
+						success : function(getTime){
+							countdown('timeDisplay', examTime - getTime);
+						},
+						error : function(){
+							alert("시험 에러");
+						}
+					})
+					
+					function countdown(elementId, seconds){
+					  var element, endTime, hours, mins, msLeft, time;
+			
+					  function updateTimer(){
+						msLeft = endTime - (+new Date);
+						if ( msLeft < 0 ) {
+						  $("#timeDisplay").val("");
+						  $.ajax({
+							  url:"endExam.ins",
+							  success : function(){
+								  if ($("#timeDisplay").val() != ""){
+								  		alert("시험종료");
+								  		$("#timeDisplay").val("");	
+								  		$(".test-score").attr("disabled",false);
+									}
+							  },
+							  error : function(){
+								  alert("시험 종료 에러");
+							  }
+						  })
+						} else {
+						  time = new Date( msLeft );
+						  hours = time.getUTCHours();
+						  mins = time.getUTCMinutes();
+						  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
+						  element.value = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+						  setTimeout( updateTimer, time.getUTCMilliseconds());
+						}
+					  }
+			
+					  element = document.getElementById(elementId);
+					  endTime = (+new Date) + 1000 * seconds;
+					  updateTimer();
+					}
+					
+				}
+			})
+		</script>
+	</c:if>
+	
 	<c:if test="${ not empty alertMsg }">
 		<script type="text/javascript">
 			alert("${alertMsg}");
 		</script>
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
+	
+	
 	<script>
 		NProgress.configure({
 			showSpinner : false
@@ -220,12 +287,12 @@
 							class="mdi mdi-pencil"></i> <span class="nav-text">시험</span>
 					</a></li>
 
-
-
 					<li><a class="sidenav-item-link" href="gradeForm.ins"> <i
 							class="mdi mdi-format-annotation-plus"></i> <span class="nav-text">성적</span>
 					</a></li>
+					
 				</ul>
+				
 			</div>
 		</div>
 	</aside>
@@ -247,11 +314,7 @@
 				<div class="search-form">
 					<!-- <form action="index.html" method="get"> -->
 						<div class="input-group input-group-sm" id="input-group-search">
-							<input type="text" autocomplete="off" name="query"
-								id="search-input" class="form-control" placeholder="Search..." />
-							<div class="input-group-append">
-								<button class="send-msg" type="button">/</button>
-							</div>
+							<input type="text" id="timeDisplay" class="form-control" readonly="readonly" style="color: blue" />
 						</div>
 					<!-- </form> -->
 					<ul class="dropdown-menu dropdown-menu-search">
@@ -276,7 +339,7 @@
 				
 				<ul class="nav navbar-nav">
 					<li class="custom-dropdown">
-						<button class="notify-toggler custom-dropdown-toggler">
+						<button class="notify-toggler custom-dropdown-toggler" >
 							<i class="mdi mdi-bell-outline icon"></i> <span
 								class="alarm-badge badge badge-xs rounded-circle">0</span>
 						</button>

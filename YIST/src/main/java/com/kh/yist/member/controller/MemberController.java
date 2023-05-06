@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -89,8 +90,6 @@ public class MemberController {
 
 	}
 	
-
-	
 	
 	@RequestMapping("logout.me")
 	public String logOut(HttpSession session) {
@@ -98,9 +97,55 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="examTime.ins", produces = "text/html; charset=UTF-8")
+	public String examTime(int setTime, int userTime, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+
+		loginUser.setExamTime(setTime);
+		
+		loginUser.setUserTime(userTime);
+		
+		session.setAttribute("loginUser", loginUser);
+		
+		return "";
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="getTime.ins", method=RequestMethod.POST)
+	public String getExamTime(int setTime, int userTime, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		int originTime = 0;
+		
+		if (loginUser != null){
+			originTime = loginUser.getUserTime(); // 기존 시간
+		} 
+		
+		int newTime = userTime; // 새로 받아온시간 
+		
+		loginUser.setExamTime(setTime);
+		loginUser.setUserTime(originTime);
+		
+		session.setAttribute("loginUser", loginUser);
+		
+		int resultTime = newTime-originTime;
+
+		return ""+resultTime;
+	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="endExam.ins")
+	public void endExam(HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		loginUser.setExamTime(0);
+		
+		session.setAttribute("loginUser", loginUser);
+		
+	}
 	
 	
 	
