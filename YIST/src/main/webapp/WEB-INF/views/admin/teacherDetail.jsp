@@ -24,7 +24,7 @@
 		    		<div class="card-header-bg" style="background-image:url(assets/img/user/user-bg-01.jpg)"></div>
 		    			<div class="card-body card-profile-body">
 		    				<div class="profile-avata">
-					          <img class="rounded-circle" src="${ td.image }" alt="Avata Image">
+					          <img class="rounded-circle" src="${ td.image }" width=30% height=30%>
 					          <span class="h5 d-block mt-3 mb-2">${ td.name }</span>
 					        </div>
 	    			</div>
@@ -62,14 +62,14 @@
                             	<div class="input-group-prepend">
                             		<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;이름&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             	</div>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="${ td.name }" required>
+                            <input type="text" class="form-control" placeholder="Username" name="userName" aria-describedby="basic-addon1" value="${ td.name }" required>
                         </div>
 
                         <div class="input-group mb-3 col">
                             <div class="input-group-prepend">
                             	<span class="input-group-text" id="basic-addon1">전화번호</span>
                         	</div>
-                            <input type="text" class="form-control" placeholder="phone" aria-label="phone" aria-describedby="basic-addon1" value="${ td.phone }" required>
+                            <input type="text" class="form-control" placeholder="phone" name="phone" aria-describedby="basic-addon1" value="${ td.phone }" required>
                         </div>
                     </div>
                     
@@ -85,7 +85,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;이메일&nbsp;&nbsp;</span>
                             </div>
-                            <input type="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="${ td.email }" required>
+                            <input type="email" class="form-control" name="email" aria-describedby="basic-addon1" value="${ td.email }" required>
                         </div>
                     </div>
 
@@ -108,13 +108,13 @@
                           <div class="input-group-prepend">
                           	<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;주소&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           </div>
-                          <input type="text" class="form-control" aria-label="address" value="${ td.address }" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" name="address" value="${ td.address }" aria-describedby="basic-addon1">
                       </div>
                   </div>
 
                     <div class="row">
                         <div class="col-12" align="right">
-                            <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 15px;">수정</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="changeInfo" style="margin-right: 15px;">수정</button>
                         </div>
                     </div>
       			</form>
@@ -122,6 +122,29 @@
    			
 		</div>
 </div>
+
+<script>
+	$(function(){
+		$("#changeInfo").click(function(){
+			$.ajax({
+				url:"changeTeacherInfo.do",
+				data:{name: $("input[name='userName']").val(),
+					  phone: $("input[name='phone']").val(),
+					  email:$("input[name='email']").val(),
+					  address:$("input[name='address']").val()
+					},
+				success:function(result){
+					alert("정보수정 완료");
+					location.reload();
+				},
+				error:function(){
+					console.log("정보수정 ajax 통신 실패!");
+				}	
+				
+			})
+		})
+	})
+</script>
 
 </body>
 </html>

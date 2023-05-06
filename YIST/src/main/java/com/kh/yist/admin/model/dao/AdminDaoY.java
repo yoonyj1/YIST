@@ -54,4 +54,8 @@ public class AdminDaoY {
 	public ArrayList<Member> selectCStudentList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectCStudentList");
 	}
+	
+	public Member selectStudent(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectStudent", id);
+	}
 }

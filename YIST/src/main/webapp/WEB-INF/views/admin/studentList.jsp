@@ -56,7 +56,7 @@
 						      	<td scope="row">${ s.name }</td>
 						     	<td>${ s.subject }</td>
 						      	<td>${ s.attendanceRate }</td>
-						      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+						      	<td align='right'><a href='studentDetail.do?id=${ s.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
 							    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
 					      	</c:otherwise>
 				      	  </c:choose>
@@ -89,7 +89,7 @@
 					      	<td scope="row">${ p.name }</td>
 					     	<td>${ p.subject }</td>
 					      	<td>${ p.attendanceRate }</td>
-					      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+					      	<td align='right'><a href='studentDetail.do?id=${ p.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
 						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
 				      	</c:otherwise>
 			      	  </c:choose>
@@ -122,7 +122,7 @@
 					      	<td scope="row">${ c.name }</td>
 					     	<td>${ c.subject }</td>
 					      	<td>${ c.attendanceRate }</td>
-					      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+					      	<td align='right'><a href='studentDetail.do?id=${ c.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
 						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
 				      	</c:otherwise>
 			      	  </c:choose>

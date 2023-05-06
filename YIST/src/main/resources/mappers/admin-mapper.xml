@@ -146,4 +146,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and s.class_no = 3
 		order by m.status
 	</select>
+	
+	<select id="selectStudent" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(m.start_date, ('YYYY-MM-DD')) as "start_date"
+		  , email
+		  , subject_name as "subject"
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 3 and id = #{ id }	
+	</select>
 </mapper>
