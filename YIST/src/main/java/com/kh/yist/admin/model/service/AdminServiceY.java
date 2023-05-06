@@ -43,7 +43,7 @@ public class AdminServiceY {
 		return aDao.selectStudentListCount(sqlSession);
 	}
 	
-	public ArrayList<Member> selectStudentList(PageInfo pi) {
-		return aDao.selectStudentList(sqlSession, pi);
+	public ArrayList<Member> selectStudentList() {
+		return aDao.selectStudentList(sqlSession);
 	}
 }

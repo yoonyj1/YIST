@@ -32,10 +32,8 @@ public class AdminControllerY {
 		// 전체 강사 목록 조회
 		ArrayList<Member> list = aService.selectList(pi);
 		
-		// 강의가 배정되지 않은 강사 목록 조회
-		ArrayList<Member> nonSubjectList = aService.selectNonSubjectList();
 		
-		mv.addObject("pi", pi).addObject("list", list).addObject("nonSubjectList", nonSubjectList).setViewName("admin/instructorList");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/instructorList");
 		return mv;
 	}
 	
@@ -62,14 +60,11 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("studentList.do")
-	public ModelAndView studentListForm(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
-		int listCount = aService.selectStudentListCount();
+	public ModelAndView studentListForm(ModelAndView mv) {
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Member> list = aService.selectStudentList();
 		
-		ArrayList<Member> list = aService.selectStudentList(pi);
-		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/studentList");
+		mv.addObject("list", list).setViewName("admin/studentList");
 		
 		return mv;
 	}

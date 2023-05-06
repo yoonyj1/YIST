@@ -43,13 +43,7 @@ public class AdminDaoY {
 		return sqlSession.selectOne("adminMapper.selectStudentListCount");
 	}
 	
-	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		// 총 몇개를 조회해갈건지
-		int limit = pi.getBoardLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, limit);
-
-		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", null, rowBounds);
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList");
 	}
 }
