@@ -127,6 +127,13 @@
 					</tr>
 				</thead>
 				<tbody>
+
+					<c:if test="${ empty list }">
+						<tr>
+							<td colspan="6" style="text-align: center;">조회된 강의가 없습니다.</td>
+						</tr>
+					</c:if>
+
 					<c:forEach var='s' items="${ list }">
 						<tr>
 							<td><input type="checkbox"></td>
@@ -152,7 +159,6 @@
 						if ($(this).find('td:first-child input[type="checkbox"]').is(':checked')) {
 							let $classNo = $(this).find('td.classNo').text();
 							$classNoArr.push($classNo);
-							console.log($classNoArr);
 						}
 					})
 
@@ -220,16 +226,26 @@
 
 
 			<div class="search-area">
-				<form action="" method="get">
-					<select class="custom-select my-1 mr-sm-2 w-auto" id="classSearchCondition">
-						<option selected name="" value="teacher">강사명</option>
-						<option value="className">강의명</option>
-						<option value="classNo">강의번호</option>
+				<form action="search.cl" method="get">
+					<select name="condition" class="custom-select my-1 mr-sm-2 w-auto" id="classSearchCondition">
+						<option selected value="name">강사명</option>
+						<option value="subjectName">강의명</option>
+						<option value="subjectNo">강의번호</option>
 					</select> 
-					<input type="text" class="form-control rounded-pill" name="keyword" style="width: 50%;">
+					<input type="text" name="keyword" value="${ keyword }" class="form-control rounded-pill" style="width: 50%;">
 					<button type="submit" class="btn btn-outline-primary">검색</button>
 				</form>
 			</div>
+
+			<c:if test="${ ! empty condition }">
+				<script>
+				
+					$(function() {
+						$(".search-area option[value=${condition}]").attr("selected", true);
+					})
+				
+				</script>
+			</c:if>
 
 			<div class="card align-items-center" style="border: none; clear: both;">
 
@@ -245,25 +261,37 @@
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item">
-									<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage -1 }" aria-label="Previous"> 
-										<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
-										<span class="sr-only">Previous</span>
-									</a>
-								</li>							
+								<c:choose>
+									<c:when test="${ empty condition }">
+										<li class="page-item">
+											<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage -1 }" aria-label="Previous"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+												<span class="sr-only">Previous</span>
+											</a>
+										</li>							
+									</c:when>
+									<c:otherwise>
+										<li class="page-item">
+											<a class="page-link" href="search.cl?page=${ pi.currentPage -1 }&condition=${condition}&keyword=${keyword}" aria-label="Previous"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+												<span class="sr-only">Previous</span>
+											</a>
+										</li>							
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 							<c:choose>
-								<c:when test="${ pi.currentPage ==  p  }">
-									<li class="page-item active">
-										<a class="page-link"  onclick="return false;">${ p }</a>
+								<c:when test="${ empty condition }">
+									<li class="page-item">
+										<a class="page-link" href="classAdminList.ad?page=${ p }">${ p }</a>
 									</li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item">
-										<a class="page-link" href="classAdminList.ad?page=${ p }">${ p }</a>
+										<a class="page-link" href="search.cl?page=${ p }&condition=${condition}&keyword=${keyword}">${ p }</a>
 									</li>
 								</c:otherwise>
 							</c:choose>
@@ -279,12 +307,24 @@
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item">
-									<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage + 1 }" aria-label="Next"> 
-										<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
-										<span class="sr-only">Next</span>
-									</a>
-								</li>							
+								<c:choose>
+									<c:when test="${ empty condition }">
+										<li class="page-item">
+											<a class="page-link" href="classAdminList.ad?page=${ pi.currentPage + 1 }" aria-label="Next"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+												<span class="sr-only">Next</span>
+											</a>
+										</li>							
+									</c:when>
+									<c:otherwise>
+										<li class="page-item">
+											<a class="page-link" href="search.cl?page=${ pi.currentPage + 1 }&condition=${condition}&keyword=${keyword}"" aria-label="Next"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+												<span class="sr-only">Next</span>
+											</a>
+										</li>							
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 						
@@ -297,7 +337,25 @@
 			
 		</div>
 
+		<script>
+			$(function(){
 
+				const cP = '${pi.currentPage}';
+				const $pageLinks = $('a.page-link');
+
+				$pageLinks.each(function(index, link) {
+
+					let text = link.innerText;
+					
+					if (text === cP) {
+						$(link).parent('li').addClass('active');
+					}
+
+				});
+			});
+
+		</script>
+		
 
 
 

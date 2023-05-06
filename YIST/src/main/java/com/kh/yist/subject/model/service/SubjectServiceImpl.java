@@ -1,6 +1,7 @@
 package com.kh.yist.subject.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -77,6 +78,16 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public int deleteSubject(List<String> subjectNo) {
 		return sDao.deleteSubject(sqlSession, subjectNo);
+	}
+
+	@Override
+	public int selectSearchCount(HashMap<String, String> map) {
+		return sDao.selectSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Subject> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return sDao.selectSearchList(sqlSession, map, pi);
 	}
 
 

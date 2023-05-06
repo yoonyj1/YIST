@@ -168,7 +168,7 @@
 			<!-- Aplication Brand -->
 			<div class="app-brand">
 				<a href="/index.html"> 
-					<img src="${pageContext.request.contextPath}/resources/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
+					<img src="${pageContext.request.contextPath}/resources/admin/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
 					<span class="brand-name">YIST</span>
 				</a>
 			</div>
@@ -220,7 +220,7 @@
 							<div class="sub-menu">
 
 								<li>
-									<a class="sidenav-item-link" href="insert.no"> 
+									<a class="sidenav-item-link" href="insertForm.no"> 
 										<span class="nav-text">공지사항 작성</span>
 									</a>
 								</li>
@@ -284,7 +284,7 @@
 					<span class="sr-only">Toggle navigation</span>
 				</button>
 
-				<span class="page-title">tabs</span>
+				<span class="page-title"></span>
 
 				<div class="navbar-right ">
 
@@ -555,12 +555,12 @@
 							<button class="dropdown-toggle nav-link" data-toggle="dropdown">
 								<img src="${pageContext.request.contextPath}/resources/admin/images/user/user-xs-01.jpg"
 									class="user-image rounded-circle" alt="User Image" /> <span
-									class="d-none d-lg-inline-block">John Doe</span>
+									class="d-none d-lg-inline-block">${ loginUser.name }</span>
 							</button>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a class="dropdown-link-item" href="user-profile.html">
-										<i class="mdi mdi-account-outline"></i> <span class="nav-text">My
-											Profile</span>
+										<i class="mdi mdi-account-outline"></i> 
+										<span class="nav-text">My Profile</span>
 								</a></li>
 								<li><a class="dropdown-link-item" href="email-inbox.html">
 										<i class="mdi mdi-email-outline"></i> <span class="nav-text">Message</span>
