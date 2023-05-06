@@ -84,14 +84,14 @@
 		</div>
 
 		<div class="card-body">
-			<form method="post" action="">
+			<form method="post" action="insert.no" enctype="multipart/form-data">
 				<table class="table table-bordered" id="addNotice-table">
                     
                     <tr>
                       <th>제목</th>
                       <td>
                         <div class="input-group mb-3">
-                          <input type="text" name="noticeTitle" class="form-control" placeholder="제목을 입력하세요">
+                          <input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요">
                         </div>
                       </td>
                     </tr>
@@ -100,7 +100,7 @@
                       <th>읽기권한</th>
                       <td>
                         <div class="form-group" style="width: 30%;">
-                          <select name="view" class="js-example-basic-multiple form-control" required>
+                          <select name="views" class="js-example-basic-multiple form-control" required>
                             <option value="3">전체</option>
                             <option value="2">강사</option>
                             <option value="1">운영자</option>
@@ -112,13 +112,15 @@
 
                     <tr>
                       <th colspan="2" style="width: 100%;">
-                        <textarea name="noticeContent" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
+                        <textarea name="boardContent" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
                       </th>
                     </tr>
 
                     <tr>
                       <th>첨부파일</th>
-                      <td><input type="file" name="" id=""></td>
+                      <td>
+                        <input type="file" name="originName">
+                      </td>
                     </tr>
 
 				</table>

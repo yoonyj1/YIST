@@ -4,6 +4,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "mybatis-3-mapper.dtd" >
 
 <mapper namespace="adminMapper">
+
+	<resultMap type="Member" id="memberResultSet">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="PWD" property="pwd"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="PHONE" property="phone"/>
+		<result column="IMAGE" property="image"/>
+		<result column="EMAIL" property="email"/>
+		<result column="POST" property="post"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDRESS" property="detailAddress"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
+		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SORT" property="sort"/>
+		<result column="EMPLOYEE_DATE" property="employeeDate"/>
+	</resultMap>
+	
+	<resultMap type="Attendance" id="attendanceResultSet">
+		<result column="ID" property="id"/>
+		<result column="COUNT" property="count"/>
+		<result column="ATTENDANCE_DATE" property="attendanceDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+	</resultMap>
+
 	
 	<select id="selectListCount" resultType="_int">
 	select
@@ -15,5 +45,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		sort = 2
 	</select>
 
+	<select id="selectList" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , subject_name as "subject"
+	  	from 
+	  		member m
+  		left join subject s on(m.subject = s.subject_no)
+  		where
+  			m.status = 'Y'
+  		 and
+  		 	sort = 2
+		order by subject		
+	</select>
+	
+	
+	
+	<update id="checkDeleteInstuctor">
+		update
+			member
+		set
+			status='N'
+		where id = #{id}
+		  and sort = 2
+	</update>
+	
+	<select id="selectTeacher" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
+		  , email
+		  , subject_name as "subject"
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 2 and id = #{ id }
+	</select>
 
+	<select id="selectStudentListCount" resultType="_int">
+		select
+			count(*)
+		from member
+		where
+			status = 'Y'
+		and
+			sort = 3
+	</select>
+	
+	<select id="selectStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		order by m.status
+	</select>
 </mapper>

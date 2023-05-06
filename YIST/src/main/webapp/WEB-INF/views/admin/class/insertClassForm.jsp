@@ -42,15 +42,15 @@
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 	<jsp:include page="../common/header.jsp"/>
-	
-	
+
+
 	<div class="card card-default">
 		<div class="card-header">
 				<h2>강의 등록</h2>
 		</div>
 	
 		<div class="card-body">
-			<form method="post" action="">
+			<form method="post" action="insertSubject.cl">
 				<table class="table table-bordered" id="addClass-table" style="border-radius: 5px;">
 	
 					<tr>
@@ -69,22 +69,31 @@
 						<th>* 강사명</th>
 						<td>
 							<div class="form-group">
-								<select name="teacher" class="js-example-basic-multiple form-control" required>
-									<option value=" ">강사1</option>
-									<option value=" ">강사2</option>
-									<option value=" ">강사3</option>
-									<option value=" ">강사4</option>
+								<select name="id" class="js-example-basic-multiple form-control" required>
+									
+									<c:forEach var="i" items="${ iList }">
+									
+										<option value="${ i.id }">${ i.name }</option>
+										
+									</c:forEach>
+
 								</select>
 							</div>
 						</td>
 						
+
+						
 						<th>* 강의과목</th>
 						<td>
 							<div class="form-group">
-								<select name="className" class="js-example-basic-multiple form-control" required>
-									<option value=" ">과목1</option>
-									<option value=" ">과목2</option>
-									<option value=" ">과목3</option>
+								<select name="classNo" class="js-example-basic-multiple form-control" required>
+								
+									<c:forEach var="c" items="${ cList }">
+									
+										<option value="${ c.classNo }">${ c.className }</option>
+										
+									</c:forEach>
+
 								</select>
 							</div>
 						</td>
@@ -116,7 +125,7 @@
 						<th>* 종강일</th>
 						<td>
 							<div class="form-group">
-								<input type="date" name="endDatd" class="form-control" required>
+								<input type="date" name="endDate" class="form-control" required>
 							</div>
 						</td>
 					</tr>
@@ -124,25 +133,25 @@
 					<tr>
 						<th colspan="2">* 수업요일</th>
 						<td colspan="2">
-							<input type="checkbox" name="day" value="mon" id="mon">
+							<input type="checkbox" name="day" value="월" id="mon">
 							<label for="mon">월</label> 
 							
-							<input type="checkbox" name="day" value="tue" id="tue"> 
+							<input type="checkbox" name="day" value="화" id="tue"> 
 							<label for="tue">화</label> 
 							
-							<input type="checkbox" name="day" value="wed" id="wed"> 
+							<input type="checkbox" name="day" value="수" id="wed"> 
 							<label for="wed">수</label> 
 							
-							<input type="checkbox" name="day" value="thu" id="thu">
+							<input type="checkbox" name="day" value="목" id="thu">
 							<label for="thu">목</label>
 							
-							<input type="checkbox" name="day" value="fri" id="fri">
+							<input type="checkbox" name="day" value="금" id="fri">
 							<label for="fri">금</label> 
 							
-							<input type="checkbox" name="day" value="sat" id="sat"> 
+							<input type="checkbox" name="day" value="토" id="sat"> 
 							<label for="sat">토</label> 
 							
-							<input type="checkbox" name="day" value="sun" id="sun">
+							<input type="checkbox" name="day" value="일" id="sun">
 							<label for="sun">일</label>
 						</td>
 					</tr>

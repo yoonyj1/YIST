@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,6 @@
 			
 			<div class="tab-content mt-5" id="nav-tabContent">
 			  <div class="tab-pane fade show active" id="nav-tabs-java" role="tabpanel" aria-labelledby="nav-java-tab">
-			    자바
 			    <table class="table" style="text-align:center;">
 				  <thead>
 				    <tr>
@@ -43,46 +43,25 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <td scope="row">학생1</td>
-				      <td>자바1반</td>
-				      <td>30.4%</td>
-				      <td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-				      <td align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('xxx 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
-				      <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
-				    </tr>
-				    <tr>
-				      <td scope="row">2</td>
-				      <td>Catrin</td>
-				      <td>Seidl</td>
-				      <td>@catrin</td>
-				      <td>@catrin</td>
-				      <td>@catrin</td>
-				    </tr>
-				    <tr>
-				      <td scope="row">3</td>
-				      <td>Lilli</td>
-				      <td>Kirsh</td>
-				      <td>@lilli</td>
-				      <td>@lilli</td>
-				      <td>@lilli</td>
-				    </tr>
-				    <tr>
-				      <td scope="row">4</td>
-				      <td>Else</td>
-				      <td>Voigt</td>
-				      <td>@voigt</td>
-				      <td>@voigt</td>
-				      <td>@voigt</td>
-				    </tr>
-				    <tr>
-				      <td scope="row">5</td>
-				      <td>Ursel</td>
-				      <td>Harms</td>
-				      <td>@ursel</td>
-				      <td>@ursel</td>
-				      <td>@ursel</td>
-				    </tr>
+				  	<c:forEach var="s" items="${ list }">
+		  				<tr>
+					      <c:choose>
+					      	<c:when test="${s.status eq 'A'}">
+					      		<td scope="row">${ s.name }</td>
+						      	<td>${ s.subject }</td>
+						     	<td>${ s.attendanceRate }</td>
+						      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ s.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+					      	</c:when>
+					      	<c:otherwise>
+						      	<td scope="row">${ s.name }</td>
+						     	<td>${ s.subject }</td>
+						      	<td>${ s.attendanceRate }</td>
+						      	<td align='right'><a href='studentDetail.do' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+							    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+					      	</c:otherwise>
+				      	  </c:choose>
+					    </tr>
+				  	</c:forEach>
 				  </tbody>
 				</table>
 			  </div>
