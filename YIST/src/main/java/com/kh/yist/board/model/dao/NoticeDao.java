@@ -1,6 +1,8 @@
 package com.kh.yist.board.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -53,4 +55,23 @@ public class NoticeDao {
 		
 		return sqlSession.update("noticeMapper.increaseCount", boardNo);
 	}
+	
+	public int deleteNotice(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("noticeMapper.deleteNotice", boardNo);
+		
+	}
+	
+	public int deleteNotice(SqlSessionTemplate sqlSession, List<String> boardNo) {
+		
+		return sqlSession.update("noticeMapper.deleteNoticeAjax", boardNo);
+		
+	}
+	
+	public int selectSearchCount(SqlSessionTemplate sqlSesison, HashMap<String, String> map) {
+		
+		return sqlSesison.selectOne("noticeMapper.selectSearchCount", map);
+		
+	}
+	
 }

@@ -112,7 +112,7 @@
 		                      </div>
 	                      
 		                      <div class="modal-footer">
-		                        <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">삭제</button>
+		                        <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal" onclick="deleteNotice();">삭제</button>
 		                      </div>
 		                      
 	                    	</div>
@@ -200,6 +200,39 @@
                     
                     
                   })
+                  
+                 function deleteNotice() {
+					let $boardNoArr = [];
+					
+					$('#noticeTable tbody tr').each(function() {
+						if($(this).find('td:first-child input[type="checkbox"]').is(':checked')){
+							let $boardNo = $(this).find('td.boardNo').text();
+							$boardNoArr.push($boardNo);
+						}
+					})
+					
+					$.ajax({
+						type:'POST'
+						,url:'ajaxDelete.no'
+						,date:{boardNoArr:$boardNoArr}
+						,success: function(result) {
+							if(result == "YYYY"){
+								alert("게시글 삭제에 성공했습니다.");
+							}else{
+								alert("게시글 삭제에 실패했습니다. \n잠시 후 다시 시도해주세요.")
+							}
+						}
+						,error:function(){
+							alert("오류가 발생했습니다! \n잠시 후 다시 시도해주세요.")
+						}
+						
+						
+					})
+					
+					
+					
+					
+				 }
 
                 </script>
             
