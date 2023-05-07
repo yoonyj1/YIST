@@ -211,33 +211,64 @@ public class NoticeController {
 	
 	@ResponseBody
 	@RequestMapping("ajaxDelete.no")
-	public String ajaxDeleteNotice(@RequestParam("boardNoArr[]") List<String> boardNo) {
+	public String ajaxDeleteNotice(@RequestParam("boardNoArr[]") List<String> boardNo, HttpSession session, MultipartFile upfile) {
 	
-		int result = nService.deleteNotice(boardNo);
-		
-		if(result>0) {
+		for(String b : boardNo) {
+		    
 			
-			return "YYYY";
-					
-		}else {
-			
-			return "YYYN";
-			
+			int bNo = Integer.parseInt(b);
+
+			// 해당 번호의 게시글 정보 가져오기
+		    Notice n = nService.selectNotice(bNo);
+		    
+		    // 게시글의 첨부파일 삭제
+		    String originName = n.getOriginName();
+		    String changeName = n.getChangeName();
+		    
+		    if(originName != null && !originName.isEmpty()) {
+		        new File(session.getServletContext().getRealPath(changeName)).delete();
+		    }
+		    
+		    // 게시글 삭제
+		    int result = nService.deleteNotice(bNo);
+		    
+		    if(result <= 0) {
+		        return "YYYN"; // 삭제 실패
+		    }
 		}
+
+		return "YYYY";
+		
 		
 	}
 	
 	@RequestMapping("search.no")
-	public String selectSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+	public ModelAndView selectSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		
 		map.put("condition",condition);
 		map.put("keyword", keyword);
 		
+		
 		int listCount = nService.selectSearchCount(map);
 		
-		return "";
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		
+		ArrayList<Notice> list = nService.selectSearchList(map, pi);
+		
+		
+		
+		mv.addObject("list", list);
+		mv.addObject("condition", condition);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pi", pi);
+		
+		mv.setViewName("admin/notice/noticeAdminView");
+		
+		return mv;
 		
 	}
 }

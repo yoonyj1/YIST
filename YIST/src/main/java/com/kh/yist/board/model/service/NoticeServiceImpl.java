@@ -57,14 +57,16 @@ public class NoticeServiceImpl implements NoticeService{
 		return nDao.increaseCount(sqlSession, boardNo);
 	}
 
-	@Override
-	public int deleteNotice(List<String> boardNo) {
-		return nDao.deleteNotice(sqlSession, boardNo);
-	}
+
 
 	@Override
 	public int selectSearchCount(HashMap<String, String> map) {
 		return nDao.selectSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return nDao.selectSearchList(sqlSession, map, pi);
 	}
 
 }

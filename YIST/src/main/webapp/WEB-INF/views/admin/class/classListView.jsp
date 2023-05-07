@@ -169,6 +169,7 @@
 						,success: function(result) {
 							if(result == "YYYY"){
 								alert("강의 삭제에 성공했습니다.");
+								location.reload();
 							}else{
 								alert("강의 삭제에 실패했습니다. \n다시 시도해주세요.");
 							}

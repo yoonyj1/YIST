@@ -129,53 +129,57 @@
 	
 	</update>
 	
-	<update id="deleteNoticeAjax">
-		update
-				NOTICE
-		   set
-		   		STATUS = 'N'
-		   		, ORIGIN_NAME = NULL
-		   		, CHANGE_NAME = NULL
-		 where
-		 		BOARD_NO in
-				<foreach item="item" collection="list" open="(" separator="," close=")">
-			        #{item}
-			    </foreach>	
+
 	
-	</update>
-	
-	<select id="selectSearchCount">
+	<select id="selectSearchCount" resultType="_int">
 	
 		select
 				count(*)
-		  from	(
-			  	select
-					board_no
-				  , board_title
-				  , board_writer
-				  , status
-				  , to_char(create_date,'RRRR/MM/DD') as create_date
-				  , views
-			  from 
-			  		notice
-			 where
-			 		status = 'Y'
-							 			
-			 		
-			 		
-			 		
-			 		
-			 		
-			 order
-			    by board_no desc 
-			  
-		  
-		  
-		  
-		  )
-		  
-		  		
+		  from 
+			  	notice
+		 where
+			 	status = 'Y'
+				<choose>
+				    <when test="condition == 'writer'">
+				        and BOARD_WRITER like '%'||#{ keyword }||'%'
+				    </when>
+				    <when test="condition == 'title'">
+				        and BOARD_TITLE like '%'||#{ keyword }||'%'
+				    </when>    
+				    <otherwise>
+				        and BOARD_CONTENT like '%'||#{ keyword }||'%'
+				    </otherwise>
+				</choose>							 			
 	
 	</select>
+	
+  	<select id="selectSearchList" resultMap="NoticeResultSet">
+		select
+				board_no
+			  , board_title
+			  , board_writer
+			  , board_content
+			  , status
+			  , to_char(create_date,'RRRR/MM/DD') as create_date
+			  , views
+		  from
+		  		notice
+		 where
+		 		status = 'Y' 			  
+				<choose>
+				    <when test="condition == 'writer'">
+				        and board_writer like '%'|| #{ keyword } ||'%'
+				    </when>
+				    <when test="condition == 'title'">
+				        and board_title like '%'|| #{ keyword } ||'%'
+				    </when>    
+				    <otherwise>
+				        and BOARD_CONTENT like '%'|| #{ keyword } ||'%'
+				    </otherwise>
+				</choose>		
+		 order
+		    by board_no desc   
+  	</select>	
+	
 	
 </mapper>

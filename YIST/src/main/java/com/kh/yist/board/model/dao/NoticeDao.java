@@ -62,16 +62,22 @@ public class NoticeDao {
 		
 	}
 	
-	public int deleteNotice(SqlSessionTemplate sqlSession, List<String> boardNo) {
-		
-		return sqlSession.update("noticeMapper.deleteNoticeAjax", boardNo);
-		
-	}
 	
 	public int selectSearchCount(SqlSessionTemplate sqlSesison, HashMap<String, String> map) {
 		
 		return sqlSesison.selectOne("noticeMapper.selectSearchCount", map);
 		
+	}
+	
+	public ArrayList<Notice> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+	
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); 
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectSearchList", map, rowBounds);
+	
 	}
 	
 }

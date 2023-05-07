@@ -26,14 +26,21 @@ public interface NoticeService {
 	
 	//	4. 게시글 삭제
 	int deleteNotice(int boardNo);
-	int deleteNotice(List<String> boardNo);
 	
 	//	5. 게시글 수정
 	int	updateNotice(Notice n);
 	
 
+	// 조회수증가
 	int increaseCount(int boardNo);
 	
+	
+	//키워드검색 일치 개수
 	int selectSearchCount(HashMap<String, String> map);
+	
+	//키워드검색 리스트 조회
+	ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
+	
 	
 }
