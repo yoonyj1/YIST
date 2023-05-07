@@ -3,6 +3,7 @@ package com.kh.yist.admin.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,16 +74,43 @@ public class AdminControllerY {
 	
 	@RequestMapping("teacherDetail.do")
 	public String teacherDetail(String id, Model model) {
+		System.out.println(id);
 		Member m = aService.selectTeacher(id);
+		System.out.println(m);
 				
 		model.addAttribute("td", m);
 		
 		return "admin/teacherDetail";
 	}
 	
+	@RequestMapping("changeTeacherInfo.do")
+	public String updateTeacherInfo(Member m, HttpSession session) {
+		System.out.println(m);
+		int result = aService.updateTeacherInfo(m);
+		
+		System.out.println(result);
+		
+		if(result > 0) {
+			session.setAttribute("td", aService.selectTeacher(m.getId()));
+			
+			
+			return "redirect:teacherDetail.do?id=" + m.getId();
+		} else {
+			session.setAttribute("alertMsg", "입력한 정보를 다시 확인해주세요.");
+			
+			return "redirect:teacherDetail.do?id=" + m.getId();
+		}
+		
+	}
+	
 	@RequestMapping("teacherDetail-lecture.do")
-	public String teacherDetailLecture() {
-		return "admin/teacherDetail-lecture";
+	public String teacherDetailLecture(String id, Model model) {
+		Member m = aService.selectTeacher(id);
+		
+		model.addAttribute("td", m);
+		
+		
+		return "admin/teacherDetail-lecture?id=" + id;
 	}
 	
 	@RequestMapping("studentDetail.do")
@@ -98,4 +126,6 @@ public class AdminControllerY {
 	public String gradeView() {
 		return "admin/gradeView";
 	}
+	
+	
 }

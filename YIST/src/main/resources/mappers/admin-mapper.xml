@@ -163,4 +163,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		where
   			m.status='Y' and sort = 3 and id = #{ id }	
 	</select>
+	
+	<update id="updateTeacherInfo">
+	update
+		member
+	set
+		name=#{name},
+		phone=#{phone},
+		email=#{email},
+		address=#{address}
+	where id=#{id}	
+	</update>	
 </mapper>

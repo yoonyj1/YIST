@@ -34,10 +34,10 @@
    			<div class="card-footer card-profile-footer">
 		        <ul class="nav nav-border-top justify-content-center">
 		          <li class="nav-item">
-		            <a class="nav-link active" href="teacherDetail.do">프로필</a>
+		            <a class="nav-link active" href="teacherDetail.do?id=${ td.id }">프로필</a>
 		          </li>
 		          <li class="nav-item">
-		            <a class="nav-link" href="teacherDetail-lecture.do">강의</a>
+		            <a class="nav-link" href="teacherDetail-lecture.do?id=${ td.id }">강의</a>
 		          </li>
 		        </ul>
       		</div>
@@ -52,7 +52,7 @@
       							<div class="input-group-prepend">
                             		<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                            		 </div>
-                           		 <input type="text" class="form-control" placeholder="UserId" aria-label="UserId" aria-describedby="basic-addon1" value="${ td.id }" readonly>
+                           		 <input type="text" class="form-control" placeholder="UserId" name="id" aria-describedby="basic-addon1" value="${ td.id }" readonly>
       						</div>
       					</div>
       				</div>
@@ -62,7 +62,7 @@
                             	<div class="input-group-prepend">
                             		<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;이름&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             	</div>
-                            <input type="text" class="form-control" placeholder="Username" name="userName" aria-describedby="basic-addon1" value="${ td.name }" required>
+                            <input type="text" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1" value="${ td.name }" required>
                         </div>
 
                         <div class="input-group mb-3 col">
@@ -128,22 +128,27 @@
 		$("#changeInfo").click(function(){
 			$.ajax({
 				url:"changeTeacherInfo.do",
-				data:{name: $("input[name='userName']").val(),
+				data:{
+					  id: $("input[name='id']").val(),
+					  name: $("input[name='name']").val(),
 					  phone: $("input[name='phone']").val(),
 					  email:$("input[name='email']").val(),
 					  address:$("input[name='address']").val()
 					},
 				success:function(result){
-					alert("정보수정 완료");
-					location.reload();
+					alert("정보수정 완료!");
 				},
 				error:function(){
 					console.log("정보수정 ajax 통신 실패!");
 				}	
 				
-			})
+			})	
 		})
+		
 	})
+		
+	
+	
 </script>
 
 </body>
