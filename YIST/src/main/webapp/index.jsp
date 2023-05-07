@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,19 +84,13 @@ div.title .titleP {
     padding: 0.36rem 2rem;
     border-radius: 5px;
     font-weight: 400;
+
 }
 
 </style>
 </head>
 <body>
-	<c:if test="${ not empty alertMsg }">
-		<script>
-			alert('${alertMsg}');
-		</script>
-		<c:remove var="alertMsg" scope="session" />
-	</c:if>
-
-	<div class="contents">
+<!-- 	<div class="contents">
         <div class="title">
             <h6 align="center">YIST</h6>
             <p class="titlep" align="center">
@@ -123,8 +116,9 @@ div.title .titleP {
             </ul>
         </div>   
 
-    </div>
+    </div>  -->
 
+	<jsp:forward page="WEB-INF/views/student/studentBoardList.jsp"/>
 </body>
 </html>
 

@@ -36,6 +36,7 @@ public class AdminDaoY {
 	}
 	
 	public Member selectTeacher(SqlSessionTemplate sqlSession, String id) {
+		System.out.println("Dao: " + id);
 		return sqlSession.selectOne("adminMapper.selectTeacher", id);
 	}
 	
@@ -53,5 +54,13 @@ public class AdminDaoY {
 	
 	public ArrayList<Member> selectCStudentList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectCStudentList");
+	}
+	
+	public Member selectStudent(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectStudent", id);
+	}
+	
+	public int updateTeacherInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("adminMapper.updateTeacherInfo", m);
 	}
 }

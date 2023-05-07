@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://unpkg.com/video.js/dist/video-js.min.css" rel="stylesheet">
+<script src="https://unpkg.com/video.js/dist/video.min.js"></script>
 <title>Insert title here</title>
 <style>
     table {
@@ -91,7 +93,11 @@ button {
                 </p>
               <div class="post-thumb" style="margin: 40px;">
                 <div class="fluid-video-wrapper">
-                  <iframe src="images/yist/KakaoTalk_20230330_173845232.mp4" height="530" title="Creative" allowfullscreen></iframe>
+                  <video id="vid1" class="video-js vjs-big-play-button vjs-big-play-centered"
+				        data-setup='{"controls": true, "fluid": true, "autoplay": false, "muted": true, "playbackRates": [0.5, 1, 1.5, 2]}'>
+				        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+				        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+				    </video>
                 </div>
               </div>
               </div>
