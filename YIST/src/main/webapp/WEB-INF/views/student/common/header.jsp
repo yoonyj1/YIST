@@ -35,6 +35,11 @@
 <script src="${pageContext.request.contextPath}/resources/student/js/custom.js"></script>
 <script src="${pageContext.request.contextPath}/resources/student/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/student/js/jquery-plugin-collection.js"></script>
+
+<!-- 썸머노트 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.css">
+<script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/lang/summernote-ko-KR.js"></script>
 </head>
 <body class="">
 

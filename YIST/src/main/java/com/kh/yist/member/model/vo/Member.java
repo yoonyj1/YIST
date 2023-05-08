@@ -34,12 +34,16 @@ public class Member {
 	private String address;
 	private String detailAddress;
 	private String subject;
+	private double attendanceRate;
 	private String enrollDate;
 	private String startDate;
 	private String endDate;
 	private String status;
 	private int sort;
 	private String employeeDate;
+	
+	private int examTime;
+	private int userTime;
 
 	// private String uName;
 	// 롬복을 쓸때는 필드명 작성시 적어도 소문자 두글자 이상으로 시작할 것

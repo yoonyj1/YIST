@@ -5,6 +5,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="instructorMapper">
 
+	<resultMap id="taskResultSet" type="Task">
+		<result column="task_no" property="taskNo"></result>
+		<result column="file_no" property="fileNo"></result>
+		<result column="subject_no" property="subjectNo"></result>
+		<result column="id" property="instructorId"></result>
+		<result column="task_title" property="taskTitle"></result>
+		<result column="task_content" property="taskContent"></result>
+		<result column="start_date" property="startDate"></result>
+		<result column="end_date" property="endDate"></result>
+		<result column="origin_name" property="originName"></result>
+		<result column="change_name" property="changeName"></result>
+		<result column="file_level" property="fileLevel"></result>
+		<result column="status" property="status"></result>
+		
+	</resultMap>
+	
+	<resultMap id="taskSubmitResultSet" type="TaskSubmit">
+		<result column="task_no" property="taskNo"></result>
+		<result column="id" property="id"></result>
+		<result column="task_title" property="taskTitle"></result>
+		<result column="submit_content" property="submitContent"></result>
+		<result column="name" property="name"></result>
+		<result column="submit_date" property="submitDate"></result>
+		<result column="modify_date" property="modifyDate"></result>
+		<result column="status" property="status"></result>
+	</resultMap>
+	
+	<resultMap id="examResultSet" type="Exam">
+		<result column="test_no" property="testNo"></result>
+		<result column="id" property="id"></result>
+		<result column="subject_no" property="subjectNo"></result>
+		<result column="test_title" property="testTitle"></result>
+		<result column="exam_date" property="examDate"></result>
+		<result column="exam_time" property="examTime"></result>
+		<result column="status" property="status"></result>
+		<result column="name" property="name"></result>
+		<result column="q1" property="q1"></result>
+		<result column="q2" property="q2"></result>
+		<result column="q3" property="q3"></result>
+		<result column="q4" property="q4"></result>
+		<result column="q5" property="q5"></result>
+		<result column="a1" property="a1"></result>
+		<result column="a2" property="a2"></result>
+		<result column="a3" property="a3"></result>
+		<result column="a4" property="a4"></result>
+		<result column="a5" property="a5"></result>
+		<result column="score" property="score"></result>
+		<result column="submit_status" property="submitStatus"></result>
+	</resultMap>
+	
 	<insert id="insertTask">
 		insert
 		    into task
@@ -19,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        )
 		        values
 		        (
-		            seq_task_no.nextval
+		            seq_taskno.nextval
 		          , #{subjectNo}
 		          , #{instructorId}
 		          , #{taskTitle}
@@ -42,14 +92,166 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        )
 		        values
 		        (
-		            seq_file_no.nextval
-		          , seq_task_no.currval
+		            seq_tfno.nextval
+		          , seq_taskno.currval
 		          , #{originName}
 		          , #{changeName}
 		          , 1
 		          , 'Y'
 		          )
 	</insert>
+	
+	<select id="selectTaskListCount" resultType="_int" parameterType="Map">
+		select count(task_no) as "taskListCount"
+		from task
+		left join task_file using (task_no)			
+		where id = #{id} and status = 'Y'
+		<if test="startDate != 'none'">
+			and start_date between to_date(#{startDate},'RRRR-MM-DD') and to_date(#{endDate},'RRRR-MM-DD')
+		</if>
+		<if test="keyword != 'none'">
+			and task_title like '%' || #{keyword} || '%'
+		</if>
+	</select>
+	
+	<select id="selectTaskList" resultMap="taskResultSet" parameterType="Map">
+		select 
+		        task_no
+		      , file_no
+		      , subject_no
+		      , id
+		      , task_title
+		      , task_content
+		      , to_char(start_date, 'RRRR-MM-DD') as "start_date"
+		      , to_char(end_date, 'RRRR-MM-DD') as "end_date"
+		      , origin_name
+		      , change_name
+		      , file_level
+		      , status
+		from task 
+		left join task_file using (task_no)
+		where id = #{id} and status = 'Y'
+		<if test="startDate != 'none'">
+			and start_date between to_date(#{startDate},'RRRR-MM-DD') and to_date(#{endDate},'RRRR-MM-DD')
+		</if>
+		<if test="keyword != 'none'">
+			and task_title like '%'||#{keyword}||'%'
+		</if>
+		order by task_no desc
+	</select>
+	
+	<update id="updateTask">
+		update 
+		task
+		    set task_title = #{taskTitle}
+		     , task_content = #{taskContent}
+		   	 , start_date = to_date(#{startDate}, 'RR-MM-DD')
+		 	 , end_date = to_date(#{endDate}, 'RR-MM-DD')
+		where task_no = #{taskNo}
+	</update>
+	
+	<update id="updateTaskFile">
+		update
+		task_file
+			set origin_name = #{originName}
+			  , change_name = #{changeName}
+		where task_no = #{taskNo}
+	</update>
+	
+	<update id="deleteTask">
+		update
+		task_file
+			set status = 'N'
+		where task_no = #{taskNo}
+	</update>
+	
+	<select id="selectSubmitList" resultMap="taskSubmitResultSet">
+		SELECT 
+		        t.task_no as "task_no"
+		      , t.task_title as "task_title"
+		      , submit_content as "submit_content"
+		      , s.id
+		      , name
+			  , submit_date
+		      , s.status as "status"
+		FROM task_submit s
+		join member m on (s.id = m.id)
+		join task t on (s.task_no = t.task_no)
+		where s.task_no = #{taskNo}
+	</select>
+	
+	<update id="checkTaskSubmit">
+		update task_submit
+			set status = 'Y'
+		where task_no = #{taskNo} and id = #{id}
+	</update>
+	
+	<select id="selectExamList" resultMap="examResultSet">
+		select
+		    test_no
+		  , id
+		  , subject_no
+		  , test_title
+		  , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
+		  , exam_time
+		  , status
+		from exam
+		where id = #{id}
+		order by test_no
+	</select>
+	
+	<select id="selectQuestion" resultMap="examResultSet">
+		select 
+		        test_no
+		      , test_title
+		      , q1
+		      , q2
+		      , q3
+		      , q4
+		      , q5
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		from exam_question
+		join exam using (test_no)
+		where test_no = #{testNo}
+	</select>
+	
+	<select id="selectExamSubmitList" resultMap="examResultSet">
+		select 
+		        test_no
+		      , e.id as "id"
+		      , name
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		      , e.status as "submit_status"
+		      , nvl(score, 0) as "score"
+		from exam_answer e
+		join member m on (e.id = m.id)
+		where test_no = #{testNo}
+	</select>
+	
+	<select id="selectSubmitMember" resultMap="examResultSet">
+		select 
+		        test_no
+		      , e.id as "id"
+		      , name
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		      , e.status
+		      , nvl(score, 0) as "score"
+		from exam_answer e
+		join member m on (e.id = m.id)
+		where test_no = #{testNo} and e.id = #{id}
+	</select>
 </mapper>
 
 

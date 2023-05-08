@@ -2,8 +2,11 @@ package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -94,6 +97,21 @@ public class StudentController {
 		return new Gson().toJson(list);
 	}
 	
+	// 과제 상세 조회
+	@RequestMapping("taskDetail.st")
+	public ModelAndView selectTask(int tno, ModelAndView mv) {
+		
+		Task t = sService.selectTask(tno);
+		
+		if (t != null) {
+			mv.addObject("t", t).setViewName("student/studentTaskDetail");
+		} else {
+			mv.setViewName("student/common/errorPage");
+		}
+		
+		return mv;
+	}
+	
 	// 우리반 게시판 Q&A 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "qnaList.st", produces = "application/json; charset=UTF-8")
@@ -102,6 +120,27 @@ public class StudentController {
 		ArrayList<QnA> list = sService.qnaList();
 
 		return new Gson().toJson(list);
+	}
+	
+	// 과제 등록폼
+	@RequestMapping("enrollForm.st")
+	public String enrollForm() {
+		
+		return "student/studentTaskEnrollForm";
+	}
+	
+	@RequestMapping("taskInsert.st")
+	public String taskInsert(Task t, HttpSession session) {
+		
+		int result = sService.taskInsert(t);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 등록되었습니다!");
+		} else {
+			session.setAttribute("alertMsg", "게시글 등록 실패했습니다.");
+		}
+		
+		return "student/studentBoardList";
 	}
 	
 	@RequestMapping("myPage.st")

@@ -48,8 +48,18 @@ public class StudentService {
 		return sDao.taskList(sqlSession);
 	}
 	
+	// 과제 상세 조회
+	public Task selectTask(int taskNo) {
+		return sDao.selectTask(sqlSession, taskNo);
+	}
+	
 	// 우리반 게시판 과제 목록 조회
 	public ArrayList<QnA> qnaList() {
 		return sDao.qnaList(sqlSession);
+	}
+	
+	// 과제 등록
+	public int taskInsert(Task t) {
+		return sDao.taskInsert(sqlSession, t);
 	}
 }

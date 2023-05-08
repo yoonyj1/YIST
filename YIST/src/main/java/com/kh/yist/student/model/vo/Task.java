@@ -28,6 +28,7 @@ public class Task {
     private String taskContent;
     private String startDate;
     private String endDate;
+    private String studentId;
     private String submitContent;
     private String submitDate;
     private String modifyDate;

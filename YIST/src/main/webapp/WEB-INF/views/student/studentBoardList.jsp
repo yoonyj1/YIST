@@ -194,11 +194,14 @@ button {
 				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
 				
 			} else {
+				
 				for ( var i in list) {
 					html += "<tr>";
 					html += "<td>" + list[i].taskNo + "</td>";
 					html += "<td>과제</td>";
-					html += "<td>" + list[i].taskTitle + "</td>";
+					/* html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "'>" + list[i].taskTitle + "</a></td>"; */	
+					html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "&title=" + encodeURIComponent(list[i].taskTitle) + "'>" + list[i].taskTitle + "</a></td>";
+
 					html += "<td>" + list[i].id + "</td>";
 					html += "<td>" + list[i].startDate + "</td>";
 					html += "<td>" + list[i].endDate + "</td>";
@@ -209,14 +212,15 @@ button {
                         html += "<tr>";
                         html += "<td></td>";
                         html += "<td></td>";
-                        html += "<td> re: " + list[i].taskTitle + "</td>";
-                        html += "<td>" + list[i].id + "</td>";
+                        html += "<td><a href='taskSubmitDetail.st?tno=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>re: " + list[i].taskTitle + "</a></td>";                        
+                        html += "<td>" + list[i].studentId + "</td>";
                         html += "<td>" + list[i].submitDate + "</td>";
                         html += "<td style='color: red;'>마감</td>";
                         html += "</tr>";
                     }
 				}
 				$("#result tbody").html(html);
+				
 			}
 		  },
 		  error : function(jqXHR, textStatus, errorThrown) {
