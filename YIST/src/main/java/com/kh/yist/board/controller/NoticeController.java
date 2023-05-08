@@ -243,7 +243,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("search.no")
-	public ModelAndView selectSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+	public ModelAndView selectSearch(String condition, String keyword, @RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
 		
 		
 		HashMap<String, String> map = new HashMap<String, String>();

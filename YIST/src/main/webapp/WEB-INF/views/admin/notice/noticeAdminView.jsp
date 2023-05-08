@@ -187,7 +187,7 @@
                     
 	                //수정화면이동
 					$("#noticeTable>tbody>tr>td>button").click(function(){
-						let $cno = $(this).parent("td").siblings('.boardNo').text()
+						let $cno = $(this).parent("td").siblings('.boardNo').text();
 						location.href='updateForm.no?no='+ $cno;
 					})
                     

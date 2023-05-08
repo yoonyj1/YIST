@@ -128,6 +128,9 @@
 				</table>
 				
 				<script>
+          function backToList(){
+            location.href='noticeAdminList.ad';
+          }
 
 					function loadFile(input) {
 					    let file = input.files[0];	
@@ -154,7 +157,7 @@
 				
 				<div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="submit">등록</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">취소</button>
 				</div>
 				
 			</form>

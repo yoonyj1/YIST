@@ -210,7 +210,7 @@
 					  카카오톡 공유하기
 					</a>
 					
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로</button>         
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>         
 	        		       
                  </div> 
                  
@@ -220,7 +220,9 @@
 
 		<script>
 		
-
+			function backToList(){
+				location.href='noticeAdminList.ad';
+			}
 			
 		
 			function modify() {
