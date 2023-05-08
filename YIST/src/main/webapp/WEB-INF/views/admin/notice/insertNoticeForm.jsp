@@ -65,7 +65,7 @@
                 // 줄간격
                 ['height', ['height']],
                 // 그림첨부, 링크만들기, 동영상첨부
-                ['insert',['picture','link','video']],
+                ['insert',['link']],
                 // 코드보기, 확대해서보기, 도움말
                 ['view', ['codeview','fullscreen', 'help']]
               ],
@@ -86,7 +86,7 @@
 		<div class="card-body">
 			<form method="post" action="insert.no" enctype="multipart/form-data">
 				<input type="hidden" name="boardWriter" value="${ loginUser.id }">
-        <table class="table table-bordered" id="addNotice-table">
+        		<table class="table table-bordered" id="addNotice-table">
                     
                     <tr>
                       <th>제목</th>
@@ -120,11 +120,37 @@
                     <tr>
                       <th>첨부파일</th>
                       <td>
-                        <input type="file" name="upfile">
+                        <input type="file" name="upfile" onchange="loadFile(this);">
+                        <img id="preview" src="#" width=200 height=150 style="align-content: flex-end; display:none;">
                       </td>
                     </tr>
 
 				</table>
+				
+				<script>
+
+					function loadFile(input) {
+					    let file = input.files[0];	
+	
+					    let $newImage = $("#preview");
+	
+					    if (file != '') {
+					         let reader = new FileReader();
+					         reader.readAsDataURL(file);
+					         reader.onload = function (e) { 
+					        	 $newImage.attr('src', e.target.result);
+					        	 $newImage.css('display', 'block');
+					         }
+					    }else{
+					    	
+					        	 $newImage.css('display', 'none');
+					    }
+					    
+					}
+					
+				</script>
+				
+				
 				
 				<div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="submit">등록</button>

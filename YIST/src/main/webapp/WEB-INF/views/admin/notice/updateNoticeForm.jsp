@@ -63,7 +63,7 @@
                 // 줄간격
                 ['height', ['height']],
                 // 그림첨부, 링크만들기, 동영상첨부
-                ['insert',['picture','link','video']],
+                ['insert',['link']],
                 // 코드보기, 확대해서보기, 도움말
                 ['view', ['codeview','fullscreen', 'help']]
               ],
@@ -148,7 +148,8 @@
 		                    <tr>
 		                      <th>첨부파일</th>
 		                      <td>
-								<input type="file" name="reupfile" id="upfile">
+								<input type="file" name="reupfile" id="upfile" onchange="loadFile(this);">
+                        		<img id="preview" src="#" width=200 height=150 style="align-content: flex-end; display:none;">
 
 		                      	<c:choose>
 		                      		<c:when test="${ empty n.originName }">
@@ -156,6 +157,7 @@
 		                      		</c:when>
 		                      		
 		                      		<c:otherwise>
+		                      			<br>
 										현재 첨부파일 | <a href="${ n.changeName } " download="${ n.originName }">${ n.originName }</a>
 										<input type="hidden" name="originName" value="${ n.originName }">
 										<input type="hidden" name="changeName" value="${ n.changeName }">
@@ -192,6 +194,30 @@
 				function backList() {
 					location.href='noticeAdminList.ad';
 				}
+				
+
+				function loadFile(input) {
+				    let file = input.files[0];	
+
+				    let $newImage = $("#preview");
+
+				    if (file != '') {
+				         let reader = new FileReader();
+				         reader.readAsDataURL(file);
+				         reader.onload = function (e) { 
+				        	 $newImage.attr('src', e.target.result);
+				        	 $newImage.css('display', 'block');
+				         }
+				    }else{
+				    	
+				        	 $newImage.css('display', 'none');
+				    }
+				    
+				}
+				
+				
+				
+				
 			</script>
 
 		</div>

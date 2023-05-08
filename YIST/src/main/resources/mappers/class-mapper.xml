@@ -10,6 +10,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CLASS_NAME" property="className"></result>
 	</resultMap>
 	
+	<resultMap id="classMaterialResultSet" tyle="Material">
+		<result column="BOARD_NO" property="boardNo"></result>
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="BOARD_TITLE" property="boardTitle"></result>
+		<result column="BOARD_WRITER" property="boardWriter"></result>
+		<result column="BOARD_CONTENT" property="boardContent"></result>
+		<result column="ORIGIN_NAME" property="originName"></result>
+		<result column="CHANGE_NAME" property="changeName"></result>
+		<result column="COUNT" property="count"></result>
+		<result column="CREATE_DATE" property="createDate"></result>
+		<result column="STATUS" property="status"></result>
+	</resultMap>
+	
 	<select id="selectClassList" resultMap="classResultSet">
 		select
 			class_no
@@ -17,5 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from class
 	</select>
 
+	
 
 </mapper>

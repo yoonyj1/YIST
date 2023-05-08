@@ -3,14 +3,14 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "mybatis-3-mapper.dtd" >
 
-<mapper namespace="classMapper">
+<mapper namespace="materialMapper">
 	
 	<resultMap id="classResultSet" type="Class">
 		<result column="CLASS_NO" property="classNo"></result>
 		<result column="CLASS_NAME" property="className"></result>
 	</resultMap>
 	
-	<resultMap id="classMaterialResultSet" tyle="Material">
+	<resultMap id="eaxmMaterialResultSet" tyle="EaxmMaterial">
 		<result column="BOARD_NO" property="boardNo"></result>
 		<result column="CLASS_NO" property="classNo"></result>
 		<result column="BOARD_TITLE" property="boardTitle"></result>
@@ -22,13 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CREATE_DATE" property="createDate"></result>
 		<result column="STATUS" property="status"></result>
 	</resultMap>
-	
-	<select id="selectClassList" resultMap="classResultSet">
-		select
-			class_no
-			, class_name
-		from class
-	</select>
+
 
 	
 
