@@ -122,10 +122,11 @@ public class StudentController {
 		return new Gson().toJson(list);
 	}
 	
+	// 과제 등록폼
 	@RequestMapping("enrollForm.st")
 	public String enrollForm() {
 		
-		return "student/studentBoardEnrollForm";
+		return "student/studentTaskEnrollForm";
 	}
 	
 	@RequestMapping("taskInsert.st")

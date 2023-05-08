@@ -91,12 +91,12 @@ button {
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="" required>
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="" required>
 						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td style="text-align: left;"><input type="text" id="writer" name="studentId" value="${ loginUser.name }" readonly></td>
+						<td style="text-align: left;"><input type="text" id="writer" name="studentId" value="${ loginUser.id }" readonly></td>
 					</tr>
 					<tr>
 						<th style="height: 70px;">카테고리</th>
@@ -135,6 +135,7 @@ button {
 	</div>
 	
 	<script>
+	
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
@@ -142,9 +143,10 @@ button {
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	  		    lang: "ko-KR",					// 한글 설정
-	  		    placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 			});
 		});
+		
+		document.getElementById("title").value = decodeURIComponent("<%= request.getParameter("title") %>");
 	</script>
 	
 	
