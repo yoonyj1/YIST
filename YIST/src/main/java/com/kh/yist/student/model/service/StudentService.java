@@ -57,4 +57,9 @@ public class StudentService {
 	public ArrayList<QnA> qnaList() {
 		return sDao.qnaList(sqlSession);
 	}
+	
+	// 과제 등록
+	public int taskInsert(Task t) {
+		return sDao.taskInsert(sqlSession, t);
+	}
 }

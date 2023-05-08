@@ -43,14 +43,14 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<!-- <resultMap type="TaskSubmit" id="TaskSubmitResultSet">
+<resultMap type="TaskSubmit" id="TaskSubmitResultSet">
 	<result column="task_no" property="taskNo" />
-	<result column="id" property="id" />
+	<result column="student_id" property="studentId" />
 	<result column="submit_content" property="submitContent" />
 	<result column="submit_date" property="submitDate" />
 	<result column="modify_date" property="modifyDate" />
 	<result column="status" property="status" />
-</resultMap> -->
+</resultMap>
 
 <resultMap type="Qna" id="qnaResultSet">
 	<result column="board_no" property="boardNo" />
@@ -175,4 +175,25 @@
 	 order
 	    by board_no desc
 </select>
+
+<!-- 과제 등록 -->
+<insert id="taskInsert">
+	insert
+	  into task_submit
+	     (
+	       task_no
+	     , student_id
+	     , submit_content
+	     , submit_date
+	     , status
+	     )
+	     values
+	     (
+	       seq_tno.nextval
+	     , #{studentId}
+	     , #{submitContent}
+	     , sysdate
+	     , 'Y'
+	     )
+</insert>
 </mapper>

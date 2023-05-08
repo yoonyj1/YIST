@@ -2,6 +2,8 @@ package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -118,6 +120,26 @@ public class StudentController {
 		ArrayList<QnA> list = sService.qnaList();
 
 		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping("enrollForm.st")
+	public String enrollForm() {
+		
+		return "student/studentBoardEnrollForm";
+	}
+	
+	@RequestMapping("taskInsert.st")
+	public String taskInsert(Task t, HttpSession session) {
+		
+		int result = sService.taskInsert(t);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 등록되었습니다!");
+		} else {
+			session.setAttribute("alertMsg", "게시글 등록 실패했습니다.");
+		}
+		
+		return "student/studentBoardList";
 	}
 	
 	@RequestMapping("myPage.st")

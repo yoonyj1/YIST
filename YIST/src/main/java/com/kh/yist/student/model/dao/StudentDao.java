@@ -72,4 +72,10 @@ public class StudentDao {
 		
 		return (ArrayList)sqlSession.selectList("studentMapper.qnaList");
 	}
+	
+	// 과제 등록
+	public int taskInsert(SqlSessionTemplate sqlSession, Task t) {
+		
+		return sqlSession.insert("studentMapper.taskInsert", t);
+	}
 }

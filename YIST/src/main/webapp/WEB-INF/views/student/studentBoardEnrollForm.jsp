@@ -86,19 +86,22 @@ button {
 	    </div> 
     
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
+	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
 			<table id="write_frm">
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="">
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="" required>
 						</td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td style="text-align: left;"><input type="text" id="writer" name="studentId" value="${ loginUser.name }" readonly></td>
 					</tr>
 					<tr>
 						<th style="height: 70px;">카테고리</th>
 						<td style="text-align: left;">
 							<select id="category_select" name="category" class="select_view" value="" style="width: 158px; height:40px;">
-								<option value="E">Q&A</option>
 								<option value="A">과제</option>
 							</select>
 						</td>
@@ -117,13 +120,13 @@ button {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea id="summernote" name="editordata" style="align: center;"></textarea>
+							<textarea id="summernote" name="submitContent" style="align: center; width: 100%" required></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
-							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
+							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
 						</td>
 					</tr>
 			</table>
@@ -135,7 +138,6 @@ button {
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
-	            width: 1200,
 	  		    minHeight: null,             // 최소 높이
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
