@@ -73,49 +73,51 @@ button {
     </div> 
     <div align="right">
       <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-        <a class="btn btn-primary" onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-        <a class="btn btn-danger" onclick="">삭제하기</a>
+        <button class="btn btn-primary" onclick="update();">수정하기</button> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
+        <button class="btn btn-danger" onclick="showDeleteConfirm();;">삭제하기</button>
     </div>
     <div class="entry-content">
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
         <tr>
             <th style="text-align: center;">제목</th>
-            <td colspan="3" style="text-align: left;">자습실 이용시 주의사항</td>
+            <td colspan="3" style="text-align: left;">${ t.taskTitle }</td>
         </tr>
         <tr>
             <th width="10%" style="text-align: center;">작성자</th>
-            <td width="40%" style="text-align: left;">김시연</td>
+            <td width="40%" style="text-align: left;">${ t.studentId }</td>
             <th width="10%" style="text-align: center;">작성일</th>
-            <td width="40%" style="text-align: left;">2023-03-27</td>
+            <td width="40%" style="text-align: left;">${ t.submitDate }</td>
         </tr>
         <tr>
             <td colspan="4">
               <div style="padding: 50px; font-size: 18px; line-height: 2;">
-                <p style="height:auto">
-                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-                  * 단 물, 음료 섭취는 허용
-              </p>
+                <p style="height:auto">${ t.submitContent }</p>
               </div>
             </td>
         </tr>
     </table>
     
      <div style="text-align: center; margin: 50px;">
-      <a href="#" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
+      <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
     </div> 
     </div>       
   </div>
+	
+	<script>
+		function update() {
+			location.href="updateForm.st?tno=" + ${ t.taskNo};
+		}
+		
+		function showDeleteConfirm() {
+			  if (confirm("정말로 삭제하시겠습니까? 삭제한 게시글은 복구할 수 없습니다.")) {
+			    deletePost();
+			  }
+			}
+
+			function deletePost() {
+				location.href="deleteTask.st?tno=" + ${ t.taskNo};
+			}
+	</script>
 	
 	<jsp:include page="common/footer.jsp"/>
 
