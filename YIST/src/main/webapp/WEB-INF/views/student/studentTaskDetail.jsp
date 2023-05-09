@@ -72,7 +72,7 @@ button {
       </ul>
     </div> 
     <div style="text-align: right;">
-      <a href="enrollForm.st" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
+      <a href="enrollForm.st?taskNo=${t.taskNo}" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
     </div>
     <div class="entry-content">
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">

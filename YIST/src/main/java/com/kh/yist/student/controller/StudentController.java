@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
@@ -32,9 +33,15 @@ public class StudentController {
 		return "student/studentMain";
 	}
 	
+	// 시험 목록 조회
 	@RequestMapping("testList.st")
-	public String testList() {
-		return "student/studentTestList";
+	public ModelAndView testList(ModelAndView mv) {
+		
+		ArrayList<Exam> list = sService.testList();
+		
+		mv.addObject("list", list).setViewName("student/studentTestList");
+		
+		return mv;
 	}
 	
 	@RequestMapping("certificate.st")
@@ -124,14 +131,20 @@ public class StudentController {
 	
 	// 과제 등록폼
 	@RequestMapping("enrollForm.st")
-	public String enrollForm() {
+	public String enrollForm(@RequestParam int taskNo, Model model) {
+		
+		Task t = sService.selectTask(taskNo);
+		
+		String title = t.getTaskTitle();
+		
+		model.addAttribute("title", title);
 		
 		return "student/studentTaskEnrollForm";
 	}
 	
 	@RequestMapping("taskInsert.st")
 	public String taskInsert(Task t, HttpSession session) {
-		
+	    
 		int result = sService.taskInsert(t);
 		
 		if (result > 0) {

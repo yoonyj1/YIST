@@ -87,11 +87,12 @@ button {
     
     <div>
 	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
-			<table id="write_frm">
+		    <input type="hidden" name="taskNo" value="${taskNo}">
+		    	<table id="write_frm">
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="" required>
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
 						</td>
 					</tr>
 					<tr>
@@ -146,7 +147,8 @@ button {
 			});
 		});
 		
-		document.getElementById("title").value = decodeURIComponent("<%= request.getParameter("title") %>");
+		<%-- document.getElementById("title").value = "<%= request.getParameter("list[i].taskTitle") %>"; --%>
+		
 	</script>
 	
 	

@@ -200,7 +200,7 @@ button {
 					html += "<td>" + list[i].taskNo + "</td>";
 					html += "<td>과제</td>";
 					/* html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "'>" + list[i].taskTitle + "</a></td>"; */	
-					html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "&title=" + encodeURIComponent(list[i].taskTitle) + "'>" + list[i].taskTitle + "</a></td>";
+					html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "'>" + list[i].taskTitle + "</a></td>";
 
 					html += "<td>" + list[i].id + "</td>";
 					html += "<td>" + list[i].startDate + "</td>";

@@ -65,106 +65,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>프로그래밍 언어 활용</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가완료</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>데이터베이스 구현</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가완료</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>SQL활용</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가완료</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>UI 디자인</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>요구사항 확인</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td>서버프로그램 구현</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td>애플리케이션 설계</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td>인터페이스 구현</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td>공공데이터 활용하기</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td>애플리케이션 배포</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td>
-                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
-                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
-                </td>
-            </tr>
+        	<c:forEach var="e" items="${ list }">
+	            <tr>
+	                <td>${ e.testNo }</td>
+	                <td>${ e.testTitle }</td>
+	                <td>${ e.examDate }</td>
+	                <td>96.00</td>
+	                <td>
+	                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
+	                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
+	                </td>
+	            </tr>
+        	</c:forEach>
+            
         </tbody>
     </table>
   </div>
