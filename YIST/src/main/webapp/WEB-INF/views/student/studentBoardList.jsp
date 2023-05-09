@@ -210,7 +210,7 @@ button {
 				            html += "<tr>";
 				            html += "<td></td>";
 				            html += "<td></td>";
-				            html += "<td><a href='taskReplyDetail.st?tno=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>re: " + list[i].taskTitle + "</a></td>";                        
+				            html += "<td><a href='taskReplyDetail.st?taskNo=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>re: " + list[i].taskTitle + "</a></td>";                        
 				            html += "<td>" + list[i].studentId + "</td>";
 				            html += "<td>" + list[i].submitDate + "</td>";
 				            html += "<td style='color: red;'>마감</td>";

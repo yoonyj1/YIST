@@ -43,7 +43,7 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="Task" id="taskResultSet">
+<resultMap type="TaskS" id="taskResultSet">
 	<result column="task_no" property="taskNo" />
 	<result column="subject_no" property="subjectNo" />
 	<result column="id" property="id" />
@@ -58,7 +58,7 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="TaskSubmit" id="TaskSubmitResultSet">
+<resultMap type="TaskSubmitS" id="TaskSubmitResultSet">
 	<result column="task_no" property="taskNo" />
 	<result column="student_id" property="studentId" />
 	<result column="submit_content" property="submitContent" />
@@ -210,14 +210,14 @@
 <!-- 과제 답글 상세 조회 -->
 <select id="selectTaskReply" resultMap="taskResultSet">
 	SELECT 
-		   ts.task_no
-		 , t.task_title
-		 , ts.student_id
+		   ts.task_no as "task_no"
+		 , t.task_title as "task_title"
+		 , ts.student_id as "student_id"
 		 , to_char(ts.submit_date, 'YYYY-MM-DD') AS "submit_date"
-		 , ts.submit_content
+		 , ts.submit_content as "submit_content"
 	  FROM task t
 	 INNER JOIN task_submit ts ON t.task_no = ts.task_no
-	 WHERE ts.task_no = #{taskNo}
+	 WHERE ts.task_no = #{taskNo} and ts.student_id = #{studentId}
 </select>
 
 <!-- 과제 답글 삭제 -->

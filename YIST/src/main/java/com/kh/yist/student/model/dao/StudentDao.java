@@ -81,9 +81,9 @@ public class StudentDao {
 	}
 	
 	// 과제 답글 상세 조회
-	public Task selectTaskReply(SqlSessionTemplate sqlSession, int taskNo) {
+	public Task selectTaskReply(SqlSessionTemplate sqlSession, Task task) {
 		
-		return sqlSession.selectOne("studentMapper.selectTaskReply", taskNo);
+		return sqlSession.selectOne("studentMapper.selectTaskReply", task);
 	}
 	
 	// 과제 답글 삭제

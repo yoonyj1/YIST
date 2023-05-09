@@ -65,8 +65,8 @@ public class StudentService {
 	}
 	
 	// 과제 답글 상세 조회
-	public Task selectTaskReply(int taskNo) {
-		return sDao.selectTaskReply(sqlSession, taskNo);
+	public Task selectTaskReply(Task task) {
+		return sDao.selectTaskReply(sqlSession, task);
 	}
 	
 	// 과제 답글 삭제
