@@ -86,13 +86,12 @@ button {
 	    </div> 
     
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
-		    <input type="hidden" name="taskNo" value="${taskNo}">
-		    	<table id="write_frm">
+	    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
+			<table id="write_frm">
 					<tr>
 						<th width="25%">제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${ t.taskTitle }">
 						</td>
 					</tr>
 					<tr>
@@ -107,16 +106,15 @@ button {
 							</select>
 						</td>
 					</tr>
-					
 					<tr>
 						<td colspan="2">
-							<textarea id="summernote" name="submitContent" style="align: center; width: 100%" required></textarea>
+						  <textarea id="summernote" name="editordata" style="align: center;">${ ts.submitContent }</textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
-							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
+							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">수정하기</button>
+							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled" onclick="javascript:history.back();">취소하기</button>
 						</td>
 					</tr>
 			</table>
@@ -125,20 +123,17 @@ button {
 	</div>
 	
 	<script>
-	
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
+	            width: 1200,
 	  		    minHeight: null,             // 최소 높이
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	  		    lang: "ko-KR",					// 한글 설정
 			});
 		});
-		
-		
 	</script>
-	
 	
 	<jsp:include page="common/footer.jsp"></jsp:include>
 </body>

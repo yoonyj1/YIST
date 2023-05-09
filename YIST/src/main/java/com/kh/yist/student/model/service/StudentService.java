@@ -28,6 +28,11 @@ public class StudentService {
 		return sDao.testList(sqlSession);
 	}
 	
+	// 시험 상세 조회
+	public Exam testDetail(int examNo) {
+		return sDao.testDetail(sqlSession, examNo);
+	}
+	
 	// 공지사항 목록 조회
 	public int noticeListCount() {
 		return sDao.noticeListCount(sqlSession);
@@ -57,6 +62,16 @@ public class StudentService {
 	// 과제 상세 조회
 	public Task selectTask(int taskNo) {
 		return sDao.selectTask(sqlSession, taskNo);
+	}
+	
+	// 과제 답글 상세 조회
+	public Task selectTaskReply(int taskNo) {
+		return sDao.selectTaskReply(sqlSession, taskNo);
+	}
+	
+	// 과제 답글 삭제
+	public int deleteTask(int taskNo) {
+		return sDao.deleteTask(sqlSession, taskNo);
 	}
 	
 	// 우리반 게시판 과제 목록 조회

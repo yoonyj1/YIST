@@ -18,4 +18,10 @@ public class Exam {
 	private String examDate;
 	private int examTime;
 	private String status;
+	
+	private String q1;
+	private String q2;
+	private String q3;
+	private String q4;
+	private String q5;
 }

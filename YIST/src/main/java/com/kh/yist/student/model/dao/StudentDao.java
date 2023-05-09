@@ -22,6 +22,12 @@ public class StudentDao {
 		return (ArrayList)sqlSession.selectList("studentMapper.testList");
 	}
 	
+	// 시험 상세 조회
+	public Exam testDetail(SqlSessionTemplate sqlSession, int examNo) {
+		
+		return sqlSession.selectOne("studentMapper.testDetail", examNo);
+	}
+	
 	// 공지사항 목록 조회
 	public int noticeListCount(SqlSessionTemplate sqlSession) {
 		
@@ -72,6 +78,18 @@ public class StudentDao {
 	public Task selectTask(SqlSessionTemplate sqlSession, int taskNo) {
 		
 		return sqlSession.selectOne("studentMapper.selectTask", taskNo);
+	}
+	
+	// 과제 답글 상세 조회
+	public Task selectTaskReply(SqlSessionTemplate sqlSession, int taskNo) {
+		
+		return sqlSession.selectOne("studentMapper.selectTaskReply", taskNo);
+	}
+	
+	// 과제 답글 삭제
+	public int deleteTask(SqlSessionTemplate sqlSession, int taskNo) {
+		
+		return sqlSession.update("studentMapper.deleteTask", taskNo);
 	}
 	
 	// 우리반 게시판 Q&A 목록 조회

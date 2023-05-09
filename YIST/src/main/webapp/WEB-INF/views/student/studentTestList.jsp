@@ -72,7 +72,7 @@
 	                <td>${ e.examDate }</td>
 	                <td>96.00</td>
 	                <td>
-	                    <a href="#" class="btn btn-gray btn-circled">평가준비중</a>
+	                    <a href="testDetail.st?eno=${ e.testNo }" class="btn btn-gray btn-circled">평가준비중</a>
 	                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
 	                </td>
 	            </tr>

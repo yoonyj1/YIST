@@ -90,7 +90,7 @@ button {
 		    <input type="hidden" name="taskNo" value="${taskNo}">
 		    	<table id="write_frm">
 					<tr>
-						<th width="25%">제목</th>
+						<th>제목</th>
 						<td>
 							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
 						</td>
@@ -107,7 +107,18 @@ button {
 							</select>
 						</td>
 					</tr>
-					
+					<tr>
+						<th>비밀글 여부</th>
+						<td style="padding-top: 10px; text-align: left;">
+							<label>
+									<input type="checkbox" name="secret" id="secret" value="1"> 비밀글
+							</label>
+								<p>
+									* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
+									* 비밀글 등록 후 공개로 전환불가
+								</p>
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2">
 							<textarea id="summernote" name="submitContent" style="align: center; width: 100%" required></textarea>
@@ -136,6 +147,7 @@ button {
 			});
 		});
 		
+		<%-- document.getElementById("title").value = "<%= request.getParameter("list[i].taskTitle") %>"; --%>
 		
 	</script>
 	
