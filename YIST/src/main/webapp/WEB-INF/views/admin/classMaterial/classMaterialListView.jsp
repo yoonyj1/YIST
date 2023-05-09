@@ -317,6 +317,29 @@
                         boardNoArr.push($boardNo);
                       }
                     })
+
+                    $.ajax({
+
+                      type:'POST'
+                      ,url:'ajaxDelete.cm'
+                      ,data:{'boardNoArr':boardNoArr}
+                      ,success: function(result) {
+                        if(result == "YYYY"){
+                          alert("게시글 삭제에 성공했습니다.");
+                          location.reload();
+                        }else{
+                          alert("게시글 삭제에 실패했습니다. \n잠시 후 다시 시도해주세요.")
+                        }
+                      }
+                      ,error:function(){
+                        alert("오류가 발생했습니다! \n잠시 후 다시 시도해주세요.")
+                      }
+
+                    })
+
+                    
+
+
                   }
 
                 </script>

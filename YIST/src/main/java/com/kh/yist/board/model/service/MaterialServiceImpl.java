@@ -47,12 +47,12 @@ public class MaterialServiceImpl implements MaterialService {
 
 	@Override
 	public int deleteMaterial(int boardNo) {
-		return 0;
+		return mDao.deleteMaterial(sqlSession, boardNo);
 	}
 
 	@Override
 	public int updateMaterial(Material m) {
-		return 0;
+		return mDao.updateMaterial(sqlSession, m);
 	}
 
 	@Override

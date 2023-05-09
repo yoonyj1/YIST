@@ -70,4 +70,18 @@ public class MaterialDao {
 		
 	}
 	
+	public int deleteMaterial(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("classMapper.deleteMaterial", boardNo);
+		
+	}
+	
+	public int updateMaterial(SqlSessionTemplate sqlSession, Material m) {
+		
+		return sqlSession.update("classMapper.updateMaterial", m);
+		
+	}
+	
+	
+	
 }

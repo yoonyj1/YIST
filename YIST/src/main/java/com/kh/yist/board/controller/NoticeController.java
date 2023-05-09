@@ -145,15 +145,12 @@ public class NoticeController {
 	@RequestMapping("update.no")
 	public String updateBoard(Notice n, MultipartFile reupfile, HttpSession session) {
 		
-		if(!reupfile.getOriginalFilename().equals("")) {
-			// 새로 넘어온 첨부파일이 있을 경우
+		if(reupfile != null && !reupfile.getOriginalFilename().equals("")) {
 			
 			if(n.getOriginName() != null) {
-				// 기존 첨부파일 있는 경우 : 기존 첨부파일 삭제
 				new File( session.getServletContext().getRealPath(n.getChangeName()) ).delete();
 			}
 			
-			// 새 첨부파일 서버 업로드
 			String changeName = saveFile(reupfile, session);
 			
 			n.setOriginName(reupfile.getOriginalFilename());
@@ -179,7 +176,7 @@ public class NoticeController {
 	}	
 	
 	@RequestMapping("delete.no")
-	public String deleteNotice(String boardNo, String originName, String changeName,  MultipartFile upfile, HttpSession session) {
+	public String deleteNotice(String boardNo, String originName, String changeName, MultipartFile upfile, HttpSession session) {
 		
 		int bNo = Integer.parseInt(boardNo);
 		
@@ -218,10 +215,8 @@ public class NoticeController {
 			
 			int bNo = Integer.parseInt(b);
 
-			// 해당 번호의 게시글 정보 가져오기
 		    Notice n = nService.selectNotice(bNo);
 		    
-		    // 게시글의 첨부파일 삭제
 		    String originName = n.getOriginName();
 		    String changeName = n.getChangeName();
 		    

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -129,31 +131,112 @@ public class MaterialController {
 	
 	
 	@RequestMapping("updateForm.cm")
-	public String UpdateClassMaterialForm() {
+	public String UpdateClassMaterialForm(@RequestParam(value="no") int boardNo, Model model) {
+		
+		Material m = mService.selectMaterial(boardNo);
+		
+		model.addAttribute("m", m);
+		
 		return "admin/classMaterial/updateClassMaterialForm";
 	}	
 	
 	@RequestMapping("update.cm")
 	public String UpdateClassMaterial(Material m, MultipartFile reupfile, HttpSession session) {
 		
-		if(!reupfile.getOriginalFilename().equals("")) {
-			
+		
+		if(reupfile != null && !reupfile.getOriginalFilename().equals("")) {
+			System.out.println("여기가 null인가??");
 			if(m.getOriginName()!=null) {
+				
+				new File(session.getServletContext().getRealPath(m.getChangeName())).delete();
 				
 			}
 			
+			String changeName = saveFile(reupfile, session);
+			
+			m.setOriginName(reupfile.getOriginalFilename());
+			m.setChangeName("resources/materialUploadFiles/"+changeName);
+			
+		}
+		
+		System.out.println(m);
+		
+		int result = mService.updateMaterial(m);
+		
+		if(result > 0) {
+			
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "게시글 수정에 성공했습니다");
 			
 		}
 		
 		
-		return "admin/classMaterial/updateClassMaterialForm";
+		return "redirect:update.cm?no="+m.getBoardNo();
 		
 		
 	}		
 	
 	
+	@RequestMapping("delete.cm")
+	public String deleteClassMaterial(String boardNo, String originName, String changeName, MultipartFile upfile, HttpSession session) {
+		
+		int bNo = Integer.parseInt(boardNo);
+		
+		
+		if(originName != null && !originName.isEmpty()) {
+
+			new File( session.getServletContext().getRealPath(changeName) ).delete();
+			
+		}
+		
+		int result = mService.deleteMaterial(bNo);
+		
+		if(result > 0) {
+			
+			session.setAttribute("alertMsg", "게시글 삭제에 성공했습니다!");
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "게시글 삭제에 실패했습니다!");
+			
+		}
+		
+		return "redirect:classMaterialAdminList.ad";
+		
+	}
 	
 	
+	@ResponseBody
+	@RequestMapping("ajaxDelete.cm")
+	public String ajaxDeleteClassMaterial(@RequestParam("boardNoArr[]") List<String> boardNo, HttpSession session, MultipartFile upfile) {
+		
+		for(String b : boardNo) {
+			
+			int bNo = Integer.parseInt(b);
+			
+			Material m = mService.selectMaterial(bNo);
+			
+			String originName = m.getOriginName();
+			String changeName = m.getChangeName();
+			
+			if(originName != null && !originName.isEmpty()) {
+				new File(session.getServletContext().getRealPath(changeName)).delete();
+			}
+			
+			int result = mService.deleteMaterial(bNo);
+			
+			if(result <= 0) {
+				return "YYYN";
+			}
+			
+			
+		}
+		
+		return "YYYY";
+		
+	}
 	
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
@@ -181,6 +264,7 @@ public class MaterialController {
 
 
 		return changeName;
+		
 	}
 	
 	

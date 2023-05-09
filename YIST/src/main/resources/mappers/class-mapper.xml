@@ -172,5 +172,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			)
 	
 	</insert>
+	
+	
+	<update id="updateMaterial">
+		update
+				material_board
+		   set
+		   		board_title = #{ boardTitle }
+		   		, class_no = #{ classNo }
+		   		, board_content = #{ boardContent }
+		   		, origin_name = #{ originName }
+		   		, change_name = #{ changeName }
+		  where
+		  		board_no = #{ boardNo }
+	
+	</update>
+	
+	<update id="deleteMaterial">
+	
+		update
+				material_board
+		   set
+		   		status = 'N'
+		   		, ORIGIN_NAME = NULL
+		   		, CHANGE_NAME = NULL
+		  where
+		  		board_no = #{ boardNo }
+	
+	</update>
+	
+
 
 </mapper>

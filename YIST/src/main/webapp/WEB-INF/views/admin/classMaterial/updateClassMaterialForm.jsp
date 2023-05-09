@@ -59,6 +59,17 @@
         })
 	</script>
 	
+
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
+
+
+
 	<div class="card card-default">
               <div class="card-header">
                 <h2>수업 자료 수정</h2>
@@ -74,7 +85,7 @@
 		                      <th>제목</th>
 		                      <td>
 		                        <div class="input-group mb-3">
-		                          <input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" required value="">
+		                          <input type="text" name="boardTitle" value="${ m.boardTitle }" class="form-control" placeholder="제목을 입력하세요" required>
 		                        </div>
 		                      </td>
 		                    </tr>
@@ -177,6 +188,26 @@
 
 		function backToList(){
 			location.href='classMaterialAdminList.ad';
+		}
+
+		
+		function loadFile(input) {
+				    let file = input.files[0];	
+
+				    let $newImage = $("#preview");
+
+				    if (file != '') {
+				         let reader = new FileReader();
+				         reader.readAsDataURL(file);
+				         reader.onload = function (e) { 
+				        	 $newImage.attr('src', e.target.result);
+				        	 $newImage.css('display', 'block');
+				         }
+				    }else{
+				    	
+				        	 $newImage.css('display', 'none');
+				    }
+				    
 		}
 
 	</script>
