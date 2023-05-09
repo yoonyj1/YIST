@@ -129,9 +129,32 @@ public class MaterialController {
 	
 	
 	@RequestMapping("updateForm.cm")
-	public String UpdateClassMaterial() {
+	public String UpdateClassMaterialForm() {
 		return "admin/classMaterial/updateClassMaterialForm";
 	}	
+	
+	@RequestMapping("update.cm")
+	public String UpdateClassMaterial(Material m, MultipartFile reupfile, HttpSession session) {
+		
+		if(!reupfile.getOriginalFilename().equals("")) {
+			
+			if(m.getOriginName()!=null) {
+				
+			}
+			
+			
+		}
+		
+		
+		return "admin/classMaterial/updateClassMaterialForm";
+		
+		
+	}		
+	
+	
+	
+	
+	
 	
 	public String saveFile(MultipartFile upfile, HttpSession session) {
 		
