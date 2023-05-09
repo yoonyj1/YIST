@@ -46,6 +46,10 @@ public class MemberDao {
 	public int deleteInstructor(SqlSession sqlSession, String id) {
 		return sqlSession.update("memberMapper.deleteInstructor", id);
 	}
+
+	public ArrayList<Member> selectExamMemberList(SqlSession sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectExamMemberList", subject);
+	}
 	
 
 }

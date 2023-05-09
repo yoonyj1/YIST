@@ -103,8 +103,8 @@ public class MemberController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 
 		loginUser.setExamTime(setTime);
-		
 		loginUser.setUserTime(userTime);
+		
 		
 		session.setAttribute("loginUser", loginUser);
 		

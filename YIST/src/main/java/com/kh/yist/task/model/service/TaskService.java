@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.task.model.dao.TaskDao;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
@@ -64,6 +65,14 @@ public class TaskService {
 
 	public Exam selectQuestion(int testNo) {
 		return tDao.selectQuestion(sqlSession, testNo);
+	}
+
+	public int setExam(int testNo) {
+		return tDao.setExam(sqlSession, testNo);
+	}
+
+	public ArrayList<Member> selectExamMemberList(String subject) {
+		return tDao.selectExamMemberList(sqlSession, subject);
 	}
 	
 }

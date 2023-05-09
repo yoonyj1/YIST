@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap id="taskSubmitResultSet" type="TaskSubmit">
 		<result column="task_no" property="taskNo"></result>
-		<result column="id" property="id"></result>
+		<result column="student_id" property="id"></result>
 		<result column="task_title" property="taskTitle"></result>
 		<result column="submit_content" property="submitContent"></result>
 		<result column="name" property="name"></result>
@@ -170,12 +170,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        t.task_no as "task_no"
 		      , t.task_title as "task_title"
 		      , submit_content as "submit_content"
-		      , s.id
+		      , s.student_id
 		      , name
 			  , submit_date
 		      , s.status as "status"
 		FROM task_submit s
-		join member m on (s.id = m.id)
+		join member m on (s.student_id = m.id)
 		join task t on (s.task_no = t.task_no)
 		where s.task_no = #{taskNo}
 	</select>
@@ -252,6 +252,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		join member m on (e.id = m.id)
 		where test_no = #{testNo} and e.id = #{id}
 	</select>
+	
+	<update id="setExam">
+		update exam
+			set status = 'Y',
+			    exam_date = sysdate
+		where test_no = #{test_no}
+	</update>
+	
 </mapper>
 
 

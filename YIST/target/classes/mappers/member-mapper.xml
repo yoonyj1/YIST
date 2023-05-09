@@ -241,7 +241,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	and sort = 2	   		
 	</update>
 
-
+	<select id="selectExamMemberList" resultMap="memberResultSet">
+		select 
+				id
+			  , name
+		from member
+		where sort = 3 and subject = #{subject} and status = 'Y'
+	</select>
 
 
 </mapper>

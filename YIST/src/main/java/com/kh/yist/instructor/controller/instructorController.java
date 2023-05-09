@@ -6,13 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
-import com.sun.tools.javac.code.Attribute.Array;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -35,6 +34,8 @@ public class instructorController {
 
 	@Autowired
 	private TaskService tService;
+	
+	@Autowired MemberServiceImpl mService;
 	
 	@RequestMapping("scoreForm.ins")
 	public String scoreForm(HttpSession session, Model model, int testNo) {
@@ -54,12 +55,26 @@ public class instructorController {
 		Member ins = (Member)session.getAttribute("loginUser");
 		
 		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
+		ArrayList<Member> memberList = mService.selectExamMemberList(ins.getSubject());
 		
 		model.addAttribute("examList", examList);
+		model.addAttribute("memberList", memberList);
 		
 		return "instructor/examForm";
 	}
 
+	@ResponseBody
+	@RequestMapping("setExam.ins")
+	public int setExam(int testNo) {
+		int result = tService.setExam(testNo);
+		
+		if (result > 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+	
 	@RequestMapping("calendar.ins")
 	public String Calendar() {
 		return "instructor/calendarForm";
@@ -106,7 +121,6 @@ public class instructorController {
 
 			task.setOriginName(upfile.getOriginalFilename());
 			task.setChangeName("resources/instructor/uploadFiles/" + changeName);
-
 		}
 
 		int insertTask = tService.insertTask(task);

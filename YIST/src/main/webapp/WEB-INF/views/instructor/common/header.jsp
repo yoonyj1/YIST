@@ -92,6 +92,7 @@
 
 	<c:if test="${loginUser.examTime > 0}">
 		<script>
+			let examNo = 0;
 			$(document).ready(function() {
 				
 				let currentTime = Math.round(new Date() / 1000);
@@ -128,7 +129,6 @@
 								  if ($("#timeDisplay").val() != ""){
 								  		alert("시험종료");
 								  		$("#timeDisplay").val("");	
-								  		$(".test-score").attr("disabled",false);
 									}
 							  },
 							  error : function(){
@@ -272,10 +272,6 @@
 					
 					<li><a class="sidenav-item-link" href="calendar.ins"> <i
 							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
-					</a></li>
-					
-					<li><a class="sidenav-item-link" href="dataForm.ins"> <i
-							class="mdi mdi-paperclip"></i> <span class="nav-text">자료</span>
 					</a></li>
 					
 					<li><a class="sidenav-item-link" href="taskForm.ins"> <i

@@ -56,6 +56,11 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	public ArrayList<Member> selectExamMemberList(String subject) {
+		return mDao.selectExamMemberList(sqlSession, subject);
+	}
+
+	
 	// 쪽지저장
 	@Override
 	public int insertMessage(Message message) {

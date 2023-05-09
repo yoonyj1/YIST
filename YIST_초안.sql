@@ -252,12 +252,17 @@ insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험2', nul
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험3', null, null, DEFAULT);
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험4', null, null, DEFAULT);
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험5', null, null, DEFAULT);
-insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
 
 insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
 insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
 
-
+insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
+insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_1.png','resources/instructor/uploadFiles/java_exam2_2.png','resources/instructor/uploadFiles/java_exam2_3.png','resources/instructor/uploadFiles/java_exam2_4.png','resources/instructor/uploadFiles/java_exam2_5.png','int answer = 0;'||CHR(10)||'if (age > 0 && age <= 120){'||CHR(10)||'answer = (2023 - age);'||CHR(10)||'}'||CHR(10)||'return answer;','rr','d1','11','11');
 
 
 commit;
+
+select id, name
+from member
+where sort = 3 and subject = 1 and status = 'Y';
+
