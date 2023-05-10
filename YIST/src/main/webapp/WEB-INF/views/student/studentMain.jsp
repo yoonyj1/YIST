@@ -11,7 +11,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
-
 td:hover {
   background-color: #9cd3f4;
   }
@@ -37,25 +36,7 @@ td:hover {
 	              <li class="classroom">${loginUser.startDate} ~ ${loginUser.endDate}</li>
 	              <li>김시연 강사님</li>
 	              <br>
-	              <li>
-	              <a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
-	                <!-- <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</button> -->
-	                <button type="button" class="btn btn-dark btn-theme-colored btn-circled position-relative" 
-	                tabindex="0" data-toggle="popover" data-trigger="focus" title="알림" data-html="true" data-content="
-                      <a href='testList.st'>채점이 완료되었습니다.</a>
-                      <hr>
-                      <a href='testList.st'>공지사항이 등록되었습니다.</a>
-                      <hr>
-                      <a href='testList.st'>등록하신 게시글에 댓글이 달렸습니다.</a>
-                      <hr>
-                      <a href='testList.st'>등록하신 게시글에 댓글이 달렸습니다.</a>
-
-                      " data-placement="right" style="max-height: none;">&nbsp;&nbsp;알림&nbsp;&nbsp;
-                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-					    5
-					  </span>
-                      </button>
-	              </li>
+	              <li><a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a></li>
 	            </ul>
 	          </div>
 	        </div>
