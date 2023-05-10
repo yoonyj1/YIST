@@ -28,6 +28,7 @@
 	div.card-header table#addMaterialClass-table td>label{
 		margin-right: 5px;
 	}
+
 	
 </style>
 
@@ -41,35 +42,22 @@
 	        $(document).ready(function(){
 	        	
 	          $('.summernote').summernote({
-	            // 에디터 높이
+				disableResize: true,
 	            height: 750,
-	            // 에디터 한글 설정
 	            lang: "ko-KR",
-	            // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
 	            focus : true,
 	            toolbar: [
-	                // 글꼴 설정
 	                ['fontname', ['fontname']],
-	                // 글자 크기 설정
 	                ['fontsize', ['fontsize']],
-	                // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
 	                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-	                // 글자색
 	                ['color', ['forecolor','color']],
-	                // 표만들기
 	                ['table', ['table']],
-	                // 글머리 기호, 번호매기기, 문단정렬
 	                ['para', ['ul', 'ol', 'paragraph']],
-	                // 줄간격
 	                ['height', ['height']],
-	                // 그림첨부, 링크만들기, 동영상첨부
-	                ['insert',['picture','link','video']],
-	                // 코드보기, 확대해서보기, 도움말
+	                ['insert',['link']],
 	                ['view', ['codeview','fullscreen', 'help']]
 	              ],
-	              // 추가한 글꼴
 	            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-	            // 추가한 폰트사이즈
 	            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	          });
 	          
@@ -84,14 +72,14 @@
 		</div>
 
 		<div class="card-body">
-			<form method="post" action="">
+			<form method="post" action="insert.cm" enctype="multipart/form-data">
 				<table class="table table-bordered" id="addMaterialClass-table">
-                    
+                    <input type="hidden" name="boardWriter" value="${ loginUser.id }">
 					<tr>
 						<th>제목</th>
 						<td>
 							<div class="input-group mb-3">
-								<input type="text" name="materialTitle" class="form-control" placeholder="제목을 입력하세요">
+								<input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요">
 	                        </div>
                       	</td>
                     </tr>
@@ -100,11 +88,10 @@
                       <th>과목</th>
                       <td>
                         <div class="form-group" style="width: 30%;">
-                          <select name="className" class="js-example-basic-multiple form-control" required>
-                            <option value=" ">과목1</option>
-                            <option value=" ">과목2</option>
-                            <option value=" ">과목3</option>
-                            <option value=" ">과목4</option>
+                          <select name="classNo" class="js-example-basic-multiple form-control" required>
+                            <option value="1">자바</option>
+                            <option value="2">파이썬</option>
+                            <option value="3">C</option>
                           </select>
                         </div>
                       </td>
@@ -112,23 +99,53 @@
 
                     <tr>
                       <th colspan="2" style="width: 100%;">
-                        <textarea name="content" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
+                        <textarea name="boardContent" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
                       </th>
                     </tr>
 
                     <tr>
                       <th>첨부파일</th>
-                      <td><input type="file" name="" id=""></td>
+                      <td>
+						<input type="file" name="upfile" onchange="loadFile(this);">
+                        <img id="preview" src="#" width=200 height=150 style="align-content: flex-end; display:none;">
+					</td>
                     </tr>
 
 				</table>
                   
 				<div class="btn-center">
                     <button class="btn btn-primary btn-pill mr-2" type="submit">등록</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">취소</button>
 				</div>
 			</form>
-            
+
+			<script>
+				function backToList(){
+					location.href='classMaterialAdminList.ad';
+				}
+
+				function loadFile(input) {
+					let file = input.files[0];	
+
+					let $newImage = $("#preview");
+
+					if (file != '') {
+						 let reader = new FileReader();
+						 reader.readAsDataURL(file);
+
+						 reader.onload = function (e) { 
+							 $newImage.attr('src', e.target.result);
+							 $newImage.css('display', 'block');
+						 }
+						 
+					}else{
+						
+						 $newImage.css('display', 'none');
+					}
+					
+				}
+				
+			</script>            
 
 
 		</div>

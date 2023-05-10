@@ -1,6 +1,8 @@
 package com.kh.yist.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,7 +44,7 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Override
 	public int deleteNotice(int boardNo) {
-		return 0;
+		return nDao.deleteNotice(sqlSession, boardNo);
 	}
 
 	@Override
@@ -53,6 +55,18 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int increaseCount(int boardNo) {
 		return nDao.increaseCount(sqlSession, boardNo);
+	}
+
+
+
+	@Override
+	public int selectSearchCount(HashMap<String, String> map) {
+		return nDao.selectSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return nDao.selectSearchList(sqlSession, map, pi);
 	}
 
 }

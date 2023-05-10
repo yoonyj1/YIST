@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.student.model.dao.StudentDao;
-import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
@@ -22,16 +21,6 @@ public class StudentService {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
-	// 시험 목록 조회
-	public ArrayList<Exam> testList() {
-		return sDao.testList(sqlSession);
-	}
-	
-	// 시험 상세 조회
-	public Exam testDetail(int examNo) {
-		return sDao.testDetail(sqlSession, examNo);
-	}
 	
 	// 공지사항 목록 조회
 	public int noticeListCount() {
@@ -64,23 +53,8 @@ public class StudentService {
 		return sDao.selectTask(sqlSession, taskNo);
 	}
 	
-	// 과제 답글 상세 조회
-	public Task selectTaskReply(int taskNo) {
-		return sDao.selectTaskReply(sqlSession, taskNo);
-	}
-	
-	// 과제 답글 삭제
-	public int deleteTask(int taskNo) {
-		return sDao.deleteTask(sqlSession, taskNo);
-	}
-	
 	// 우리반 게시판 과제 목록 조회
 	public ArrayList<QnA> qnaList() {
 		return sDao.qnaList(sqlSession);
-	}
-	
-	// 과제 등록
-	public int taskInsert(Task t) {
-		return sDao.taskInsert(sqlSession, t);
 	}
 }

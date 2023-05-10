@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="examMaterialMapper">
+	
+	<resultMap id="classResultSet" type="Class">
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="CLASS_NAME" property="className"></result>
+	</resultMap>
+	
+	<resultMap id="eaxmMaterialResultSet" type="ExamMaterial">
+		<result column="BOARD_NO" property="boardNo"></result>
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="BOARD_TITLE" property="boardTitle"></result>
+		<result column="BOARD_WRITER" property="boardWriter"></result>
+		<result column="BOARD_CONTENT" property="boardContent"></result>
+		<result column="ORIGIN_NAME" property="originName"></result>
+		<result column="CHANGE_NAME" property="changeName"></result>
+		<result column="COUNT" property="count"></result>
+		<result column="CREATE_DATE" property="createDate"></result>
+		<result column="STATUS" property="status"></result>
+	</resultMap>
+
+
+	
+
+</mapper>

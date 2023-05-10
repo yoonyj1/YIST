@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,7 +55,6 @@ public class NoticeController {
 	@RequestMapping("insert.no")
 	public String insertNotice(Notice n, HttpSession session, MultipartFile upfile) {
 		
-		System.out.println(n);
 		
 		if(!upfile.getOriginalFilename().equals("")) {
 
@@ -143,15 +145,12 @@ public class NoticeController {
 	@RequestMapping("update.no")
 	public String updateBoard(Notice n, MultipartFile reupfile, HttpSession session) {
 		
-		if(!reupfile.getOriginalFilename().equals("")) {
-			// 새로 넘어온 첨부파일이 있을 경우
+		if(reupfile != null && !reupfile.getOriginalFilename().equals("")) {
 			
 			if(n.getOriginName() != null) {
-				// 기존 첨부파일 있는 경우 : 기존 첨부파일 삭제
 				new File( session.getServletContext().getRealPath(n.getChangeName()) ).delete();
 			}
 			
-			// 새 첨부파일 서버 업로드
 			String changeName = saveFile(reupfile, session);
 			
 			n.setOriginName(reupfile.getOriginalFilename());
@@ -172,8 +171,99 @@ public class NoticeController {
 			session.setAttribute("alertMsg", "공지사항 수정에 실패했습니다!");
 		}
 		
-		return "redirect:detail.no?no="+n.getBoardNo();
+		return "redirect:update.no?no="+n.getBoardNo();
 		
 	}	
- 
+	
+	@RequestMapping("delete.no")
+	public String deleteNotice(String boardNo, String originName, String changeName, MultipartFile upfile, HttpSession session) {
+		
+		int bNo = Integer.parseInt(boardNo);
+		
+		
+		Notice n = nService.selectNotice(bNo);
+		
+		if(originName != null && !originName.isEmpty()) {
+
+			new File( session.getServletContext().getRealPath(changeName) ).delete();
+			
+		}
+		
+		int result = nService.deleteNotice(bNo);
+		
+		if(result>0) {
+			
+			session.setAttribute("alertMsg", "공지사항 삭제 성공!");
+			
+			
+		}else {
+			
+			session.setAttribute("alertMsg", "공지사항 삭제에 실패했습니다!");
+			
+		}
+		
+		return "redirect:noticeAdminList.ad";
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("ajaxDelete.no")
+	public String ajaxDeleteNotice(@RequestParam("boardNoArr[]") List<String> boardNo, HttpSession session, MultipartFile upfile) {
+	
+		for(String b : boardNo) {
+		    
+			
+			int bNo = Integer.parseInt(b);
+
+		    Notice n = nService.selectNotice(bNo);
+		    
+		    String originName = n.getOriginName();
+		    String changeName = n.getChangeName();
+		    
+		    if(originName != null && !originName.isEmpty()) {
+		        new File(session.getServletContext().getRealPath(changeName)).delete();
+		    }
+		    
+		    // 게시글 삭제
+		    int result = nService.deleteNotice(bNo);
+		    
+		    if(result <= 0) {
+		        return "YYYN"; // 삭제 실패
+		    }
+		}
+
+		return "YYYY";
+		
+		
+	}
+	
+	@RequestMapping("search.no")
+	public ModelAndView selectSearch(String condition, String keyword, @RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("condition",condition);
+		map.put("keyword", keyword);
+		
+		
+		int listCount = nService.selectSearchCount(map);
+		
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		
+		ArrayList<Notice> list = nService.selectSearchList(map, pi);
+		
+		
+		
+		mv.addObject("list", list);
+		mv.addObject("condition", condition);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pi", pi);
+		
+		mv.setViewName("admin/notice/noticeAdminView");
+		
+		return mv;
+		
+	}
 }

@@ -1,4 +1,4 @@
-package com.kh.yist.student.model.vo;
+package com.kh.yist.board.model.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Material {
+public class ExamMaterial {
 
 	private int boardNo;
 	private int classNo;
@@ -22,5 +22,4 @@ public class Material {
 	private String createDate;
 	private String status;
 	
-	private String className;
 }
