@@ -149,7 +149,8 @@ tr {
     <jsp:include page="../instructor/common/header.jsp"></jsp:include>
        <div style="height: 1000px; class="all">
         <div class="leftMenu">
- 
+ 						<form action="update.me" method="post">
+ 						<input type="hidden" id="id" name="id" value="${loginUser.id}">
                         <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 50px;">
                             <div id="photoArea">
                                 <div class="photoGroup" style="margin: 20px;">
@@ -166,62 +167,53 @@ tr {
                                 <tbody>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">이름 </th>
-                                    <td><input type="text" name="memName" value="김누구" maxlength="20" style="width:100%; height: 35px;" ></td>
+                                    <td><input type="text" name="name" value="${loginUser.name }" maxlength="20" style="width:100%; height: 35px;" ></td>
                                     
                                 </tr>
                                 <tr>
-                                    <th style="color: rgb(87, 87, 87);">성별 </th>
-                                    <td>
-                                        <input type="radio" name="sex" value="남" checked="">남 
-                                        <input type="radio" name="sex" value="여">여
-                                        &nbsp;(26세)
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th style="color: rgb(87, 87, 87);">아이디 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="memId" value="user03" class="readon"></td>
-                                </tr>
-                                <tr>
-                                    <th style="color: rgb(87, 87, 87);">비밀번호 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="pw" value="pass03" maxlength="16" ></td>
+                                    <td><input type="text" style="width:100%; height: 35px;" name="id" value="${loginUser.id}" class="readon" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">생년월일</th>
                                     <td>
-                                        <input type="text" style="width:80px; height: 35px;" class="datepicker hasDatepicker" readonly="" name="birthday" value="1998-12-24" id="dp1680462505816" > 
+                                        <input type="text" style="width:80px; height: 35px;" class="datepicker hasDatepicker" name="birth" value="${loginUser.birth}" id="dp1680462505816" > 
                                     </td>
                                 </tr>   
                                 <tr>
                                 <th style="color: rgb(87, 87, 87);">이메일</th>
-                                <td><input type="text" name="email" value="jane9512@naver.com" maxlength="50" style="width:100%; height: 35px;"></td>
+                                <td><input type="text" name="email" value="${loginUser.email}" maxlength="50" style="width:100%; height: 35px;"></td>
                                 </tr>                          
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">반</th>
-                                    <td><input type="text" name="class" value="361" maxlength="30" style="width:30px; height: 35px;" disabled="" >반</td>
+                                    <td><input type="text" name="subject" value="361" maxlength="30" style="width:30px; height: 35px;" disabled="" >반</td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">휴대전화</th>
                                     <td>
-                                        <input type="text" name="pcs" value="010-5285-0376" maxlength="15" style="width:200px; height: 35px;" > 
+                                        <input type="text" name="phone" value="${loginUser.phone}" maxlength="15" style="width:200px; height: 35px;" > 
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">주소 </th>
                                     <td colspan="3">
                                         <div style="padding-bottom:5px;">
-                                            <input type="text" style="width:100px; height: 35px;" name="zipcode" id="zipcode" title="우편번호" value="07362" maxlength="5" onkeyup="chkNumeric(this);"> 
+                                            <input type="text" style="width:100px; height: 35px;" name="post" id="zipcode" value="${loginUser.post}" maxlength="5" onkeyup="chkNumeric(this);"> 
                                             </div>
                                         <div>
-                                            <input type="text" style="width:41%; height: 35px;" name="address1" id="address1" value="서울시 영등포구 신길동" maxlength="150" title="주소" >
-                                            <input type="text" style="width:41%; height: 35px;" name="address2" id="address2" value="래미안아파트101동303호" maxlength="50" title="상세주소" >
+                                            <input type="text" style="width:41%; height: 35px;" name="address" id="address1" value="${loginUser.address}" maxlength="150" title="주소" >
+                                            <input type="text" style="width:41%; height: 35px;" name="detailAddress" id="address2" value="${loginUser.detailAddress}" maxlength="50" title="상세주소" >
                                         </div>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
+			                	<div class="btns" align="center">
+			                    <button type="submit" class="btn btn-primary">수정하기</button>
+			                    </div>
                         </div>
-                    </div> 
                     </form>
+                    </div> 
                 </div> 
                 
 
@@ -230,8 +222,10 @@ tr {
 
 
 
+
 	</div>
 	</div>
        
     </body>
+    
 </html>

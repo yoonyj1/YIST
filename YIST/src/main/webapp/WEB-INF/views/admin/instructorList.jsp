@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>ADMIN-강사관리</title>
+  <title>ADMIN-강사관리</title>
 
 
 </head>
@@ -30,51 +30,62 @@
 				class="btn btn-outline-danger">강사삭제</button>
 		</div>
 		
-		<!-- 강사 목록 테이블 -->
-		<div class="card-body">
-			<table class="table">
-				<thead>
-					<tr>
-						<th class="selectTeacher" style="display: none;">선택</th>
-						<th scope="col">이름</th>
-						<th scope="col">전화번호</th>
-						<th scope="col">담당과목</th>
-						<th scope="col" style="text-align: center;">관리</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="i" items="${ list }">
+		<ul class="nav nav-tabs" id="pills-tab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#nav-tabs-home" role="tab"
+		      aria-controls="nav-tabs" aria-selected="true">강의배정</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile" role="tab"
+		      aria-controls="nav-profile" aria-selected="false">미배정</a>
+		  </li>
+		</ul>
+		<div class="tab-content mt-5" id="nav-tabContent">
+		  <div class="tab-pane fade show active" id="nav-tabs-home" role="tabpanel" aria-labelledby="nav-home-tab">
+		    <!-- 강사 목록 테이블 -->
+			<div class="card-body">
+				<table class="table">
+					<thead>
 						<tr>
-							<td style="display: none;">
-								<input type="checkbox" name="deleteCheck" value=${ i.id }>
-							</td>
-							<td>${ i.name }</td>
-							<c:choose>
-								<c:when test="${ not empty i.phone }">
-									<td>${ i.phone }</td>
-								</c:when>
-								<c:otherwise>
-									<td>-</td>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${ not empty i.subject }">
-									<td>${ i.subject }</td>
-								</c:when>
-								<c:otherwise>
-									<td>-</td>
-								</c:otherwise>
-							</c:choose>
-							<td align="center"><button
-									class="btn btn-sm btn-primary selectTeacherButton"
-									onclick="location.href='teacherDetail.do?id=${i.id}'">조회</button></td>
+							<th class="selectTeacher" style="display: none;">선택</th>
+							<th scope="col">이름</th>
+							<th scope="col">전화번호</th>
+							<th scope="col">담당과목</th>
+							<th scope="col" style="text-align: center;">관리</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="card card-default align-items-center"
+					</thead>
+					<tbody>
+						<c:forEach var="i" items="${ list }">
+							<tr>
+								<td style="display: none;">
+									<input type="checkbox" name="deleteCheck" value=${ i.id }>
+								</td>
+								<td>${ i.name }</td>
+								<c:choose>
+									<c:when test="${ not empty i.phone }">
+										<td>${ i.phone }</td>
+									</c:when>
+									<c:otherwise>
+										<td>-</td>
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${ not empty i.subject }">
+										<td>${ i.subject }</td>
+									</c:when>
+									<c:otherwise>
+										<td>-</td>
+									</c:otherwise>
+								</c:choose>
+								<td align="center"><button
+										class="btn btn-sm btn-primary selectTeacherButton"
+										onclick="location.href='teacherDetail.do?id=${i.id}'">조회</button></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+				<div class="card card-default align-items-center"
 			style="margin-left: 0px;">
 			<div class="card-body">
 
@@ -106,6 +117,50 @@
 				</nav>
 			</div>
 		</div>
+			</div>
+			  </div>
+			  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+			   <div class="card-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="selectTeacher" style="display: none;">선택</th>
+							<th scope="col">이름</th>
+							<th scope="col">전화번호</th>
+							<th scope="col" style="text-align: center;">관리</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="n" items="${ nList }">
+							<tr>
+								<td style="display: none;">
+									<input type="checkbox" name="deleteCheck" value=${ n.id }>
+								</td>
+								<td>${ n.name }</td>
+								<c:choose>
+									<c:when test="${ not empty n.phone }">
+										<td>${ n.phone }</td>
+									</c:when>
+									<c:otherwise>
+										<td>-</td>
+									</c:otherwise>
+								</c:choose>
+								<td align="center"><button
+										class="btn btn-sm btn-primary selectTeacherButton"
+										onclick="location.href='teacherDetail.do?id=${n.id}'">조회</button></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+				
+			  </div>
+			</div>
+		
+		
+		
+
+		
 		<script>
        $(function(){
          $("#deleteTeacher").one('click', function(){
