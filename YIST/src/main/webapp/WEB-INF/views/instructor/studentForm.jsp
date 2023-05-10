@@ -191,7 +191,7 @@ tr {
                     <table cellpadding="0" cellspacing="0" width="100%" class="leftMemList">
                                 <tbody style="height: 40px; color: black;">
                                 	<c:forEach var="b" items="${list}">
-                                    <tr id="listItem_user03" class="on">
+                                    <tr id="listItem_user03" class="on" id="btn1">
                                     <td width="30" align="center"><input type="checkbox" name="mobileNo" id="listItemMobileNo_user03" value=""></td>
                                     <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">1</td>
                                     <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
@@ -299,5 +299,8 @@ tr {
     			})
     		})
 		</script>
-    
+    	<!-- 학생정보클릭함수 -->
+    	<script>
+    	
+    	</script>
 </html>

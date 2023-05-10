@@ -14,6 +14,10 @@ public class MemberDao {
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
 	}
+	
+	public Member selectTeacher(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.selectTeacher", m);
+	}
 
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.insert("memberMapper.insertMember", m);
@@ -33,6 +37,10 @@ public class MemberDao {
 
 	public ArrayList<Member> selectList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectList");
+	}
+	
+	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateTeacher",m);
 	}
 
 }

@@ -10,6 +10,7 @@ public interface MemberService {
 	
 	// 로그인 서비스(select)
 	Member loginMember(Member m);
+	Member selectTeacher(Member m);
 	
 	// 회원가입 서비스 (insert)
 	int insertMember(Member m);
@@ -32,4 +33,7 @@ public interface MemberService {
 	int updateMessage(String userId);
 	
 	ArrayList<Member> selectList();
+	
+	//선생정보 수정
+	int updateTeacher(Member m);
 }

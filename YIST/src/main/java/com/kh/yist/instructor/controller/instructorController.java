@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
@@ -44,6 +45,11 @@ public class instructorController {
 	@RequestMapping("examForm.ins")
 	public String examForm() {
 		return "instructor/examForm";
+	}
+	
+	@RequestMapping("teacher.ins")
+	public String teacher() {
+		return "instructor/teacher";
 	}
 
 	@RequestMapping("calendar.ins")
@@ -71,11 +77,6 @@ public class instructorController {
 	@RequestMapping("yistcheck.ins")
 	public String yistcheck() {
 		return "instructor/yistcheck";
-	}
-
-	@RequestMapping("teacher.ins")
-	public String teacher() {
-		return "instructor/teacher";
 	}
 
 	@RequestMapping("dataForm.ins")
@@ -252,6 +253,21 @@ public class instructorController {
 		return changeName;
 	}
 	
-	
+	@RequestMapping("/update.me")
+	public String updateMember(Member m,HttpSession session,Model model) {
+		int result = mService.updateTeacher(m);
+		System.out.println(m);
+		System.out.println(result);
+		if(result>0) {
+			
+			session.setAttribute("loginUser", mService.selectTeacher(m));
+			session.setAttribute("alerMsg", "수정 완료");
+			return "redirect:teacher.ins";
+			
+		}else {
+			model.addAttribute("errorMsg", "실패");
+			return "common/errorPage";
+		}
+	}
 
 }
