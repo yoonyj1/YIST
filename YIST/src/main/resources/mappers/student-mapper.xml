@@ -56,6 +56,7 @@
 	<result column="submit_date" property="submitDate" />
 	<result column="modify_date" property="modifyDate" />
 	<result column="status" property="status" />
+	<result column="submit_status" property="submit_Status"/>
 	<result column="origin_name" property="originName" />
 	<result column="change_name" property="changeName" />
 </resultMap>
@@ -67,6 +68,7 @@
 	<result column="submit_date" property="submitDate" />
 	<result column="modify_date" property="modifyDate" />
 	<result column="status" property="status" />
+	<result column="submit_status" property="submitStatus"/>
 </resultMap>
 
 <resultMap type="Qna" id="qnaResultSet">
@@ -181,10 +183,14 @@
 	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
 	     , origin_name
          , change_name
+         , ts.status as "status"
+         , ts.submit_status as "submit_Status"
 	  from task t
 	  join task_file tf on (t.task_no = tf.task_no)
 	  left join task_submit ts on t.task_no = ts.task_no
-      where (ts.student_id is NULL or ts.student_id = #{id}) and subject_no = #{subject} and tf.status = 'Y'
+      where (ts.student_id is NULL or ts.student_id = #{id}) 
+      	and subject_no = #{subject} 
+      	and (ts.status is NULL or ts.status = 'N')
 	 order
 	    by t.task_no desc
 </select>
@@ -218,7 +224,11 @@
 	  from task t
       join task_file tf on (t.task_no = tf.task_no)
       left join task_submit ts on (t.task_no = ts.task_no)
-    where t.task_no = #{taskNo} and tf.status = 'Y' and (student_id is NULL or student_id = #{studentId})
+    where t.task_no = #{taskNo} 
+    	and tf.status = 'Y' 
+    	and (student_id is NULL or student_id = #{studentId}) 
+    	and (ts.status is NULL or ts.status = 'N')
+    	and (ts.submit_status= 'N')
 </select>
 
 <!-- 과제 답글 상세 조회 -->
@@ -232,14 +242,14 @@
 		 , t.task_content as "task_content"
 	  FROM task t
 	 INNER JOIN task_submit ts ON t.task_no = ts.task_no
-	 WHERE ts.task_no = #{taskNo} and ts.student_id = #{studentId}
+	 WHERE ts.task_no = #{taskNo} and ts.student_id = #{studentId} and ts.status = 'N' and ts.submit_status = 'N'
 </select>
 
 <!-- 과제 답글 삭제 -->
 <update id="deleteTask">
 	update
 	       task_submit
-	   set status = 'N'
+	   set submit_status = 'Y'
 	 where task_no = #{taskNo}
 </update>
 
@@ -267,6 +277,7 @@
 	     , submit_content
 	     , submit_date
 	     , status
+	     , submit_status
 	     )
 	     values
 	     (
@@ -274,7 +285,8 @@
 	     , #{studentId}
 	     , #{submitContent}
 	     , sysdate
-	     , 'Y'
+	     , 'N'
+	     , 'N'
 	     )
 </insert>
 

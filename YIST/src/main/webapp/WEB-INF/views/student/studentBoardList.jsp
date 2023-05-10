@@ -197,11 +197,14 @@ button {
 				
 				// 마감 계산
 				let today = new Date();
-				
-				for (var i in list) {
-				    
+				console.log(list);
+				for (let i in list) {
+					if (list[i].status == "N" && list[i].submit_Status == "N"){
+						continue;
+					}
+					
 					let endDate = new Date(list[i].endDate);
-				  
+					
 				    html += "<tr>";
 				    html += "<td>" + list[i].taskNo + "</td>";
 				    html += "<td>과제</td>";
@@ -217,7 +220,7 @@ button {
 				    html += "</tr>";
 					
 				    
-				    if (list[i].submitContent != null) {
+				    if (list[i].status == "N" && list[i].submit_Status == "Y") {
 				        if (list[i].studentId == "${loginUser.id}") {
 				            html += "<tr>";
 				            html += "<td></td>";

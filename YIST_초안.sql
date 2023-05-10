@@ -262,7 +262,27 @@ insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_
 
 commit;
 
-select id, name
-from member
-where sort = 3 and subject = 1 and status = 'Y';
+select 
+	       t.task_no
+	     , t.task_title
+	     , t.id
+	     , to_char(t.start_date, 'YYYY-MM-DD') as "start_date"
+	     , to_char(t.end_date, 'YYYY-MM-DD') as "end_date"
+	     , ts.submit_content
+	     , ts.student_id
+	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
+	     , origin_name
+         , change_name
+         , nvl(ts.status,'A') as "status"
+         , nvl(ts.submit_status,'A') as "submitStatus"
+	  from task t
+	  join task_file tf on (t.task_no = tf.task_no)
+	  left join task_submit ts on t.task_no = ts.task_no
+      where (ts.student_id is NULL or ts.student_id = 'USER01') 
+      	and subject_no = 1 
+      	and (ts.status is NULL or ts.status = 'N')
+	 order
+	    by t.task_no desc;
 
+select * from task_submit;
+commit;

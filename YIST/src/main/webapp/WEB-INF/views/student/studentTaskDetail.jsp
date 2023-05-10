@@ -76,11 +76,11 @@ button {
     <!-- 답글 없을때만 -->
     	<div style="text-align: right;">
     		<c:choose>
-    			<c:when test="${t.status eq 'N'}">
-	      			<a href="enrollForm.st?taskNo=${t.taskNo}&studentId=${loginUser.id}" class="reply-btn btn btn-dark btn-circled" style="width: 90px;">답글</a>
+    			<c:when test="${t.submit_Status eq 'N'}">
+	      			<a href="enrollForm.st?taskNo=${t.taskNo}&studentId=${loginUser.id}" id="reply-btn" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
     			</c:when>
 				<c:otherwise>
-					<button class="btn btn-dark btn-circled" style="width: 90px;" disabled="disabled">답글</button>
+					<button class="btn btn-dark btn-circled" style="width: 90px;" disabled>답글</button>
 				</c:otherwise>    			
     		</c:choose>
     	</div>
@@ -125,8 +125,16 @@ button {
   		
   		console.log($(".reply-btn").html());
   		
+  		console.log("오늘 : " + today.getTime());
+  		console.log("마감 : " + endDate.getTime());
+  		
   		if (today.getTime() > endDate.getTime()){
-  			$(".reply-btn").attr("disabled", true);
+  			console.log("비활성화");
+  			//$("#reply-btn").attr("disabled", true);
+  			$('#reply-btn').on("click",function(e){
+  				e.preventDefault();
+  			})
+  			
   		}
   	})
   	

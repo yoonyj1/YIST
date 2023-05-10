@@ -10,17 +10,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Task {
-
-	/*
-	private int taskNo;
-	private int subjectNo;
-	private String id;
-	private String taskTitle;
-	private String taskContent;
-	private String startDate;
-	private String endDate;
-	*/
-	
 	private int taskNo;
     private int subjectNo;
     private String id;
@@ -33,7 +22,7 @@ public class Task {
     private String submitDate;
     private String modifyDate;
     private String status;
-    
+    private String submit_Status;
     private int fileNo;
     private String originName;
 	private String changeName;

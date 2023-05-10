@@ -74,7 +74,7 @@ button {
     <div align="right">
       <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
         <button class="btn btn-primary" onclick="update();">수정하기</button> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-        <button class="btn btn-danger" onclick="showDeleteConfirm();;">삭제하기</button>
+        <button class="btn btn-danger" onclick="showDeleteConfirm();">삭제하기</button>
     </div>
     <div class="entry-content">
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">

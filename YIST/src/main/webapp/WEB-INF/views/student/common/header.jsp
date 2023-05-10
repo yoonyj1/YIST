@@ -98,11 +98,6 @@
 		$(function(){
 			console.log('${pageContext.request.contextPath}');
 			
-			$(".btn").on().trigger("click", function(){
-				console.log("ddd");
-				console.log($(this).children().eq(6));
-			})
-			
 			$('[data-toggle="popover"]').popover();
 		})
 		
