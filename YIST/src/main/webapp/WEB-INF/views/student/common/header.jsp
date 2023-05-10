@@ -40,6 +40,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.css">
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/lang/summernote-ko-KR.js"></script>
+
+<!-- 알림 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.0.1/intro.min.js"></script>
+
 </head>
 <body class="">
 
@@ -72,6 +76,7 @@
 			</div>
 		</div>
 	</header>
+
 
 	<script type="text/javascript">
 		$(function(){
