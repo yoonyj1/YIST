@@ -5,24 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="memberMapper">
 
-	<resultMap id="memberResultSet" type="Member">
-		<result column="id" property="id"></result>
-		<result column="name" property="name"></result>
-		<result column="pwd" property="pwd"></result>
-		<result column="birth" property="birth"></result>
-		<result column="phone" property="phone"></result>
-		<result column="image" property="image"></result>
-		<result column="email" property="email"></result>
-		<result column="post" property="post"></result>
-		<result column="address" property="address"></result>
-		<result column="detail_address" property="detailAddress"></result>
-		<result column="subject" property="subject"></result>
-		<result column="enroll_date" property="enrollDate"></result>
-		<result column="start_date" property="startDate"></result>
-		<result column="end_date" property="endDate"></result>
-		<result column="status" property="status"></result>
-		<result column="sort" property="sort"></result>
-		<result column="employee_date" property="employeeDate"></result>
+	<resultMap type="Member" id="memberResultSet">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="PWD" property="pwd"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="PHONE" property="phone"/>
+		<result column="IMAGE" property="image"/>
+		<result column="EMAIL" property="email"/>
+		<result column="POST" property="post"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDRESS" property="detailAddress"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
+		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SORT" property="sort"/>
+		<result column="EMPLOYEE_DATE" property="employeeDate"/>
 	</resultMap>
 
 	<resultMap id="alarmResultSet" type="Alarm">
