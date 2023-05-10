@@ -17,8 +17,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.kh.yist.message.Message" alias="Message"/>
 		<typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.yist.student.model.vo.Material" alias="Material"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Task" alias="Task"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Task" alias="TaskSubmit"/>
 		<typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
 		<typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
 		<typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>

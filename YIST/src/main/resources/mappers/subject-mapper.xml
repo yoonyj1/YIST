@@ -17,10 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CURRENT_SEATS" property="currentSeats"></result>
 		<result column="FEE" property="fee"></result>
 		<result column="INSTRUCTOR" property="instructor"></result>
-		<result column="ClASS_NAME" property="className"></result>
+		<result column="CLASS_NAME" property="className"></result>
 	</resultMap>
 	
-	<select id="selectSubjectList" resultMap="subjectResultSet">
+	<!-- <select id="selectSubjectList" resultMap="subjectResultSet">
 		select
 			SUBJECT_NO
 			,CLASS_NO
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where status = 'N'
 		 order
 		    by start_date
-	</select>
+	</select> -->
 	
 	<update id="increaseCurrentSeats">
 		update
