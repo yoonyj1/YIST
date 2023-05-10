@@ -52,7 +52,6 @@
 
 	<jsp:include page="../common/header.jsp"/>
 	
-
 	<c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');

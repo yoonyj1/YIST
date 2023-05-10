@@ -163,18 +163,18 @@
 					})
 
 					$.ajax({
-						type: 'POST'
-						,url: 'ajaxDelete.cl'
-						,data: { classNoArr: $classNoArr }
-						,success: function(result) {
+						type: 'POST',
+						url: 'ajaxDelete.cl',
+						data: { classNoArr: $classNoArr },
+						success: function(result) {
 							if(result == "YYYY"){
 								alert("강의 삭제에 성공했습니다.");
 							}else{
 								alert("강의 삭제에 실패했습니다. \n다시 시도해주세요.");
 							}
 
-						}
-						,error: function() {
+						},
+						error: function() {
 							alert("오류가 발생했습니다! \n잠시 후 다시 시도해주세요.");
 						}
 					});
