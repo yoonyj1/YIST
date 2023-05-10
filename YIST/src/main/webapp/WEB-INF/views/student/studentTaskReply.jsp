@@ -80,7 +80,7 @@ button {
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
         <tr>
             <th style="text-align: center;">제목</th>
-            <td colspan="3" style="text-align: left;">${ t.taskTitle }</td>
+            <td colspan="3" style="text-align: left;">${ t.taskContent }</td>
         </tr>
         <tr>
             <th width="10%" style="text-align: center;">작성자</th>
@@ -91,7 +91,7 @@ button {
         <tr>
             <td colspan="4">
               <div style="padding: 50px; font-size: 18px; line-height: 2;">
-                <p style="height:auto">${ t.submitContent }</p>
+                <textarea class="" id="summernote" name="submitContent" style="align: center;" readonly="readonly">${ t.submitContent }</textarea>
               </div>
             </td>
         </tr>
@@ -105,18 +105,23 @@ button {
 	
 	<script>
 		function update() {
-			location.href="updateForm.st?tno=" + ${ t.taskNo};
+			location.href="updateForm.st?taskNo=${t.taskNo}&studentId=${t.studentId}";
 		}
 		
 		function showDeleteConfirm() {
 			  if (confirm("정말로 삭제하시겠습니까? 삭제한 게시글은 복구할 수 없습니다.")) {
 			    deletePost();
 			  }
-			}
+		}
 
-			function deletePost() {
+		function deletePost() {
 				location.href="deleteTask.st?tno=" + ${ t.taskNo};
-			}
+		}
+		
+
+	  	$(document).ready(function() {
+		    $('#summernote').summernote('disable');	
+		});
 	</script>
 	
 	<jsp:include page="common/footer.jsp"/>

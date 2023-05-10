@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
@@ -69,15 +70,15 @@ public class StudentDao {
 	}
 	
 	// 우리반 게시판 과제 목록 조회
-	public ArrayList<Task> taskList(SqlSessionTemplate sqlSession) {
+	public ArrayList<Task> taskList(SqlSessionTemplate sqlSession, Member m) {
 		
-		return (ArrayList)sqlSession.selectList("studentMapper.taskList");
+		return (ArrayList)sqlSession.selectList("studentMapper.taskList", m);
 	}
 	
 	// 과제 상세 조회
-	public Task selectTask(SqlSessionTemplate sqlSession, int taskNo) {
+	public Task selectTask(SqlSessionTemplate sqlSession, Task task) {
 		
-		return sqlSession.selectOne("studentMapper.selectTask", taskNo);
+		return sqlSession.selectOne("studentMapper.selectTask", task);
 	}
 	
 	// 과제 답글 상세 조회
@@ -102,5 +103,9 @@ public class StudentDao {
 	public int taskInsert(SqlSessionTemplate sqlSession, Task t) {
 		
 		return sqlSession.insert("studentMapper.taskInsert", t);
+	}
+
+	public int updateTask(SqlSessionTemplate sqlSession, Task t) {
+		return sqlSession.update("studentMapper.updateTask", t);
 	}
 }

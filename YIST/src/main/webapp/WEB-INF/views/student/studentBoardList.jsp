@@ -167,7 +167,7 @@ button {
 	 
 	// 과제
 	 function showTask() {
-
+		
 		$.ajax({
 		  url: "taskList.st",
 		  type: "POST",
@@ -182,10 +182,10 @@ button {
 			  value += "<tr higth='20px'>";
 			  value += "<th width='5%'>번호</th>";
 			  value += "<th width='15%'>카테고리</th>";
-			  value += "<th width='45%'>제목</th>";
+			  value += "<th width='30%'>제목</th>";
 			  value += "<th width='15%'>작성자</th>";
-			  value += "<th width='10%'>등록일</th>";
-			  value += "<th width='10%'>마감일</th>";
+			  value += "<th width='25%'>기간</th>";
+			  value += "<th width='10%'>상태</th>";
 			  value += "</tr>";
 			  
 			  $("#result thead").html(value);
@@ -195,16 +195,28 @@ button {
 				
 			} else {
 				
+				// 마감 계산
+				let today = new Date();
+				
 				for (var i in list) {
+				    
+					let endDate = new Date(list[i].endDate);
+				  
 				    html += "<tr>";
 				    html += "<td>" + list[i].taskNo + "</td>";
 				    html += "<td>과제</td>";
-				    html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "'>" + list[i].taskTitle + "</a></td>";
+				    html += "<td><a href='taskDetail.st?taskNo=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>" + list[i].taskTitle + "</a></td>";
 				    html += "<td>" + list[i].id + "</td>";
-				    html += "<td>" + list[i].startDate + "</td>";
-				    html += "<td>" + list[i].endDate + "</td>";
+				    html += "<td>" + list[i].startDate + "~" + list[i].endDate + "</td>";
+				    
+				    if (today.getTime() > endDate.getTime()){
+		            	html += "<td style='color: red;'>마감</td>";	
+		            } else {
+		            	html += "<td style='color: blue;'>진행중</td>";
+		            }
 				    html += "</tr>";
-
+					
+				    
 				    if (list[i].submitContent != null) {
 				        if (list[i].studentId == "${loginUser.id}") {
 				            html += "<tr>";
@@ -213,7 +225,13 @@ button {
 				            html += "<td><a href='taskReplyDetail.st?taskNo=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>re: " + list[i].taskTitle + "</a></td>";                        
 				            html += "<td>" + list[i].studentId + "</td>";
 				            html += "<td>" + list[i].submitDate + "</td>";
-				            html += "<td style='color: red;'>마감</td>";
+				            
+				            if (today.getTime() > endDate.getTime()){
+				            	html += "<td style='color: red;'>마감</td>";	
+				            } else {
+				            	html += "<td>제출완료</td>";
+				            }
+				            
 				            html += "</tr>";
 				        }
 				    }

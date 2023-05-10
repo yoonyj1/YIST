@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,14 +72,23 @@ button {
         <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
       </ul>
     </div> 
-    <div style="text-align: right;">
-      <a href="enrollForm.st?taskNo=${t.taskNo}" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
-    </div>
+    
+    <!-- 답글 없을때만 -->
+    	<div style="text-align: right;">
+    		<c:choose>
+    			<c:when test="${t.status eq 'N'}">
+	      			<a href="enrollForm.st?taskNo=${t.taskNo}&studentId=${loginUser.id}" class="reply-btn btn btn-dark btn-circled" style="width: 90px;">답글</a>
+    			</c:when>
+				<c:otherwise>
+					<button class="btn btn-dark btn-circled" style="width: 90px;" disabled="disabled">답글</button>
+				</c:otherwise>    			
+    		</c:choose>
+    	</div>
     <div class="entry-content">
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
         <tr>
             <th style="text-align: center;">제목</th>
-            <td colspan="3" style="text-align: left;">${ t.taskTitle }</td>
+            <td colspan="3" style="text-align: left;">${ t.taskContent }</td>
         </tr>
         <tr>
             <th width="10%" style="text-align: center;">작성자</th>
@@ -89,8 +99,14 @@ button {
         <tr>
             <td colspan="4">
               <div style="padding: 50px; font-size: 18px; line-height: 2;">
-              	<img alt="" src="">
-                <p style="height:auto">${ t.taskContent }</p>
+              	<c:choose>
+              		<c:when test="${t.changeName ne 'none'}">
+		              	<img alt="" src="${t.changeName}">
+              		</c:when>
+              		<c:otherwise>
+		                <p style="height:auto">${ t.taskContent }</p>
+              		</c:otherwise>
+              	</c:choose>
               </div>
             </td>
         </tr>
@@ -101,6 +117,21 @@ button {
     </div> 
     </div>       
   </div>
+  
+  <script>
+  	$(function(){
+  		let today = new Date();
+  		let endDate = new Date('${t.endDate}');
+  		
+  		console.log($(".reply-btn").html());
+  		
+  		if (today.getTime() > endDate.getTime()){
+  			$(".reply-btn").attr("disabled", true);
+  		}
+  	})
+  	
+  </script>
+
   
   <jsp:include page="common/footer.jsp"/>
 

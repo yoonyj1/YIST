@@ -56,6 +56,8 @@
 	<result column="submit_date" property="submitDate" />
 	<result column="modify_date" property="modifyDate" />
 	<result column="status" property="status" />
+	<result column="origin_name" property="originName" />
+	<result column="change_name" property="changeName" />
 </resultMap>
 
 <resultMap type="TaskSubmitS" id="TaskSubmitResultSet">
@@ -177,8 +179,12 @@
 	     , ts.submit_content
 	     , ts.student_id
 	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
-	  from task t 
-	  left outer join task_submit ts on t.task_no = ts.task_no
+	     , origin_name
+         , change_name
+	  from task t
+	  join task_file tf on (t.task_no = tf.task_no)
+	  left join task_submit ts on t.task_no = ts.task_no
+      where (ts.student_id is NULL or ts.student_id = #{id}) and subject_no = #{subject} and tf.status = 'Y'
 	 order
 	    by t.task_no desc
 </select>
@@ -198,13 +204,21 @@
 <!-- 과제 상세 조회 -->
 <select id="selectTask" resultMap="taskResultSet">
 	select
-		   task_no
-		 , task_title
+		   t.task_no as "task_no"
+		 , t.task_title as "task_title"
 		 , id
 		 , to_char(start_date, 'YYYY-MM-DD') as "start_date"
-		 , task_content
-	  from task
-	 where task_no = #{taskNo}
+		 , to_char(end_date, 'YYYY-MM-DD') as "end_date"
+		 , t.task_content as "task_content"
+		 , nvl(ts.status, 'N') as "status"
+		 , ts.submit_content as "submit_content"
+         , origin_name
+         , change_name
+         , end_date
+	  from task t
+      join task_file tf on (t.task_no = tf.task_no)
+      left join task_submit ts on (t.task_no = ts.task_no)
+    where t.task_no = #{taskNo} and tf.status = 'Y' and (student_id is NULL or student_id = #{studentId})
 </select>
 
 <!-- 과제 답글 상세 조회 -->
@@ -215,6 +229,7 @@
 		 , ts.student_id as "student_id"
 		 , to_char(ts.submit_date, 'YYYY-MM-DD') AS "submit_date"
 		 , ts.submit_content as "submit_content"
+		 , t.task_content as "task_content"
 	  FROM task t
 	 INNER JOIN task_submit ts ON t.task_no = ts.task_no
 	 WHERE ts.task_no = #{taskNo} and ts.student_id = #{studentId}
@@ -262,4 +277,25 @@
 	     , 'Y'
 	     )
 </insert>
+
+<!-- 과제수정 -->
+<update id="updateTask">
+	update task_submit
+		set submit_content = #{submitContent}
+	where task_no = #{taskNo} and student_id = #{studentId}
+</update>
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

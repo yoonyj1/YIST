@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.dao.StudentDao;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
@@ -55,13 +56,13 @@ public class StudentService {
 	}
 	
 	// 우리반 게시판 과제 목록 조회
-	public ArrayList<Task> taskList() {
-		return sDao.taskList(sqlSession);
+	public ArrayList<Task> taskList(Member m) {
+		return sDao.taskList(sqlSession, m);
 	}
 	
 	// 과제 상세 조회
-	public Task selectTask(int taskNo) {
-		return sDao.selectTask(sqlSession, taskNo);
+	public Task selectTask(Task task) {
+		return sDao.selectTask(sqlSession, task);
 	}
 	
 	// 과제 답글 상세 조회
@@ -82,5 +83,10 @@ public class StudentService {
 	// 과제 등록
 	public int taskInsert(Task t) {
 		return sDao.taskInsert(sqlSession, t);
+	}
+
+	// 과제 수정 
+	public int updateTask(Task t) {
+		return sDao.updateTask(sqlSession, t);
 	}
 }

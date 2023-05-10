@@ -33,4 +33,8 @@ public class Task {
     private String submitDate;
     private String modifyDate;
     private String status;
+    
+    private int fileNo;
+    private String originName;
+	private String changeName;
 }

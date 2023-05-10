@@ -40,6 +40,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.css">
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/lang/summernote-ko-KR.js"></script>
+
+<!-- 헤더 알람  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 </head>
 <body class="">
 
@@ -66,16 +69,44 @@
 									<li><a href="myAttendance.st">출결</a></li>
 								</ul>
 							</li>
+							<li id="test-btn">
+								<a type="button" class="btn position-relative" 
+			               	 tabindex="0" data-toggle="popover" data-bs-trigger="focus" title="알림" data-html="true" data-content="
+		                      <a href='testList.st'>채점이 완료되었습니다.</a>
+		                      <hr>
+		                      <a href='testList.st'>공지사항이 등록되었습니다.</a>
+		                      <hr>
+		                      <a href='testList.st'>등록하신 게시글에 댓글이 달렸습니다.</a>
+		
+		                      " data-placement="right">&nbsp;&nbsp;알림&nbsp;&nbsp;
+		                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+							    5
+							  </span>
+                      			</a>
+                      		</li>
 						</ul>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</header>
-
+	
+				
+                      
+	
 	<script type="text/javascript">
 		$(function(){
 			console.log('${pageContext.request.contextPath}');
+			
+			$(".btn").on().trigger("click", function(){
+				console.log("ddd");
+				console.log($(this).children().eq(6));
+			})
+			
+			$('[data-toggle="popover"]').popover();
+		})
+		
+		$(document).ready(function(){
 		})
 	</script>
 

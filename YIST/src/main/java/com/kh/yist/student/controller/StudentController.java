@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentService;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
@@ -109,18 +110,20 @@ public class StudentController {
 	// 우리반 게시판 과제 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "taskList.st", produces = "application/json; charset=UTF-8")
-	public String taskList() {
+	public String taskList(HttpSession session) {
 
-		ArrayList<Task> list = sService.taskList();
+		Member student = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Task> list = sService.taskList(student);
 
 		return new Gson().toJson(list);
 	}
 
 	// 과제 상세 조회
 	@RequestMapping("taskDetail.st")
-	public ModelAndView selectTask(int tno, ModelAndView mv) {
+	public ModelAndView selectTask(Task task, ModelAndView mv) {
 
-		Task t = sService.selectTask(tno);
+		Task t = sService.selectTask(task);
 
 		if (t != null) {
 			mv.addObject("t", t).setViewName("student/studentTaskDetail");
@@ -139,9 +142,6 @@ public class StudentController {
 
 		task.setTaskNo(taskNo);
 		task.setStudentId(studentId);
-
-		System.out.println("=========================================");
-		System.out.println(task);
 		
 		Task t = sService.selectTaskReply(task);
 
@@ -154,17 +154,33 @@ public class StudentController {
 		return mv;
 	}
 
-	// 과제 답글 수정
+	// 과제 답글 수정 폼
 	@RequestMapping("updateForm.st")
-	public String updateForm(@RequestParam(value = "tno") int taskNo, Model model) {
+	public String updateForm(Task task, Model model) {
 
-		Task t = sService.selectTask(taskNo);
+		Task t = sService.selectTask(task);
 
 		model.addAttribute("t", t);
 
 		return "student/studentTaskUpdateForm";
 	}
 
+	// 과제 답글 수정
+	@RequestMapping("updateTask.st")
+	public String updateTask(Task task, Model model, HttpSession session) {
+		int result = sService.updateTask(task);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "과제 성공적으로 수정했습니다.");
+		} else {
+			session.setAttribute("alertMsg", "과제 수정을 실패했습니다.");
+		}
+
+		return "redirect:taskReplyDetail.st?taskNo=" + task.getTaskNo() + "&studentId=" + task.getStudentId();
+		
+		
+	}
+	
 	// 과제 답글 삭제
 	@RequestMapping("deleteTask.st")
 	public String delete(@RequestParam(value = "tno") int taskNo, HttpSession session) {
@@ -192,18 +208,18 @@ public class StudentController {
 
 	// 과제 등록폼
 	@RequestMapping("enrollForm.st")
-	public String enrollForm(@RequestParam int taskNo, Model model) {
+	public String enrollForm(Task task, Model model) {
 
-		Task t = sService.selectTask(taskNo);
+		Task t = sService.selectTask(task);
 
-		String title = t.getTaskTitle();
-
-		model.addAttribute("taskNo", taskNo);
-		model.addAttribute("title", title);
+		if (t != null) {
+			model.addAttribute("t", t);
+		}
 
 		return "student/studentTaskEnrollForm";
 	}
 
+	// 과제 등록(제출)
 	@RequestMapping("taskInsert.st")
 	public String taskInsert(Task t, HttpSession session) {
 

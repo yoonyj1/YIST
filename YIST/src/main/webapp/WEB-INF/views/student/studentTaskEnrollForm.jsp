@@ -87,12 +87,12 @@ button {
     
     <div>
 	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
-		    <input type="hidden" name="taskNo" value="${taskNo}">
+		    <input type="hidden" name="taskNo" value="${t.taskNo}">
 		    	<table id="write_frm">
 					<tr>
 						<th width="25%">제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
+							<input type="text" id="title" style="width: 100%; height: 40px; text-align: left;" value="${t.taskContent}">
 						</td>
 					</tr>
 					<tr>

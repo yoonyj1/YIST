@@ -61,9 +61,9 @@
 	</section>
 	
 	<script>
-      $(function () {
+      /* $(function () {
         $('[data-toggle="popover"]').popover()
-      });
+      }); */
     </script>
 	
 	<!-- <div class="modal" id="myModal">

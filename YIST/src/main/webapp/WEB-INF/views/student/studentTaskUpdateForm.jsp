@@ -86,12 +86,13 @@ button {
 	    </div> 
     
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
+	    <form id="tx_editor_form" name="tx_editor_form" action="updateTask.st" method="post" enctype="multipart/form-data">
+	    	<input type="hidden" name="taskNo" value="${t.taskNo}">
 			<table id="write_frm">
 					<tr>
 						<th width="25%">제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${ t.taskTitle }">
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${ t.taskContent }" readonly="readonly">
 						</td>
 					</tr>
 					<tr>
@@ -107,8 +108,8 @@ button {
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						  <textarea id="summernote" name="editordata" style="align: center;">${ ts.submitContent }</textarea>
+						<td colspan="2"><textarea class="" id="summernote" name="submitContent" style="align: center;" readonly="readonly">${ t.submitContent }</textarea>
+						  
 						</td>
 					</tr>
 					<tr>
