@@ -81,6 +81,24 @@
 	<result column="answer" property="answer" />
 </resultMap>
 
+<!-- 메인 공지사항 목록 조회 -->
+<select id="mainNotice" resultMap="noticeResultSet">
+	<![CDATA[
+	select *
+	  from
+	     (
+	       select 
+	       		   board_no
+			     , board_title
+			     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+			  from notice
+			 order
+			    by create_date desc
+	     )
+	 where rownum <= 7
+	 ]]>
+</select>
+
 <!-- 시험 목록 조회 -->
 <select id="testList" resultMap="examResultSet">
 	select
@@ -130,6 +148,18 @@
 	 order
 	    by board_no desc
 </select>
+
+<!-- 공지사항 상세 조회 -->
+<select id="selectNotice" resultMap="noticeResultSet">
+		select
+			   board_no
+			 , board_title
+		     , board_writer
+		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+		     , board_content
+		  from notice
+		 where board_no = #{boardNo}
+	</select>
 
 <!-- 우리반 게시판 목록 조회 (학습자료) -->
 <select id="boardListCount" resultType="_int">
