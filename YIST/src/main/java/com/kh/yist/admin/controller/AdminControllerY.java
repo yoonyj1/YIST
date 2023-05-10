@@ -33,8 +33,10 @@ public class AdminControllerY {
 		// 전체 강사 목록 조회
 		ArrayList<Member> list = aService.selectList(pi);
 		
+		ArrayList<Member> nullList = aService.selectNullTeacherList(pi);
 		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("admin/instructorList");
+		
+		mv.addObject("pi", pi).addObject("list", list).addObject("nList", nullList).setViewName("admin/instructorList");
 		return mv;
 	}
 	
@@ -75,7 +77,7 @@ public class AdminControllerY {
 	@RequestMapping("teacherDetail.do")
 	public String teacherDetail(String id, Model model) {
 		System.out.println(id);
-		Member m = aService.selectTeacher(id);
+		Member m = aService.selectTeacherNull(id);
 		System.out.println(m);
 				
 		model.addAttribute("td", m);
@@ -85,10 +87,8 @@ public class AdminControllerY {
 	
 	@RequestMapping("changeTeacherInfo.do")
 	public String updateTeacherInfo(Member m, HttpSession session) {
-		System.out.println(m);
 		int result = aService.updateTeacherInfo(m);
 		
-		System.out.println(result);
 		
 		if(result > 0) {
 			session.setAttribute("td", aService.selectTeacher(m.getId()));
@@ -125,6 +125,25 @@ public class AdminControllerY {
 	@RequestMapping("gradeView.do")
 	public String gradeView() {
 		return "admin/gradeView";
+	}
+	
+	@RequestMapping("deleteStudent.do")
+	public String deleteStudent(String id) {
+		int result = aService.deleteStudent(id);
+		
+		
+		if(result > 0) {
+			return "redirect:studentList.do";
+		} else {
+			return "redirect:studentList.do";
+		}
+		
+	}
+	
+	@RequestMapping("updateAttendanceForm.do")
+	public String updateAttForm(String id) {
+		
+		return "admin/updateAttendance";
 	}
 	
 	

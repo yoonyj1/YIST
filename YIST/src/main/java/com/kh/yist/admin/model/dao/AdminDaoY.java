@@ -63,4 +63,23 @@ public class AdminDaoY {
 	public int updateTeacherInfo(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("adminMapper.updateTeacherInfo", m);
 	}
+	
+	public ArrayList<Member> selectNullTeacherList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		// 몇 개의 게시글을 건너뛸건지
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		// 총 몇개를 조회해갈건지
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+				
+		return (ArrayList)sqlSession.selectList("adminMapper.selectNullTeacherList", null, rowBounds);
+	}
+	
+	public Member selectTeacherNull(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectTeacherNull", id);
+	}
+	
+	public int deleteStudent(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.deleteStudent", id);
+	}
 }

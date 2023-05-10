@@ -16,7 +16,7 @@
 
 		<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
 		  <li class="nav-item">
-		    <a class="nav-link active" id="pills-java-tab" data-toggle="pill" href="#nav-java-home" role="tab"
+		    <a class="nav-link active" id="nav-java-tab" data-toggle="pill" href="#nav-java-home" role="tab"
 		      aria-controls="nav-tabs" aria-selected="true">JAVA</a>
 		  </li>
 		  <li class="nav-item">
@@ -29,7 +29,7 @@
 		  </li>
 		</ul>
 		<div class="tab-content mt-5" id="nav-tabContent">
-		  <div class="tab-pane fade show active" id="nav-tabs-home" role="tabpanel" aria-labelledby="nav-java-tab">
+		  <div class="tab-pane fade show active" id="nav-java-home" role="tabpanel" aria-labelledby="nav-java-tab">
 		    <div class="accordion accordion-shadow" id="accordionShadow">
 		      <div class="card">
 		        <div class="card-header" id="headingShadowOne">
