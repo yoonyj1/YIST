@@ -17,11 +17,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ADDRESS" property="address"/>
 		<result column="DETAIL_ADDRESS" property="detailAddress"/>
 		<result column="SUBJECT" property="subject"/>
+		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
 		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="START_DATE" property="startDate"/>
 		<result column="END_DATE" property="endDate"/>
-		<result column="STAUTS" property="status"/>
+		<result column="STATUS" property="status"/>
 		<result column="SORT" property="sort"/>
-		<result column="EMPLOYEE_DATE" property="employeDate"/>
+		<result column="EMPLOYEE_DATE" property="employeeDate"/>
+	</resultMap>
+	
+	<resultMap type="Attendance" id="attendanceResultSet">
+		<result column="ID" property="id"/>
+		<result column="COUNT" property="count"/>
+		<result column="ATTENDANCE_DATE" property="attendanceDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
 
 	
@@ -48,17 +58,160 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			m.status = 'Y'
   		 and
   		 	sort = 2
+	 	 and
+	 	 	subject is not null
 		order by subject		
 	</select>
 	
-	<select id="selectNonSubjectList" resultMap="memberResultSet">
+	<select id="selectNullTeacherList" resultMap="memberResultSet">
 		select
 			id
 		  , name
-	  	from
-	  		member
-  		where subject is null
-  			and sort = 2
+		  , phone
+	  	from 
+	  		member m
+  		where
+  			m.status = 'Y'
+  		 and
+  		 	sort = 2
+	 	 and
+	 	 	subject is null
+	</select>
+	
+	
+	
+	<update id="checkDeleteInstuctor">
+		update
+			member
+		set
+			status='N'
+		where id = #{id}
+		  and sort = 2
+	</update>
+	
+	<select id="selectTeacher" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
+		  , email
+		  , subject_name as "subject"
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 2 and id = #{ id }
+	</select>
+	
+	<select id="selectTeacherNull" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
+		  , email
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		where
+  			m.status='Y' and sort = 2 and id = #{ id }
 	</select>
 
+	<select id="selectStudentListCount" resultType="_int">
+		select
+			count(*)
+		from member
+		where
+			status = 'Y'
+		and
+			sort = 3
+	</select>
+	
+	<select id="selectJavaStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 1
+		order by m.status
+	</select>
+	
+	<select id="selectPythonStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 2
+		order by m.status
+	</select>
+	
+	<select id="selectCStudentList" resultMap="memberResultSet">
+		select 
+				id
+			, name
+			, s.subject_name as "subject" 
+			, round((a.count / (m.end_date - m.start_date)) * 100, 1) as "attendance_rate"
+			, m.status as "status"
+			, s.class_no 
+		from member m 
+		join attendance a using(id)
+		join subject s on (m.subject = s.subject_no)
+		where sort = 3 and (m.status = 'Y' or m.status = 'A')
+		and s.class_no = 3
+		order by m.status
+	</select>
+	
+	<select id="selectStudent" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(m.start_date, ('YYYY-MM-DD')) as "start_date"
+		  , email
+		  , subject_name as "subject"
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
+  		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 3 and id = #{ id }	
+	</select>
+	
+	<update id="updateTeacherInfo">
+	update
+		member
+	set
+		name=#{name},
+		phone=#{phone},
+		email=#{email},
+		address=#{address}
+	where id=#{id}	
+	</update>	
+	
+	<update id="deleteStudent">
+		update
+			member
+		set
+			status='N'
+		where id=#{id}
+	</update>
 </mapper>

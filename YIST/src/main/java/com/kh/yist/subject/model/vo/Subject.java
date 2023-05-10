@@ -23,5 +23,7 @@ public class Subject {
 	private int maximumSeats;
 	private int currentSeats;
 	private int fee;
+	private String instructor;
+	private String className;
 	
 }

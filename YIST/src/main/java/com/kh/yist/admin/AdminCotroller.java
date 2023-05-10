@@ -2,58 +2,16 @@ package com.kh.yist.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AdminCotroller {
 
 	
-	//강의
-	@RequestMapping("classAdminList.ad")
-	public String classAdminList() {
-		return "admin/class/classListView";
-	}
+
 	
-	@RequestMapping("update.cl")
-	public String updateClassForm() {
-		return "admin/class/updateClassForm";
-	}
-	
-	@RequestMapping("insert.cl")
-	public String insertClassForm(){
-		return "admin/class/insertClassForm";
-	}
-	
-	@RequestMapping("delete.cl")
-	public String deleteClassForm(){
-		return "admin/class/deleteClassForm";
-	}
-	
-	@RequestMapping("detail.cl")
-	public String selectClass() {
-		return "admin/class/detailClass";
-	}
-	
-	
-	//공지사항
-	@RequestMapping("noticeAdminList.ad")
-	public String noticeAdminList() {
-		return "admin/notice/noticeAdminView";
-	}
-	
-	@RequestMapping("insert.no")
-	public String InserNtotice() {
-		return "admin/notice/insertNoticeForm";
-	}
-	
-	@RequestMapping("detail.no")
-	public String selectNtotice() {
-		return "admin/notice/detailNotice";
-	}
-	
-	@RequestMapping("update.no")
-	public String UpdateNotice() {
-		return "admin/notice/updateNoticeForm";
-	}
+
 	
 	
 	//수업자료

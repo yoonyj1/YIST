@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,38 +45,38 @@
         <caption>수강생 평가</caption>
         <thead>
             <tr>
-              <th width="80%" style="text-align: left;">프로그래밍 언어 활용</th>
+              <th width="80%" style="text-align: left;">${ e.testTitle }</th>
               <th width="20%" style="text-align: right;">서술형 | 5문항</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
+                	<img alt="" src="${pageContext.request.contextPath}/${e.q1}.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
+                	<img alt="" src="${pageContext.request.contextPath}/${e.q2}.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
+                	<img alt="" src="${pageContext.request.contextPath}/${e.q3}.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
+                	<img alt="" src="${pageContext.request.contextPath}/${e.q4}.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: left;">
-                	<img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/test1.png" width="70%">
+                	<img alt="" src="${pageContext.request.contextPath}/${e.q5}.png" width="70%">
                     <textarea name="" id="" cols="100%" rows="5" style="margin: 10px"></textarea>
                 </td>
             </tr>

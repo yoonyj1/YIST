@@ -42,5 +42,21 @@ public class MemberDao {
 	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateTeacher",m);
 	}
+	public ArrayList<Member> selectInstructorList(SqlSession sqlSession){
+		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
+	}
+	
+	public int updateInstructor(SqlSession sqlSession, Member i) {
+		return sqlSession.update("memberMapper.updateInstructor", i);
+	}
+	
+	public Member selectInstructor(SqlSession sqlSession, String subject) {
+		return sqlSession.selectOne("memberMapper.selectInstructor", subject);
+	}
+	
+	public int deleteInstructor(SqlSession sqlSession, String id) {
+		return sqlSession.update("memberMapper.deleteInstructor", id);
+	}
+	
 
 }

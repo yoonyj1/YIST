@@ -32,6 +32,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="status" property="status"></result>
 	</resultMap>
 	
+	<resultMap id="examResultSet" type="Exam">
+		<result column="test_no" property="testNo"></result>
+		<result column="id" property="id"></result>
+		<result column="subject_no" property="subjectNo"></result>
+		<result column="test_title" property="testTitle"></result>
+		<result column="exam_date" property="examDate"></result>
+		<result column="exam_time" property="examTime"></result>
+		<result column="status" property="status"></result>
+		<result column="name" property="name"></result>
+		<result column="q1" property="q1"></result>
+		<result column="q2" property="q2"></result>
+		<result column="q3" property="q3"></result>
+		<result column="q4" property="q4"></result>
+		<result column="q5" property="q5"></result>
+		<result column="a1" property="a1"></result>
+		<result column="a2" property="a2"></result>
+		<result column="a3" property="a3"></result>
+		<result column="a4" property="a4"></result>
+		<result column="a5" property="a5"></result>
+		<result column="score" property="score"></result>
+		<result column="submit_status" property="submitStatus"></result>
+	</resultMap>
+	
 	<insert id="insertTask">
 		insert
 		    into task
@@ -162,6 +185,73 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			set status = 'Y'
 		where task_no = #{taskNo} and id = #{id}
 	</update>
+	
+	<select id="selectExamList" resultMap="examResultSet">
+		select
+		    test_no
+		  , id
+		  , subject_no
+		  , test_title
+		  , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
+		  , exam_time
+		  , status
+		from exam
+		where id = #{id}
+		order by test_no
+	</select>
+	
+	<select id="selectQuestion" resultMap="examResultSet">
+		select 
+		        test_no
+		      , test_title
+		      , q1
+		      , q2
+		      , q3
+		      , q4
+		      , q5
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		from exam_question
+		join exam using (test_no)
+		where test_no = #{testNo}
+	</select>
+	
+	<select id="selectExamSubmitList" resultMap="examResultSet">
+		select 
+		        test_no
+		      , e.id as "id"
+		      , name
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		      , e.status as "submit_status"
+		      , nvl(score, 0) as "score"
+		from exam_answer e
+		join member m on (e.id = m.id)
+		where test_no = #{testNo}
+	</select>
+	
+	<select id="selectSubmitMember" resultMap="examResultSet">
+		select 
+		        test_no
+		      , e.id as "id"
+		      , name
+		      , a1
+		      , a2
+		      , a3
+		      , a4
+		      , a5
+		      , e.status
+		      , nvl(score, 0) as "score"
+		from exam_answer e
+		join member m on (e.id = m.id)
+		where test_no = #{testNo} and e.id = #{id}
+	</select>
 </mapper>
 
 

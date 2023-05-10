@@ -88,13 +88,13 @@ button {
 	          </tr>
 	        </thead>
 	        <tbody>
-	        	<c:forEach var="b" items="${ list }">
+	        	<c:forEach var="n" items="${ list }">
 		          <tr>
-		            <td>${ b.boardNo }</td>
-		            <td style="text-align: left;">${ b.boardTitle }</td>
-		            <td>${ b.boardWriter }</td>
-		            <td>${ b.createDate }</td>
-		            <td>${ b.count }</td>
+		            <td>${ n.boardNo }</td>
+		            <td style="text-align: left;">${ n.boardTitle }</td>
+		            <td>${ n.boardWriter }</td>
+		            <td>${ n.createDate }</td>
+		            <td>${ n.count }</td>
 		          </tr>
 	        	</c:forEach>
 	        </tbody>
@@ -114,7 +114,7 @@ button {
 	      </c:choose>			
            	
           <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-          	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ p }">${ p }</a></li>
+          	<li class="page-item"><a class="page-link" href="noticeList.st?cpage=${ p }">${ p }</a></li>
           </c:forEach>
           
           <c:choose>

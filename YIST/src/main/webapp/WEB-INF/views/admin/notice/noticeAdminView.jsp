@@ -52,16 +52,37 @@
           border-color: #99da87;
 	}
 	
-	a.page-link:hover{
+	nav > ul > li.page-item.active > a.page-link:hover{
+          background-color: #99da87;
+          border-color: #99da87;
+		  color: white;
+	}
+	
+	nav > ul > li.page-item > a.page-link:hover{
 		color:#99da87;
 		background-color: white;
 		border-color: #99da87;
-    }    
+    }
+	
 </style>
 
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+
+
+
 	<jsp:include page="../common/header.jsp"/>
+
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
+
+
+
 
 	<div class="card card-default">
 	
@@ -69,7 +90,7 @@
 			<h2>공지사항</h2>
 			
 			<div class="btn-right" style="float:right">
-				<button type="button" class="mb-1 btn btn-pill btn-primary" onclick="location='insert.no'">등록</button>
+				<button type="button" class="mb-1 btn btn-pill btn-primary" onclick="noticeInsert();">등록</button>
                 <button type="button" class="mb-1 btn btn-pill btn-danger" id="noticeDeleteBtn" data-toggle="modal" data-target="#noticeDeleteModal">삭제</button>
 				
 					<div class="modal fade" id="noticeDeleteModal" tabindex="-1" role="dialog" aria-labelledby="noticeDeleteModalLabel" aria-hidden="true">
@@ -101,157 +122,56 @@
                </div>
 			</div>
 
+
+			<script>
+				function noticeInsert(){
+					location.href="insertForm.no";
+				}
+			</script>
+
+
 			<div class="card-body">
 
                 <table id="noticeTable" class="table table-hover table-product">
+
 	                  <thead>
 	                    <tr>
 	                      <th><input type="checkbox"></th>
-	                      <th>공지사항번호</th>
+	                      <th>글번호</th>
 	                      <th>제목</th>
 	                      <th>작성자</th>
 	                      <th>작성일자</th>
 	                      <th>관리</th>
 	                    </tr>
 	                  </thead>
+
 	                  <tbody>
-            
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">1</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		            
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">2</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning" >수정</button>
-		                      </td>
-		                    </tr>
+
+							<c:if test="${ empty list }">
+								<tr>
+									<td colspan="6" style="text-align: center;">조회된 공지사항이 없습니다.</td>
+								</tr>
+							</c:if>
+
+							<c:forEach var='n' items="${ list }">
+
+								<tr>
+									<td>
+									  <input type="checkbox">
+									</td>
+									<td class="boardNo">${ n.boardNo }</td>
+									<td>${ n.boardTitle }</td>
+									<td>${ n.boardWriter }</td>
+									<td>${ n.createDate }</td>
+									<td>
+									  <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
+									</td>
+								</tr>
+
+							</c:forEach>            
 		
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">3</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">4</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">5</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">6</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">7</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">8</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">9</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		                    
-		                    <tr>
-		                      <td>
-		                        <input type="checkbox">
-		                      </td>
-		                      <td class="noticeNo">10</td>
-		                      <td>3월 개강 안내</td>
-		                      <td>운영자</td>
-		                      <td>2023.03.31</td>
-		                      <td>
-		                        <button type="button" class="btn btn-sm btn-outline-warning">수정</button>
-		                      </td>
-		                    </tr>
-		
-		
-		                  </tbody>
+		                </tbody>
+
 				</table>
 
                 <script>
@@ -267,15 +187,14 @@
                     
 	                //수정화면이동
 					$("#noticeTable>tbody>tr>td>button").click(function(){
-						//location.href='modify.cl?cno=' + $(this).children(".cno").text();
-						location.href='update.no';
+						let $cno = $(this).parent("td").siblings('.boardNo').text()
+						location.href='updateForm.no?no='+ $cno;
 					})
                     
 					
 					$('#noticeTable').on('click', 'tr td:nth-child(3)', function() {
-						var noticeNo = $(this).siblings('.noticeNo').text();
-
-						location.href = 'detail.no';
+						let noticeNo = $(this).siblings('.boardNo').text();
+						location.href = 'detail.no?no=' + noticeNo;
 						
 					});
                     
@@ -285,9 +204,9 @@
                 </script>
             
                 <div class="search-area">
-                  <form action="" method="get">
+                  <form action="search.no" method="get">
                     <select class="custom-select my-1 mr-sm-2 w-auto" id="materialSearchCondition">
-                      <option selected name value="writer">작성자</option>
+                      <option selected value="writer">작성자</option>
                       <option value="title">제목</option>
                       <option value="content">내용</option>
                     </select>
@@ -296,40 +215,107 @@
                   </form>
                 </div>
 
+				<c:if test="${ ! empty condition }">
+					<script>
+					
+						$(function() {
+							$(".search-area option[value=${condition}]").attr("selected", true);
+						})
+					
+					</script>
+				</c:if>
+
+
+
                 <div class="card align-items-center" style="border: none; clear: both;">
                 
-                    <nav aria-label="Page navigation example" style="margin-top: 50px;">
-                      <ul class="pagination pagination-seperated pagination-seperated-rounded">
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span> Prev
-                            <span class="sr-only">Previous</span>
-                          </a>
-                        </li>
-                        <li class="page-item active">
-                          <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">4</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="#">5</a>
-                        </li>                                                
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Next">
-                            Next
-                            <span aria-hidden="true" class="mdi mdi-chevron-right ml-1"></span>
-                            <span class="sr-only">Next</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
+					<div class="card align-items-center" style="border: none; clear: both;">
+
+						<nav aria-label="Page navigation example" style="margin-top: 50px;">
+							<ul class="pagination pagination-seperated pagination-seperated-rounded">
+								<c:choose>
+									<c:when test="${ pi.currentPage eq 1 }">
+										<li class="page-item disabled">
+											<a class="page-link" href="" aria-label="Previous"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+												<span class="sr-only">Previous</span>
+											</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${ empty condition }">
+												<li class="page-item">
+													<a class="page-link" href="noticeAdminList.ad?page=${ pi.currentPage -1 }" aria-label="Previous"> 
+														<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+														<span class="sr-only">Previous</span>
+													</a>
+												</li>							
+											</c:when>
+											<c:otherwise>
+												<li class="page-item">
+													<a class="page-link" href="search.no?page=${ pi.currentPage -1 }&condition=${condition}&keyword=${keyword}" aria-label="Previous"> 
+														<span aria-hidden="true" class="mdi mdi-chevron-left mr-1"></span>Prev
+														<span class="sr-only">Previous</span>
+													</a>
+												</li>							
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							
+								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+									<c:choose>
+										<c:when test="${ empty condition }">
+											<li class="page-item">
+												<a class="page-link" href="noticeAdminList.ad?page=${ p }">${ p }</a>
+											</li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item">
+												<a class="page-link" href="search.no?page=${ p }&condition=${condition}&keyword=${keyword}">${ p }</a>
+											</li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<c:choose>
+									<c:when test="${ pi.currentPage eq pi.maxPage }">
+										<li class="page-item disabled">
+											<a class="page-link" href="" aria-label="Next"> 
+												<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+												<span class="sr-only">Next</span>
+											</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${ empty condition }">
+												<li class="page-item">
+													<a class="page-link" href="noticeAdminList.ad?page=${ pi.currentPage + 1 }" aria-label="Next"> 
+														<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+														<span class="sr-only">Next</span>
+													</a>
+												</li>							
+											</c:when>
+											<c:otherwise>
+												<li class="page-item">
+													<a class="page-link" href="search.no?page=${ pi.currentPage + 1 }&condition=${condition}&keyword=${keyword}"" aria-label="Next"> 
+														<span aria-hidden="true" class="mdi mdi-chevron-right mr-1"></span>Next
+														<span class="sr-only">Next</span>
+													</a>
+												</li>							
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+								
+		
+							</ul>
+						</nav>
+
+
+
                   </div>
                 </div>
 
@@ -339,7 +325,24 @@
 
 	</div>
 
+	<script>
+		$(function(){
+			const cP = '${pi.currentPage}';
 
+			const $pageLinks = $('a.page-link');
+
+			$pageLinks.each(function(index, link) {
+
+				let text = link.innerText;
+				
+				if (text === cP) {
+					$(link).parent('li').addClass('active');
+				}
+
+			});
+		});
+
+	</script>
 
 
 

@@ -31,4 +31,48 @@ public class AdminServiceY {
 		return aDao.selectNonSubjectList(sqlSession);
 	}
 	
+	public int checkDeleteInstuctor(String valueArr) {
+		return aDao.checkDeleteInstuctor(sqlSession, valueArr);
+	}
+	
+	public Member selectTeacher(String id) {
+		System.out.println("서비스: " + id);
+		return aDao.selectTeacher(sqlSession, id);
+	}
+	
+	public int selectStudentListCount() {
+		return aDao.selectStudentListCount(sqlSession);
+	}
+	
+	public ArrayList<Member> selectJavaStudentList() {
+		return aDao.selectJavaStudentList(sqlSession);
+	}
+	
+	public ArrayList<Member> selectPythonStudentList() {
+		return aDao.selectPythonStudentList(sqlSession);
+	}
+	
+	public ArrayList<Member> selectCStudentList() {
+		return aDao.selectCStudentList(sqlSession);
+	}
+	
+	public Member selectStudent(String id) {
+		return aDao.selectStudent(sqlSession, id);
+	}
+	
+	public int updateTeacherInfo(Member m) {
+		return aDao.updateTeacherInfo(sqlSession, m);
+	}
+	
+	public ArrayList<Member> selectNullTeacherList(PageInfo pi) {
+		return aDao.selectNullTeacherList(sqlSession, pi);
+	}
+	
+	public Member selectTeacherNull(String id) {
+		return aDao.selectTeacherNull(sqlSession, id);
+	}
+	
+	public int deleteStudent(String id) {
+		return aDao.deleteStudent(sqlSession, id);
+	}
 }

@@ -75,7 +75,7 @@
 					                          <div class="modal-body">
 					                          	<!-- 학생답 시작 -->
 					                            <label for="exampleFormControlTextarea1">과제 내용</label>
-											    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="10" name="taskContent" style="resize: none">${t.submitContent}</textarea>
+											    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="10" name="taskContent" style="resize: none" readonly="readonly">${t.submitContent}</textarea>
 												<!-- 학생답끝 -->
 					                          </div>
 					                          <div class="modal-footer">

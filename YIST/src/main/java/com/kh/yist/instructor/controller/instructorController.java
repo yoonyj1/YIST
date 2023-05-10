@@ -41,9 +41,27 @@ public class instructorController {
 	@Autowired
 	private MemberService mService;
 	
-
+	@RequestMapping("scoreForm.ins")
+	public String scoreForm(HttpSession session, Model model, int testNo) {
+		
+		Exam question = tService.selectQuestion(testNo);
+		ArrayList<Exam> examSubmitList = tService.selectExamSubmitList(testNo);
+		
+		model.addAttribute("question", question);
+		model.addAttribute("examSubmitList", examSubmitList);
+		
+		return "instructor/detailExamForm";
+	}
+	
 	@RequestMapping("examForm.ins")
-	public String examForm() {
+	public String examForm(HttpSession session, Model model) {
+		
+		Member ins = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
+		
+		model.addAttribute("examList", examList);
+		
 		return "instructor/examForm";
 	}
 	

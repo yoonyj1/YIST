@@ -35,6 +35,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	
+	<resultMap id="subjectResultSet" type="Subject">
+		<result column="SUBJECT_NO" property="subjectNo"></result>
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="SUBJECT_NAME" property="subjectName"></result>
+		<result column="START_DATE" property="startDate"></result>
+		<result column="END_DATE" property="endDate"></result>
+		<result column="STATUS" property="status"></result>
+		<result column="DAY" property="day"></result>
+		<result column="MAXIMUM_SEATS" property="maximumSeats"></result>
+		<result column="CURRENT_SEATS" property="currentSeats"></result>
+		<result column="FEE" property="fee"></result>
+	</resultMap>
+	
 	<select id="selectList" resultMap="memberResultSet">
 	select
 		name
@@ -43,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where sort=3
 	</select>
 
+	
 	<select id="loginMember" resultMap="memberResultSet">
 		select
 				  id
@@ -183,6 +197,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				from member
 				where id = #{id}	
 	</select>
+
+	<select id="selectSubjectList" resultMap="subjectResultSet">
+		select
+			SUBJECT_NO
+			,CLASS_NO
+			,SUBJECT_NAME
+			,TO_CHAR(START_DATE,'RRRR/MM/DD') as start_date
+			,TO_CHAR(END_DATE,'RRRR/MM/DD') as end_date
+			,DAY
+			,MAXIMUM_SEATS
+			,CURRENT_SEATS
+			,FEE
+		  from subject
+		 where status = 'N'
+		 order
+		    by start_date
+	</select>
+	
+	<select id="selectInstructorList" resultMap="memberResultSet">
+		select
+			id
+		    , NAME
+		    , SUBJECT
+		    , STATUS
+		    , SORT
+		from 
+		    member
+		where
+		    sort = 2
+		    and status = 'Y'
+		    and subject is null
+		order by
+		        name		
+	</select>
+	
+	<update id="updateInstructor">
+	    update 
+	            member
+	       set subject = #{subject}
+	     where
+	            id = #{id}		
+		   and sort = 2	
+	</update>
+	
+	<select id="selectInstructor" resultMap="memberResultSet">
+		select
+			id
+		    , NAME
+		    , SUBJECT
+		    , STATUS
+		    , SORT
+		from 
+		    member
+		where
+		    sort = 2
+		    and status = 'Y'
+		    and subject = #{subject}
+	</select>
+	
+	<update id="deleteInstructor">
+		update
+				member
+		   set
+		   		subject = null
+		 where
+		 		id = #{id}
+		 	and sort = 2	   		
+	</update>
+
+
+
 
 </mapper>
 

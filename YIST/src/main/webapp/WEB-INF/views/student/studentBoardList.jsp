@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +62,10 @@ button {
   cursor: pointer;
 }
 
+.active {
+	background-color: red;
+}
+
 </style>
 </head>
 <body>
@@ -75,15 +80,14 @@ button {
       </ul>
       <div data-example-id="simple-button-group" class="bs-example" style="text-align: center; padding: 15px;">
         <div aria-label="Basic example" role="group" class="btn-group">
-          <button class="btn btn-default" type="button">전체</button>
-          <button class="btn btn-default" type="button">학습자료</button>
-          <button class="btn btn-default" type="button">과제</button>
-          <button class="btn btn-default" type="button">Q & A</button>
-        </div>
+		  <button class="btn btn-default" type="button" id="materials" onclick="showMaterials()" style="background-color: #c1e5fb">학습자료</button>
+		  <button class="btn btn-default" type="button" id="task" onclick="showTask()">과제</button>
+		  <button class="btn btn-default" type="button" id="qna" onclick="showQnA()">Q & A</button>
+		</div>
       </div>
     </div> 
     <div class="entry-content">
-      <table>
+      <table id="result">
         <thead>
           <tr higth="20px">
             <th width="5%">번호</th>
@@ -95,86 +99,16 @@ button {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>과제</td>
-            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-            <td>관리자</td>
-            <td>2023-03-27</td>
-            <td>8</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>학습자료</td>
-            <td style="text-align: left;">2023.01.01 ~ 2023.12.31 훈련장려금 인상 안내</td>
-            <td>관리자</td>
-            <td>2023-03-25</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>과제</td>
-            <td style="text-align: left;">HRD-Net모바일 어플 OS업그레이드 작업 안내</td>
-            <td>관리자</td>
-            <td>2023-03-21</td>
-            <td>16</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Q & A</td>
-            <td style="text-align: left;">폭우로 인한 금일 지각자 출석인정 방법 및 원격훈련 전환 공지</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Q & A</td>
-            <td style="text-align: left;">자습실 이용시 주의사항</td>
-            <td>관리자</td>
-            <td>2023-03-21</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Q & A</td>
-            <td style="text-align: left;">KH수강생을 위한 식권 판매 변경된 제도 안내 입니다.</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>과제</td>
-            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>학습자료</td>
-            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>학습자료</td>
-            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>학습자료</td>
-            <td style="text-align: left;"> 코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-            <td>관리자</td>
-            <td>2023-03-19</td>
-            <td>8</td>
-          </tr>
+        	<c:forEach var="m" items="${ list }">
+        	  <tr>
+	            <td>${ m.boardNo }</td>
+	            <td>학습자료</td>
+	            <td style="text-align: left;">${ m.boardTitle }</td>
+	            <td>${ m.boardWriter }</td>
+	            <td>${ m.createDate }</td>
+	            <td>${ m.count }</td>
+	          </tr>
+        	</c:forEach>
         </tbody>
       </table>
       <div style="text-align: right;">
@@ -183,39 +117,208 @@ button {
     </div>       
   </div>
 
+	<script>
+	// 학습자료
+	 function showMaterials() {
+	  
+	  $.ajax({
+		  url: "MaterialList.st",
+		  type: "POST",
+		  success: function(list) {
+			  $("#materials").css("background", "#c1e5fb");
+			  $("#task").css("background", "white");
+			  $("#qna").css("background", "white");
+			  
+			  var html = "";
+			  var value = "";
+			  
+			  value += "<tr higth='20px'>";
+			  value += "<th width='5%'>번호</th>";
+			  value += "<th width='15%'>카테고리</th>";
+			  value += "<th width='45%'>제목</th>";
+			  value += "<th width='15%'>작성자</th>";
+			  value += "<th width='10%'>작성일</th>";
+			  value += "<th width='10%'>조회수</th>";
+			  value += "</tr>";
+			  
+			  $("#result thead").html(value);
+			  
+			  if (list.length == 0) {
+				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+			} else {
+				for ( var i in list) {
+					html += "<tr>";
+					html += "<td>" + list[i].boardNo + "</td>";
+					html += "<td>학습자료</td>";
+					html += "<td>" + list[i].boardTitle + "</td>";
+					html += "<td>" + list[i].boardWriter + "</td>";
+					html += "<td>" + list[i].createDate + "</td>";
+					html += "<td>" + list[i].count + "</td>";
+					html += "</tr>";
+				}
+				$("#result tbody").html(html);
+			}
+		  },
+		  error : function(jqXHR, textStatus, errorThrown) {
+              	  console.log("Error: " + textStatus + " " + errorThrown);
+		  }
+	  });
+	 }
+	 
+	// 과제
+	 function showTask() {
+
+		$.ajax({
+		  url: "taskList.st",
+		  type: "POST",
+		  success: function(list) {
+			  $("#task").css("background", "#c1e5fb");
+			  $("#materials").css("background", "white");
+			  $("#qna").css("background", "white");
+			  
+			  var html = "";
+			  var value = "";
+			  
+			  value += "<tr higth='20px'>";
+			  value += "<th width='5%'>번호</th>";
+			  value += "<th width='15%'>카테고리</th>";
+			  value += "<th width='45%'>제목</th>";
+			  value += "<th width='15%'>작성자</th>";
+			  value += "<th width='10%'>등록일</th>";
+			  value += "<th width='10%'>마감일</th>";
+			  value += "</tr>";
+			  
+			  $("#result thead").html(value);
+
+			  if (list.length == 0) {
+				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+				
+			} else {
+				
+				for (var i in list) {
+				    html += "<tr>";
+				    html += "<td>" + list[i].taskNo + "</td>";
+				    html += "<td>과제</td>";
+				    html += "<td><a href='taskDetail.st?tno=" + list[i].taskNo + "'>" + list[i].taskTitle + "</a></td>";
+				    html += "<td>" + list[i].id + "</td>";
+				    html += "<td>" + list[i].startDate + "</td>";
+				    html += "<td>" + list[i].endDate + "</td>";
+				    html += "</tr>";
+
+				    if (list[i].submitContent != null) {
+				        if (list[i].studentId == "${loginUser.id}") {
+				            html += "<tr>";
+				            html += "<td></td>";
+				            html += "<td></td>";
+				            html += "<td><a href='taskReplyDetail.st?tno=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>re: " + list[i].taskTitle + "</a></td>";                        
+				            html += "<td>" + list[i].studentId + "</td>";
+				            html += "<td>" + list[i].submitDate + "</td>";
+				            html += "<td style='color: red;'>마감</td>";
+				            html += "</tr>";
+				        }
+				    }
+				}
+
+
+
+				$("#result tbody").html(html);
+				
+			}
+		  },
+		  error : function(jqXHR, textStatus, errorThrown) {
+              	  console.log("Error: " + textStatus + " " + errorThrown);
+		  }
+	  });
+	 }	
+	 
+	// Q&A
+	 function showQnA() {
+		
+		 $.ajax({
+			  url: "qnaList.st",
+			  type: "POST",
+			  success: function(list) {
+				  
+				  $("#qna").css("background", "#c1e5fb");
+				  $("#materials").css("background", "white");
+				  $("#task").css("background", "white");
+					
+				  var html = "";
+				  var value = "";
+				  
+				  value += "<tr higth='20px'>";
+				  value += "<th width='5%'>번호</th>";
+				  value += "<th width='15%'>카테고리</th>";
+				  value += "<th width='45%'>제목</th>";
+				  value += "<th width='15%'>작성자</th>";
+				  value += "<th width='10%'>작성일</th>";
+				  value += "<th width='10%'>조회수</th>";
+				  value += "</tr>";
+				  
+				  $("#result thead").html(value);
+				  
+				  if (list.length == 0) {
+					html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+				} else {
+					for ( var i in list) {
+						html += "<tr>";
+						html += "<td>" + list[i].boardNo + "</td>";
+						html += "<td>Q&A</td>";
+						html += "<td>" + list[i].boardTitle + "</td>";
+						html += "<td>" + list[i].boardWriter + "</td>";
+						html += "<td>" + list[i].createDate + "</td>";
+						html += "<td>" + list[i].count + "</td>";
+						html += "</tr>";
+					}
+					$("#result tbody").html(html);
+				}
+			  },
+			  error : function(jqXHR, textStatus, errorThrown) {
+	              	  console.log("Error: " + textStatus + " " + errorThrown);
+			  }
+		  });
+	 }
+	</script>
+	
   <nav style="text-align: center;">
-    <ul class="pagination">
-      <li>
-        <a href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-
-
-  <div id="search-area">
-    <form action="" method="get" align="center">
-      <select name="search-type" id="search-type" style="width: 7%;">
-        <option value="writer">작성자</option>
-        <option value="title">제목</option>
-      </select>
-      <div style="width: 25%;">
-        <input type="text" id="search-keyword" name="keyword" style="width: 95%;">
-      </div>
-      <button type="submit" style="width: 6%;">검색</button>
-    </form>
-  </div>
+	    <ul class="pagination">
+	      <c:choose>
+	      	<c:when test="${ pi.currentPage eq 1 }">
+	      		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+       	  	</c:when>
+	       	<c:otherwise>
+	        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+	        </c:otherwise>
+	      </c:choose>			
+           	
+          <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+          	<li class="page-item"><a class="page-link" href="boardList.st?cpage=${ p }">${ p }</a></li>
+          </c:forEach>
+          
+          <c:choose>
+        	<c:when test="${ pi.currentPage eq pi.maxPage }">
+            	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+        	</c:when>
+        	<c:otherwise>
+            	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage + 1 }">Next</a></li>
+        	</c:otherwise>
+          </c:choose>   
+	    </ul>
+	  </nav>
+	
+	
+	  <div id="search-area">
+	    <form action="" method="get" align="center">
+	      <select name="search-type" id="search-type" style="width: 7%;">
+	        <option value="writer">작성자</option>
+	        <option value="title">제목</option>
+	      </select>
+	      <div style="width: 25%;">
+	        <input type="text" id="search-keyword" name="keyword" style="width: 95%;">
+	      </div>
+	      <button type="submit" style="width: 6%;">검색</button>
+	    </form>
+	  </div>
   
   <jsp:include page="common/footer.jsp"/>
 </body>
