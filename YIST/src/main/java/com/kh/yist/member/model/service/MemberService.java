@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
@@ -9,6 +10,7 @@ public interface MemberService {
 	
 	// 로그인 서비스(select)
 	Member loginMember(Member m);
+	Member selectTeacher(Member m);
 	
 	// 회원가입 서비스 (insert)
 	int insertMember(Member m);
@@ -30,6 +32,10 @@ public interface MemberService {
 	
 	int updateMessage(String userId);
 	
+	ArrayList<Member> selectList();
+	
+	//선생정보 수정
+	int updateTeacher(Member m);
 	// 미배정 강사 리스트 조회
 	ArrayList<Member> selectInstructorList();
 	

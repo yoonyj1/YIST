@@ -2,6 +2,16 @@ package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.common.template.Pagination;
+import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Notice;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
