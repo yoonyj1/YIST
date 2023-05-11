@@ -194,8 +194,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				material_board
 		   set
 		   		status = 'N'
-		   		, ORIGIN_NAME = NULL
-		   		, CHANGE_NAME = NULL
+		   		, origin_name = NULL
+		   		, change_name = NULL
 		  where
 		  		board_no = #{ boardNo }
 	

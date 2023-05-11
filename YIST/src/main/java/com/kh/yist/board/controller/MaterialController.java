@@ -159,21 +159,21 @@ public class MaterialController {
 			
 		}
 		
-		System.out.println(m);
 		
 		int result = mService.updateMaterial(m);
 		
 		if(result > 0) {
 			
+			session.setAttribute("alertMsg", "게시글 수정에 성공했습니다");
 			
 		}else {
 			
-			session.setAttribute("alertMsg", "게시글 수정에 성공했습니다");
+			session.setAttribute("alertMsg", "게시글 수정에 실패했습니다");
 			
 		}
 		
 		
-		return "redirect:detail.cm?no="+m.getBoardNo();
+		return "redirect:detail.cm?no=" + m.getBoardNo();
 		
 		
 	}		

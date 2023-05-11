@@ -108,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					#{id}
 					, #{name}
 					, #{pwd}
-					, to_date(#{birth},'RR/MM/DD')
+					, to_date(#{birth},'RRRR/MM/DD')
 					, #{phone}
 					, default
 					, #{email}
@@ -117,11 +117,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					, #{detailAddress}
 					, #{subject}
 					, sysdate
-					, to_date(#{startDate},'RR/MM/DD')
-					, to_date(#{endDate},'RR/MM/DD')
+					, to_date(#{startDate},'RRRR/MM/DD')
+					, to_date(#{endDate},'RRRR/MM/DD')
 					, 'Y'
 					, #{sort}
-					, sysdate
+					,     
+					<if test="sort == 2">
+				      sysdate
+				    </if>
+				    <if test="sort != 2">
+				      null
+				    </if>
 				)
 	</insert>
 

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN-수업자료조회</title>
+<title>ADMIN-시험자료조회</title>
 <style>
 
 	div.content-wrap{
@@ -30,7 +30,7 @@
           margin-top: 20px;
           padding-bottom: 20px;
           border-bottom: 1px solid #ddd;
-          height: 150px;
+          height: 125px;
 	}
 
 	div.title-area h4{
@@ -54,12 +54,13 @@
 	}
 
 	div.attach-area{
-          margin: 50px 0px;
+        margin: 50px 0px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
           width: 100%;
-          margin-top: 20px;
-          color: black;
-          line-height: 1rem;
-          padding-left: 10px;
+          /* height: 50px; */
+          line-height: 50px;
+          padding: 10px;
 	}
 
 	div.attach-area a{

@@ -56,5 +56,22 @@ public class ExamMaterialDao {
 		
 	}
 	
+	public int insertExamMaterial(SqlSessionTemplate sqlSession, ExamMaterial m) {
+		
+		return sqlSession.insert("examMaterialMapper.insertExamMaterial", m);
+		
+	}
+	
+	public int deleteExamMaterial(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("examMaterialMapper.deleteExamMaterial", boardNo);
+		
+	}
+	
+	public int updateExamMaterial(SqlSessionTemplate sqlSession, ExamMaterial m) {
+		
+		return sqlSession.update("examMaterialMapper.updateExamMaterial", m);
+		
+	}
 
 }

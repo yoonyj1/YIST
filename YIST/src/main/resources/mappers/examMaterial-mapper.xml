@@ -72,13 +72,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					 		eb.status = 'Y'
 			           and eb.class_no = c.class_no
            				<choose>
-           					<when test="condition == writer">
+           					<when test="condition == 'writer'">
            						and board_writer like '%'||#{ keyword }||'%' 
            					</when>
-           					<when test="condition == title">
+           					<when test="condition == 'title'">
            						and board_title like '%'||#{ keyword }||'%' 
            					</when>
-           					<when test="no">
+           					<when test="condition == 'no'">
            						and board_no like '%'||#{ keyword }||'%' 
            					</when>
            					<otherwise>
@@ -103,13 +103,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 		eb.status = 'Y'
            and eb.class_no = c.class_no
 		<choose>
-           		<when test="condition == writer">
+           		<when test="condition == 'writer'">
            			and board_writer like '%'||#{ keyword }||'%' 
            		</when>
-           		<when test="condition == title">
+           		<when test="condition == 'title'">
            			and board_title like '%'||#{ keyword }||'%' 
            		</when>
-           		<when test="no">
+           		<when test="condition == 'no'">
            			and board_no like '%'||#{ keyword }||'%' 
            		</when>
            		<otherwise>
@@ -140,5 +140,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   and board_no = #{ boardNo}
 		   
 	</select>
+	
+	
+	<insert id="insertExamMaterial">
+	
+		insert
+		  into exam_board
+		    (
+		    	BOARD_NO
+			 ,	CLASS_NO
+			 ,	BOARD_TITLE
+			 ,	BOARD_WRITER
+			 ,	BOARD_CONTENT
+			 ,	ORIGIN_NAME
+			 ,	CHANGE_NAME
+			 ,	CREATE_DATE
+			 ,	STATUS
+		    )
+		values
+			(
+				SEQ_EBNO.nextval
+			 ,  #{ classNo }
+			 ,  #{ boardTitle }
+			 ,  #{ boardWriter }
+			 ,  #{ boardContent }
+			 ,  #{ originName }
+			 ,  #{ changeName }
+			 ,  sysdate
+			 ,  'Y'
+			)   
+		  		
+	</insert>
+	
+	<update id="updateExamMaterial">
+		update
+				exam_board
+		   set
+		   		board_title = #{ boardTitle }
+		   	  , class_no = #{ classNo }
+		   	  , board_content = #{ boardContent } 	
+		   	  , origin_name = #{ originName }
+		   	  , change_name = #{ changeName }
+		  where  	  
+				board_no = #{ boardNo }
+	</update>
+	
+	<update id="deleteExamMaterial">
+
+		update
+				exam_board
+		   set
+		   		status = 'N'
+		   		, origin_name = NULL
+		   		, change_name = NULL
+		  where
+		  		board_no = #{ boardNo }	
+	
+	</update>
+	
 
 </mapper>

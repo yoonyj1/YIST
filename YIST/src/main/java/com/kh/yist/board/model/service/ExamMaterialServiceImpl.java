@@ -32,7 +32,7 @@ public class ExamMaterialServiceImpl implements ExamMaterialService {
 
 	@Override
 	public int insertExamMaterial(ExamMaterial m) {
-		return 0;
+		return eDao.insertExamMaterial(sqlSession, m);
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class ExamMaterialServiceImpl implements ExamMaterialService {
 
 	@Override
 	public int deleteExamMaterial(int boardNo) {
-		return 0;
+		return eDao.deleteExamMaterial(sqlSession, boardNo);
 	}
 
 	@Override
 	public int updateExamMaterial(ExamMaterial m) {
-		return 0;
+		return eDao.updateExamMaterial(sqlSession, m);
 	}
 
 	@Override

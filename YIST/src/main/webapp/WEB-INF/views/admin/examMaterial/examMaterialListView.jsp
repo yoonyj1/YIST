@@ -157,7 +157,7 @@
 
           <select name="condition" class="custom-select my-1 mr-sm-2 w-auto" id="testSearchCondition">
 
-            <option selected name value="writer">작성자</option>
+            <option selected value="writer">작성자</option>
             <option value="title">제목</option>
             <option value="no">자료번호</option>
             <option value="name">과목</option>
@@ -310,7 +310,7 @@
       //수정화면이동
       $("#testTable>tbody>tr>td>button").click(function(){
         let $boardNo = $(this).parent("td").siblings('.boardNo').text();
-        location.href='updateForm.em?no'+$boardNo;
+        location.href='updateForm.em?no='+$boardNo;
       });
                         
       //조회화면이동
