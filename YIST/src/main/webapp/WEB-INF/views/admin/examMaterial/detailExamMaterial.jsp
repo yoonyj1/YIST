@@ -152,7 +152,7 @@
     <script>
 
         function modify(){
-            location.href = 'insertForm.em?no=' + '${ em.boardNo }';
+            location.href = 'updateForm.em?no=' + '${ em.boardNo }';
         }
 
         function backToList(){
