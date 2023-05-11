@@ -2,16 +2,6 @@ package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.kh.yist.common.model.vo.PageInfo;
-import com.kh.yist.common.template.Pagination;
-import com.kh.yist.student.model.service.StudentService;
-import com.kh.yist.student.model.vo.Notice;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +16,7 @@ import com.google.gson.Gson;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
@@ -169,6 +160,47 @@ public class StudentController {
 		return mv;
 	}
 	
+	// 과제 답글 상세 조회
+	@RequestMapping("taskReplyDetail.st")
+	public ModelAndView taskReplyDetail(int tno, ModelAndView mv) {
+		
+		Task t = sService.selectTaskReply(tno);
+		
+		if (t != null) {
+			mv.addObject("t", t).setViewName("student/studentTaskReply");
+		} else {
+			mv.setViewName("student/common/errorPage");
+		}
+		
+		return mv;
+	}
+	
+	// 과제 답글 수정
+	@RequestMapping("updateForm.st")
+	public String updateForm(@RequestParam(value = "tno") int taskNo, Model model) {
+		
+		Task t = sService.selectTask(taskNo);
+		
+		model.addAttribute("t", t);
+		
+		return "student/studentTaskUpdateForm";
+	}
+	
+	// 과제 답글 삭제
+	@RequestMapping("deleteTask.st")
+	public String delete(@RequestParam(value = "tno") int taskNo, HttpSession session) {
+		
+		int result = sService.deleteTask(taskNo);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "게시글이 삭제되었습니다!");
+			return "redirect:boardList.st";
+		} else {
+			session.setAttribute("alertMsg", "게시글 삭제 실패했습니다.");
+			return "redirect:/taskReplyDetail.st?tno=" + taskNo;
+		}
+	}
+	
 	// 우리반 게시판 Q&A 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "qnaList.st", produces = "application/json; charset=UTF-8")
@@ -177,6 +209,34 @@ public class StudentController {
 		ArrayList<QnA> list = sService.qnaList();
 
 		return new Gson().toJson(list);
+	}
+	
+	// 과제 등록폼
+	@RequestMapping("enrollForm.st")
+	public String enrollForm(@RequestParam int taskNo, Model model) {
+		
+		Task t = sService.selectTask(taskNo);
+		
+		String title = t.getTaskTitle();
+		
+		model.addAttribute("taskNo", taskNo);
+		model.addAttribute("title", title);
+
+		return "student/studentTaskEnrollForm";
+	}
+	
+	@RequestMapping("taskInsert.st")
+	public String taskInsert(Task t, HttpSession session) {
+	    
+		int result = sService.taskInsert(t);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "과제가 제출되었습니다!");
+		} else {
+			session.setAttribute("alertMsg", "과제 제출에 실패했습니다.");
+		}
+		
+		return "student/studentBoardList";
 	}
 	
 	@RequestMapping("myPage.st")
