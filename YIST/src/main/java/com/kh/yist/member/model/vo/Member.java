@@ -31,6 +31,7 @@ public class Member {
 	private String image;
 	private String email;
 	private String post;
+	private String gender;
 	private String address;
 	private String detailAddress;
 	private String subject;

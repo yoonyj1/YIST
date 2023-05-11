@@ -1,8 +1,8 @@
 package com.kh.yist.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,10 @@ public class MemberDao {
 
 	public Member loginMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.loginMember", m);
+	}
+	
+	public Member selectTeacher(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.selectTeacher", m);
 	}
 
 	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
@@ -31,19 +35,26 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.idCheck", checkId);
 	}
 
-	public ArrayList<Member> selectInstructorList(SqlSession sqlSession){
+	public ArrayList<Member> selectList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList");
+	}
+	
+	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateTeacher",m);
+	}
+	public ArrayList<Member> selectInstructorList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
 	}
 	
-	public int updateInstructor(SqlSession sqlSession, Member i) {
+	public int updateInstructor(SqlSessionTemplate sqlSession, Member i) {
 		return sqlSession.update("memberMapper.updateInstructor", i);
 	}
 	
-	public Member selectInstructor(SqlSession sqlSession, String subject) {
+	public Member selectInstructor(SqlSessionTemplate sqlSession, String subject) {
 		return sqlSession.selectOne("memberMapper.selectInstructor", subject);
 	}
 	
-	public int deleteInstructor(SqlSession sqlSession, String id) {
+	public int deleteInstructor(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("memberMapper.deleteInstructor", id);
 	}
 	

@@ -145,7 +145,7 @@ public class MaterialController {
 		
 		
 		if(reupfile != null && !reupfile.getOriginalFilename().equals("")) {
-			System.out.println("여기가 null인가??");
+			
 			if(m.getOriginName()!=null) {
 				
 				new File(session.getServletContext().getRealPath(m.getChangeName())).delete();
@@ -173,7 +173,7 @@ public class MaterialController {
 		}
 		
 		
-		return "redirect:update.cm?no="+m.getBoardNo();
+		return "redirect:detail.cm?no="+m.getBoardNo();
 		
 		
 	}		

@@ -103,7 +103,7 @@ public class SubjectController {
 			session.setAttribute("alertMsg", "강의 수정이 실패했습니다");
 		}
 		
-		return "redirect:updateForm.cl?sNo="+s.getSubjectNo();
+		return "redirect:detail.cl?sNo="+s.getSubjectNo();
 		
 	}
 	

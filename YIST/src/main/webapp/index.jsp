@@ -90,7 +90,7 @@ div.title .titleP {
 </style>
 </head>
 <body>
- 	<div class="contents">
+  	<div class="contents">
         <div class="title">
             <h6 align="center">YIST</h6>
             <p class="titlep" align="center">
@@ -116,9 +116,9 @@ div.title .titleP {
             </ul>
         </div>   
 
-    </div>  
+    </div>
 
-	<%--<jsp:forward page="WEB-INF/views/student/studentBoardList.jsp"/>--%>
+	<%-- <jsp:forward page="WEB-INF/views/student/studentTestDetail.jsp"/> --%>
 </body>
 </html>
 
