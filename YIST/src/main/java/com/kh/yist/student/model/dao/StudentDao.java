@@ -88,9 +88,9 @@ public class StudentDao {
 	}
 	
 	// 과제 답글 삭제
-	public int deleteTask(SqlSessionTemplate sqlSession, int taskNo) {
+	public int deleteTask(SqlSessionTemplate sqlSession, Task task) {
 		
-		return sqlSession.update("studentMapper.deleteTask", taskNo);
+		return sqlSession.update("studentMapper.deleteTask", task);
 	}
 	
 	// 우리반 게시판 Q&A 목록 조회

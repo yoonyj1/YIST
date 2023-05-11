@@ -115,7 +115,7 @@ button {
 		}
 
 		function deletePost() {
-				location.href="deleteTask.st?tno=" + ${ t.taskNo};
+				location.href="deleteTask.st?tno=" + ${t.taskNo};
 		}
 		
 

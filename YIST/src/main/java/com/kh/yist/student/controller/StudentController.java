@@ -121,12 +121,11 @@ public class StudentController {
 
 	// 과제 상세 조회
 	@RequestMapping("taskDetail.st")
-	public ModelAndView selectTask(Task task, ModelAndView mv) {
+	public ModelAndView selectTask(Task task, ModelAndView mv, HttpSession session) {
+		Task selectTask = sService.selectTask(task);
 
-		Task t = sService.selectTask(task);
-
-		if (t != null) {
-			mv.addObject("t", t).setViewName("student/studentTaskDetail");
+		if (selectTask != null) {
+			mv.addObject("t", selectTask).setViewName("student/studentTaskDetail");
 		} else {
 			mv.setViewName("student/common/errorPage");
 		}
@@ -134,41 +133,34 @@ public class StudentController {
 		return mv;
 	}
 
-	// 과제 답글 상세 조회
-	@RequestMapping("taskReplyDetail.st")
-	public ModelAndView taskReplyDetail(int taskNo, String studentId, ModelAndView mv) {
+	// 과제 등록(제출)
+	@RequestMapping("taskInsert.st")
+	public String taskInsert(Task t, HttpSession session) {
 
-		Task task = new Task();
-
-		task.setTaskNo(taskNo);
-		task.setStudentId(studentId);
+		Member m = (Member)session.getAttribute("loginUser");
 		
-		Task t = sService.selectTaskReply(task);
+		t.setStudentId(m.getId());
+		
+		int result = sService.taskInsert(t);
 
-		if (t != null) {
-			mv.addObject("t", t).setViewName("student/studentTaskReply");
+		if (result > 0) {
+			session.setAttribute("alertMsg", "과제가 제출되었습니다!");
 		} else {
-			mv.setViewName("student/common/errorPage");
+			session.setAttribute("alertMsg", "과제 제출에 실패했습니다.");
 		}
 
-		return mv;
+		return "student/studentBoardList";
 	}
 
-	// 과제 답글 수정 폼
-	@RequestMapping("updateForm.st")
-	public String updateForm(Task task, Model model) {
-
-		Task t = sService.selectTask(task);
-
-		model.addAttribute("t", t);
-
-		return "student/studentTaskUpdateForm";
-	}
-
-	// 과제 답글 수정
+	// 과제 수정
 	@RequestMapping("updateTask.st")
 	public String updateTask(Task task, Model model, HttpSession session) {
+		
+		System.out.println("-----------------수정전-----------------");
+		System.out.println(task);
+	
 		int result = sService.updateTask(task);
+		
 		
 		if (result > 0) {
 			session.setAttribute("alertMsg", "과제 성공적으로 수정했습니다.");
@@ -176,23 +168,21 @@ public class StudentController {
 			session.setAttribute("alertMsg", "과제 수정을 실패했습니다.");
 		}
 
-		return "redirect:taskReplyDetail.st?taskNo=" + task.getTaskNo() + "&studentId=" + task.getStudentId();
-		
-		
+		return "redirect:taskDetail.st?taskNo=" + task.getTaskNo() + "&studentId=" + task.getStudentId();
 	}
 	
-	// 과제 답글 삭제
+	// 과제 삭제
 	@RequestMapping("deleteTask.st")
-	public String delete(@RequestParam(value = "tno") int taskNo, HttpSession session) {
+	public String delete(Task task, HttpSession session) {
 
-		int result = sService.deleteTask(taskNo);
+		int result = sService.deleteTask(task);
 
 		if (result > 0) {
 			session.setAttribute("alertMsg", "게시글이 삭제되었습니다!");
 			return "redirect:boardList.st";
 		} else {
 			session.setAttribute("alertMsg", "게시글 삭제 실패했습니다.");
-			return "redirect:/taskReplyDetail.st?tno=" + taskNo;
+			return "redirect:/taskReplyDetail.st?tno=" + task.getTaskNo();
 		}
 	}
 
@@ -204,34 +194,6 @@ public class StudentController {
 		ArrayList<QnA> list = sService.qnaList();
 
 		return new Gson().toJson(list);
-	}
-
-	// 과제 등록폼
-	@RequestMapping("enrollForm.st")
-	public String enrollForm(Task task, Model model) {
-
-		Task t = sService.selectTask(task);
-
-		if (t != null) {
-			model.addAttribute("t", t);
-		}
-
-		return "student/studentTaskEnrollForm";
-	}
-
-	// 과제 등록(제출)
-	@RequestMapping("taskInsert.st")
-	public String taskInsert(Task t, HttpSession session) {
-
-		int result = sService.taskInsert(t);
-
-		if (result > 0) {
-			session.setAttribute("alertMsg", "과제가 제출되었습니다!");
-		} else {
-			session.setAttribute("alertMsg", "과제 제출에 실패했습니다.");
-		}
-
-		return "student/studentBoardList";
 	}
 
 	@RequestMapping("myPage.st")

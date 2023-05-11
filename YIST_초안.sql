@@ -262,6 +262,28 @@ insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_
 
 commit;
 
+select
+		   t.task_no as "task_no"
+		 , t.task_title as "task_title"
+		 , id
+		 , student_id
+		 , to_char(start_date, 'YYYY-MM-DD') as "start_date"
+		 , to_char(end_date, 'YYYY-MM-DD') as "end_date"
+		 , t.task_content as "task_content"
+		 , nvl(ts.status, 'Y') as "status"
+		 , ts.submit_content as "submit_content"
+         , origin_name
+         , change_name
+         , end_date
+         , nvl(ts.submit_status, 'Y') as "submit_Status"
+	  from task t
+      join task_file tf on (t.task_no = tf.task_no)
+      left join task_submit ts on (t.task_no = ts.task_no)
+    where t.task_no = 1 
+    	and tf.status = 'Y' 
+    	and (student_id is NULL or student_id = 'USER01')
+    	order by ts.status;
+
 select 
 	       t.task_no
 	     , t.task_title
@@ -273,16 +295,12 @@ select
 	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
 	     , origin_name
          , change_name
-         , nvl(ts.status,'A') as "status"
-         , nvl(ts.submit_status,'A') as "submitStatus"
+         , nvl(ts.status, 'N') as "status"
+         , nvl(ts.submit_status, 'Y') as "submit_Status"
 	  from task t
 	  join task_file tf on (t.task_no = tf.task_no)
 	  left join task_submit ts on t.task_no = ts.task_no
       where (ts.student_id is NULL or ts.student_id = 'USER01') 
       	and subject_no = 1 
-      	and (ts.status is NULL or ts.status = 'N')
 	 order
 	    by t.task_no desc;
-
-select * from task_submit;
-commit;

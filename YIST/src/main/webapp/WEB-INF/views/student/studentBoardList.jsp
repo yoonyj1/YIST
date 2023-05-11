@@ -184,8 +184,8 @@ button {
 			  value += "<th width='15%'>카테고리</th>";
 			  value += "<th width='30%'>제목</th>";
 			  value += "<th width='15%'>작성자</th>";
-			  value += "<th width='25%'>기간</th>";
-			  value += "<th width='10%'>상태</th>";
+			  value += "<th width='20%'>기간</th>";
+			  value += "<th width='15%'>상태</th>";
 			  value += "</tr>";
 			  
 			  $("#result thead").html(value);
@@ -194,33 +194,36 @@ button {
 				html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
 				
 			} else {
-				
 				// 마감 계산
 				let today = new Date();
 				console.log(list);
 				for (let i in list) {
-					if (list[i].status == "N" && list[i].submit_Status == "N"){
-						continue;
-					}
-					
 					let endDate = new Date(list[i].endDate);
 					
 				    html += "<tr>";
 				    html += "<td>" + list[i].taskNo + "</td>";
 				    html += "<td>과제</td>";
-				    html += "<td><a href='taskDetail.st?taskNo=" + list[i].taskNo + "&studentId=" + list[i].studentId + "'>" + list[i].taskTitle + "</a></td>";
+				    html += "<td><a href=taskDetail.st?taskNo=" + list[i].taskNo + ">" + list[i].taskTitle + "</a></td>";
 				    html += "<td>" + list[i].id + "</td>";
 				    html += "<td>" + list[i].startDate + "~" + list[i].endDate + "</td>";
 				    
 				    if (today.getTime() > endDate.getTime()){
-		            	html += "<td style='color: red;'>마감</td>";	
+		            	if (list[i].submit_Status == 'Y'){
+		            		html += "<td style='color: red;'>마감/미제출</td>";	
+		            	} else {
+		            		html += "<td style='color: red;'>마감/제출</td>";
+		            	}
 		            } else {
-		            	html += "<td style='color: blue;'>진행중</td>";
+		            	if (list[i].submit_Status == 'Y'){
+			            	html += "<td style='color: blue;'>진행중/미제출</td>";
+		            	} else {
+		            		html += "<td style='color: blue;'>진행중/제출</td>";
+		            	}
 		            }
 				    html += "</tr>";
 					
 				    
-				    if (list[i].status == "N" && list[i].submit_Status == "Y") {
+				   /*  if (list[i].status == "N" && list[i].submit_Status == "N") {
 				        if (list[i].studentId == "${loginUser.id}") {
 				            html += "<tr>";
 				            html += "<td></td>";
@@ -237,7 +240,7 @@ button {
 				            
 				            html += "</tr>";
 				        }
-				    }
+				    } */
 				}
 
 

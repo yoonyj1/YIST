@@ -71,8 +71,8 @@ public class StudentService {
 	}
 	
 	// 과제 답글 삭제
-	public int deleteTask(int taskNo) {
-		return sDao.deleteTask(sqlSession, taskNo);
+	public int deleteTask(Task task) {
+		return sDao.deleteTask(sqlSession, task);
 	}
 	
 	// 우리반 게시판 과제 목록 조회

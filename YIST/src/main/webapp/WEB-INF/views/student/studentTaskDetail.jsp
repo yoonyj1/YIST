@@ -7,6 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 <style>
     table {
     border-collapse: collapse;
@@ -73,45 +80,79 @@ button {
       </ul>
     </div> 
     
-    <!-- 답글 없을때만 -->
-    	<div style="text-align: right;">
-    		<c:choose>
-    			<c:when test="${t.submit_Status eq 'N'}">
-	      			<a href="enrollForm.st?taskNo=${t.taskNo}&studentId=${loginUser.id}" id="reply-btn" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
-    			</c:when>
-				<c:otherwise>
-					<button class="btn btn-dark btn-circled" style="width: 90px;" disabled>답글</button>
-				</c:otherwise>    			
-    		</c:choose>
-    	</div>
-    <div class="entry-content">
-      <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
-        <tr>
-            <th style="text-align: center;">제목</th>
-            <td colspan="3" style="text-align: left;">${ t.taskContent }</td>
-        </tr>
-        <tr>
-            <th width="10%" style="text-align: center;">작성자</th>
-            <td width="40%" style="text-align: left;">${ t.id }</td>
-            <th width="10%" style="text-align: center;">작성일</th>
-            <td width="40%" style="text-align: left;">${ t.startDate }</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-              <div style="padding: 50px; font-size: 18px; line-height: 2;">
-              	<c:choose>
-              		<c:when test="${t.changeName ne 'none'}">
-		              	<img alt="" src="${t.changeName}">
-              		</c:when>
-              		<c:otherwise>
-		                <p style="height:auto">${ t.taskContent }</p>
-              		</c:otherwise>
-              	</c:choose>
-              </div>
-            </td>
-        </tr>
-    </table>
-    
+		    <!-- 답글 없을때만 -->
+		    	<%-- <div style="text-align: right;">
+		    		<c:choose>
+		    			<c:when test="${t.submit_Status eq 'N'}">
+			      			<a href="enrollForm.st?taskNo=${t.taskNo}&studentId=${loginUser.id}" id="reply-btn" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
+		    			</c:when>
+						<c:otherwise>
+							<button class="btn btn-dark btn-circled" style="width: 90px;" disabled>답글</button>
+						</c:otherwise>    			
+		    		</c:choose>
+		    	</div> --%>
+		    <div class="entry-content">
+		    <form id="tx_editor_form" name="tx_editor_form" action="" method="post" enctype="multipart/form-data">
+		    	 <input type="hidden" name="taskNo" value="${t.taskNo}">
+		    	 <input type="hidden" name="studentId" value="${t.studentId}">
+			      <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
+			        <tr>
+			            <th style="text-align: center;">제목</th>
+			            <td colspan="3" style="text-align: left;">${ t.taskContent }</td>
+			        </tr>
+			        <tr>
+			            <th width="10%" style="text-align: center;">작성자</th>
+			            <td width="40%" style="text-align: left;">${ t.id }</td>
+			            <th width="10%" style="text-align: center;">작성일</th>
+			            <td width="40%" style="text-align: left;">${ t.startDate }</td>
+			        </tr>
+			        <tr>
+			            <td colspan="4">
+			              <div style="padding: 50px; font-size: 18px; line-height: 2;">
+			              	<c:choose>
+			              		<c:when test="${t.changeName ne 'none'}">
+					              	<img alt="" src="${t.changeName}">
+			              		</c:when>
+			              		<c:otherwise>
+					                <p style="height:auto">${ t.taskContent }</p>
+			              		</c:otherwise>
+			              	</c:choose>
+			              </div>
+			            </td>
+			        </tr>
+			        <tr>
+						<td colspan="4">
+							<c:choose>
+								<c:when test="${t.submit_Status == 'N'}">
+									<textarea id="summernote" name="submitContent" style="align: center;">${t.submitContent}</textarea>
+								</c:when>
+								<c:otherwise>
+									<textarea id="summernote" name="submitContent" style="align: center;"></textarea>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<c:choose>
+								<c:when test="${t.status == 'N' and t.submit_Status == 'N'}">
+									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
+								</c:when>
+								<c:when test="${t.status == 'N' and t.submit_Status == 'Y'}">
+									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
+								</c:when>
+								<c:when test="${t.status == 'Y' and t.submit_Status == 'Y'}">
+									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('update');">수정하기</button>
+									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('delete');">삭제하기</button>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+			    </table>
+		    </form>
      <div style="text-align: center; margin: 50px;">
       <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
     </div> 
@@ -119,6 +160,20 @@ button {
   </div>
   
   <script>
+  	function accessForm(param){
+  		let url = "";
+  		
+  		if (param == "insert"){
+  			url = "taskInsert.st";	
+  		} else if(param == "update"){
+  			url = "updateTask.st";
+  		} else {
+  			url = "deleteTask.st";
+  		}
+  		
+  		$("#tx_editor_form").attr("action", url).submit();
+  	}
+  
   	$(function(){
   		let today = new Date();
   		let endDate = new Date('${t.endDate}');
@@ -136,8 +191,21 @@ button {
   			})
   			
   		}
+  		
+  		let t = '${t}'
+  		console.log(t);
+  		
   	})
   	
+  	$(document).ready(function(){
+  		$('#summernote').summernote({
+        	height: 500,                 // 에디터 높이
+  		    minHeight: null,             // 최소 높이
+  		    maxHeight: null,             // 최대 높이
+  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+  		    lang: "ko-KR"					// 한글 설정
+		});
+  	})
   </script>
 
   
