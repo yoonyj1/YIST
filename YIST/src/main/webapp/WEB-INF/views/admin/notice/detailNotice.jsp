@@ -108,8 +108,8 @@
                     <span class="view-span">
                     	열람권한 : 
 						<c:choose>
-							<c:when test="${ n.view eq 1 }">관리자</c:when>
-							<c:when test="${ n.view eq 2 }">강사</c:when>
+							<c:when test="${ n.views eq 1 }">관리자</c:when>
+							<c:when test="${ n.views eq 2 }">강사</c:when>
 							<c:otherwise>전체</c:otherwise>
 						</c:choose>
 					</span>
@@ -130,11 +130,11 @@
 
 	                  <div class="attach-area">
 	                  	<c:choose>
-	                  		<c:when test="${ empty originName }">
+	                  		<c:when test="${ empty n.originName }">
 		                      첨부파일이 없습니다.
 	                  		</c:when>
 	                  		<c:otherwise>
-		                      첨부파일 | <a href="#" download="">첨부파일이름</a>
+		                      첨부파일 | <a href="${ n.changeName } " download="${ n.originName }">${ n.originName }</a>
 	                  		</c:otherwise>
 	                  	</c:choose>
 	                 
@@ -210,7 +210,7 @@
 					  카카오톡 공유하기
 					</a>
 					
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로</button>         
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>         
 	        		       
                  </div> 
                  
@@ -220,11 +220,13 @@
 
 		<script>
 		
-
+			function backToList(){
+				location.href='noticeAdminList.ad';
+			}
 			
 		
 			function modify() {
-				location.href="updateForm.no?no="+${ n.boardNo};
+				location.href="updateForm.no?no="+ '${ n.boardNo}';
 			}
 		
 		</script>

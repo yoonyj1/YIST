@@ -31,8 +31,13 @@
 	}
 </style>
 </head>
+
 <body class="navbar-fixed sidebar-fixed" id="body">
+
 	<jsp:include page="../common/header.jsp"/>
+
+
+
 
 	<div class="card card-default">
 		<div class="card-header">
@@ -107,17 +112,17 @@
 		<script>
 	        $(function(){
 	        	
-				const day = "${s.day}";
-				// "" | "value,value,value"
-				
-				$("input[type=checkbox]").each(function(){
-					// $(this) : 순차적으로 접근한 체크박스 요소
-					// $(this).value : 체크박스의 value
-					if(day.search($(this).val()) != -1){
-						// 검색할값.search("검색대상") : 없을시 -1 반환
-						$(this).attr("checked",true);
-					}
-				})
+            const day = "${s.day}";
+            // "" | "value,value,value"
+            
+            $("input[type=checkbox]").each(function(){
+              // $(this) : 순차적으로 접근한 체크박스 요소
+              // $(this).value : 체크박스의 value
+              if(day.search($(this).val()) != -1){
+                // 검색할값.search("검색대상") : 없을시 -1 반환
+                $(this).attr("checked",true);
+              }
+            })
 
 	            
 	         })
@@ -214,9 +219,18 @@
                 
                 
 		<div class="btn-center">
-			<button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로가기</button>
+			<button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>
 		</div>
 
 	</div>
+
+  <script>
+
+    function backToList(){
+      location.href='classAdminList.ad';
+    }
+
+  </script>
+
 </body>
 </html>
