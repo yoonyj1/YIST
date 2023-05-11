@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.dao.StudentDao;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
@@ -22,6 +23,12 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	// 메인 정보 조회
+	@Override
+	public ArrayList<Member> selectIns(Member loginUser) {
+		return sDao.selectIns(sqlSession, loginUser);
+	}
 	
 	// 메인 공지사항 목록 조회
 	public ArrayList<Notice> mainNotice() {
@@ -107,4 +114,5 @@ public class StudentServiceImpl implements StudentService {
 	public int taskInsert(Task t) {
 		return sDao.taskInsert(sqlSession, t);
 	}
+
 }

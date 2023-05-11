@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentService;
 import com.kh.yist.student.model.vo.Notice;
 import javax.servlet.http.HttpSession;
@@ -39,8 +40,15 @@ public class StudentController {
 	private StudentService sService;
 
 	@RequestMapping("main.st")
-	public String main() {
-		return "student/studentMain";
+	public ModelAndView main(Member m, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Member> ins = sService.selectIns(loginUser);
+		
+		mv.addObject("ins", ins).setViewName("student/studentMain");
+		
+		return mv;
 	}
 	
 	@ResponseBody

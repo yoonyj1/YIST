@@ -43,7 +43,7 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="Task" id="taskResultSet">
+<resultMap type="TaskS" id="taskResultSet">
 	<result column="task_no" property="taskNo" />
 	<result column="subject_no" property="subjectNo" />
 	<result column="id" property="id" />
@@ -58,7 +58,7 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="TaskSubmit" id="TaskSubmitResultSet">
+<resultMap type="TaskSubmitS" id="TaskSubmitResultSet">
 	<result column="task_no" property="taskNo" />
 	<result column="student_id" property="studentId" />
 	<result column="submit_content" property="submitContent" />
@@ -80,6 +80,30 @@
 	<result column="views" property="views" />
 	<result column="answer" property="answer" />
 </resultMap>
+
+<resultMap type="Member" id="memberResultSet">
+	<result column="ID" property="id"/>
+	<result column="NAME" property="name"/>
+	<result column="PWD" property="pwd"/>
+	<result column="SUBJECT" property="subject"/>
+	<result column="START_DATE" property="startDate"/>
+	<result column="END_DATE" property="endDate"/>
+	<result column="STATUS" property="status"/>
+	<result column="SORT" property="sort"/>
+	<result column="SUBJECT_NAME" property="subjectName"/>
+</resultMap>
+
+<select id="selectIns" resultMap="memberResultSet">
+	select 
+		   name
+         , subject_name
+         , to_char(m.start_date, 'YYYY-MM-DD') as "start_date"
+         , to_char(m.end_date, 'YYYY-MM-DD') as "end_date"
+	  from member m
+      join subject on (subject = subject_no)
+     where subject = #{subject}
+   	   and sort = 2
+</select>
 
 <!-- 메인 공지사항 목록 조회 -->
 <select id="mainNotice" resultMap="noticeResultSet">

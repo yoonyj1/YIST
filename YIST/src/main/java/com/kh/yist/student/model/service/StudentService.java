@@ -3,6 +3,7 @@ package com.kh.yist.student.model.service;
 import java.util.ArrayList;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
@@ -11,6 +12,8 @@ import com.kh.yist.student.model.vo.Task;
 
 public interface StudentService {
 
+	ArrayList<Member> selectIns(Member loginUser);
+	
 	ArrayList<Notice> mainNotice();
 	
 	ArrayList<Exam> testList();

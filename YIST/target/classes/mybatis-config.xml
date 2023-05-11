@@ -4,47 +4,52 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "mybatis-3-config.dtd" >
 
 <configuration>
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	
-	<typeAliases>
-		<typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.yist.task.model.vo.Task" alias="Task"/>
-		<typeAlias type="com.kh.yist.task.model.vo.TaskSubmit" alias="TaskSubmit"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Alarm" alias="Alarm"/>
-		<typeAlias type="com.kh.yist.message.Message" alias="Message"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Material" alias="Material"/>
-		<typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
-		<typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
-		<typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Attendance" alias="Attendance"/>
-		<typeAlias type="com.kh.yist.board.model.vo.Notice" alias="NoticeA"/>
-		<typeAlias type="com.kh.yist.exam.model.vo.Exam" alias="Exam"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Exam" alias="ExamS"/>
-	</typeAliases>
-	<!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야함 -->
-	
-	<!-- 
-		environment, dataSource 기술했던 db연결정보관련은 root-context.xml 에 작성할 예정
-		왜? db등록은 서버연동과 동시에 같이 이뤄져야 되기 때문에
-		서버 스타트와 동시에 바로 읽혀지는 root-context.xml 문서에 기술할 예정
-	 -->
-	 
-	 <mappers>
-	 	<mapper resource="/mappers/calendar-mapper.xml"/>
-	 	<mapper resource="/mappers/member-mapper.xml"/>
-	 	<mapper resource="/mappers/instructor-mapper.xml"/>
-	 	<mapper resource="/mappers/student-mapper.xml"/>
-	 	<mapper resource="/mappers/admin-mapper.xml"/>
-	 	<mapper resource="/mappers/subject-mapper.xml"/>
-	 	<mapper resource="/mappers/class-mapper.xml"/>
-	 	<mapper resource="/mappers/notice-mapper.xml"/>
-	 </mappers>
-	 <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야함! 뿐만 아니라 namespace 등록까지 지정돼있어야함 -->
-	 
-	 
-	
+   <settings>
+      <setting name="jdbcTypeForNull" value="NULL"/>
+   </settings>
+   
+   <typeAliases>
+      <typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Alarm" alias="Alarm"/>
+      <typeAlias type="com.kh.yist.message.Message" alias="Message"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Material" alias="Material"/>
+      
+      <typeAlias type="com.kh.yist.task.model.vo.Task" alias="Task"/>
+      <typeAlias type="com.kh.yist.task.model.vo.TaskSubmit" alias="TaskSubmit"/>
+      
+      <typeAlias type="com.kh.yist.student.model.vo.Task" alias="TaskS"/>
+      <typeAlias type="com.kh.yist.student.model.vo.TaskSubmit" alias="TaskSubmitS"/>
+      
+      <typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
+      <typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
+      <typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Attendance" alias="Attendance"/>
+      <typeAlias type="com.kh.yist.board.model.vo.Notice" alias="NoticeA"/>
+      <typeAlias type="com.kh.yist.exam.model.vo.Exam" alias="Exam"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Exam" alias="ExamS"/>
+   </typeAliases>
+   <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야함 -->
+   
+   <!-- 
+      environment, dataSource 기술했던 db연결정보관련은 root-context.xml 에 작성할 예정
+      왜? db등록은 서버연동과 동시에 같이 이뤄져야 되기 때문에
+      서버 스타트와 동시에 바로 읽혀지는 root-context.xml 문서에 기술할 예정
+    -->
+    
+    <mappers>
+       <mapper resource="/mappers/calendar-mapper.xml"/>
+       <mapper resource="/mappers/member-mapper.xml"/>
+       <mapper resource="/mappers/instructor-mapper.xml"/>
+       <mapper resource="/mappers/student-mapper.xml"/>
+       <mapper resource="/mappers/admin-mapper.xml"/>
+       <mapper resource="/mappers/subject-mapper.xml"/>
+       <mapper resource="/mappers/class-mapper.xml"/>
+       <mapper resource="/mappers/notice-mapper.xml"/>
+    </mappers>
+    <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야함! 뿐만 아니라 namespace 등록까지 지정돼있어야함 -->
+    
+    
+   
 </configuration>

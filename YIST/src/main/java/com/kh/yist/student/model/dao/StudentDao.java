@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
@@ -16,6 +17,11 @@ import com.kh.yist.student.model.vo.Task;
 @Repository
 public class StudentDao {
 
+	public ArrayList<Member> selectIns(SqlSessionTemplate sqlSession, Member loginUser) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.selectIns", loginUser);
+	}
+	
 	// 메인 공지사항 목록 조회
 	public ArrayList<Notice> mainNotice(SqlSessionTemplate sqlSession) {
 		
