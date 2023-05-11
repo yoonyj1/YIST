@@ -68,15 +68,6 @@
 		</div>
 
 
-		<c:if test="${ not empty alertMsg }">
-			<script>
-				alert('${alertMsg}');
-			</script>
-			<c:remove var="alertMsg" scope="session" />
-		</c:if>
-
-
-
 
 		<div class="card-body">
 			<form id="noticeForm" method="post" action="" enctype="multipart/form-data">
@@ -107,22 +98,6 @@
 		                      </td>
 		                      
 		                </tr>
-						
-						<script>
-							$(function() {
-								let option = $("option");
-								option.each(function(op){
-									let value = op.val();
-									let views = '${ n.views }';
-									if(value === views){
-										op.attr('selected',true)
-									}
-								})
-							})
-						
-						</script>
-						
-						
 		                <tr>
 		                      <th colspan="2" style="width: 100%;">
 		                        <textarea name="boardContent" id="materialSummer" class="summernote" style="width: 100%; resize: none;">
@@ -156,15 +131,31 @@
 					</table>
 				
 					<div class="btn-center">
-						<button class="btn btn-primary btn-pill mr-2" type="submit" onclick="formNotice(1)">수정</button>
-						<button class="btn btn-pill mr-2 btn-danger" type="submit" onclick="if(confirm('삭제된 게시글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')){ formNotice(2); }">삭제</button>
+						<button class="btn btn-primary btn-pill mr-2" type="button" onclick="formNotice(1)">수정</button>
+						<button class="btn btn-pill mr-2 btn-danger" type="button" onclick="if(confirm('삭제된 게시글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')){ formNotice(2); }">삭제</button>
 						<button class="btn btn-light btn-pill" type="button" onclick="backList();">취소</button>
 					</div>
 			
 			</form>
+			
+	
             
 			<script>
-			
+				
+				$(function() {
+					let $option = $("option");
+					console.log($option)
+					$option.each(function() {
+						let $this = $(this);
+						let value = $this.val();
+						let classNo = '${ n.views }';
+						if (value === classNo) {
+							$this.attr('selected', true);
+						}
+					})
+				})
+
+
 				function formNotice(num) {
 					if(num==1){
 						

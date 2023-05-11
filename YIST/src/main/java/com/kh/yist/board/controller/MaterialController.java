@@ -173,7 +173,7 @@ public class MaterialController {
 		}
 		
 		
-		return "redirect:update.cm?no="+m.getBoardNo();
+		return "redirect:detail.cm?no="+m.getBoardNo();
 		
 		
 	}		

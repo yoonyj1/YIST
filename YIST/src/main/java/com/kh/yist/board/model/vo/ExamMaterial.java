@@ -22,4 +22,6 @@ public class ExamMaterial {
 	private String createDate;
 	private String status;
 	
+	private String className;
+	
 }

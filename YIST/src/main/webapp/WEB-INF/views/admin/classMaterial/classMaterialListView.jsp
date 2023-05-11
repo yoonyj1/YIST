@@ -106,11 +106,7 @@
 			</div>
 		</div>
 
-    <script>
-      function insert(){
-        location.href="insertForm.cm";
-      }
-    </script>
+
 
 		<div class="card-body">
 
@@ -130,7 +126,7 @@
 
             <c:if test="${ empty list }">
               <tr>
-                <td colspan="6" style="text-align: center;">조회된 공지사항이 없습니다.</td>
+                <td colspan="6" style="text-align: center;">조회된 자료가 없습니다.</td>
               </tr>
             </c:if>
 
@@ -156,15 +152,20 @@
 
             
                 <div class="search-area">
+
                   <form action="search.cm" method="get">
+
                     <select name="condition" class="custom-select my-1 mr-sm-2 w-auto" id="materialSearchCondition">
                       <option selected name value="writer">작성자</option>
                       <option value="title">제목</option>
                       <option value="no">자료번호</option>
                     </select>
+
                     <input type="text" class="form-control rounded-pill" name="keyword" style="width:50%;">
                     <button type="submit" class="btn btn-outline-primary">검색</button>
+
                   </form>
+
                 </div>
 
                 <c:if test="${ ! empty condition }">
@@ -264,9 +265,15 @@
                   
                   </div>
                 </div>
-                
 
-                <script>
+
+
+              <script>
+
+                  function insert(){
+                    location.href="insertForm.cm";
+                  }
+
                   $(function(){
                 	//전체선택(해제)
                     $("#materialTable thead th input[type=checkbox]").click(function(){
@@ -336,9 +343,6 @@
                       }
 
                     })
-
-                    
-
 
                   }
 

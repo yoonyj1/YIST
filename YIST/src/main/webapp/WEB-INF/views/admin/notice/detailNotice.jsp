@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>ADMIN-공지사항상세조회</title>
-<c:set var="URL" value="${pageContext.request.requestURL}" />
 
 
 <style>
@@ -94,10 +93,19 @@
 	<jsp:include page="../common/header.jsp"/>
 
 
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
+
 	<div class="card card-default">
 		<div class="card-header">
 			<h2>공지사항</h2>
 		</div>
+
 
 		<div class="card-body">
 			
@@ -166,15 +174,7 @@
 	        			}
 	        			
 	        			
-	        			//Kakao.Share.createCustomButton({
-	        			    //container: '#kakaotalk-sharing-btn',
-	        			    //templateId: 93424,
-	        			    //templateArgs: {
-	        			      //title: '${n.boardTitle}',
-	        			      //description: '${n.boardContent}',
-	        			      //url:'${URL}'
-	        			    //},
-	        			//});
+
 	        			
 					    function shareMessage() {
 					        Kakao.Share.sendDefault({
@@ -184,14 +184,14 @@
 					                description: 'YIST에서 작성된 게시글입니다.',
 					                imageUrl: 'https://file.notion.so/f/s/7610af1b-6726-46fe-9215-a4473493a00b/YIST_%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png?id=1ca55a43-6cec-44a3-8a84-d5764cec6fe9&table=block&spaceId=2c34fcf9-feb3-465e-8056-d029fc770287&expirationTimestamp=1683349548027&signature=rztH1rG-1o-SSPbRLB6LWltsk-v4byDKGIxxouPQ1Ek&downloadName=YIST+%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png',
 					                link: {
-					                    webUrl: 'http://localhost:8848',
+					                    webUrl: 'http://localhost:8848/yist/detail.no?no=' + '${ n.boardNo }'
 					                },
 					            },
 					            buttons: [
 					                {
 					                    title: '자세히보기',
 					                    link: {
-					                        webUrl: '${URL}',
+					                    	   webUrl: 'http://localhost:8848/yist/detail.no?no=' + '${ n.boardNo }'
 					                    },
 					                },
 					            ],
@@ -226,7 +226,7 @@
 			
 		
 			function modify() {
-				location.href="updateForm.no?no="+ '${ n.boardNo}';
+				location.href="updateForm.no?no=" + '${ n.boardNo }';
 			}
 		
 		</script>

@@ -41,38 +41,27 @@
 	
 	
 		$(document).ready(function(){
+
 	        $('.summernote').summernote({
-		          // 에디터 높이
-		          height: 750,
-		          // 에디터 한글 설정
-		          lang: "ko-KR",
-		          // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
-		          focus : true,
-		          toolbar: [
-		              // 글꼴 설정
-		              ['fontname', ['fontname']],
-		              // 글자 크기 설정
-		              ['fontsize', ['fontsize']],
-		              // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-		              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		              // 글자색
-		              ['color', ['forecolor','color']],
-		              // 표만들기
-		              ['table', ['table']],
-		              // 글머리 기호, 번호매기기, 문단정렬
-		              ['para', ['ul', 'ol', 'paragraph']],
-		              // 줄간격
-		              ['height', ['height']],
-		              // 그림첨부, 링크만들기, 동영상첨부
-		              ['insert',['picture','link','video']],
-		              // 코드보기, 확대해서보기, 도움말
-		              ['view', ['codeview','fullscreen', 'help']]
-		            ],
-		            // 추가한 글꼴
-		          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-		          // 추가한 폰트사이즈
-		          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		        });
+				disableResize: true,
+	            height: 750,
+	            lang: "ko-KR",
+	            focus : true,
+	            toolbar: [
+	                ['fontname', ['fontname']],
+	                ['fontsize', ['fontsize']],
+	                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+	                ['color', ['forecolor','color']],
+	                ['table', ['table']],
+	                ['para', ['ul', 'ol', 'paragraph']],
+	                ['height', ['height']],
+	                ['insert',['link']],
+	                ['view', ['codeview','fullscreen', 'help']]
+	              ],
+	            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+	            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+	        });
+
 		})
 	
 	</script>
@@ -83,14 +72,15 @@
 			</div>
   
 			<div class="card-body">
-				<form method="post" action="">
-                    <table class="table table-bordered" id="addTest-table">
-                      
+				<form method="post" action="insert.em" enctype="multipart/form-data">
+					<input type="hidden" name="boardWriter" value="${ loginUser.id }">
+					<table class="table table-bordered" id="addTest-table">
+						
 	                      <tr>
 	                        <th>제목</th>
 	                        <td>
 	                          <div class="input-group mb-3">
-	                            <input type="text" name="examMaterialTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
+	                            <input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
 	                              aria-describedby="basic-addon2">
 	  
 	                          </div>
@@ -101,11 +91,10 @@
 	                        <th>과목</th>
 	                        <td>
 	                          <div class="form-group" style="width: 30%;">
-	                            <select name="className" class="js-example-basic-multiple form-control" required>
-	                              <option value=" ">과목1</option>
-	                              <option value=" ">과목2</option>
-	                              <option value=" ">과목3</option>
-	                              <option value=" ">과목4</option>
+	                            <select name="classNo" class="js-example-basic-multiple form-control" required>
+	                              <option value="1">자바</option>
+	                              <option value="2">파이썬</option>
+	                              <option value="3">C</option>
 	                            </select>
 	                          </div>
 	                        </td>
@@ -113,20 +102,23 @@
 	  
 	                      <tr>
 	                        <th colspan="2" style="width: 100%;">
-	                          <textarea name="content" id="testSummer" class="summernote" style="width: 100%;"></textarea>
+	                          <textarea name="boardContent" id="testSummer" class="summernote" style="width: 100%;"></textarea>
 	                        </th>
 	                      </tr>
 	  
 	                      <tr>
 	                        <th>첨부파일</th>
-	                        <td><input type="file" name="" id=""></td>
+	                        <td>
+								<input type="file" name="upfile" onchange="loadFile(this);">
+                        		<img id="preview" src="#" width=200 height=150 style="align-content: flex-end; display:none;">
+							</td>
 	                      </tr>
-  
+						  
 					</table>
 					
                     <div class="btn-center">
-                      <button class="btn btn-primary btn-pill mr-2" type="submit" onsubmit="">등록</button>
-                      <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                      <button class="btn btn-primary btn-pill mr-2" type="submit">등록</button>
+                      <button class="btn btn-light btn-pill" type="button" onclick="backToList();">취소</button>
                     </div>
                     
                   </form>
@@ -140,6 +132,36 @@
   
   
 		</div>
+
+
+		<script>
+			function backToList(){
+				location.href='examMaterialAdminList.ad';
+			}
+
+			function loadFile(input) {
+				let file = input.files[0];	
+
+				let $newImage = $("#preview");
+
+				if (file != '') {
+					 let reader = new FileReader();
+					 reader.readAsDataURL(file);
+
+					 reader.onload = function (e) { 
+						 $newImage.attr('src', e.target.result);
+						 $newImage.css('display', 'block');
+					 }
+					 
+				}else{
+					
+					 $newImage.css('display', 'none');
+				}
+				
+			}
+			
+		</script>            
+
 	
 </body>
 </html>

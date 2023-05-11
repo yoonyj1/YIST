@@ -71,7 +71,15 @@
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+
 	<jsp:include page="../common/header.jsp"/>
+	
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 	
 	<div class="card card-default">
 		<div class="card-header">
@@ -112,6 +120,7 @@
 							</c:otherwise>
 	
 						</c:choose>
+
 					</div>
                   
 				</div>
@@ -124,6 +133,7 @@
 			</div>
             
 			<div class="btn-center">
+				<button class="btn btn-primary btn-pill mr-2" type="click" onclick="modify();">수정</button>
 				<button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>
 			</div>
 
@@ -136,6 +146,10 @@
 
 	</div>
 	<script>
+
+		function modify() {
+			location.href="updateForm.cm?no=" + '${ m.boardNo }';
+		}
 
 		function backToList(){
 			location.href='classMaterialAdminList.ad';
