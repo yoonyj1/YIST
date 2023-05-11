@@ -77,7 +77,7 @@ button {
 	      </ul>
 	    </div> 
 	    <div class="entry-content">
-	      <table>
+	      <table id="noticeList">
 	        <thead>
 	          <tr higth="20px">
 	            <th width="10%">번호</th>
@@ -90,7 +90,7 @@ button {
 	        <tbody>
 	        	<c:forEach var="n" items="${ list }">
 		          <tr>
-		            <td>${ n.boardNo }</td>
+		            <td class="nno">${ n.boardNo }</td>
 		            <td style="text-align: left;">${ n.boardTitle }</td>
 		            <td>${ n.boardWriter }</td>
 		            <td>${ n.createDate }</td>
@@ -102,6 +102,14 @@ button {
 	    </div>       
 	  </div>
 	
+	<script>
+		$(function() {
+			$("#noticeList>tbody>tr").click(function() {
+				location.href='noticeDetail.st?nno=' + $(this).children(".nno").text();
+			})
+		})
+	</script>
+
 	  <nav style="text-align: center;">
 	    <ul class="pagination">
 	      <c:choose>

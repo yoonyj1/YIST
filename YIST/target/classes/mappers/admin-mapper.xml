@@ -58,7 +58,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			m.status = 'Y'
   		 and
   		 	sort = 2
+	 	 and
+	 	 	subject is not null
 		order by subject		
+	</select>
+	
+	<select id="selectNullTeacherList" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+	  	from 
+	  		member m
+  		where
+  			m.status = 'Y'
+  		 and
+  		 	sort = 2
+	 	 and
+	 	 	subject is null
 	</select>
 	
 	
@@ -85,6 +102,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	from 
 	  		member m
   		join subject on (subject = subject_no)
+  		where
+  			m.status='Y' and sort = 2 and id = #{ id }
+	</select>
+	
+	<select id="selectTeacherNull" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , phone
+		  , image
+		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
+		  , email
+		  , address || detail_address as "ADDRESS"
+	  	from 
+	  		member m
   		where
   			m.status='Y' and sort = 2 and id = #{ id }
 	</select>
@@ -174,4 +206,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		address=#{address}
 	where id=#{id}	
 	</update>	
+	
+	<update id="deleteStudent">
+		update
+			member
+		set
+			status='N'
+		where id=#{id}
+	</update>
 </mapper>

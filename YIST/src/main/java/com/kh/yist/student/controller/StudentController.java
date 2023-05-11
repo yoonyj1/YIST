@@ -4,6 +4,18 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.common.template.Pagination;
+import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Notice;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +42,44 @@ public class StudentController {
 		return "student/studentMain";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "mainNotice.st", produces = "application/json; charset=UTF-8")
+	public String mainNotic(ModelAndView mv) {
+		
+		ArrayList<Notice> nlist = sService.mainNotice();
+		
+		return new Gson().toJson(nlist);
+	}
+	
+	// 로그아웃
+	@RequestMapping("logout.st")
+	public String logoutStudent(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/"; // "main"
+	}
+	
+	// 시험 목록 조회
 	@RequestMapping("testList.st")
-	public String testList() {
-		return "student/studentTestList";
+	public ModelAndView testList(ModelAndView mv) {
+		
+		ArrayList<Exam> list = sService.testList();
+		
+		mv.addObject("list", list).setViewName("student/studentTestList");
+		
+		return mv;
+	}
+	
+	// 시험 상세 조회
+	@RequestMapping("testDetail.st")
+	public String testDetail(@RequestParam(value="eno") int examNo, Model model) {
+		
+		Exam e = sService.testDetail(examNo);
+		
+		model.addAttribute("e", e);
+
+		return "student/studentTestDetail";
 	}
 	
 	@RequestMapping("certificate.st")
@@ -51,6 +98,18 @@ public class StudentController {
 		ArrayList<Notice> list = sService.selectList(pi);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentNoticeList");
+		
+		return mv;
+	}
+	
+	// 공지사항 상세 조회
+	@RequestMapping("noticeDetail.st")
+	public ModelAndView selectNotice(int nno, ModelAndView mv) {
+		
+		Notice n = sService.selectNotice(nno);
+		System.out.println(n);
+		
+		mv.addObject("n", n).setViewName("student/studentNoticeDetail");
 		
 		return mv;
 	}

@@ -36,6 +36,7 @@
 			    <table class="table" style="text-align:center;">
 				  <thead>
 				    <tr>
+				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
 				      <th scope="col">출석률</th>
@@ -47,17 +48,19 @@
 		  				<tr>
 					      <c:choose>
 					      	<c:when test="${s.status eq 'A'}">
-					      		<td scope="row">${ s.name }</td>
+					      		<td>${ s.id }</td>
+					      		<td>${ s.name }</td>
 						      	<td>${ s.subject }</td>
 						     	<td>${ s.attendanceRate }</td>
-						      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ s.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+						      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 					      	</c:when>
 					      	<c:otherwise>
+					      		<td>${ s.id }</td>
 						      	<td scope="row">${ s.name }</td>
 						     	<td>${ s.subject }</td>
-						      	<td>${ s.attendanceRate }</td>
+						      	<td class='attendance'>${ s.attendanceRate }</td>
 						      	<td align='right'><a href='studentDetail.do?id=${ s.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-							    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+							    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
 					      	</c:otherwise>
 				      	  </c:choose>
 					    </tr>
@@ -69,6 +72,7 @@
 			  <table class="table" style="text-align:center;">
 				  <thead>
 				    <tr>
+				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
 				      <th scope="col">출석률</th>
@@ -80,17 +84,19 @@
 	  				<tr>
 				      <c:choose>
 				      	<c:when test="${p.status eq 'A'}">
+				      		<td>${ p.id }</td>
 				      		<td scope="row">${ p.name }</td>
 					      	<td>${ p.subject }</td>
 					     	<td>${ p.attendanceRate }</td>
-					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ p.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 				      	</c:when>
 				      	<c:otherwise>
+				      		<td>${ p.id }</td>
 					      	<td scope="row">${ p.name }</td>
 					     	<td>${ p.subject }</td>
-					      	<td>${ p.attendanceRate }</td>
+					      	<td class='attendance'>${ p.attendanceRate }</td>
 					      	<td align='right'><a href='studentDetail.do?id=${ p.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+						    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
 				      	</c:otherwise>
 			      	  </c:choose>
 				    </tr>
@@ -102,6 +108,7 @@
 		   	  <table class="table" style="text-align:center;">
 				  <thead>
 				    <tr>
+				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
 				      <th scope="col">출석률</th>
@@ -113,17 +120,19 @@
 	  				<tr>
 				      <c:choose>
 				      	<c:when test="${c.status eq 'A'}">
-				      		<td scope="row">${ c.name }</td>
+				      		<td>${ c.id }</td>
+				      		<td scope="row" class='studentName'>${ c.name }</td>
 					      	<td>${ c.subject }</td>
-					     	<td>${ c.attendanceRate }</td>
-					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary" onclick="return confirm('${ c.name } 학생의 수강을 취소하시겠습니까?')">중퇴승인</button></td>
+					     	<td class='attendance'>${ c.attendanceRate }</td>
+					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 				      	</c:when>
 				      	<c:otherwise>
+				      		<td>${ c.id }</td>
 					      	<td scope="row">${ c.name }</td>
 					     	<td>${ c.subject }</td>
-					      	<td>${ c.attendanceRate }</td>
+					      	<td class='attendance'>${ c.attendanceRate }</td>
 					      	<td align='right'><a href='studentDetail.do?id=${ c.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-						    <td align='left'><button class='btn btn-sm btn-warning'>출결관리</button></td>
+						    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
 				      	</c:otherwise>
 			      	  </c:choose>
 				    </tr>
@@ -133,7 +142,43 @@
 			  </div>
 			</div>
 		</div>
-					
+		
+	<script>
+		/* function deleteStudent(){
+			console.log($(document).html());
+			if(confirm("${c.name}" + "의 수강을 취소하시겠습니까?")){
+				location.href = 'deleteStudent.do?id=${c.id}';				
+			} else{
+				return false;
+			}
+		} */
+		
+		 $(document).ready(function(){
+	          $(document).on("click",".access",function(event){
+	            var $studentId = $(this).parents("td").siblings().html();
+	            
+	            if(confirm($studentName + " 의 수강을 취소하시겠습니까?")){
+	            	location.href = 'deleteStudent.do?id=' + $studentId;
+	            	
+	            	alert("중퇴 처리 완료");
+	            } else{
+	            	return false;
+	            }
+	            
+	          });
+	      });
+		
+		$(document).ready(function(){
+			$(document).on("click", ".updateAttendance", function(event){
+				var $studentId = $(this).parents("td").siblings().html();
+				
+				console.log($studentId);
+				
+				location.href = 'updateAttendanceForm.do?id=' + $studentId;
+			})
+		})
+	</script>
 	</div>
+	
 </body>
 </html>
