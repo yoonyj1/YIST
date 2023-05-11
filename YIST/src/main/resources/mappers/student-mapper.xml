@@ -43,7 +43,7 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="Task" id="taskResultSet">
+<resultMap type="TaskS" id="taskResultSet">
 	<result column="task_no" property="taskNo" />
 	<result column="subject_no" property="subjectNo" />
 	<result column="id" property="id" />
@@ -58,14 +58,14 @@
 	<result column="status" property="status" />
 </resultMap>
 
-<resultMap type="TaskSubmit" id="TaskSubmitResultSet">
+<!-- <resultMap type="TaskSubmit" id="TaskSubmitResultSet">
 	<result column="task_no" property="taskNo" />
-	<result column="student_id" property="studentId" />
+	<result column="id" property="id" />
 	<result column="submit_content" property="submitContent" />
 	<result column="submit_date" property="submitDate" />
 	<result column="modify_date" property="modifyDate" />
 	<result column="status" property="status" />
-</resultMap>
+</resultMap> -->
 
 <resultMap type="Qna" id="qnaResultSet">
 	<result column="board_no" property="boardNo" />
@@ -198,7 +198,7 @@
 
 <!-- 우리반 게시판 과제 목록 조회 -->
 <select id="taskList" resultMap="taskResultSet">
-	select 
+	select
 	       t.task_no
 	     , t.task_title
 	     , t.id
@@ -207,8 +207,7 @@
 	     , ts.submit_content
 	     , ts.student_id
 	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
-	  from task t 
-	  left outer join task_submit ts on t.task_no = ts.task_no
+	  from task t left outer join task_submit ts on t.task_no = ts.task_no
 	 order
 	    by t.task_no desc
 </select>
@@ -237,27 +236,6 @@
 	 where task_no = #{taskNo}
 </select>
 
-<!-- 과제 답글 상세 조회 -->
-<select id="selectTaskReply" resultMap="taskResultSet">
-	SELECT 
-		   ts.task_no
-		 , t.task_title
-		 , ts.student_id
-		 , to_char(ts.submit_date, 'YYYY-MM-DD') AS "submit_date"
-		 , ts.submit_content
-	  FROM task t
-	 INNER JOIN task_submit ts ON t.task_no = ts.task_no
-	 WHERE ts.task_no = #{taskNo}
-</select>
-
-<!-- 과제 답글 삭제 -->
-<update id="deleteTask">
-	update
-	       task_submit
-	   set status = 'N'
-	 where task_no = #{taskNo}
-</update>
-
 <!-- 우리반 게시판 QnA 목록 조회 -->
 <select id="qnaList" resultMap="qnaResultSet">
 	select
@@ -271,25 +249,4 @@
 	 order
 	    by board_no desc
 </select>
-
-<!-- 과제 등록 -->
-<insert id="taskInsert">
-	insert
-	  into task_submit
-	     (
-	       task_no
-	     , student_id
-	     , submit_content
-	     , submit_date
-	     , status
-	     )
-	     values
-	     (
-	       #{taskNo}
-	     , #{studentId}
-	     , #{submitContent}
-	     , sysdate
-	     , 'Y'
-	     )
-</insert>
 </mapper>

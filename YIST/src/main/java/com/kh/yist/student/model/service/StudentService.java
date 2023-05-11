@@ -15,6 +15,7 @@ public interface StudentService {
 	
 	ArrayList<Exam> testList();
 	
+
 	Exam testDetail(int examNo);
 	
 	int noticeListCount();

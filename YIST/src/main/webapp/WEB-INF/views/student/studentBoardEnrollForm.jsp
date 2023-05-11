@@ -86,37 +86,44 @@ button {
 	    </div> 
     
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
-		    <input type="hidden" name="taskNo" value="${taskNo}">
-		    	<table id="write_frm">
+	    <form id="tx_editor_form" name="tx_editor_form" action="/login/currBoardSave.kh" method="post" enctype="multipart/form-data">
+			<table id="write_frm">
 					<tr>
-						<th width="25%">제목</th>
+						<th>제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
+							<input type="text" id="title" name="title" style="width: 100%; height: 40px;" value="">
 						</td>
-					</tr>
-					<tr>
-						<th>작성자</th>
-						<td style="text-align: left;"><input type="text" id="writer" name="studentId" value="${ loginUser.id }" readonly></td>
 					</tr>
 					<tr>
 						<th style="height: 70px;">카테고리</th>
 						<td style="text-align: left;">
 							<select id="category_select" name="category" class="select_view" value="" style="width: 158px; height:40px;">
+								<option value="E">Q&A</option>
 								<option value="A">과제</option>
 							</select>
 						</td>
 					</tr>
-					
+					<tr>
+						<th>비밀글 여부</th>
+						<td style="padding-top: 10px; text-align: left;">
+							<label>
+									<input type="checkbox" name="secret" id="secret" value="1"> 비밀글
+							</label>
+								<p>
+									* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
+									* 비밀글 등록 후 공개로 전환불가
+								</p>
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea id="summernote" name="submitContent" style="align: center; width: 100%" required></textarea>
+							<textarea id="summernote" name="editordata" style="align: center;"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
-							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
+							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
 						</td>
 					</tr>
 			</table>
@@ -125,18 +132,17 @@ button {
 	</div>
 	
 	<script>
-	
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
+	            width: 1200,
 	  		    minHeight: null,             // 최소 높이
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	  		    lang: "ko-KR",					// 한글 설정
+	  		    placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 			});
 		});
-		
-		
 	</script>
 	
 	
