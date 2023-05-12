@@ -948,7 +948,7 @@
                             </th>
                             <td>
                                 <div class="input-group" style="width:40%; padding: 10px;">
-                                    <input type="date" name="birth" class="form-control">
+                                    <input type="date" name="birth" class="form-control" min="1900-01-01" max="2009-12-31">
                                 </div> 
                             </td>
                         </tr>

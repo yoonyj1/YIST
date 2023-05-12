@@ -12,6 +12,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -93,4 +94,10 @@ public class SubjectDao {
 		return (ArrayList)sqlSession.selectList("subjectMapper.selectSearchList", map, rowBounds);
 		
 	}
+	
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession ,int subject){
+		return (ArrayList)sqlSession.selectList("subjectMapper.selectStudentList", subject);
+	}
+	
+	
 }

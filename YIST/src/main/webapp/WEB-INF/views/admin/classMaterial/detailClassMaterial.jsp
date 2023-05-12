@@ -132,7 +132,7 @@
 			</div>
             
 			<div class="btn-center">
-				<button class="btn btn-primary btn-pill mr-2" type="click" onclick="modify();">수정</button>
+				<button class="btn btn-primary btn-pill mr-2" type="button" onclick="modify();">수정</button>
 				<button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>
 			</div>
 

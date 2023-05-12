@@ -7,12 +7,13 @@
 <meta charset="UTF-8">
 <title>ADMIN-강의조회</title>
 <style>
-	div.card-body table#classinfo-table,
-	div.card-body table#classStudent-table{
+	table#classStudent-table{
 		width: 75%;
 		margin-left: auto;
 		margin-right: auto;
     }
+    
+
 
 	table td, 
   table th{
@@ -51,7 +52,8 @@
 
 		<div class="card-body">
 
-			<table class="table table-bordered" id="classInfo-table">
+			<table id="classInfo-table" class="table table-bordered" 
+				style="	width: 75%; margin-left: auto; margin-right: auto;">
                     
 				<tr>
 					<th colspan="2"> 강의명</th>
@@ -157,66 +159,33 @@
                     </tr>
 				</thead>
 				<tbody>
-                    <tr>
-                      <td scope="row">1</td>
-                      <td>Lucia</td>
-                      <td>@Lucia</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">2</td>
-                      <td>Catrin</td>
-                      <td>@catrin</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">3</td>
-                      <td>Lilli</td>
-                      <td>@lilli</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">4</td>
-                      <td>Else</td>
-                      <td>@voigt</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">5</td>
-                      <td>Ursel</td>
-                      <td>@ursel</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">6</td>
-                      <td>Anke</td>
-                      <td>@Anke</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">7</td>
-                      <td>Anke</td>
-                      <td>@Anke</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">8</td>
-                      <td>Anke</td>
-                      <td>@Anke</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">9</td>
-                      <td>Anke</td>
-                      <td>@Anke</td>
-                      <td>70%</td>
-                    </tr>
-                    <tr>
-                      <td scope="row">10</td>
-                      <td>Anke</td>
-                      <td>@Anke</td>
-                      <td>70%</td>
-                    </tr>
+					<c:choose>
+						<c:when test="${ empty list }">
+							<tr>
+								<td>해당 강의를 수강하는 학생이 없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="s" items="${ list }" varStatus="status">
+			                    <tr>
+			                      <td scope="row">${ status.count }</td>
+			                      <td>${ s.name }</td>
+			                      <td>${ s.id }</td>
+			                      <c:choose>
+			                      	<c:when test="${ empty s.attendanceRate }">
+			                      		<td>0</td>
+			                      	</c:when>
+			                      	<c:otherwise>
+			                      		<td>${ s.attendanceRate }</td>
+			                      	</c:otherwise>
+			                      </c:choose>
+			                    </tr>
+							</c:forEach>
+						</c:otherwise>
+					
+					</c:choose>
+				
+
                   </tbody>
 			</table>                
 		</div>
@@ -224,12 +193,17 @@
                 
                 
 		<div class="btn-center">
+			<button class="btn btn-primary btn-pill mr-2" type="button" onclick="modify();">수정</button>
 			<button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>
 		</div>
 
 	</div>
 
   <script>
+  
+	function modify() {
+		location.href="updateForm.cl?sNo=" + '${ s.subjectNo }';
+	}
 
     function backToList(){
       location.href='classAdminList.ad';
