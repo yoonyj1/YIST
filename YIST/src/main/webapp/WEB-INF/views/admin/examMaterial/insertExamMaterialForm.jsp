@@ -36,6 +36,14 @@
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 	<jsp:include page="../common/header.jsp"/>
+
+
+
+	
+
+	
+
+
 	
 	<script>
 	
@@ -63,7 +71,8 @@
 	        });
 
 		})
-	
+		
+
 	</script>
 	
 		<div class="card card-default">
@@ -80,7 +89,7 @@
 	                        <th>제목</th>
 	                        <td>
 	                          <div class="input-group mb-3">
-	                            <input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
+	                            <input type="text"  id="test" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
 	                              aria-describedby="basic-addon2">
 	  
 	                          </div>
@@ -132,11 +141,66 @@
   
   
 		</div>
+		
+		<c:if test="${not empty loginUser}">
+			<script>
+
+				
+				$(".summernote").on('summernote.keydown',function(we,e){
+					if(typeof(Storage) == "function"){
+
+
+						let text = $('.summernote').summernote('code');
+						let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
+
+						localStorage.setItem("text_examMaterial", text_examMaterial);	
+
+					}else{
+						console.log("로컬스토리지안됨");
+					}
+				})
+
+
+				$(document).ready(() => {
+					if (window.localStorage) {
+						if (localStorage.getItem("text_examMaterial")!=null) {
+							if (confirm("이전에 작성한 글을 불러오시겠습니까?")) {
+
+								$('#testSummer').summernote('editor.insertText', localStorage.getItem("text_examMaterial"));
+
+							} else {
+
+								localStorage.removeItem("text_examMaterial");
+
+							}
+						}
+					} else {
+						console.log("localStorage is not supported.");
+					}
+				});
+			</script>
+		</c:if>
 
 
 		<script>
-			function backToList(){
-				location.href='examMaterialAdminList.ad';
+
+			function backToList() {
+
+				if (window.localStorage) {
+					if (localStorage.getItem("text_examMaterial")!=null){
+						if(confirm("작성중인 내용이 있습니다.\n취소하시겠습니까?")){
+
+							let text = $('.summernote').summernote('code');
+							let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
+
+							localStorage.setItem("text_examMaterial", text_examMaterial);
+							
+							location.href = 'examMaterialAdminList.ad';
+						}
+					}
+				} else {
+					location.href = 'examMaterialAdminList.ad';
+				}
 			}
 
 			function loadFile(input) {
@@ -162,6 +226,7 @@
 			
 		</script>            
 
-	
+
+
 </body>
 </html>
