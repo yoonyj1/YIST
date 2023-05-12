@@ -89,7 +89,7 @@
 	                        <th>제목</th>
 	                        <td>
 	                          <div class="input-group mb-3">
-	                            <input type="text"  id="test" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
+	                            <input type="text" name="boardTitle" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
 	                              aria-describedby="basic-addon2">
 	  
 	                          </div>
@@ -147,35 +147,43 @@
 
 				
 				$(".summernote").on('summernote.keydown',function(we,e){
+					
 					if(typeof(Storage) == "function"){
 
 
 						let text = $('.summernote').summernote('code');
 						let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
 
-						localStorage.setItem("text_examMaterial", text_examMaterial);	
+						sessionStorage.setItem("text_examMaterial", text_examMaterial);	
 
-					}else{
-						console.log("로컬스토리지안됨");
 					}
+
 				})
 
 
 				$(document).ready(() => {
-					if (window.localStorage) {
-						if (localStorage.getItem("text_examMaterial")!=null) {
+					if (window.sessionStorage) {
+						if (sessionStorage.getItem("temptExMa")!=null) {
 							if (confirm("이전에 작성한 글을 불러오시겠습니까?")) {
+								
+								let temptExMa = JSON.parse(sessionStorage.getItem("temptExMa"));
 
-								$('#testSummer').summernote('editor.insertText', localStorage.getItem("text_examMaterial"));
+								$("input[name='boardTitle']").val(temptExMa.title);
+								
+								$('.summernote').summernote('editor.insertText', temptExMa.content);
+								
+								let selectVal = temptExMa.select;
+								
+				                $("select[name='classNo']").val(selectVal);
 
 							} else {
 
-								localStorage.removeItem("text_examMaterial");
+								sessionStorage.removeItem("temptExMa");
 
 							}
 						}
 					} else {
-						console.log("localStorage is not supported.");
+						console.log("sessionStorage is not supported.");
 					}
 				});
 			</script>
@@ -183,17 +191,25 @@
 
 
 		<script>
+	
 
 			function backToList() {
 
-				if (window.localStorage) {
-					if (localStorage.getItem("text_examMaterial")!=null){
+				if (window.sessionStorage) {
+					if (sessionStorage.getItem("text_examMaterial")!=null){
 						if(confirm("작성중인 내용이 있습니다.\n취소하시겠습니까?")){
 
 							let text = $('.summernote').summernote('code');
 							let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
-
-							localStorage.setItem("text_examMaterial", text_examMaterial);
+							
+							let title = $("input[name='boardTitle']").val();
+							
+							let selectVal = $("select").val(); 
+							
+							let temptExMa = { title:title, content:text_examMaterial, select:selectVal };
+							
+							sessionStorage.removeItem("text_examMaterial");
+							sessionStorage.setItem("temptExMa", JSON.stringify(temptExMa));
 							
 							location.href = 'examMaterialAdminList.ad';
 						}
