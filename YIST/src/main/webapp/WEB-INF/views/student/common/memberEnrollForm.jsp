@@ -962,7 +962,8 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="phone" name="phone" class="form-control" placeholder="연락처를 입력하세요" pattern="[0-9]{3}[0-9]{3,4}[0-9]{4}" maxlength="13" style="width:100%;" >                        
+                                    <input type="tel" name="phone" class="form-control" placeholder="연락처를 입력하세요" pattern="[0-9]{3}[0-9]{3,4}[0-9]{4}" maxlength="13" 
+                                        style="width:100%;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >               
                                 </div>                        
                                 <div class="text-daborder-danger small mt-1" style="margin-left: 10px; padding-left:10px; width: 100%; text-align:left">
                                         - 없이 숫자만 입력하세요
