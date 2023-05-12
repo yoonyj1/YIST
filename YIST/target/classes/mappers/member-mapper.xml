@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="STATUS" property="status"/>
 		<result column="SORT" property="sort"/>
 		<result column="EMPLOYEE_DATE" property="employeeDate"/>
+		<result column="ROWNUM" property="memberNo"/>
 	</resultMap>
 
 	<resultMap id="alarmResultSet" type="Alarm">
@@ -51,7 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectList" resultMap="memberResultSet">
 	select
+		rownum,member.*,
 		name
+		,id
 		,phone
 		from member
 		where sort=3

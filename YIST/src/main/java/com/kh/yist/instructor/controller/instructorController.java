@@ -280,13 +280,19 @@ public class instructorController {
 		if(result>0) {
 			
 			session.setAttribute("loginUser", mService.selectTeacher(m));
-			session.setAttribute("alerMsg", "수정 완료");
+			session.setAttribute("alertMsg", "수정 완료");
 			return "redirect:teacher.ins";
 			
 		}else {
 			model.addAttribute("errorMsg", "실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="slist.bo",produces = "application/json; charset=utf-8")
+	public String ajaxSelectStudent() {
+		
 	}
 
 }
