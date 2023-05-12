@@ -90,12 +90,17 @@ public class MemberController {
 
 	}
 	
+
+	
 	
 	@RequestMapping("logout.me")
 	public String logOut(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="examTime.ins", produces = "text/html; charset=UTF-8")

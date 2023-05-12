@@ -17,3 +17,7 @@ YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
 *.properties
 *.properties
 *.properties
+*.properties
+*.properties
+Servers/.settings/org.eclipse.wst.server.core.prefs
+YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties

@@ -71,7 +71,15 @@
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+
 	<jsp:include page="../common/header.jsp"/>
+	
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
 	
 	<div class="card card-default">
 		<div class="card-header">
@@ -84,29 +92,35 @@
                     
 
 				<div class="title-area">
-					<span class="subject-span">과목</span>
-					<h4>정보처리산업기사 실기 스터디 6주 과정 32일차(4월 13일)</h4>
+					<span class="subject-span">${ m.className }</span>
+					<h4>${ m.boardTitle }</h4>
 
                     <div class="writer-area">
-                    	<h5>관리자</h5>
-                    	<p class="date-p">2023.03.17</p>
-                    	<span class="count-span">0</span>
+                    	<h5>${ m.boardWriter }</h5>
+                    	<p class="date-p">${ m.createDate }</p>
+                    	<span class="count-span">조회수 ${ m.count }</span>
                     </div>                     
                     
 				</div>
                   
 				<div class="content-area">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quia facere sed iste sit illum ipsa vero? Aspernatur, aperiam! Delectus cupiditate aperiam tempora inventore commodi consequatur quos consequuntur deserunt architecto. Voluptatibus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quibusdam unde animi nostrum suscipit aliquid distinctio odit voluptas. Tempora optio distinctio fugit neque ratione. Dolorum aspernatur voluptas beatae expedita aliquam?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis repellendus dolorem atque alias quasi, cupiditate aut pariatur ullam molestiae nemo animi distinctio necessitatibus odit magni illo. Fugit numquam veniam ad?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum harum dolores quibusdam at nostrum obcaecati quis nihil odit repellendus dolorem rem eos explicabo, tenetur esse consectetur a, incidunt blanditiis earum?
-                  
+
+					${ m.boardContent }
+
 					<div class="attach-area">
-                      <!--첨부파일 있을 때-->
-                      첨부파일 | <a href="#" download="">첨부파일이름</a>
-                      <!--첨부파일 없을 때-->
-                      첨부파일이 없습니다.
-                    </div>
+						
+						<c:choose>
+	
+							<c:when test="${ empty m.originName }">
+							첨부파일이 없습니다.
+							</c:when>
+	
+							<c:otherwise>
+							첨부파일 | <a href="${ m.changeName } " download="${ m.originName }">${ m.originName }</a>
+							</c:otherwise>
+	
+						</c:choose>
+					</div>
                   
 				</div>
 
@@ -118,7 +132,8 @@
 			</div>
             
 			<div class="btn-center">
-				<button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">뒤로가기</button>
+				<button class="btn btn-primary btn-pill mr-2" type="click" onclick="modify();">수정</button>
+				<button class="btn btn-light btn-pill" type="button" onclick="backToList();">목록으로</button>
 			</div>
 
 
@@ -129,7 +144,17 @@
 
 
 	</div>
+	<script>
 
+		function modify() {
+			location.href="updateForm.cm?no=" + '${ m.boardNo }';
+		}
+
+		function backToList(){
+			location.href='classMaterialAdminList.ad';
+		}
+
+	</script>
 
 
 </body>

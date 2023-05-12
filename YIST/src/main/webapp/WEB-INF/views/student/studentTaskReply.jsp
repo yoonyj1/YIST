@@ -84,9 +84,9 @@ button {
         </tr>
         <tr>
             <th width="10%" style="text-align: center;">작성자</th>
-            <td width="40%" style="text-align: left;">${ t.studentId }</td>
+            <td width="40%" style="text-align: left;">김시연</td>
             <th width="10%" style="text-align: center;">작성일</th>
-            <td width="40%" style="text-align: left;">${ t.submitDate }</td>
+            <td width="40%" style="text-align: left;">2023-03-27</td>
         </tr>
         <tr>
             <td colspan="4">
@@ -98,7 +98,7 @@ button {
     </table>
     
      <div style="text-align: center; margin: 50px;">
-      <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
+      <a href="#" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
     </div> 
     </div>       
   </div>

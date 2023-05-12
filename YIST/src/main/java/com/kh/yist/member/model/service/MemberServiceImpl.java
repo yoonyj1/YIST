@@ -30,6 +30,13 @@ public class MemberServiceImpl implements MemberService {
 		return loginUser;
 
 	}
+	
+	@Override
+	public Member selectTeacher(Member m) {
+		Member loginUser = mDao.selectTeacher(sqlSession, m);
+
+		return loginUser;
+	}
 
 	@Override
 	public int insertMember(Member m) {
@@ -98,7 +105,21 @@ public class MemberServiceImpl implements MemberService {
 
 		return result;
 	}
+	
+	//학생정보 조회
+	@Override
+	public ArrayList<Member> selectList(){
+		return mDao.selectList(sqlSession);
+	}
+	
+	//선생님 수정
+	@Override
+	public int updateTeacher(Member m) {
+		int result = mDao.updateTeacher(sqlSession,m);
+		return result;
+	}
 
+	
 	// 미배정강사리스트조회
 	@Override
 	public ArrayList<Member> selectInstructorList() {

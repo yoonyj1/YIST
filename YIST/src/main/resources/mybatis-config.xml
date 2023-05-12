@@ -8,28 +8,31 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
-	<typeAliases>
-		<typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Alarm" alias="Alarm"/>
-		<typeAlias type="com.kh.yist.message.Message" alias="Message"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Material" alias="Material"/>
-		
-		<typeAlias type="com.kh.yist.task.model.vo.Task" alias="Task"/>
-		<typeAlias type="com.kh.yist.task.model.vo.TaskSubmit" alias="TaskSubmit"/>
-		
-		<typeAlias type="com.kh.yist.student.model.vo.Task" alias="TaskS"/>
-		<typeAlias type="com.kh.yist.student.model.vo.TaskSubmit" alias="TaskSubmitS"/>
-		
-		<typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
-		<typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
-		<typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>
-		<typeAlias type="com.kh.yist.member.model.vo.Attendance" alias="Attendance"/>
-		<typeAlias type="com.kh.yist.board.model.vo.Notice" alias="NoticeA"/>
-		<typeAlias type="com.kh.yist.exam.model.vo.Exam" alias="Exam"/>
-		<typeAlias type="com.kh.yist.student.model.vo.Exam" alias="ExamS"/>
-	</typeAliases>
+   <typeAliases>
+      <typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Alarm" alias="Alarm"/>
+      <typeAlias type="com.kh.yist.message.Message" alias="Message"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Notice" alias="Notice"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Material" alias="Material"/>
+      
+      <typeAlias type="com.kh.yist.task.model.vo.Task" alias="Task"/>
+      <typeAlias type="com.kh.yist.task.model.vo.TaskSubmit" alias="TaskSubmit"/>
+      
+      <typeAlias type="com.kh.yist.student.model.vo.Task" alias="TaskS"/>
+      <typeAlias type="com.kh.yist.student.model.vo.TaskSubmit" alias="TaskSubmitS"/>
+      
+      <typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
+      <typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
+      <typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>
+      <typeAlias type="com.kh.yist.member.model.vo.Attendance" alias="Attendance"/>
+      <typeAlias type="com.kh.yist.board.model.vo.Notice" alias="NoticeA"/>
+      <typeAlias type="com.kh.yist.exam.model.vo.Exam" alias="Exam"/>
+      <typeAlias type="com.kh.yist.student.model.vo.Exam" alias="ExamS"/>
+      <typeAlias type="com.kh.yist.board.model.vo.ExamMaterial" alias="ExamMaterial"/>
+      
+   </typeAliases>
+
 	<!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야함 -->
 	
 	<!-- 
@@ -47,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	 	<mapper resource="/mappers/subject-mapper.xml"/>
 	 	<mapper resource="/mappers/class-mapper.xml"/>
 	 	<mapper resource="/mappers/notice-mapper.xml"/>
+	 	<mapper resource="/mappers/examMaterial-mapper.xml"/>
 	 </mappers>
 	 <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재하고 있는 상태여야함! 뿐만 아니라 namespace 등록까지 지정돼있어야함 -->
 	 

@@ -79,6 +79,30 @@ button {
         <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
       </ul>
     </div> 
+    <div style="text-align: right;">
+      <a href="#" class="btn btn-dark btn-circled" style="width: 90px;">답글</a>
+    </div>
+    <div class="entry-content">
+      <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
+        <tr>
+            <th style="text-align: center;">제목</th>
+            <td colspan="3" style="text-align: left;">${ t.taskTitle }</td>
+        </tr>
+        <tr>
+            <th width="10%" style="text-align: center;">작성자</th>
+            <td width="40%" style="text-align: left;">${ t.id }</td>
+            <th width="10%" style="text-align: center;">작성일</th>
+            <td width="40%" style="text-align: left;">${ t.startDate }</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+              <div style="padding: 50px; font-size: 18px; line-height: 2;">
+              	<img alt="" src="">
+                <p style="height:auto">${ t.taskContent }</p>
+              </div>
+            </td>
+        </tr>
+    </table>
     
 		    <!-- 답글 없을때만 -->
 		    	<%-- <div style="text-align: right;">

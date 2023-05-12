@@ -17,6 +17,12 @@ import com.kh.yist.student.model.vo.Task;
 @Repository
 public class StudentDao {
 
+	// 메인 공지사항 목록 조회
+	public ArrayList<Notice> mainNotice(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.mainNotice");
+	}
+	
 	// 시험 목록 조회
 	public ArrayList<Exam> testList(SqlSessionTemplate sqlSession) {
 		
@@ -44,6 +50,12 @@ public class StudentDao {
 		RowBounds rewBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("studentMapper.selectList", null, rewBounds);
+	}
+	
+	// 공지사항 상세 조회
+	public Notice selectNotice(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.selectOne("studentMapper.selectNotice", boardNo);
 	}
 	
 	// 우리반 게시판 목록 조회

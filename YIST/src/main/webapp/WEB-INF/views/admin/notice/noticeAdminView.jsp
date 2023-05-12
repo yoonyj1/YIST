@@ -112,7 +112,7 @@
 		                      </div>
 	                      
 		                      <div class="modal-footer">
-		                        <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal">삭제</button>
+		                        <button type="button" class="btn btn-danger btn-pill btn-block" data-dismiss="modal" onclick="deleteNotice();">삭제</button>
 		                      </div>
 		                      
 	                    	</div>
@@ -187,7 +187,7 @@
                     
 	                //수정화면이동
 					$("#noticeTable>tbody>tr>td>button").click(function(){
-						let $cno = $(this).parent("td").siblings('.boardNo').text()
+						let $cno = $(this).parent("td").siblings('.boardNo').text();
 						location.href='updateForm.no?no='+ $cno;
 					})
                     
@@ -200,17 +200,51 @@
                     
                     
                   })
+                  
+                 function deleteNotice() {
+					let boardNoArr = [];
+					
+					$('#noticeTable tbody tr').each(function() {
+						if($(this).find('td:first-child input[type="checkbox"]').is(':checked')){
+							let $boardNo = $(this).find('td.boardNo').text();
+							boardNoArr.push($boardNo);
+						}
+					})
+					
+					$.ajax({
+
+						type:'POST'
+						,url:'ajaxDelete.no'
+						,data:{'boardNoArr':boardNoArr}
+						,success: function(result) {
+							if(result == "YYYY"){
+								alert("게시글 삭제에 성공했습니다.");
+								location.reload();
+							}else{
+								alert("게시글 삭제에 실패했습니다. \n잠시 후 다시 시도해주세요.")
+							}
+						}
+						,error:function(){
+							alert("오류가 발생했습니다! \n잠시 후 다시 시도해주세요.")
+						}
+											
+					})
+					
+					
+					
+					
+				 }
 
                 </script>
             
                 <div class="search-area">
                   <form action="search.no" method="get">
-                    <select class="custom-select my-1 mr-sm-2 w-auto" id="materialSearchCondition">
-                      <option selected value="writer">작성자</option>
+                    <select name="condition" class="custom-select my-1 mr-sm-2 w-auto" id="materialSearchCondition">
+                      <option value="writer">작성자</option>
                       <option value="title">제목</option>
                       <option value="content">내용</option>
                     </select>
-                    <input type="text" class="form-control rounded-pill" name="keyword" style="width: 50%;">
+                    <input type="text" class="form-control rounded-pill" name="keyword" value="${ keyword }" style="width: 50%;">
                     <button type="submit" class="btn btn-outline-primary">검색</button>
                   </form>
                 </div>

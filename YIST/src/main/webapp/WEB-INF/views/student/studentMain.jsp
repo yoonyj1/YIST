@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +11,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
-.btn-dark {
-	position: absolute;
-	z-index: 999;
-}
+td:hover {
+  background-color: #9cd3f4;
+  }
 </style>
 </head>
 <body>
@@ -24,34 +25,18 @@
 	  <div class="container pt-60 pb-60">
 	    <div class="row">
 	      <div class="col-md-2">
-	        <img src="${pageContext.request.contextPath}/resources/student/images/yist/profile.png" alt="" style="width: 100%">
+	        <img src="${ loginUser.image }" alt="" style="width: 100%;  border-radius: 50%">
 	      </div>
 	      <div class="col-md-10">
 	        <div class="section-content">
-	          <h2 class="title text-white">이윤화</h2>
+	          <h2 class="title text-white">${ loginUser.name }</h2>
 	          <div class="left_subject_e text-white">
-	            <ul>
+	            <ul style="overflow: visible;">
 	              <li class="class">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</li>
-	              <li class="classroom">[강남 361] 2022. 10. 18 ~ 2023. 05. 19 ｜ 09:00 ~ 15:30</li>
+	              <li class="classroom">${loginUser.startDate} ~ ${loginUser.endDate}</li>
 	              <li>김시연 강사님</li>
 	              <br>
-	              <li>
-	              <a href='' class="btn btn-default btn-theme-colored btn-circled">로그아웃</a>
-	                <!-- <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-dark btn-theme-colored btn-circled">&nbsp;&nbsp;알림&nbsp;&nbsp;</button> -->
-	                <button type="button" class="btn btn-dark btn-theme-colored btn-circled position-relative" 
-	                tabindex="0" data-toggle="popover" data-bs-trigger="focus" title="알림" data-html="true" data-content="
-                      <a href='testList.st'>채점이 완료되었습니다.</a>
-                      <hr>
-                      <a href='testList.st'>공지사항이 등록되었습니다.</a>
-                      <hr>
-                      <a href='testList.st'>등록하신 게시글에 댓글이 달렸습니다.</a>
-
-                      " data-placement="right">&nbsp;&nbsp;알림&nbsp;&nbsp;
-                      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-					    5
-					  </span>
-                      </button>
-	              </li>
+	              <li><a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a></li>
 	            </ul>
 	          </div>
 	        </div>
@@ -177,34 +162,10 @@
                 <div class="entry-content border-1px p-20 pr-10">
                   <table id="notice">
                     <caption>공지사항</caption>
-                      <tr>
-                        <td width="80%" style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-                        <td>2023-03-27</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">2023.01.01 ~ 2023.12.31 훈련장려금 인상 안내</td>
-                        <td>2023-03-25</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">HRD-Net모바일 어플 OS업그레이드 작업 안내</td>
-                        <td>2023-03-21</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">폭우로 인한 금일 지각자 출석인정 방법 및 원격훈련 전환 공지</td>
-                        <td>2023-03-19</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">자습실 이용시 주의사항</td>
-                        <td>2023-03-21</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">KH수강생을 위한 식권 판매 변경된 제도 안내 입니다.</td>
-                        <td>2023-03-19</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align: left;">코로나19 진단검사 체계 전환에 따른 출결 인정 방법</td>
-                        <td>2023-03-19</td>
-                      </tr>
+                    <tbody>
+                    	<!-- 공지사항 최신순으로 7개 뿌리기 -->
+                    	
+                    </tbody>
                   </table>
                 </div>
               </section>
@@ -214,5 +175,40 @@
       </div>
     </section> 
   </div> 
+  
+  <script>
+  	$(function() {
+		topNoticeList();
+		
+		setInterval(topNoticeList, 60000);
+	})
+	
+	$(document).on("click", "#notice>tbody>tr", function() {
+		location.href='noticeDetail.st?nno=' +  $(this).find("input").val();
+	})
+	
+	function topNoticeList() {
+		$.ajax({
+			url: "mainNotice.st",
+			success: function(data) {
+				let value = "";
+				
+				for ( let i in data) {
+					value += "<tr>"
+						   + "<input type='hidden' value=" + data[i].boardNo +">"
+						   + "<td style='text-align: left;'>" + data[i].boardTitle + "</td>"
+						   + "<td>" + data[i].createDate + "</td>"
+						   + "</tr>"
+				}
+				$("#notice tbody").html(value);
+			},
+			error: function() {
+				console.log("메인 공지사항 ajax 통신 실패");
+			}
+		});
+	}
+	
+  </script>
+  
 	<jsp:include page="common/footer.jsp"/>
 </html>

@@ -10,14 +10,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
@@ -26,13 +30,17 @@ import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.service.MemberServiceImpl;
+import com.kh.yist.member.model.service.MemberService;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.student.model.service.StudentService;
 
 @Controller
 public class instructorController {
 
 	@Autowired
 	private TaskService tService;
+	@Autowired
+	private MemberService mService;
 	
 	@Autowired MemberServiceImpl mService;
 	
@@ -61,6 +69,11 @@ public class instructorController {
 		
 		return "instructor/examForm";
 	}
+	
+	@RequestMapping("teacher.ins")
+	public String teacher() {
+		return "instructor/teacher";
+	}
 
 	@ResponseBody
 	@RequestMapping("setExam.ins")
@@ -80,9 +93,16 @@ public class instructorController {
 	}
 
 	@RequestMapping("studentForm.ins")
-	public String studentForm() {
+	public String studentForm(Model model) {
+		//리스트조회
+		ArrayList<Member> list = mService.selectList();
+		model.addAttribute("list",list);
+		// 모델 셋팅
 		return "instructor/studentForm";
 	}
+	
+
+	
 
 	@RequestMapping("main.ins")
 	public String main() {
@@ -92,11 +112,6 @@ public class instructorController {
 	@RequestMapping("yistcheck.ins")
 	public String yistcheck() {
 		return "instructor/yistcheck";
-	}
-
-	@RequestMapping("teacher.ins")
-	public String teacher() {
-		return "instructor/teacher";
 	}
 
 	@RequestMapping("dataForm.ins")
@@ -141,8 +156,8 @@ public class instructorController {
 	@RequestMapping("update.task")
 	public String updateTask(Task task, MultipartFile reupfile, HttpSession session, Model model) {
 
-//		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
-//		System.out.println("원본 파일 : " + task.getOriginName());
+		System.out.println("수정할 파일 : " + reupfile.getOriginalFilename());
+		System.out.println("원본 파일 : " + task.getOriginName());
 		
 		if (!reupfile.getOriginalFilename().equals("")) {// 수정할 첨부 파일이 있을 경우
 			
@@ -270,6 +285,23 @@ public class instructorController {
 		}
 
 		return changeName;
+	}
+	
+	@RequestMapping("/update.me")
+	public String updateMember(Member m,HttpSession session,Model model) {
+		int result = mService.updateTeacher(m);
+		System.out.println(m);
+		System.out.println(result);
+		if(result>0) {
+			
+			session.setAttribute("loginUser", mService.selectTeacher(m));
+			session.setAttribute("alerMsg", "수정 완료");
+			return "redirect:teacher.ins";
+			
+		}else {
+			model.addAttribute("errorMsg", "실패");
+			return "common/errorPage";
+		}
 	}
 
 }

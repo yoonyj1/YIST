@@ -63,4 +63,16 @@ public class AdminServiceY {
 	public int updateTeacherInfo(Member m) {
 		return aDao.updateTeacherInfo(sqlSession, m);
 	}
+	
+	public ArrayList<Member> selectNullTeacherList(PageInfo pi) {
+		return aDao.selectNullTeacherList(sqlSession, pi);
+	}
+	
+	public Member selectTeacherNull(String id) {
+		return aDao.selectTeacherNull(sqlSession, id);
+	}
+	
+	public int deleteStudent(String id) {
+		return aDao.deleteStudent(sqlSession, id);
+	}
 }

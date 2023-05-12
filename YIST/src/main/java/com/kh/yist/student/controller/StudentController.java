@@ -34,7 +34,25 @@ public class StudentController {
 	public String main() {
 		return "student/studentMain";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "mainNotice.st", produces = "application/json; charset=UTF-8")
+	public String mainNotic(ModelAndView mv) {
+		
+		ArrayList<Notice> nlist = sService.mainNotice();
+		
+		return new Gson().toJson(nlist);
+	}
+	
+	// 로그아웃
+	@RequestMapping("logout.st")
+	public String logoutStudent(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/"; // "main"
+	}
+	
 	// 시험 목록 조회
 	@RequestMapping("testList.st")
 	public ModelAndView testList(ModelAndView mv) {
@@ -53,7 +71,7 @@ public class StudentController {
 		Exam e = sService.testDetail(examNo);
 
 		model.addAttribute("e", e);
-		System.out.println(e);
+
 		return "student/studentTestDetail";
 	}
 
@@ -77,7 +95,19 @@ public class StudentController {
 
 		return mv;
 	}
-
+	
+	// 공지사항 상세 조회
+	@RequestMapping("noticeDetail.st")
+	public ModelAndView selectNotice(int nno, ModelAndView mv) {
+		
+		Notice n = sService.selectNotice(nno);
+		System.out.println(n);
+		
+		mv.addObject("n", n).setViewName("student/studentNoticeDetail");
+		
+		return mv;
+	}
+	
 	@RequestMapping("videoList.st")
 	public String videoList() {
 		return "student/studentVideoList";
