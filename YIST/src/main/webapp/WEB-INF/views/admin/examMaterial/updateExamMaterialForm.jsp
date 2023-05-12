@@ -41,35 +41,21 @@
 	
 		$(document).ready(function(){
 	        $('.summernote').summernote({
-		          // 에디터 높이
 		          height: 750,
-		          // 에디터 한글 설정
 		          lang: "ko-KR",
-		          // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
 		          focus : true,
 		          toolbar: [
-		              // 글꼴 설정
 		              ['fontname', ['fontname']],
-		              // 글자 크기 설정
 		              ['fontsize', ['fontsize']],
-		              // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
 		              ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-		              // 글자색
 		              ['color', ['forecolor','color']],
-		              // 표만들기
 		              ['table', ['table']],
-		              // 글머리 기호, 번호매기기, 문단정렬
 		              ['para', ['ul', 'ol', 'paragraph']],
-		              // 줄간격
 		              ['height', ['height']],
-		              // 그림첨부, 링크만들기, 동영상첨부
-		              ['insert',['picture','link','video']],
-		              // 코드보기, 확대해서보기, 도움말
+		              ['insert',['link']],
 		              ['view', ['codeview','fullscreen', 'help']]
 		            ],
-		            // 추가한 글꼴
 		          fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-		          // 추가한 폰트사이즈
 		          fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		        });
 		})
@@ -81,15 +67,15 @@
               </div>
 
               <div class="card-body">
-                <form method="post" action="">
+                <form id="examMaterialFoam" method="post" action="update.em" enctype="multipart/form-data">
+                  <input type="hidden" name="boardNo" value="${ em.boardNo }">
                   <table class="table table-bordered" id="addMaterialClass-table">
                     
                     <tr>
                       <th>제목</th>
                       <td>
                         <div class="input-group mb-3">
-                          <input type="text" name="className" class="form-control" placeholder="제목을 입력하세요" aria-label="Recipient's username"
-                            aria-describedby="basic-addon2">
+                          <input type="text" name="boardTitle" value="${ em.boardTitle }" class="form-control">
 
                         </div>
                       </td>
@@ -99,11 +85,10 @@
                       <th>과목</th>
                       <td>
                         <div class="form-group" style="width: 30%;">
-                          <select name="class" class="js-example-basic-multiple form-control" required>
-                            <option value=" ">과목1</option>
-                            <option value=" ">과목2</option>
-                            <option value=" ">과목3</option>
-                            <option value=" ">과목4</option>
+                          <select name="classNo" class="js-example-basic-multiple form-control" required>
+                            <option value="1">자바</option>
+                            <option value="2">파이썬</option>
+                            <option value="3">C</option>
                           </select>
                         </div>
                       </td>
@@ -111,20 +96,39 @@
 
                     <tr>
                       <th colspan="2" style="width: 100%;">
-                        <textarea name="content" id="materialSummer" class="summernote" style="width: 100%;"></textarea>
+                        <textarea name="boardContent" id="materialSummer" class="summernote" style="width: 100%;">
+                          ${ em.boardContent }
+                        </textarea>
                       </th>
                     </tr>
 
-                    <tr>
-                      <th>첨부파일</th>
-                      <td><input type="file" name="" id=""></td>
-                    </tr>
+		                <tr>
+		                    <th>첨부파일</th>
+                        <td>
+                          <input type="file" name="reupfile" id="upfile" onchange="loadFile(this);">
+                          <img id="preview" src="#" width=200 height=150 style="align-content: flex-end; display:none;">
+
+                          <c:choose>
+                            <c:when test="${ empty em.originName }">
+                                첨부파일이 없습니다
+                            </c:when>
+                                        
+                            <c:otherwise>
+                              <br>
+                                현재 첨부파일 | <a href="${ em.changeName } " download="${ em.originName }">${ em.originName }</a>
+                              <input type="hidden" name="originName" value="${ em.originName }">
+                              <input type="hidden" name="changeName" value="${ em.changeName }">
+                            </c:otherwise>
+                                            
+                          </c:choose>
+                        </td>		                    
+							      </tr>
 
                   </table>
                   <div class="btn-center">
-                    <button class="btn btn-primary btn-pill mr-2" type="submit">수정</button>
-                    <button class="btn btn-pill mr-2 btn-danger" type="submit" onclick="confirm('삭제된 자료는 복구할 수 없습니다. 정말 삭제하시겠습니까?');">삭제</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="javascript:history.back();">취소</button>
+                    <button class="btn btn-primary btn-pill mr-2" type="button" onclick="examMaterialFoam(1);">수정</button>
+                    <button class="btn btn-pill mr-2 btn-danger" type="button" onclick="if(confirm('삭제된 자료는 복구할 수 없습니다. \n정말 삭제하시겠습니까?')){examMaterialFoam(2)};">삭제</button>
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">취소</button>
                   </div>
                 </form>
             
@@ -138,6 +142,68 @@
 
 	</div>	
 	
+	<script>
+		$(function() {
+			let $option = $("option");
+			console.log($option)
+			$option.each(function() {
+				let $this = $(this);
+				let value = $this.val();
+				let classNo = '${ m.classNo }';
+				if (value === classNo) {
+					$this.attr('selected', true);
+				}
+			})
+		})
+	</script>
+	
+	
+	<script>
+	
+
+		function examMaterialFoam(num){
+			if(num==1){
+						
+				$("#examMaterialFoam").attr("action","update.em").submit();
+						
+			}else{
+						
+				$("#examMaterialFoam").attr("action","delete.em").submit();
+						
+			}
+
+		}
+
+
+		function backToList(){
+      location.href='examMaterialAdminList.ad';
+		}
+
+		
+		function loadFile(input) {
+				    let file = input.files[0];	
+
+				    let $newImage = $("#preview");
+
+				    if (file != '') {
+				         let reader = new FileReader();
+				         reader.readAsDataURL(file);
+				         reader.onload = function (e) { 
+				        	 $newImage.attr('src', e.target.result);
+				        	 $newImage.css('display', 'block');
+				         }
+				    }else{
+				    	
+				        	 $newImage.css('display', 'none');
+				    }
+				    
+		}
+
+	</script>
+
+
+
+
 	
 </body>
 </html>

@@ -171,7 +171,7 @@ public class NoticeController {
 			session.setAttribute("alertMsg", "공지사항 수정에 실패했습니다!");
 		}
 		
-		return "redirect:update.no?no="+n.getBoardNo();
+		return "redirect:detail.no?no="+n.getBoardNo();
 		
 	}	
 	

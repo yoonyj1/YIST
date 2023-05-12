@@ -167,7 +167,7 @@
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 			<!-- Aplication Brand -->
 			<div class="app-brand">
-				<a href="/index.html"> 
+				<a href="#" style="cursor: default;"> 
 					<img src="${pageContext.request.contextPath}/resources/admin/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
 					<span class="brand-name">YIST</span>
 				</a>

@@ -116,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      , #{subjectName}
 		      , to_date(#{startDate},'RR/MM/DD')
 		      , to_date(#{endDate},'RR/MM/DD')
-		      , 'Y'
+		      , 'N'
 		      , #{day}
 		      , #{maximumSeats}
 		      , #{currentSeats}
