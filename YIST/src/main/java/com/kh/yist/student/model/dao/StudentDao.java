@@ -108,4 +108,8 @@ public class StudentDao {
 	public int updateTask(SqlSessionTemplate sqlSession, Task t) {
 		return sqlSession.update("studentMapper.updateTask", t);
 	}
+
+	public ArrayList taskSubmitList(SqlSessionTemplate sqlSession, Member student) {
+		return (ArrayList)sqlSession.selectList("studentMapper.taskSubmitList", student);
+	}
 }

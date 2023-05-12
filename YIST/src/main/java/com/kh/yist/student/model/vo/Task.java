@@ -22,7 +22,6 @@ public class Task {
     private String submitDate;
     private String modifyDate;
     private String status;
-    private String submit_Status;
     private int fileNo;
     private String originName;
 	private String changeName;

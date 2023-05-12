@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.member.model.vo.Member;
@@ -84,7 +85,7 @@ public class StudentController {
 
 	// 우리반 게시판 목록 조회
 	@RequestMapping("boardList.st")
-	public ModelAndView boardList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+	public ModelAndView boardList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv, HttpSession session) {
 
 		int listCount = sService.boardListCount();
 
@@ -92,8 +93,15 @@ public class StudentController {
 
 		ArrayList<Material> list = sService.boardList(pi);
 
+		// 진원(초기 과제 리스트받아오기)
+		Member student = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Task> taskList = sService.taskList(student);
+		
+		mv.addObject("taskList", taskList);
+		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
-
+		
 		return mv;
 	}
 
@@ -103,27 +111,36 @@ public class StudentController {
 	public String MaterialList() {
 
 		ArrayList<Material> list = sService.MaterialList();
-
+		
+		JsonObject obj = new JsonObject();
+		
 		return new Gson().toJson(list);
 	}
 
-	// 우리반 게시판 과제 목록 조회
+	// 우리반 게시판 과제 목록(제출여부) 조회
 	@ResponseBody
 	@RequestMapping(value = "taskList.st", produces = "application/json; charset=UTF-8")
 	public String taskList(HttpSession session) {
 
 		Member student = (Member)session.getAttribute("loginUser");
 		
-		ArrayList<Task> list = sService.taskList(student);
+		ArrayList<Task> submitList = sService.taskSubmitList(student);
 
-		return new Gson().toJson(list);
+		return new Gson().toJson(submitList);
 	}
 
 	// 과제 상세 조회
 	@RequestMapping("taskDetail.st")
 	public ModelAndView selectTask(Task task, ModelAndView mv, HttpSession session) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		task.setStudentId(m.getId());
+		
 		Task selectTask = sService.selectTask(task);
-
+		
+		System.out.println(selectTask);
+		
 		if (selectTask != null) {
 			mv.addObject("t", selectTask).setViewName("student/studentTaskDetail");
 		} else {
@@ -144,28 +161,28 @@ public class StudentController {
 		int result = sService.taskInsert(t);
 
 		if (result > 0) {
-			session.setAttribute("alertMsg", "과제가 제출되었습니다!");
+			session.setAttribute("student_alertMsg", "과제가 제출되었습니다!");
 		} else {
-			session.setAttribute("alertMsg", "과제 제출에 실패했습니다.");
+			session.setAttribute("student_alertMsg", "과제 제출에 실패했습니다.");
 		}
 
-		return "student/studentBoardList";
+		return "redirect:boardList.st";
 	}
 
 	// 과제 수정
 	@RequestMapping("updateTask.st")
 	public String updateTask(Task task, Model model, HttpSession session) {
 		
-		System.out.println("-----------------수정전-----------------");
-		System.out.println(task);
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		task.setStudentId(m.getId());
 	
 		int result = sService.updateTask(task);
 		
-		
 		if (result > 0) {
-			session.setAttribute("alertMsg", "과제 성공적으로 수정했습니다.");
+			session.setAttribute("student_alertMsg", "과제 성공적으로 수정했습니다.");
 		} else {
-			session.setAttribute("alertMsg", "과제 수정을 실패했습니다.");
+			session.setAttribute("student_alertMsg", "과제 수정을 실패했습니다.");
 		}
 
 		return "redirect:taskDetail.st?taskNo=" + task.getTaskNo() + "&studentId=" + task.getStudentId();
@@ -178,11 +195,11 @@ public class StudentController {
 		int result = sService.deleteTask(task);
 
 		if (result > 0) {
-			session.setAttribute("alertMsg", "게시글이 삭제되었습니다!");
+			session.setAttribute("student_alertMsg", "게시글이 삭제되었습니다!");
 			return "redirect:boardList.st";
 		} else {
-			session.setAttribute("alertMsg", "게시글 삭제 실패했습니다.");
-			return "redirect:/taskReplyDetail.st?tno=" + task.getTaskNo();
+			session.setAttribute("student_alertMsg", "게시글 삭제 실패했습니다.");
+			return "redirect:taskReplyDetail.st?tno=" + task.getTaskNo();
 		}
 	}
 

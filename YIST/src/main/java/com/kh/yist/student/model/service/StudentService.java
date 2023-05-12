@@ -60,6 +60,11 @@ public class StudentService {
 		return sDao.taskList(sqlSession, m);
 	}
 	
+	// 과제 제출 여부 조회
+	public ArrayList<Task> taskSubmitList(Member student) {
+		return (ArrayList)sDao.taskSubmitList(sqlSession, student);
+	}
+	
 	// 과제 상세 조회
 	public Task selectTask(Task task) {
 		return sDao.selectTask(sqlSession, task);
@@ -89,4 +94,6 @@ public class StudentService {
 	public int updateTask(Task t) {
 		return sDao.updateTask(sqlSession, t);
 	}
+
+	
 }

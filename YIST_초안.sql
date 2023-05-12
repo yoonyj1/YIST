@@ -253,7 +253,7 @@ insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험3', nul
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험4', null, null, DEFAULT);
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험5', null, null, DEFAULT);
 
-insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
+insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N', 'N');
 insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
 
 insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
@@ -262,45 +262,83 @@ insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_
 
 commit;
 
-select
-		   t.task_no as "task_no"
-		 , t.task_title as "task_title"
-		 , id
-		 , student_id
-		 , to_char(start_date, 'YYYY-MM-DD') as "start_date"
-		 , to_char(end_date, 'YYYY-MM-DD') as "end_date"
-		 , t.task_content as "task_content"
-		 , nvl(ts.status, 'Y') as "status"
-		 , ts.submit_content as "submit_content"
-         , origin_name
-         , change_name
-         , end_date
-         , nvl(ts.submit_status, 'Y') as "submit_Status"
-	  from task t
-      join task_file tf on (t.task_no = tf.task_no)
-      left join task_submit ts on (t.task_no = ts.task_no)
-    where t.task_no = 1 
-    	and tf.status = 'Y' 
-    	and (student_id is NULL or student_id = 'USER01')
-    	order by ts.status;
-
 select 
 	       t.task_no
 	     , t.task_title
 	     , t.id
-	     , to_char(t.start_date, 'YYYY-MM-DD') as "start_date"
-	     , to_char(t.end_date, 'YYYY-MM-DD') as "end_date"
-	     , ts.submit_content
-	     , ts.student_id
-	     , to_char(ts.submit_date, 'YYYY-MM-DD') as "submit_date"
-	     , origin_name
-         , change_name
-         , nvl(ts.status, 'N') as "status"
-         , nvl(ts.submit_status, 'Y') as "submit_Status"
+	     , to_char(t.start_date, 'YYYY-MM-DD') as "startDate"
+	     , to_char(t.end_date, 'YYYY-MM-DD') as "endDate"
+         , subject_no
 	  from task t
-	  join task_file tf on (t.task_no = tf.task_no)
-	  left join task_submit ts on t.task_no = ts.task_no
-      where (ts.student_id is NULL or ts.student_id = 'USER01') 
-      	and subject_no = 1 
-	 order
-	    by t.task_no desc;
+      where subject_no = 1
+      order by t.task_no desc;
+      
+select 
+        task_no
+      , student_id
+      , submit_content
+      , submit_date
+      , modify_date
+      , status
+      , submit_status
+from task_submit
+where student_id = 'USER05';
+
+      
+select
+		   t.task_no as "task_no"
+		 , t.task_title as "task_title"
+		 , id
+		 , to_char(start_date, 'YYYY-MM-DD') as "start_date"
+		 , to_char(end_date, 'YYYY-MM-DD') as "end_date"
+		 , t.task_content as "task_content"
+		 , ts.status as "status"
+		 , ts.submit_content as "submit_content"
+         , origin_name
+         , change_name
+         , end_date
+         , nvl(ts.submit_status, 'N') as "submit_Status"
+         , student_id
+	  from task t
+      join task_file tf on (t.task_no = tf.task_no)
+      left join task_submit ts on (t.task_no = ts.task_no)
+    where t.task_no = 2
+        and (student_id is NULL or student_id = 'USER05')
+    	order by t.task_no;      
+
+commit;
+
+
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

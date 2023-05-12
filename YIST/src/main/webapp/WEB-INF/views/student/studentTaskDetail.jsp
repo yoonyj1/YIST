@@ -122,34 +122,20 @@ button {
 			        </tr>
 			        <tr>
 						<td colspan="4">
-							<c:choose>
-								<c:when test="${t.submit_Status == 'N'}">
-									<textarea id="summernote" name="submitContent" style="align: center;">${t.submitContent}</textarea>
-								</c:when>
-								<c:otherwise>
-									<textarea id="summernote" name="submitContent" style="align: center;"></textarea>
-								</c:otherwise>
-							</c:choose>
+							<textarea id="summernote" name="submitContent" style="align: center;">${t.submitContent}</textarea>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4">
-							<c:choose>
-								<c:when test="${t.status == 'N' and t.submit_Status == 'N'}">
-									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
-								</c:when>
-								<c:when test="${t.status == 'N' and t.submit_Status == 'Y'}">
-									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
-								</c:when>
-								<c:when test="${t.status == 'Y' and t.submit_Status == 'Y'}">
-									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
-								</c:when>
-								<c:otherwise>
-									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('update');">수정하기</button>
-									<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('delete');">삭제하기</button>
-								</c:otherwise>
-							</c:choose>
-						</td>
+						<td id="btn-panel" colspan="4">
+						<c:choose>
+							<c:when test="${empty t.submitContent}">
+								<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('insert');">등록하기</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('update');">수정하기</button>
+								<button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="accessForm('delete');">삭제하기</button>
+							</c:otherwise>	
+						</c:choose>
 					</tr>
 			    </table>
 		    </form>
@@ -186,16 +172,12 @@ button {
   		if (today.getTime() > endDate.getTime()){
   			console.log("비활성화");
   			//$("#reply-btn").attr("disabled", true);
-  			$('#reply-btn').on("click",function(e){
-  				e.preventDefault();
-  			})
-  			
+  			$('#summernote').summernote('disable');
+  			$('#btn-panel').hide();
   		}
   		
-  		let t = '${t}'
-  		console.log(t);
   		
-  	})
+  	});
   	
   	$(document).ready(function(){
   		$('#summernote').summernote({
