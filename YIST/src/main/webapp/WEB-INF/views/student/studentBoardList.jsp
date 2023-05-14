@@ -222,14 +222,22 @@ button {
 									for (let j in submitList){
 										 if (today.getTime() > endDate.getTime()){
 											 if (list[i].taskNo == submitList[j].taskNo){
-								            	list[i].status = "<td style='color: red;'>마감/제출</td>";	
+												 if(submitList[j].status == 'Y'){
+													list[i].status = "<td style='color: red;'>마감/확인</td>";
+												 } else {
+								            		list[i].status = "<td style='color: red;'>마감/제출</td>";	
+												 }
 											 } 
 											if(list[i].status == ''){
 												list[i].status = "<td style='color: red;'>마감/미제출</td>";
 											}
 								         } else {
 								        	 if (list[i].taskNo == submitList[j].taskNo){
-									           	list[i].status = "<td style='color: blue;'>진행중/제출</td>";
+								        		 if(submitList[j].status == 'Y'){
+								        			 list[i].status = "<td style='color: blue;'>진행중/확인</td>";
+													 } else {
+											           	list[i].status = "<td style='color: blue;'>진행중/제출</td>";
+													 }
 											 } 
 								        	 if(list[i].status == ''){
 								        	 	list[i].status = "<td style='color: blue;'>진행중/미제출</td>";

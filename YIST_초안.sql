@@ -260,54 +260,72 @@ insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1'
 insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_1.png','resources/instructor/uploadFiles/java_exam2_2.png','resources/instructor/uploadFiles/java_exam2_3.png','resources/instructor/uploadFiles/java_exam2_4.png','resources/instructor/uploadFiles/java_exam2_5.png','int answer = 0;'||CHR(10)||'if (age > 0 && age <= 120){'||CHR(10)||'answer = (2023 - age);'||CHR(10)||'}'||CHR(10)||'return answer;','rr','d1','11','11');
 
 
-commit;
-
-select 
-	       t.task_no
-	     , t.task_title
-	     , t.id
-	     , to_char(t.start_date, 'YYYY-MM-DD') as "startDate"
-	     , to_char(t.end_date, 'YYYY-MM-DD') as "endDate"
-         , subject_no
-	  from task t
-      where subject_no = 1
-      order by t.task_no desc;
-      
-select 
-        task_no
-      , student_id
-      , submit_content
-      , submit_date
-      , modify_date
-      , status
-      , submit_status
-from task_submit
-where student_id = 'USER05';
-
-      
 select
-		   t.task_no as "task_no"
-		 , t.task_title as "task_title"
-		 , id
-		 , to_char(start_date, 'YYYY-MM-DD') as "start_date"
-		 , to_char(end_date, 'YYYY-MM-DD') as "end_date"
-		 , t.task_content as "task_content"
-		 , ts.status as "status"
-		 , ts.submit_content as "submit_content"
-         , origin_name
-         , change_name
-         , end_date
-         , nvl(ts.submit_status, 'N') as "submit_Status"
-         , student_id
-	  from task t
-      join task_file tf on (t.task_no = tf.task_no)
-      left join task_submit ts on (t.task_no = ts.task_no)
-    where t.task_no = 2
-        and (student_id is NULL or student_id = 'USER05')
-    	order by t.task_no;      
+        alarm_no
+      , id
+      , alarm_content
+      , alarm_type
+      , status
+      , create_date
+from alarm
+where id = 'USER01'
+group by alarm_no, id, alarm_content, alarm_content, alarm_type, status, create_date;
 
+select count(alarm_no)
+from alarm
+where id = 'USER01' and alarm_type = '과제';
+
+		SELECT
+              t.task_no as "task_no"
+            , t.task_title as "task_title"
+            , submit_content as "submit_content"
+            , s.student_id
+            , name
+            , submit_date
+            , s.status as "status"
+		FROM task_submit s
+		join member m on (s.student_id = m.id)
+		join task t on (s.task_no = t.task_no)
+		where s.task_no = 2;
+
+		select
+				t.task_no
+			  , file_no
+			  , subject_no
+			  , id
+			  , task_title
+			  , task_content
+			  , to_char(start_date, 'RRRR-MM-DD') as "start_date"
+			  , to_char(end_date, 'RRRR-MM-DD') as "end_date"
+			  , origin_name
+			  , change_name
+		      , file_level
+			  , status
+		from task t
+		left outer join task_file tf on (t.task_no = tf.task_no)
+		where id = 'INSTRUCTOR01' 
+            and (status = 'Y' or status is NULL)
+		order by tf.task_no desc;
+
+select seq_taskno.nextval
+from dual;
+
+select seq_taskno.currval
+from dual;
+
+
+select seq_tfno.nextval
+from dual;
+
+select seq_tfno.currval
+from dual;
+
+drop sequence seq_tfno;
+create sequence seq_tfno;
+
+drop sequence seq_taskno;
+create sequence seq_taskno;
 commit;
-
 
         
       

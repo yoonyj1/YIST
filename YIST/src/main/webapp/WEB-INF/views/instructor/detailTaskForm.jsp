@@ -13,7 +13,7 @@
 		<div class="wrapper">
 			<!-- 헤더 -->
 			<jsp:include page="../instructor/common/header.jsp"></jsp:include>
-
+			
 			<div class="content-wrapper table-hover">
 				<div class="content">
 					<h3 align="center">자료형과 연산자</h3>
@@ -60,8 +60,6 @@
 									</tr>
 									<!-- 과제 모달 시작 -->
 									<form action="taskCheck.ins" method="post">
-										<input type="hidden" name="taskNo" value="${t.taskNo}">
-										<input type="hidden" name="id" value="${t.id}">
 					                    <div class="modal fade" id="taskModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 					                      aria-hidden="true">
 					                      <div class="modal-dialog modal-xl" role="document">
@@ -80,7 +78,12 @@
 					                          </div>
 					                          <div class="modal-footer">
 					                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
-					                            <button type="submit" class="btn btn-primary btn-pill">확인하기</button>
+					                            <c:if test="${t.status eq 'N'}">
+						                            <button type="submit" id="taskCheck-btn" class="btn btn-primary btn-pill">확인하기</button>
+					                            </c:if>
+												<input type="hidden" name="taskNo" value="${t.taskNo}">
+												<input type="hidden" name="id" value="${t.id}">
+												<input type="hidden" name="taskTitle" value="${t.taskTitle}">
 					                          </div>
 					                        </div>
 					                      </div>
@@ -90,7 +93,6 @@
 				                    </c:forEach>
 								</tbody>
 							</table>
-							
 							  <!-- 페이징 -->
 				              <div class="card card-default align-items-center">
 				                <div class="card-header">
@@ -127,7 +129,6 @@
 				              </div>
 
 							
-							
 							<!-- 학생별 과제 상세보기 -->
 							<script type="text/javascript">
 								$(function(){
@@ -135,6 +136,7 @@
 										console.log($(this).children('th').eq(0).html());
 										let taskModalId = '#taskModal' + $(this).children('th').eq(0).html();
 										$(taskModalId).modal('show');
+										
 									})
 									
 									

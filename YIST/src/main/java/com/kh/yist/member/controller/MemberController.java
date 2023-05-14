@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
+import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.service.SubjectServiceImpl;
 import com.kh.yist.subject.model.vo.Subject;
@@ -55,8 +57,6 @@ public class MemberController {
 		
 		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
-		
-		System.out.println(m);
 		
 		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
 			System.out.println("로그인실패");
@@ -110,7 +110,6 @@ public class MemberController {
 		loginUser.setExamTime(setTime);
 		loginUser.setUserTime(userTime);
 		
-		
 		session.setAttribute("loginUser", loginUser);
 		
 		return "";
@@ -151,13 +150,6 @@ public class MemberController {
 		session.setAttribute("loginUser", loginUser);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -69,6 +69,15 @@
 	<result column="status" property="status" />
 </resultMap> -->
 
+<resultMap id="alarmResultSet" type="Alarm">
+		<result column="alarm_no" property="alarmNo"></result>
+		<result column="id" property="id"></result>
+		<result column="alarm_content" property="alarmContent"></result>
+		<result column="alarm_type" property="alarmType"></result>
+		<result column="status" property="status"></result>
+		<result column="create_date" property="createDate"></result>
+</resultMap>
+
 <resultMap type="Qna" id="qnaResultSet">
 	<result column="board_no" property="boardNo" />
 	<result column="board_title" property="boardTitle" />
@@ -208,7 +217,7 @@
 	     , to_char(t.end_date, 'YYYY-MM-DD') as "end_date"
          , subject_no
 	  from task t
-      where subject_no = #{subject}
+      where subject_no = #{subject} and status = 'N'
       order by t.task_no desc
 </select>
 
@@ -240,7 +249,7 @@
          , change_name
          , end_date
 	  from task t
-      join task_file tf on (t.task_no = tf.task_no)
+      left join task_file tf on (t.task_no = tf.task_no)
       left join task_submit ts on (t.task_no = ts.task_no)
     where t.task_no = #{taskNo}
     	and (student_id is NULL or student_id = #{studentId})
@@ -268,6 +277,56 @@
 	where task_no = #{taskNo}
 </update>
 
+<!-- 과제 등록 -->
+<insert id="taskInsert">
+	insert
+	  into task_submit
+	     (
+	       task_no
+	     , student_id
+	     , submit_content
+	     , submit_date
+	     , status
+	     )
+	     values
+	     (
+	       #{taskNo}
+	     , #{studentId}
+	     , #{submitContent}
+	     , sysdate
+	     , 'N'
+	     )
+</insert>
+
+<!-- 과제수정 -->
+<update id="updateTask">
+	update task_submit
+		set submit_content = #{submitContent}
+	where task_no = #{taskNo} and student_id = #{studentId}
+</update>
+
+<!-- 알람조회 -->
+	<select id="selectAlarmList" resultMap="alarmResultSet">
+		select
+		alarm_no
+		, id
+		, alarm_content
+		, alarm_type
+		, status
+		, create_date
+		from alarm
+		where id = #{id} and status = 'N'
+	</select>
+
+	<!-- 알람 읽음 처리 -->
+	<update id="taskAlarmCheck">
+		update alarm
+			set status = 'Y'
+		where alarm_no = #{alarmNo}
+	</update>	
+
+
+
 <!-- 우리반 게시판 QnA 목록 조회 -->
 <select id="qnaList" resultMap="qnaResultSet">
 	select
@@ -281,37 +340,6 @@
 	 order
 	    by board_no desc
 </select>
-
-<!-- 과제 등록 -->
-<insert id="taskInsert">
-	insert
-	  into task_submit
-	     (
-	       task_no
-	     , student_id
-	     , submit_content
-	     , submit_date
-	     , status
-	     , submit_status
-	     )
-	     values
-	     (
-	       #{taskNo}
-	     , #{studentId}
-	     , #{submitContent}
-	     , sysdate
-	     , 'N'
-	     , 'N'
-	     )
-</insert>
-
-<!-- 과제수정 -->
-<update id="updateTask">
-	update task_submit
-		set submit_content = #{submitContent}
-	where task_no = #{taskNo} and student_id = #{studentId}
-</update>
-
 </mapper>
 
 
