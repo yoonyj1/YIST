@@ -19,13 +19,28 @@
         <li class="title"><h3 class="text-uppercase mt-15" style="font-size: 25px; font-weight: bold; margin-top: 40px; margin-bottom: 35px;">이수현황</h3></li>
       </ul>
       <div class="progressbar-container">
-        <div class="progress-item">
-          <div class="progress" style="height: 20px;">
-            <div class="progress-bar" data-percent="75"></div>
-          </div>
-        </div>
-      </div>  
-    </div>  
+		 	  <div class="progress-item">
+	    <div class="progress" style="height: 20px;">
+	      <div class="progress-bar" data-percent=""></div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 수료 현황 계산 -->
+	<script>
+		  var startDate = new Date('${ loginUser.startDate }');
+		  var endDate = new Date('${ loginUser.endDate }');
+		  
+		  var currentDate = new Date();
+		  
+		  var totalDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+		  
+		  var completedDays = Math.round((currentDate - startDate) / (1000 * 60 * 60 * 24));
+		  var completionRate = Math.round((completedDays / totalDays) * 100);
+		  
+		  $('.progress-bar').attr('data-percent', completionRate);
+	</script>
+    
     <table style="margin-bottom: 40px">
         <thead>
             <tr higth="20px">
@@ -44,7 +59,14 @@
             </tr>
         </tbody>
     </table>    
-    <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div>
+        <%-- <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div> --%>
+    <div style="position: relative;">
+	  <img src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg" alt="">
+	  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+	    <span>바꿀 텍스트</span>
+	  </div>
+	</div>
+  </div>
   </div>
 
 	<jsp:include page="common/footer.jsp"/>
