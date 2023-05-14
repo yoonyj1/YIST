@@ -133,15 +133,15 @@ button {
                 <td>4</td>
                 <td>UI 디자인</td>
                 <td>2022.11.02</td>
-                <td>89</td>
-                <td>우수</td>
+                <td></td>
+                <td></td>
             </tr>
             <tr>
                 <td>5</td>
                 <td>요구사항 확인</td>
                 <td>2022.11.02</td>
-                <td>89</td>
-                <td>우수</td>
+                <td></td>
+                <td></td>
             </tr>
         </tbody>
       </table>
