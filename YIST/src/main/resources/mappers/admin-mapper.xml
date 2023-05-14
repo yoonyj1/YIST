@@ -219,12 +219,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			id,
 			name,
-			subject_name as "subject"
+			subject
 		from
 			member
-		join subject on (subject = subject_no)
 		where
-			subject_name = #{subjectName}
+			subject = #{subject}
 			
 	</select>
 </mapper>
