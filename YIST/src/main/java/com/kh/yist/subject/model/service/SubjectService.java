@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -47,5 +48,8 @@ public interface SubjectService {
 	
 	// 검색 게시글 조회
 	ArrayList<Subject> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
+	// 수강 학생 리스트 조회
+	ArrayList<Member> selectStudentList(int subject);
 
 }

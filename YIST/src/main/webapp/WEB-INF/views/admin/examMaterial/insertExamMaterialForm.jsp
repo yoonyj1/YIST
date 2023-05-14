@@ -36,6 +36,14 @@
 <body class="navbar-fixed sidebar-fixed" id="body">
 
 	<jsp:include page="../common/header.jsp"/>
+
+
+
+	
+
+	
+
+
 	
 	<script>
 	
@@ -63,7 +71,8 @@
 	        });
 
 		})
-	
+		
+
 	</script>
 	
 		<div class="card card-default">
@@ -132,11 +141,82 @@
   
   
 		</div>
+		
+		<c:if test="${not empty loginUser}">
+			<script>
+
+				
+				$(".summernote").on('summernote.keydown',function(we,e){
+					
+					if(typeof(Storage) == "function"){
+
+
+						let text = $('.summernote').summernote('code');
+						let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
+
+						sessionStorage.setItem("text_examMaterial", text_examMaterial);	
+
+					}
+
+				})
+
+
+				$(document).ready(() => {
+					if (window.sessionStorage) {
+						if (sessionStorage.getItem("temptExMa")!=null) {
+							if (confirm("이전에 작성한 글을 불러오시겠습니까?")) {
+								
+								let temptExMa = JSON.parse(sessionStorage.getItem("temptExMa"));
+
+								$("input[name='boardTitle']").val(temptExMa.title);
+								
+								$('.summernote').summernote('editor.insertText', temptExMa.content);
+								
+								let selectVal = temptExMa.select;
+								
+				                $("select[name='classNo']").val(selectVal);
+
+							} else {
+
+								sessionStorage.removeItem("temptExMa");
+
+							}
+						}
+					} else {
+						console.log("sessionStorage is not supported.");
+					}
+				});
+			</script>
+		</c:if>
 
 
 		<script>
-			function backToList(){
-				location.href='examMaterialAdminList.ad';
+	
+
+			function backToList() {
+
+				if (window.sessionStorage) {
+					if (sessionStorage.getItem("text_examMaterial")!=null){
+						if(confirm("작성중인 내용이 있습니다.\n취소하시겠습니까?")){
+
+							let text = $('.summernote').summernote('code');
+							let text_examMaterial = text.replace(/(<([^>]+)>)/ig,"");
+							
+							let title = $("input[name='boardTitle']").val();
+							
+							let selectVal = $("select").val(); 
+							
+							let temptExMa = { title:title, content:text_examMaterial, select:selectVal };
+							
+							sessionStorage.removeItem("text_examMaterial");
+							sessionStorage.setItem("temptExMa", JSON.stringify(temptExMa));
+							
+							location.href = 'examMaterialAdminList.ad';
+						}
+					}
+				} else {
+					location.href = 'examMaterialAdminList.ad';
+				}
 			}
 
 			function loadFile(input) {
@@ -162,6 +242,7 @@
 			
 		</script>            
 
-	
+
+
 </body>
 </html>

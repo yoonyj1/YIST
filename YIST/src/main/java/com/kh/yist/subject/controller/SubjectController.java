@@ -174,9 +174,10 @@ public class SubjectController {
 	public String selectClass(int sNo, Model m) {
 		
 		Subject s = sService.selectSubject(sNo);
-		
+		ArrayList<Member> list = sService.selectStudentList(sNo);
 		
 		m.addAttribute("s", s);
+		m.addAttribute("list", list);
 		
 		return "admin/class/detailClass";
 	}

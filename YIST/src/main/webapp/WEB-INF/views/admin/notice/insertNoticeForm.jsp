@@ -43,35 +43,21 @@
 
         $(document).ready(function(){
           $('.summernote').summernote({
-            // 에디터 높이
             height: 750,
-            // 에디터 한글 설정
             lang: "ko-KR",
-            // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
             focus : true,
             toolbar: [
-                // 글꼴 설정
                 ['fontname', ['fontname']],
-                // 글자 크기 설정
                 ['fontsize', ['fontsize']],
-                // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
                 ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-                // 글자색
                 ['color', ['forecolor','color']],
-                // 표만들기
                 ['table', ['table']],
-                // 글머리 기호, 번호매기기, 문단정렬
                 ['para', ['ul', 'ol', 'paragraph']],
-                // 줄간격
                 ['height', ['height']],
-                // 그림첨부, 링크만들기, 동영상첨부
                 ['insert',['link']],
-                // 코드보기, 확대해서보기, 도움말
                 ['view', ['codeview','fullscreen', 'help']]
               ],
-              // 추가한 글꼴
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-            // 추가한 폰트사이즈
             fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
           });
         })
@@ -126,10 +112,83 @@
                     </tr>
 
 				</table>
+
+        <c:if test="${not empty loginUser}">
+          <script>
+    
+            
+            $(".summernote").on('summernote.keydown',function(we,e){
+              
+              if(typeof(Storage) == "function"){
+    
+    
+                let text = $('.summernote').summernote('code');
+                let text_notice = text.replace(/(<([^>]+)>)/ig,"");
+    
+                sessionStorage.setItem("text_notice", text_notice);	
+    
+              }
+    
+            })
+    
+    
+            $(document).ready(() => {
+              if (window.sessionStorage) {
+                if (sessionStorage.getItem("temptNoti")!=null) {
+                  if (confirm("이전에 작성한 글을 불러오시겠습니까?")) {
+                    
+                    let temptNoti = JSON.parse(sessionStorage.getItem("temptNoti"));
+    
+                    $("input[name='boardTitle']").val(temptNoti.title);
+                    
+                    $('.summernote').summernote('editor.insertText', temptNoti.content);
+                    
+                    let selectVal = temptNoti.select;
+                    
+                            $("select[name='views']").val(selectVal);
+    
+                  } else {
+    
+                    sessionStorage.removeItem("temptNoti");
+    
+                  }
+                }
+              } else {
+                console.log("sessionStorage is not supported.");
+              }
+            });
+          </script>
+        </c:if>
+
+
+
 				
 				<script>
           function backToList(){
-            location.href='noticeAdminList.ad';
+            if (window.sessionStorage) {
+              if (sessionStorage.getItem("text_notice")!=null){
+                if(confirm("작성중인 내용이 있습니다.\n취소하시겠습니까?")){
+
+                  let text = $('.summernote').summernote('code');
+
+                  let text_notice = text.replace(/(<([^>]+)>)/ig,"");
+
+                  let title = $("input[name='boardTitle']").val();
+
+                  let selectVal = $("select").val(); 
+                  
+                  let temptNoti = { title:title, content:text_notice, select:selectVal };
+                  
+                  sessionStorage.removeItem("text_notice");
+                  sessionStorage.setItem("temptNoti", JSON.stringify(temptNoti));
+                  
+                  location.href='noticeAdminList.ad';
+                }
+              }
+            } else {
+              location.href='noticeAdminList.ad';
+            }
+
           }
 
 					function loadFile(input) {
