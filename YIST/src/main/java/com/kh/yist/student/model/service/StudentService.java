@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.member.model.vo.Alarm;
@@ -13,12 +14,16 @@ import com.kh.yist.student.model.vo.Task;
 
 public interface StudentService {
 
+	ArrayList<Member> selectIns(Member loginUser);
+	
 	ArrayList<Notice> mainNotice();
 
 	ArrayList<Exam> testList();
-
-	Exam testDetail(int examNo);
-
+	
+	Exam testDetail(int testNo);
+	
+	int testInsert(Exam e);
+	
 	int noticeListCount();
 
 	ArrayList<Notice> selectList(PageInfo pi);
@@ -62,4 +67,9 @@ public interface StudentService {
 
 	ArrayList<QnA> qnaList();
 
+	
+	ArrayList<Task> selectMyTask(String id);
+	
+	int deleteMyTask(List<Integer> taskNoList);
+	
 }

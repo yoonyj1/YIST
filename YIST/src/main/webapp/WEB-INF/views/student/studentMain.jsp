@@ -10,10 +10,14 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- 캘린더 -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js'></script>
+
 <style>
-td:hover {
+#notice td:nth-child(2):hover {
   background-color: #9cd3f4;
-  }
+}
 </style>
 </head>
 <body>
@@ -32,9 +36,12 @@ td:hover {
 	          <h2 class="title text-white">${ loginUser.name }</h2>
 	          <div class="left_subject_e text-white">
 	            <ul style="overflow: visible;">
-	              <li class="class">자바(JAVA)기반 공공데이터 융합 개발자 양성과정A</li>
-	              <li class="classroom">${loginUser.startDate} ~ ${loginUser.endDate}</li>
-	              <li>김시연 강사님</li>
+	              <c:forEach var="member" items="${ins}">
+	              <li class="class">${ member.subjectName }</li>
+	              <li class="classroom">${ member.startDate } ~ ${ member.endDate }</li>
+				    <li>${ member.name }</li>
+ 				 </c:forEach>
+
 	              <br>
 	              <li><a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a></li>
 	            </ul>
@@ -45,119 +52,30 @@ td:hover {
 	  </div>
 	</section>
 	
+	
+	<!-- 캘린더 -->
 	<script>
-      /* $(function () {
-        $('[data-toggle="popover"]').popover()
-      }); */
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
     </script>
-	
-	<!-- <div class="modal" id="myModal">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h4 class="modal-title">알림</h4>
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	      </div>
-	      <div class="modal-body">
-			
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-theme-colored" data-dismiss="modal">닫기</button>
-	      </div>
-	    </div>
-	  </div>
-	</div> -->
-	
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script>
-		$(document).ready(function() {
-		  $(".btn").click(function() {
-		    $("#myModal").modal();
-		  });
-		});
-	</script> -->
 	
     <section>
       <div class="container">
         <div class="row multi-row-clearfix">
           <div class="blog-posts">
-            <div class="col-md-4">
+            <div class="col-md-5">
               <section class="post clearfix mb-30 bg-lighter">
-                <div class="entry-content border-1px p-20 pr-10">
-                  <table id="calendar">
-                    <caption>2023년 3월</caption>
-                    <thead>
-                      <tr>
-                        <th scope="col">일</th>
-                        <th scope="col">월</th>
-                        <th scope="col">화</th>
-                        <th scope="col">수</th>
-                        <th scope="col">목</th>
-                        <th scope="col">금</th>
-                        <th scope="col">토</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>1</td>
-                        <td>2</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>9</td>
-                      </tr>
-                      <tr>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12</td>
-                        <td>13</td>
-                        <td>14</td>
-                        <td>15</td>
-                        <td>16</td>
-                      </tr>
-                      <tr>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td>20</td>
-                        <td>21</td>
-                        <td>22</td>
-                        <td>23</td>
-                      </tr>
-                      <tr>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                        <td>29</td>
-                        <td>30</td>
-                      </tr>
-                      <tr>
-                        <td>31</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>                  
+                <div class="entry-content border-1px p-20 pr-10" id='calendar'>
+                  <div id='calendar'></div>                  
                 </div>
               </section>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
               <section class="post clearfix mb-30 bg-lighter">
                 <div class="entry-content border-1px p-20 pr-10">
                   <table id="notice">

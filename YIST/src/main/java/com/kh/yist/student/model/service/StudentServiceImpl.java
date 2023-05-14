@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	
+	// 메인 정보 조회
+	@Override
+	public ArrayList<Member> selectIns(Member loginUser) {
+		return sDao.selectIns(sqlSession, loginUser);
+	}
+	
 	// 메인 공지사항 목록 조회
 	@Override
 	public ArrayList<Notice> mainNotice() {
@@ -39,8 +47,14 @@ public class StudentServiceImpl implements StudentService {
 
 	// 시험 상세 조회
 	@Override
-	public Exam testDetail(int examNo) {
-		return sDao.testDetail(sqlSession, examNo);
+	public Exam testDetail(int testNo) {
+		return sDao.testDetail(sqlSession, testNo);
+	}
+	
+	// 시험 제출
+	@Override
+	public int testInsert(Exam e) {
+		return sDao.testInsert(sqlSession, e);
 	}
 
 	// 공지사항 목록 조회
@@ -133,6 +147,15 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public int taskAlarmCheck(int alarmNo) {
 		return sDao.taskAlarmCheck(sqlSession, alarmNo);
+	// 내 과제 목록
+	@Override
+	public ArrayList<Task> selectMyTask(String id) {
+		return sDao.selectMyTask(sqlSession, id);
+	}
+
+	@Override
+	public int deleteMyTask(List<Integer> taskNoList) {
+	  return sDao.deleteMyTask(sqlSession, taskNoList);
 	}
 
 }

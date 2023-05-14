@@ -110,7 +110,7 @@ public class AdminControllerY {
 		model.addAttribute("td", m);
 		
 		
-		return "admin/teacherDetail-lecture?id=" + id;
+		return "admin/teacherDetail-lecture.do";
 	}
 	
 	@RequestMapping("studentDetail.do")

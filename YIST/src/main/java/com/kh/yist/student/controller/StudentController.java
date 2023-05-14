@@ -1,7 +1,22 @@
 package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.student.model.service.MailSendService;
+import com.kh.yist.student.model.service.StudentService;
+import com.kh.yist.student.model.vo.Notice;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +45,21 @@ public class StudentController {
 
 	@Autowired
 	private StudentService sService;
+	
+	@Autowired
+	private MailSendService mailService;
+	
 
 	@RequestMapping("main.st")
-	public String main() {
-		return "student/studentMain";
+	public ModelAndView main(Member m, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Member> ins = sService.selectIns(loginUser);
+		
+		mv.addObject("ins", ins).setViewName("student/studentMain");
+		
+		return mv;
 	}
 
 	@ResponseBody
@@ -67,13 +93,33 @@ public class StudentController {
 
 	// 시험 상세 조회
 	@RequestMapping("testDetail.st")
-	public String testDetail(@RequestParam(value = "eno") int examNo, Model model) {
+	public String testDetail(@RequestParam(value="eno") int testNo, Model model) {
+	    
+	    Exam e = sService.testDetail(testNo);
+	    e.setTestNo(testNo);
+	    
+	    model.addAttribute("e", e);
+	    
+	    return "student/studentTestDetail";
+	}
 
-		Exam e = sService.testDetail(examNo);
+	
+	// 시험 제출
+	@RequestMapping("testInsert.st")
+	public String testInsert(@RequestParam(value="eno") int testNo, Exam e, HttpSession session) {
+		  
+		e.setTestNo(testNo);
 
-		model.addAttribute("e", e);
-
-		return "student/studentTestDetail";
+		int result = sService.testInsert(e);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "평가 제출되었습니다");
+			return "redirect:testList.st";
+		}else {
+			session.setAttribute("alertMsg", "평가 제출 실패!");
+			return "redirect:testList.st";
+		}
+		
 	}
 
 	@RequestMapping("certificate.st")
@@ -268,12 +314,50 @@ public class StudentController {
 	public String myPage() {
 		return "student/studentMyPage";
 	}
-
+	
+	//이메일 인증
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		
+		return mailService.joinEmail(email);
+	}
+	
+	// 마이페이지 내 과제 목록
 	@RequestMapping("myTask.st")
-	public String myTask() {
-		return "student/studentMyTask";
+	public ModelAndView myTask(ModelAndView mv, HttpSession session) {
+		
+		Member id = (Member)session.getAttribute("loginUser");
+	    
+	    ArrayList<Task> list = sService.selectMyTask(id.getId());
+	    
+	    mv.addObject("list", list).setViewName("student/studentMyTask");
+	    
+	    return mv;
 	}
 
+	/*
+	 * // 마이페이지 내 과제 삭제
+	 * 
+	 * @RequestMapping("deleteMyTask.st")
+	 * 
+	 * @ResponseBody public void deleteTask(@RequestParam(value = "taskNoList[]")
+	 * List<Integer> taskNoList) {
+	 * 
+	 * sService.deleteMyTask(taskNoList); }
+	 */
+
+	@RequestMapping("deleteMyTask.st")
+	@ResponseBody
+	public void deleteTask(@RequestParam(value = "collection") List<Integer> taskNoList) {
+	  
+	  sService.deleteMyTask(taskNoList);
+	}
+
+	
 	@RequestMapping("myTest.st")
 	public String myTest() {
 		return "student/studentMyTestState";

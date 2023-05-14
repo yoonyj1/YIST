@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,11 @@ import com.kh.yist.student.model.vo.Task;
 @Repository
 public class StudentDao {
 
+	public ArrayList<Member> selectIns(SqlSessionTemplate sqlSession, Member loginUser) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.selectIns", loginUser);
+	}
+	
 	// 메인 공지사항 목록 조회
 	public ArrayList<Notice> mainNotice(SqlSessionTemplate sqlSession) {
 
@@ -31,9 +37,15 @@ public class StudentDao {
 	}
 
 	// 시험 상세 조회
-	public Exam testDetail(SqlSessionTemplate sqlSession, int examNo) {
-
-		return sqlSession.selectOne("studentMapper.testDetail", examNo);
+	public Exam testDetail(SqlSessionTemplate sqlSession, int testNo) {
+		
+		return sqlSession.selectOne("studentMapper.testDetail", testNo);
+	}
+	
+	// 시험 제출
+	public int testInsert(SqlSessionTemplate sqlSession, Exam e) {
+		
+		return sqlSession.insert("studentMapper.testInsert", e);
 	}
 
 	// 공지사항 목록 조회
@@ -143,4 +155,16 @@ public class StudentDao {
 		return sqlSession.update("studentMapper.taskAlarmCheck", alarmNo);
 	}
 
+	// 마이페이지 내과제 목록
+	public ArrayList<Task> selectMyTask(SqlSessionTemplate sqlSession, String id) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.selectMyTask", id);
+	}
+	
+	// 마이페이지 내과제 삭제
+	public int deleteMyTask(SqlSessionTemplate sqlSession, List<Integer> taskNoList) {
+		
+		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
+	}
 }
+	

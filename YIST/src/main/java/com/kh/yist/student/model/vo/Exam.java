@@ -24,4 +24,12 @@ public class Exam {
 	private String q3;
 	private String q4;
 	private String q5;
+	
+	private String studentId;
+	private String a1;
+	private String a2;
+	private String a3;
+	private String a4;
+	private String a5;
+	private int score;
 }
