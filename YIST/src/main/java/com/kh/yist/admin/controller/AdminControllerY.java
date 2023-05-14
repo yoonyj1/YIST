@@ -104,13 +104,15 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail-lecture.do")
-	public String teacherDetailLecture(String id, Model model) {
+	public String teacherDetailLecture(String id, String subjectName, Model model) {
 		Member m = aService.selectTeacher(id);
+		ArrayList<Member> list = aService.selectStudentList(subjectName);
 		
 		model.addAttribute("td", m);
+		model.addAttribute("list", list);
 		
 		
-		return "admin/teacherDetail-lecture.do";
+		return "admin/teacherDetail-lecture";
 	}
 	
 	@RequestMapping("studentDetail.do")
