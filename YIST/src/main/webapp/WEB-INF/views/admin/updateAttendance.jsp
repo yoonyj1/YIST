@@ -457,9 +457,7 @@ select.filter {
 		<div class="card-header">
 			<h2>출석관리</h2>
 		</div>
-		<div class="wrapper">
-			<!-- 헤더 -->
-			<div class="container">
+		<div class="card-body">
 
 				<!-- 
 				<div id="contextMenu" class="dropdown1 clearfix">
@@ -530,9 +528,8 @@ select.filter {
 			</div>
 			<!-- /.container -->
 
-		</div>
+		
 		<br><br>
-	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -572,7 +569,7 @@ select.filter {
 
 	<script
 		src="${pageContext.request.contextPath}/resources/instructor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		
+		</div>
 
 </body>
 </html>

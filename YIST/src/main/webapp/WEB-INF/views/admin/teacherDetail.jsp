@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body class="navbar-fixed sidebar-fixed" id="body">
 <script>
@@ -36,10 +37,10 @@
 		          <li class="nav-item">
 		            <a class="nav-link active" href="teacherDetail.do?id=${ td.id }">프로필</a>
 		          </li>
-		          <li class="nav-item">
-		            <a class="nav-link" href="teacherDetail-lecture.do?id=${ td.id }">강의</a>
+<%-- 		          <li class="nav-item">
+		            <a class="nav-link" href="teacherDetail-lecture.do?id=${ td.id }&subject=${td.subject}">강의</a>
 		          </li>
-		        </ul>
+ --%>		        </ul>
       		</div>
       		
       		<br>
@@ -89,19 +90,14 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                  <%--   <div class="row">
                         <div class="input-group mb-3 col">
                             <div class="input-group-prepend">
                             	<span class="input-group-text" id="basic-addon1">담당과목</span>
                             </div>
-                            <select name="subject" id="subjectList">
-                                <option value="NULL" selected>${ td.subject }</option>
-                                <option value="java">자바</option>
-                                <option value="C">C</option>
-                                <option value="phython">Phython</option>
-                            </select>
+                           	<input type="text" class="form-control" name="subject" value="${ td.subject }" readonly style="border:none;">
                         </div>
-                    </div>
+                    </div> --%>
 
                     <div class="row">
                       <div class="input-group mb-3 col-10">

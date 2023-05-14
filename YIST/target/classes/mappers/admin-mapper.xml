@@ -97,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  , image
 		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
 		  , email
-		  , subject_name as "subject"
+		  , subject_name as "SUBJECT"
 		  , address || detail_address as "ADDRESS"
 	  	from 
 	  		member m
@@ -106,6 +106,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			m.status='Y' and sort = 2 and id = #{ id }
 	</select>
 	
+	<select id="selectTeacher2" resultMap="memberResultSet">
+		select
+			id
+		  , name
+		  , image
+		  , subject
+		  
+	  	from
+	  		member
+  		where status = 'Y' and sort = 2 and id = #{id}	
+	</select>
+		
 	<select id="selectTeacherNull" resultMap="memberResultSet">
 		select
 			id
@@ -219,11 +231,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			id,
 			name,
-			subject
+			image,
+			phone,
+            subject
 		from
-			member
+			member m 
+        join subject s on(m.subject = s.subject_no)     
 		where
-			subject = #{subject}
+			subject_name = #{subject}
 			
 	</select>
 </mapper>

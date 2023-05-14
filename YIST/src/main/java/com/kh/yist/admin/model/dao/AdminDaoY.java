@@ -40,6 +40,7 @@ public class AdminDaoY {
 		return sqlSession.selectOne("adminMapper.selectTeacher", id);
 	}
 	
+	
 	public int selectStudentListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.selectStudentListCount");
 	}
