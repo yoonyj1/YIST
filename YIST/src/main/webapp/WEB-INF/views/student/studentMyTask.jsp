@@ -90,13 +90,14 @@ button {
 	          </tr>
 	        </thead>
 	        <tbody>
-	          <c:forEach var="t" items="${ list }">
-		          <tr data-taskno="${ t.taskNo }">
-		            <td><input type="checkbox"></td>
-		            <td style="text-align: left;">${ t.taskTitle }</td>
-		            <td>${ t.submitDate }</td>
-		          </tr>
-	          </c:forEach>
+	          <tbody>
+				  <c:forEach var="t" items="${list}">
+				    <tr>
+				      <td><input type="checkbox" class="task-checkbox" data-taskno="${t.taskNo}"></td>
+				      <td>${t.taskTitle}</td>
+				      <td>${t.submitDate}</td>
+				    </tr>
+				  </c:forEach>
 	        </tbody>
 	      </table>
 	    </div>       
@@ -110,20 +111,19 @@ button {
 		})
 		
 		function deleteSelected() {
-		  // 체크된 항목을 찾아서 taskNoList 배열에 저장
 		  var taskNoList = [];
-		  $("#taskList input:checked").each(function () {
-		    taskNoList.push($(this).closest("tr").data("taskno"));
+		  $("#taskList .task-checkbox:checked").each(function() {
+		    taskNoList.push($(this).data("taskno"));
 		  });
 		  
 		  $.ajax({
 		    url: "deleteMyTask.st",
 		    method: "post",
-		    data: { collection: taskNoList },
-		    success: function () {
+		    data: { taskNoList: taskNoList },
+		    success: function() {
 		      location.reload(); // 페이지 새로고침
 		    },
-		    error: function () {
+		    error: function() {
 		      alert("과제 삭제에 실패하였습니다.");
 		    }
 		  });
