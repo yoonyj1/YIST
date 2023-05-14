@@ -108,6 +108,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					)
 	</insert>
 
+	<insert id="insertTaskSubmit">
+		insert
+			into task_submit
+					(
+					  task_no
+		  	        , student_id
+					, submit_content
+					, submit_date
+					, modify_date
+					, status
+					)
+					values
+					(
+					    seq_taskno.currval
+					  , #{id}
+					  , NULL
+					  , NULL
+					  , NULL
+					  , 'N'
+					)
+	</insert>
+
 	<select id="selectTaskListCount" resultType="_int"
 		parameterType="Map">
 		select count(t.task_no) as "taskListCount"
@@ -175,6 +197,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="deleteTaskFile">
 		update task_file
+			set status = 'Y'
+		where task_no = #{taskNo}
+	</update>
+
+	<update id="deleteTaskSubmit">
+		update task_submit
 			set status = 'Y'
 		where task_no = #{taskNo}
 	</update>

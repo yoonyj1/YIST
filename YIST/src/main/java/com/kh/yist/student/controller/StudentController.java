@@ -171,13 +171,6 @@ public class StudentController {
 
 		ArrayList<Material> list = sService.boardList(pi);
 
-		// (초기 과제 리스트받아오기)
-		Member student = (Member) session.getAttribute("loginUser");
-
-		ArrayList<Task> taskList = sService.taskList(student);
-
-		mv.addObject("taskList", taskList);
-
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
 
 		return mv;
@@ -193,29 +186,27 @@ public class StudentController {
 		return new Gson().toJson(list);
 	}
 
-	// 우리반 게시판 과제 목록(제출여부) 조회
+	// 우리반 게시판 과제 목록조회
 	@ResponseBody
 	@RequestMapping(value = "taskList.st", produces = "application/json; charset=UTF-8")
 	public String taskList(HttpSession session) {
 
 		Member student = (Member) session.getAttribute("loginUser");
 
-		ArrayList<Task> submitList = sService.taskSubmitList(student);
+		ArrayList<Task> taskList = sService.taskList(student);
 
-		return new Gson().toJson(submitList);
+		return new Gson().toJson(taskList);
 	}
 
 	// 과제 상세 조회
 	@RequestMapping("taskDetail.st")
 	public ModelAndView selectTask(Task task, ModelAndView mv, HttpSession session) {
-
+		
 		Member m = (Member) session.getAttribute("loginUser");
 
 		task.setStudentId(m.getId());
-
+		
 		Task selectTask = sService.selectTask(task);
-
-		System.out.println(selectTask);
 
 		if (selectTask != null) {
 			mv.addObject("t", selectTask).setViewName("student/studentTaskDetail");
@@ -234,7 +225,7 @@ public class StudentController {
 
 		t.setStudentId(m.getId());
 
-		int result = sService.taskInsert(t);
+		int result = sService.taskSubmitInsert(t);
 
 		if (result > 0) {
 			session.setAttribute("student_alertMsg", "과제가 제출되었습니다!");
@@ -265,18 +256,20 @@ public class StudentController {
 	}
 
 	// 과제 삭제
-	@RequestMapping("deleteTask.st")
+	@RequestMapping("deleteTaskJW.st")
 	public String delete(Task task, HttpSession session) {
+		Member m = (Member) session.getAttribute("loginUser");
 
+		task.setStudentId(m.getId());
+		
 		int result = sService.deleteTask(task);
 
 		if (result > 0) {
 			session.setAttribute("student_alertMsg", "게시글이 삭제되었습니다!");
-			return "redirect:boardList.st";
 		} else {
 			session.setAttribute("student_alertMsg", "게시글 삭제 실패했습니다.");
-			return "redirect:taskReplyDetail.st?tno=" + task.getTaskNo();
 		}
+		return "redirect:boardList.st";
 	}
 
 	// 알람 조회
@@ -285,6 +278,7 @@ public class StudentController {
 	public String selectAlarm(HttpSession session, Model model) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		
 		// 학생 알람 모델
 		ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
 		

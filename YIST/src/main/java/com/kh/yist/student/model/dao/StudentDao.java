@@ -125,9 +125,9 @@ public class StudentDao {
 	}
 
 	// 과제 등록
-	public int taskInsert(SqlSessionTemplate sqlSession, Task t) {
+	public int taskSubmitInsert(SqlSessionTemplate sqlSession, Task t) {
 
-		return sqlSession.insert("studentMapper.taskInsert", t);
+		return sqlSession.update("studentMapper.taskSubmitInsert", t);
 	}
 
 	// 과제 수정

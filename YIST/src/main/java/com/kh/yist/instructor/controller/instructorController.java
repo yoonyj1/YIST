@@ -10,18 +10,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
@@ -30,10 +26,8 @@ import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.service.MemberServiceImpl;
-import com.kh.yist.member.model.service.MemberService;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
-import com.kh.yist.student.model.service.StudentService;
 
 @Controller
 public class instructorController {
@@ -125,11 +119,7 @@ public class instructorController {
 	public String insertTask(Task task, MultipartFile upfile, HttpSession session, Model model) {
 
 		int insertTask = tService.insertTask(task);
-		int result = 0;
-
-		System.out.println("파일 적용됨??");
-		System.out.println(upfile.getOriginalFilename());
-
+		
 		if (!upfile.getOriginalFilename().equals("")) {
 
 			if (insertTask > 0) {
@@ -140,7 +130,7 @@ public class instructorController {
 				
 				task.setChangeName("resources/instructor/uploadFiles/" + changeName);
 
-				result = tService.insertTaskFile(task);
+				tService.insertTaskFile(task);
 
 			} else {
 				session.setAttribute("alertMsg", "과제 등록에 실패했습니다.");
@@ -156,10 +146,14 @@ public class instructorController {
 			ArrayList<Member> membList = mService.selectExamMemberList(member.getSubject());
 
 			for (Member m : membList) {
+				tService.insertTaskSubmit(m.getId());
+			}
+			
+			for (Member m : membList) {
 				Alarm taskAlarm = new Alarm();
 				taskAlarm.setId(m.getId());
 				taskAlarm.setAlarmType("과제");
-				taskAlarm.setAlarmContent("[" + task.getTaskTitle() + "] 과제 등록이 완료되었습니다.");
+				taskAlarm.setAlarmContent("[" + task.getTaskTitle() + "] 과제가 등록 되었습니다.");
 				taskAlarm.setStatus("N");
 				tService.insertAlarm(taskAlarm);
 			}

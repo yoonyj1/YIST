@@ -170,7 +170,6 @@
 		NProgress.start();
 		
 		function sendAlarm(type, title, target, content, sender){
-			console.log("---------알람-----------");
 			
 			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
 			

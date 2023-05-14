@@ -70,6 +70,10 @@ public class TaskDao {
 		
 		int result = sqlSession.update("instructorMapper.deleteTask", task);
 		
+		for (int i = 0; i < task.getTaskNo(); i++) {
+			sqlSession.update("instructorMapper.deleteTaskSubmit", task);
+		}
+		
 		if (task.getFileNo() > 0) {
 			sqlSession.update("instructorMapper.deleteTaskFile", task);
 		}
@@ -107,6 +111,10 @@ public class TaskDao {
 
 	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm taskAlarm) {
 		return sqlSession.insert("instructorMapper.insertAlarm", taskAlarm);
+	}
+
+	public int insertTaskSubmit(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.insert("instructorMapper.insertTaskSubmit", id);
 	}
 	
 

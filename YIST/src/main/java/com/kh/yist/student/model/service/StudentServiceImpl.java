@@ -111,8 +111,8 @@ public class StudentServiceImpl implements StudentService {
 
 	// 과제 등록
 	@Override
-	public int taskInsert(Task t) {
-		return sDao.taskInsert(sqlSession, t);
+	public int taskSubmitInsert(Task t) {
+		return sDao.taskSubmitInsert(sqlSession, t);
 	}
 
 	// 과제 수정

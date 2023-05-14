@@ -48,7 +48,7 @@ public interface StudentService {
 	Task selectTask(Task task);
 
 	// 과제 답변
-	int taskInsert(Task t);
+	int taskSubmitInsert(Task t);
 
 	// 과제 답변 수정
 	int updateTask(Task t);

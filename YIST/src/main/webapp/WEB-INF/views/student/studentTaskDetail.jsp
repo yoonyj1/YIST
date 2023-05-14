@@ -90,8 +90,8 @@ button {
 		<div class="entry-content">
 			<form id="tx_editor_form" name="tx_editor_form" action=""
 				method="post" enctype="multipart/form-data">
-				<input type="hidden" name="taskNo" value="${t.taskNo}"> <input
-					type="hidden" name="studentId" value="${t.studentId}">
+				<input type="hidden" name="taskNo" value="${t.taskNo}"> 
+				<input type="hidden" name="studentId" value="${t.studentId}">
 				<table id="contentArea" align="center" class="table"
 					style="margin-top: 10px;">
 					<tr>
@@ -159,7 +159,7 @@ button {
 			} else if (param == "update") {
 				url = "updateTask.st";
 			} else {
-				url = "deleteTask.st";
+				url = "deleteTaskJW.st";
 			}
 
 			$("#tx_editor_form").attr("action", url).submit();

@@ -94,16 +94,16 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
+		    seletAlarmList();
 		});
-		
 		
 		// 전달 받은 데이터
 		function onMessage(evt){
 			let data = evt.data;
-			
-			toastr.info(data);	
-			
+
 			seletAlarmList();
+			
+			toastr.info(data);
 		}
 		
 		function seletAlarmList(){
@@ -127,7 +127,9 @@
 						
 						$("#alarm-badge").text(count);
 					}
+					
 				},
+				
 				error:function(){
 					alert("알람 조회 실패");
 				}
@@ -180,9 +182,7 @@
 	</header>
 	<!-- 알림창 -->
 	<script>
- 		$(function(){
- 			seletAlarmList();
-		}) 
+
 		
   		/* notificationHTML = `
 			<div>

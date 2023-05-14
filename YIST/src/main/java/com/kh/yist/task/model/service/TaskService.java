@@ -79,5 +79,9 @@ public class TaskService {
 	public int insertAlarm(Alarm taskAlarm) {
 		return tDao.insertAlarm(sqlSession, taskAlarm);
 	}
+
+	public int insertTaskSubmit(String id) {
+		return tDao.insertTaskSubmit(sqlSession, id);
+	}
 	
 }
