@@ -76,10 +76,8 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail.do")
-	public String teacherDetail(String id, Model model) {
-		System.out.println(id);
-		Member m = aService.selectTeacherNull(id);
-		System.out.println(m);
+	public String teacherDetail(String id, String subject, Model model) {
+		Member m = aService.selectTeacher(id);
 				
 		model.addAttribute("td", m);
 		
@@ -151,5 +149,20 @@ public class AdminControllerY {
 		return "admin/updateAttendance";
 	}
 	
-	
+	@RequestMapping("updateStudent.do")
+	public String updateStudentInfo(Member m, HttpSession session) {
+		int result = aService.updateStudentInfo(m);
+		
+		System.out.println(m.getId());
+		
+		if(result > 0) {
+			session.setAttribute("td", aService.selectStudent(m.getId()));
+			
+			
+			return "redirect:studentDetail.do?id="+m.getId();
+		} else {
+			return "redirect:studentList";
+		}
+		
+	}
 }

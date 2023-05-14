@@ -106,17 +106,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   			m.status='Y' and sort = 2 and id = #{ id }
 	</select>
 	
-	<select id="selectTeacher2" resultMap="memberResultSet">
-		select
-			id
-		  , name
-		  , image
-		  , subject
-		  
-	  	from
-	  		member
-  		where status = 'Y' and sort = 2 and id = #{id}	
-	</select>
 		
 	<select id="selectTeacherNull" resultMap="memberResultSet">
 		select
@@ -238,7 +227,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			member m 
         join subject s on(m.subject = s.subject_no)     
 		where
-			subject_name = #{subject}
+			subject_name = #{subject} and sort = 3
 			
 	</select>
+	
+	<update id="updateStudentInfo">
+		update
+			member
+		set
+			name=#{name}
+		  , phone=#{phone}
+		  ,	address=#{address}
+	  	where
+	  		id=#{id}
+	</update>
+		
 </mapper>

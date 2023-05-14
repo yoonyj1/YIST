@@ -79,4 +79,8 @@ public class AdminServiceY {
 	public ArrayList<Member> selectStudentList(String subject) {
 		return aDao.selectStudentList(sqlSession, subject);
 	}
+	
+	public int updateStudentInfo(Member m) {
+		return aDao.updateStudentInfo(sqlSession, m);
+	}
 }

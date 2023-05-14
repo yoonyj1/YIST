@@ -87,4 +87,8 @@ public class AdminDaoY {
 	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, String subject) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", subject);
 	}
+	
+	public int updateStudentInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("adminMapper.updateStudentInfo", m);
+	}
 }

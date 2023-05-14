@@ -61,12 +61,12 @@
         	<c:forEach var="s" items="${ s }">
 		        <div class="media media-sm">
 		          <div class="media-sm-wrapper">
-		            <a href="user-profile.html">
+		            <a href="studentDetail.do?id=${ s.id }">
 		              <img src="${ s.image }" width="70%" height="70%">
 		            </a>
 		          </div>
 		          <div class="media-body">
-		            <a href="user-profile.html">
+		            <a href="studentDetail.do?id=${ s.id }">
 		              <span class="title">${ s.name }</span>
 		              <span class="discribe">${ s.phone }</span>
 		            </a>

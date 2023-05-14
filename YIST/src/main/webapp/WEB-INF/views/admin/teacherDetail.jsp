@@ -37,11 +37,12 @@
 		          <li class="nav-item">
 		            <a class="nav-link active" href="teacherDetail.do?id=${ td.id }">프로필</a>
 		          </li>
-<%-- 		          <li class="nav-item">
+		          <li class="nav-item">
 		            <a class="nav-link" href="teacherDetail-lecture.do?id=${ td.id }&subject=${td.subject}">강의</a>
 		          </li>
- --%>		        </ul>
+		        </ul>
       		</div>
+      		
       		
       		<br>
       		
@@ -90,14 +91,15 @@
                         </div>
                     </div>
 
-                  <%--   <div class="row">
+              		<div class="row">
                         <div class="input-group mb-3 col">
                             <div class="input-group-prepend">
                             	<span class="input-group-text" id="basic-addon1">담당과목</span>
                             </div>
-                           	<input type="text" class="form-control" name="subject" value="${ td.subject }" readonly style="border:none;">
+                           	 <input type="hidden" name="subject" value="${ td.subject }">
+    						 <span class="form-control">${ td.subject }</span>
                         </div>
-                    </div> --%>
+                    </div>
 
                     <div class="row">
                       <div class="input-group mb-3 col-10">
