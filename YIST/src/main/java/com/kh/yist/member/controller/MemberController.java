@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.student.model.service.StudentServiceImpl;
 import com.kh.yist.subject.model.service.SubjectServiceImpl;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -27,6 +28,9 @@ public class MemberController {
 	
 	@Autowired
 	private SubjectServiceImpl sService;
+	
+	@Autowired
+	private StudentServiceImpl stuService;
 	
 	@Autowired
 	private SendCodeService sendCode;
@@ -55,8 +59,9 @@ public class MemberController {
 		
 		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
+		ArrayList<Member> ins = stuService.selectIns(loginUser);
 		
-		System.out.println(m);
+		System.out.println(loginUser);
 		
 		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
 			System.out.println("로그인실패");
@@ -75,6 +80,8 @@ public class MemberController {
 			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
+				System.out.println("학생입니당");
+				model.addAttribute("ins", ins);
 				mainPage = "student/studentMain";
 			} else {
 				hasMember = false;
