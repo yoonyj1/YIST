@@ -92,6 +92,7 @@
 
 	<c:if test="${loginUser.examTime > 0}">
 		<script>
+			let examNo = 0;
 			$(document).ready(function() {
 				
 				let currentTime = Math.round(new Date() / 1000);
@@ -128,7 +129,6 @@
 								  if ($("#timeDisplay").val() != ""){
 								  		alert("시험종료");
 								  		$("#timeDisplay").val("");	
-								  		$(".test-score").attr("disabled",false);
 									}
 							  },
 							  error : function(){
@@ -169,6 +169,15 @@
 		});
 		NProgress.start();
 		
+		function sendAlarm(type, title, target, content, sender){
+			console.log("---------알람-----------");
+			
+			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
+			
+			socket.send(type + "," + target + "," + msg + "," + sender);
+		}
+		
+		
 		// 웹소켓
 		// 전역변수 설정
 		let socket  = null;
@@ -182,21 +191,18 @@
 		    
 		});
 		
-		
+		// (시험, 과제 알림)
 		$(document).ready(function(){
-			$("#search-input").on("keyup",function(key){
-				console.log("로그인 유저 아이디" + '${loginUser.getId()}');
-		        if(key.keyCode==13) {
-					let type = '70';
-					let target = 'user02';
-					let content = $("#search-input").val();
-					let loginUser = '${loginUser.getId()}';
-					let url = '컨트롤러 매핑값';
-					//socket.send("관리자,"+target+","+content+","+url);
-					socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
-		        }
-		    });
-		
+			// 학생이 제출한 과제 확인했다고 알려주는 알림
+			$("#taskCheck-btn").on("click", function(){
+				let type = '과제';
+				let title = $(this).next().next().next().val();
+				let target = $(this).next().next().val();
+				let content = "과제 확인";
+				let sender = '${loginUser.getId()}';
+				
+				sendAlarm(type, title,  target, content, sender);
+			})
 
 		})
 		
@@ -207,23 +213,6 @@
 		    
 		    console.log("메세지 : " + data);
 		   	//alert("강사 : " + data);
-		   	
-		   	<!-- 알림 시작 -->
-/* 			<div class="media media-sm p-4 bg-light mb-0">
-				<div class="media-sm-wrapper bg-primary">
-					<a href="user-profile.html"> <i
-						class="mdi mdi-calendar-check-outline"></i>
-					</a>
-				</div>
-				<!-- 알림 메세지 넣는 부분 -->
-				<div class="media-body">
-					<a href="user-profile.html"> <span class="msg-title title mb-0"></span> <span class="discribe">1/3/2014 (1pm -
-							2pm)</span> <span class="time"> <time>10 min ago...</time>...
-					</span>
-					</a>
-				</div>
-			</div> */
-			<!-- 알림 끝 -->
 		   	
 		   	let msg = "<div class='msg-idx media media-sm p-4 bg-light mb-0'>";
 		   	msg += "<div class='media-sm-wrapper bg-primary'>";
@@ -272,10 +261,6 @@
 					
 					<li><a class="sidenav-item-link" href="calendar.ins"> <i
 							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
-					</a></li>
-					
-					<li><a class="sidenav-item-link" href="dataForm.ins"> <i
-							class="mdi mdi-paperclip"></i> <span class="nav-text">자료</span>
 					</a></li>
 					
 					<li><a class="sidenav-item-link" href="taskForm.ins"> <i

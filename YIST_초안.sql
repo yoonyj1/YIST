@@ -252,12 +252,111 @@ insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험2', nul
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험3', null, null, DEFAULT);
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험4', null, null, DEFAULT);
 insert into exam values(seq_tno.nextval, 'INSTRUCTOR01', 1, '자바시험5', null, null, DEFAULT);
-insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
 
-insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N');
+insert into task_submit values(1, 'USER01', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.'||CHR(10)||CHR(13)||'3. 자바는 자동 메모리 관리 등을 지원하여 다른 언어에 비해 안정성이 높습니다', '2023-04-26',sysdate, 'N', 'N');
 insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독립적으로 실행할 수 있습니다.'||CHR(10)||CHR(13)||'2. 자바는 불필요한 기능을 과감히 제거하여 다른 언어에 비해 배우기가 쉽습니다.', '2023-04-27',sysdate, 'N');
 
+insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
+insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_1.png','resources/instructor/uploadFiles/java_exam2_2.png','resources/instructor/uploadFiles/java_exam2_3.png','resources/instructor/uploadFiles/java_exam2_4.png','resources/instructor/uploadFiles/java_exam2_5.png','int answer = 0;'||CHR(10)||'if (age > 0 && age <= 120){'||CHR(10)||'answer = (2023 - age);'||CHR(10)||'}'||CHR(10)||'return answer;','rr','d1','11','11');
 
 
+select
+        alarm_no
+      , id
+      , alarm_content
+      , alarm_type
+      , status
+      , create_date
+from alarm
+where id = 'USER01'
+group by alarm_no, id, alarm_content, alarm_content, alarm_type, status, create_date;
 
+select count(alarm_no)
+from alarm
+where id = 'USER01' and alarm_type = '과제';
+
+		SELECT
+              t.task_no as "task_no"
+            , t.task_title as "task_title"
+            , submit_content as "submit_content"
+            , s.student_id
+            , name
+            , submit_date
+            , s.status as "status"
+		FROM task_submit s
+		join member m on (s.student_id = m.id)
+		join task t on (s.task_no = t.task_no)
+		where s.task_no = 2;
+
+		select
+				t.task_no
+			  , file_no
+			  , subject_no
+			  , id
+			  , task_title
+			  , task_content
+			  , to_char(start_date, 'RRRR-MM-DD') as "start_date"
+			  , to_char(end_date, 'RRRR-MM-DD') as "end_date"
+			  , origin_name
+			  , change_name
+		      , file_level
+			  , status
+		from task t
+		left outer join task_file tf on (t.task_no = tf.task_no)
+		where id = 'INSTRUCTOR01' 
+            and (status = 'Y' or status is NULL)
+		order by tf.task_no desc;
+
+select seq_taskno.nextval
+from dual;
+
+select seq_taskno.currval
+from dual;
+
+
+select seq_tfno.nextval
+from dual;
+
+select seq_tfno.currval
+from dual;
+
+drop sequence seq_tfno;
+create sequence seq_tfno;
+
+drop sequence seq_taskno;
+create sequence seq_taskno;
 commit;
+
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

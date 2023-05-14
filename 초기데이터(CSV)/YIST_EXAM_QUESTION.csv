@@ -1,0 +1,165 @@
+TEST_NO,Q1,Q2,Q3,Q4,Q5,A1,A2,A3,A4,A5
+1,resources/instructor/uploadFiles/java_exam1,resources/instructor/uploadFiles/java_exam2,resources/instructor/uploadFiles/java_exam3,resources/instructor/uploadFiles/java_exam4,resources/instructor/uploadFiles/java_exam5,return num1 + num2;,return num1 - num2;,return num1 * num2;,return num1/num2;,return num1/num2 * 1000;
+2,resources/instructor/uploadFiles/java_exam2_1.png,resources/instructor/uploadFiles/java_exam2_2.png,resources/instructor/uploadFiles/java_exam2_3.png,resources/instructor/uploadFiles/java_exam2_4.png,resources/instructor/uploadFiles/java_exam2_5.png,"int answer = 0;
+        
+        if (age > 0 && age <= 120){
+
+            answer = (2023 - age);
+            
+        }
+        
+        return answer;","int answer = 0; 
+        if ((num1 >= 0 && num1 <= 10000) && (num2 >= 0 && num2 <= 10000)){
+
+            if (num1 == num2){
+            
+                answer = 1;
+                
+            } else {
+
+                answer = -1;
+                
+            }
+            
+        }
+        return answer;"," int answer = 0;
+        
+        if (angle > 0 && angle < 90) {
+            answer = 1;
+        } else if (angle == 90) {
+            answer = 2;
+        } else if (angle < 180){
+            answer = 3;
+        } else {
+            answer = 4;
+        }
+        
+        return answer;","int answer = 0;
+        
+        int yang = n * 12000;
+        int drink = k * 2000;
+        int service = (n / 10) * 2000;
+        
+        if (n >= 10){
+            answer = (yang + drink) - service;
+        } else {
+            answer = yang + drink;
+        }
+        
+        
+        return answer;","        int answer = 0;    
+        
+        for (int i = 1; i <= n; i++){
+            if(n % i == 0){
+                answer++;
+            }
+        }
+        
+        return answer;"
+3,resources/instructor/uploadFiles/java_exam3_1.png,resources/instructor/uploadFiles/java_exam3_2.png,resources/instructor/uploadFiles/java_exam3_3.png,resources/instructor/uploadFiles/java_exam3_4.png,resources/instructor/uploadFiles/java_exam3_5.png,"double answer = 0;
+        
+        double sum = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            sum += (double)numbers[i];
+        }
+       
+        answer = sum / numbers.length;
+        
+        return answer;","int[] answer = new int[numbers.length];
+        
+        for (int i = 0; i < answer.length; i++){
+            answer[i] = numbers[i] * 2;
+        }
+        
+        return answer;","       int[] answer = new int[num_list.length];
+                
+                for (int i = 0; i < num_list.length; i++) {
+                        answer[num_list.length -i - 1] = num_list[i];
+                }
+        
+        return answer;","int[] answer = new int[strlist.length];
+        
+        for (int i = 0; i < strlist.length; i++){
+            answer[i] = strlist[i].length();
+        }
+        
+        return answer;","int[] answer = Arrays.copyOfRange(numbers, num1, num2 + 1);
+        
+  return answer;"
+4,resources/instructor/uploadFiles/java_exam4_1.png,resources/instructor/uploadFiles/java_exam4_2.png,resources/instructor/uploadFiles/java_exam4_3.png,resources/instructor/uploadFiles/java_exam4_4.png,resources/instructor/uploadFiles/java_exam4_5.png,"int[] answer = new int[2];
+        
+        if (num_list.length >= 1 && num_list.length <= 100){
+            for (int i = 0; i < num_list.length; i++){
+                if (num_list[i] % 2 == 0){
+                    answer[0] += 1;
+                } else {
+                    answer[1] += 1;
+                }
+            }
+        }
+        
+        return answer;","int answer = 0;
+        
+        for (int i = 0; i < array.length; i++) {
+            if (n == array[i]){
+                answer++;
+            }
+        }
+        
+        return answer;","int answer = 0;
+        
+        answer = message.length() * 2;
+        
+        return answer;","int answer = 0;
+        
+        Arrays.sort(numbers);
+        
+        answer = numbers[numbers.length - 1] * numbers[numbers.length - 2];
+        
+        return answer;","String answer = """";
+        
+        answer = my_string.replace(letter, """");
+        
+        return answer;"
+5,resources/instructor/uploadFiles/java_exam5_1.png,resources/instructor/uploadFiles/java_exam5_2.png,resources/instructor/uploadFiles/java_exam5_3.png,resources/instructor/uploadFiles/java_exam5_4.png,resources/instructor/uploadFiles/java_exam5_5.png,"int answer = 0;
+        
+        if (n / 7 < 1){
+            answer = 1;
+        } else if (n % 7 == 0){
+            answer = n / 7;
+        } else {
+            answer = (n / 7) + 1;
+        }
+        return answer;","int[] answer = new int[2];
+        
+        answer[0] = money / 5500;
+        answer[1] = money % 5500;
+        
+        return answer;","String answer = """";
+        
+         
+        for (int i = 0; i < my_string.length(); i++) {
+                for (int j = 0; j < n; j++) {
+                        answer += my_string.charAt(i);
+                }
+        }
+        
+        return answer;","int answer = 0;
+        
+        for (int i = 0; i < s1.length; i++) {
+                        for (int j = 0; j < s2.length; j++) {
+                                if (s1[i].equals(s2[j])) {
+                                        answer++;
+                                }
+                        }
+                }
+        
+        return answer;","int answer = 0;
+
+                String str = Integer.toString(n);
+                
+                for (int i = 0; i < str.length(); i++) {
+                        answer += Integer.parseInt(str.charAt(i) +"""");
+                }
+        
+        return answer;"
