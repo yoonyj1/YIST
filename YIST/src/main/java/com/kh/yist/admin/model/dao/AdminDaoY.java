@@ -83,7 +83,7 @@ public class AdminDaoY {
 		return sqlSession.update("adminMapper.deleteStudent", id);
 	}
 	
-	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, String subjectName) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", subjectName);
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", subject);
 	}
 }

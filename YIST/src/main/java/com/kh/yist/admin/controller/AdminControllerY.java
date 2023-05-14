@@ -1,5 +1,6 @@
 package com.kh.yist.admin.controller;
 
+
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,9 +105,9 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail-lecture.do")
-	public String teacherDetailLecture(String id, String subjectName, Model model) {
+	public String teacherDetailLecture(String id, String subject, Model model) {
 		Member m = aService.selectTeacher(id);
-		ArrayList<Member> list = aService.selectStudentList(subjectName);
+		ArrayList<Member> list = aService.selectStudentList(subject);
 		
 		model.addAttribute("td", m);
 		model.addAttribute("list", list);

@@ -48,7 +48,7 @@
     <div class="card">
       <div class="card-header">
         <h1>${ td.subject }</h1>
-        <input type="hidden" name="subjectName" value="${ td.subject }">
+        <input type="hidden" name="subject" value="${ td.subject }">
       </div>
       <div class="card-body">
         <h5>학생목록</h5>
