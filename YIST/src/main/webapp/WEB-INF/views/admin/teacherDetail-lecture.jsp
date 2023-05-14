@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,95 +48,26 @@
     <div class="card">
       <div class="card-header">
         <h1>${ td.subject }</h1>
+        <input type="hidden" name="subjectName" value="${ td.subject }">
       </div>
       <div class="card-body">
         <h5>학생목록</h5>
         <br>
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-01.jpg" alt="User Image">
-            </a>
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Selena Wagner</span>
-              <span class="discribe">Designer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-02.jpg" alt="User Image">
-            </a>
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Walter Reuter</span>
-              <span>Developer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-03.jpg" alt="User Image">
-            </a>
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Larissa Gebhardt</span>
-              <span>Cyber Punk</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-04.jpg" alt="User Image">
-            </a>
-
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Albrecht Straub</span>
-              <span>Photographer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-05.jpg" alt="User Image">
-            </a>
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Leopold Ebert</span>
-              <span>Fashion Designer</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="media media-sm">
-          <div class="media-sm-wrapper">
-            <a href="user-profile.html">
-              <img src="images/user/user-sm-06.jpg" alt="User Image">
-            </a>
-          </div>
-          <div class="media-body">
-            <a href="user-profile.html">
-              <span class="title">Selena Wagner</span>
-              <span>Photographer</span>
-            </a>
-          </div>
-        </div>
-
+        <c:forEach var="s" items="${ list }">
+	        <div class="media media-sm">
+	          <div class="media-sm-wrapper">
+	            <a href="user-profile.html">
+	              <img src="${ td.image }" width="70%" height="70%">
+	            </a>
+	          </div>
+	          <div class="media-body">
+	            <a href="user-profile.html">
+	              <span class="title">${ s.name }</span>
+	              <span class="discribe">Designer</span>
+	            </a>
+	          </div>
+	        </div>
+        </c:forEach>
       </div>
     </div>
   </div>
