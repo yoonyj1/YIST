@@ -325,12 +325,27 @@ public class StudentController {
 	 * sService.deleteMyTask(taskNoList); }
 	 */
 
-	@RequestMapping("deleteMyTask.st")
-	@ResponseBody
-	public void deleteTask(@RequestParam(value = "collection") List<Integer> taskNoList) {
-	  
-	  sService.deleteMyTask(taskNoList);
-	}
+	/*
+	 * @RequestMapping("deleteMyTask.st")
+	 * 
+	 * @ResponseBody public void deleteTask(@RequestParam(value = "collection")
+	 * List<Integer> taskNoList) {
+	 * 
+	 * sService.deleteMyTask(taskNoList); }
+	 */
+	
+	// 마이페이지 내과제 삭제
+	  @PostMapping("deleteMyTask.st")
+	  @ResponseBody
+	  public String deleteMyTask(@RequestParam("taskNoList[]") List<Integer> taskNoList) {
+	    try {
+	      sService.deleteMyTask(taskNoList);
+	      return "success";
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      return "fail";
+	    }
+	  }
 
 	
 	@RequestMapping("myTest.st")
