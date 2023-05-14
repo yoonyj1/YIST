@@ -1,15 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>       
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-
+	<style>
+		@font-face {
+			font-family: 'LINESeedKR-Rg';
+			src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Rg.woff2') format('woff2');
+			font-weight: 400;
+			font-style: normal;            
+		}
+	</style>
 </head>
 <body class="">
   
   <!-- Footer -->
   <footer id="footer" class="footer divider parallax layer-overlay overlay-dark-9" data-bg-img="resources/images/bg/bg7.jpg" data-parallax-ratio="0.7">
-    <div class="container pt-70 pb-40">
+
+
+		<c:if test="${ not empty loginUser }">
+
+			<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js" integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+			<script src="https://kit.fontawesome.com/9824677df6.js" crossorigin="anonymous"></script>
+			<script>
+				Kakao.init('1dd209811fb46e598ddaea624e530cb2');
+
+				$("#footer").css("position","relative").css("overflow","visible");
+			</script>
+
+			<a id="chat-channel-button" href="javascript:chatChannel()"
+				style="position: absolute; top: -75px; right: 60px; z-index: 999; font-size:1.25rem; font-family: 'LINESeedKR-Rg'; color:black ">
+				
+				<i class="fa-solid fa-comments fa-lg"
+				style="position: sticky; color: #f7e600; font-size: 4rem; bottom:500px"></i>
+				<br>&nbsp;챗봇문의
+				
+			</a>
+
+			<script>
+				function chatChannel() {
+					Kakao.Channel.chat({
+						channelPublicId : '_umvxkxj',
+					});
+				}
+			</script>
+
+		</c:if>
+
+
+
+
+	<div class="container pt-70 pb-40">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center">
           <p class="maincopy">
