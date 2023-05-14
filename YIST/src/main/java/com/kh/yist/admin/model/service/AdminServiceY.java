@@ -76,7 +76,7 @@ public class AdminServiceY {
 		return aDao.deleteStudent(sqlSession, id);
 	}
 	
-	public ArrayList<Member> selectStudentList(String subjectName) {
-		return aDao.selectStudentList(sqlSession, subjectName);
+	public ArrayList<Member> selectStudentList(String subject) {
+		return aDao.selectStudentList(sqlSession, subject);
 	}
 }
