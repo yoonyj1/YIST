@@ -147,6 +147,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public int taskAlarmCheck(int alarmNo) {
 		return sDao.taskAlarmCheck(sqlSession, alarmNo);
+	}
 	// 내 과제 목록
 	@Override
 	public ArrayList<Task> selectMyTask(String id) {

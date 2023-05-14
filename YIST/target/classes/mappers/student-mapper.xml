@@ -397,29 +397,14 @@
 	 order
 	    by board_no desc
 </select>
+</mapper>
 
 
-<!-- 마이페이지 내과제 목록 -->
-<select id="selectMyTask" resultMap="taskResultSet">
-	select 
-	       task_title
-	     , to_char(submit_date, 'YYYY-MM-DD') as "submit_date"
-	  from task_submit ts
-	  join task t on t.task_no = ts.task_no
-     where student_id = #{id}
-	 order
-	    by submit_date desc
-</select>
 
-<!-- 마이페이지 내과제 삭제 -->
-<update id="deleteMyTask">
-  update task_submit
-  set status = 'N'
-  where task_no in
-  <foreach collection="collection" item="taskNo" open="(" separator="," close=")">
-    #{taskNo}
-  </foreach>
-</update>
+
+
+
+
 
 
 

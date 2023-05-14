@@ -43,8 +43,6 @@ public class Member {
 	private int sort;
 	private String employeeDate;
 	
-	private String subjectName;
-	
 	private int examTime;
 	private int userTime;
 	
