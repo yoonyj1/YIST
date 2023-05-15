@@ -5,6 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style>
+		img {
+			width: 100%;
+			max-width: 600px;
+		}
+
+		.print-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 3rem;
+			font-weight: bold;
+			color: #000;
+			text-shadow: 2px 2px #fff;
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
 
@@ -54,21 +72,60 @@
                 <td>1</td>
                 <td>프로그래밍 언어 활용</td>
                 <td>
-                    <button type="button" class="btn btn-gray btn-theme-colored btn-circled">발급</button>
+                    <button type="button" class="btn btn-gray btn-theme-colored btn-circled" data-toggle="modal" data-target="#certificateModal">발급</button>
                 </td>
             </tr>
         </tbody>
     </table>    
         <%-- <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div> --%>
-    <div style="position: relative;">
-	  <img src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg" alt="">
-	  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-	    <span>바꿀 텍스트</span>
-	  </div>
-	</div>
+<%--     <div style="position: relative;">
+		<img id="certificate-img" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg" alt="">
+		<div class="print-text">
+			<span id="print-text">바꿀 텍스트</span>
+		</div>
+	</div> --%>
   </div>
   </div>
 
+<!-- 	<script>
+		function printImage() {
+			var img = document.getElementById("certificate-img");
+			img.style.display = "block";
+	
+			setTimeout(function() {
+				window.print();
+				img.style.display = "none";
+			}, 1000); //
+		}
+	</script> -->
+	
+	<div class="modal fade" id="certificateModal" tabindex="-1" role="dialog" aria-labelledby="certificateModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <img id="certificateImage" alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary" onclick="printCertificate()">인쇄</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	  // 인쇄 함수
+	<script>
+		  function printCertificate() {
+		    var certificateImage = document.getElementById("certificateImage");
+		    var printWindow = window.open('', '', 'height=600,width=800');
+		    printWindow.document.write('<html><head><title>인쇄</title></head><body>');
+		    printWindow.document.write('<img src="' + certificateImage.src + '">');
+		    printWindow.document.write('</body></html>');
+		    printWindow.document.close();
+		    printWindow.print();
+		  }
+	</script>
+	
 	<jsp:include page="common/footer.jsp"/>
 </body>
 </html>

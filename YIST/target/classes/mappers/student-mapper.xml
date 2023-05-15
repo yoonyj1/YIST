@@ -362,8 +362,18 @@
 	    by submit_date desc
 </select>
 
-
-
+<!-- 마이페이지 평가 현황 조회 -->
+<select id="myTestList" resultMap="examResultSet">
+	select
+	       test_title
+	     , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
+         , score
+	  from exam
+      join exam_answer using (test_no)
+     where student_id = #{id}
+	 order 
+	    by test_no
+</select>
 
 
 

@@ -91,7 +91,7 @@ div.title .titleP {
 </style>
 </head>
 <body>
-
+<%-- 
 	<c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');
@@ -126,8 +126,8 @@ div.title .titleP {
         </div>   
 
     </div>
-
-	<%-- <jsp:forward page="WEB-INF/views/student/studentTestDetail.jsp"/> --%>
+ --%>
+	<jsp:forward page="WEB-INF/views/student/studentVideoDetail.jsp"/>
 </body>
 </html>
 

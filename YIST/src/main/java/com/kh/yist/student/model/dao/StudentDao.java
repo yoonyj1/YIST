@@ -140,4 +140,10 @@ public class StudentDao {
 		
 		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
 	}
+	
+	// 마이페이지 평가 현황
+	public ArrayList<Exam> myTestList(SqlSessionTemplate sqlSession, String id) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.myTestList", id);
+	}
 }

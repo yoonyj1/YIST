@@ -103,7 +103,7 @@ button {
         	  <tr>
 	            <td>${ m.boardNo }</td>
 	            <td>학습자료</td>
-	            <td style="text-align: left;">${ m.boardTitle }</td>
+	            <td>${ m.boardTitle }</td>
 	            <td>${ m.boardWriter }</td>
 	            <td>${ m.createDate }</td>
 	            <td>${ m.count }</td>
@@ -119,6 +119,7 @@ button {
 
 	<script>
 	// 학습자료
+	
 	 function showMaterials() {
 	  
 	  $.ajax({
@@ -136,7 +137,7 @@ button {
 			  value += "<th width='5%'>번호</th>";
 			  value += "<th width='15%'>카테고리</th>";
 			  value += "<th width='45%'>제목</th>";
-			  value += "<th width='15%'>작성자</th>";
+			  value += "<th width='10%'>작성자</th>";
 			  value += "<th width='10%'>작성일</th>";
 			  value += "<th width='10%'>조회수</th>";
 			  value += "</tr>";

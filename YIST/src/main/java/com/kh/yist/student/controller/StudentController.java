@@ -349,8 +349,15 @@ public class StudentController {
 
 	
 	@RequestMapping("myTest.st")
-	public String myTest() {
-		return "student/studentMyTestState";
+	public ModelAndView myTestList(ModelAndView mv, HttpSession session) {
+		
+		Member id = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> list = sService.myTestList(id.getId());
+		
+		mv.addObject("list", list).setViewName("student/studentMyTestState");
+		
+		return mv;
 	}
 	
 	@RequestMapping("myAttendance.st")

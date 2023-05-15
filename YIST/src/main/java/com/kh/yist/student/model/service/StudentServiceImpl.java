@@ -128,9 +128,16 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectMyTask(sqlSession, id);
 	}
 
+	// 내 과제 삭제
 	@Override
 	public int deleteMyTask(List<Integer> taskNoList) {
 	  return sDao.deleteMyTask(sqlSession, taskNoList);
+	}
+
+	// 평가 현황
+	@Override
+	public ArrayList<Exam> myTestList(String id) {
+		return sDao.myTestList(sqlSession, id);
 	}
 
 }

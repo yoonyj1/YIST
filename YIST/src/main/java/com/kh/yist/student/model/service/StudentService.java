@@ -51,4 +51,5 @@ public interface StudentService {
 	
 	int deleteMyTask(List<Integer> taskNoList);
 	
+	ArrayList<Exam> myTestList(String id);
 }
