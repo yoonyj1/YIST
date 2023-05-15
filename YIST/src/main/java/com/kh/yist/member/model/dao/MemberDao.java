@@ -38,6 +38,9 @@ public class MemberDao {
 	public ArrayList<Member> selectList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectList");
 	}
+	public ArrayList<Member> selectList2(SqlSessionTemplate sqlSession,String subject) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList2",subject);
+	}
 	
 	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateTeacher",m);
@@ -58,5 +61,8 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.deleteInstructor", id);
 	}
 	
+	public Member selectStudentList(SqlSessionTemplate sqlSession, String id){
+		return sqlSession.selectOne("memberMapper.selectStudentList", id);
+	}
 
 }

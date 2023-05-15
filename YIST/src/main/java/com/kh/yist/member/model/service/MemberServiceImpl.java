@@ -106,6 +106,11 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectList(){
 		return mDao.selectList(sqlSession);
 	}
+	//학생정보조회(출결용)
+	@Override
+	public ArrayList<Member> selectList2(String subject){
+		return mDao.selectList2(sqlSession,subject);
+	}
 	
 	//선생님 수정
 	@Override
@@ -141,7 +146,12 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.deleteInstructor(sqlSession, id);
 	}
 
-
+	//학생조회(선생)
+	@Override
+	public Member selectStudentList(String id){
+		return mDao.selectStudentList(sqlSession, id);
+	}
+	
 
 
 }

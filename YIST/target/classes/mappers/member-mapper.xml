@@ -56,8 +56,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		name
 		,id
 		,phone
+		,subject
 		from member
 		where sort=3
+	</select>
+	
+	<select id="selectList2" resultMap="memberResultSet">
+	select
+		rownum,member.*,
+		name
+		,id
+		,phone
+		,subject
+		from member
+		where sort=3 and subject=#{subject}
 	</select>
 
 	
@@ -270,7 +282,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	and sort = 2	   		
 	</update>
 
-
+	
+	<select id="selectStudentList" resultMap="memberResultSet">
+		select
+				  id
+				, name
+				, birth
+				, phone
+				, image
+				, email
+				, post
+				, address
+				, detail_address
+				, subject
+				from member
+				where id = #{id}	
+	</select>
 
 
 </mapper>

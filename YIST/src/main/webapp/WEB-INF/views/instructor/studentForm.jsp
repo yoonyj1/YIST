@@ -192,12 +192,14 @@ tr {
                  
                     <table cellpadding="0" cellspacing="0" width="100%" id="leftMemList">
                                 <tbody style="height: 40px; color: black;">
-                                	<c:forEach var="b" items="${list}">
+                                	<c:forEach var="b" items="${list}" varStatus="item" >
 	                                    <tr id="listItem_user03" class="on">
 		                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">${b.memberNo}</td>
 		                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
 		                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.phone}</td>
 	                                	</tr>
+	                                	<input type="hidden" name="id${item}" value="${b.id }">
+	                                	
                                		</c:forEach>
                                 </tbody>
                                 
@@ -227,15 +229,11 @@ tr {
                             	</div>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">이름 </th>
-                                    <td><input type="text" name="name" value="name" maxlength="20" style="width:100%; height: 35px;" disabled=""></td>
+                                    <td><input type="text" name="userName" value="name" maxlength="20" style="width:100%; height: 35px;" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">아이디 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="id" value="id" class="readon" disabled=""></td>
-                                </tr>
-                                <tr>
-                                    <th style="color: rgb(87, 87, 87);">비밀번호 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="pwd" value="pwd" maxlength="16" disabled=""></td>
+                                    <td><input type="text" style="width:100%; height: 35px;" name="id" class="readon" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">생년월일</th>
@@ -286,47 +284,51 @@ tr {
     </body>
     
     	<script>
-    	$(function(){
-    	    $("#leftMemList > tbody > tr").click(function(){
-    	        let id = $(this).find(".bno").text(); // 클릭한 행의 id 값을 가져옴
-    	        
+    	
+    	$(document).ready(function(){
+    		$(".on").on("click", function(){
+     	        $.ajax({
+     	            url: "slist.bo",
+     	            data: {id:$(this).next().val()},
+     	            success: function(response) {
+     	                $("input[name='userName']").val(response.name);
+     	                $("input[name='id']").val(response.id);
+     	                $("input[name='birth']").val(response.birth);
+     	                $("input[name='email']").val(response.email);
+     	                $("input[name='subject']").val(response.subject);
+     	                $("input[name='phone']").val(response.phone);
+     	                $("input[name='post']").val(response.post);
+     	                $("input[name='address']").val(response.address);
+     	                $("input[name='detailAddress']").val(response.detailAddress);
+     	            },
+     	            error: function() {
+     	            	console.log("실패!");
+     	            }
+     	    });
+    		})
+    	})
+    	/* $(function(){
+    	    $("#leftMemList>tbody>tr").click(function() {
     	        $.ajax({
     	            url: "slist.bo",
-    	            data: {id:"${b.id}"},
-    	            success: function(list){
-    	                let tableBody = $("#memberInfo table tbody"); // 테이블의 tbody 선택
-    	                console.log(list);
-    	                // 기존 테이블 내용 초기화
-    	                tableBody.empty();
-    	                
-    	                // 받아온 데이터를 순회하며 행을 추가
-    	                for(let i = 0; i < list.length; i++){
-    	                    let item = list[i];
-    	                    let row = $("<tr>");
-    	                    
-    	                    // 각 열에 데이터 추가
-    	                    row.append($("<td>").text(item.image));
-    	                    row.append($("<td>").text(item.name));
-    	                    row.append($("<td>").text(item.id));
-    	                    row.append($("<td>").text(item.pwd));
-    	                    row.append($("<td>").text(item.birth));
-    	                    row.append($("<td>").text(item.email));
-    	                    row.append($("<td>").text(item.subject));
-    	                    row.append($("<td>").text(item.phone));
-    	                    row.append($("<td>").text(item.post));
-    	                    row.append($("<td>").text(item.address));
-    	                    row.append($("<td>").text(item.detailAddress));
-    	                    
-    	                    // 행을 테이블에 추가
-    	                    tableBody.append(row);
-    	                }
+    	            data: {bno:$(".bno").val()},
+    	            success: function(response) {
+    	                $("input[name='name']").val(response.name);
+    	                $("input[name='id']").val(response.id);
+    	                $("input[name='birth']").val(response.birth);
+    	                $("input[name='email']").val(response.email);
+    	                $("input[name='subject']").val(response.subject);
+    	                $("input[name='phone']").val(response.phone);
+    	                $("input[name='post']").val(response.post);
+    	                $("input[name='address']").val(response.address);
+    	                $("input[name='detailAddress']").val(response.detailAddress);
     	            },
-    	            error: function(){
-    	                console.log("조회 오류");
+    	            error: function() {
+    	            	console.log("실패!");
     	            }
     	        });
     	    });
-    	});
+    	}); */
 		</script>
     	<!-- 학생정보클릭함수 -->
     	<script>

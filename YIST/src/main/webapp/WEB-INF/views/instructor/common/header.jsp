@@ -171,7 +171,7 @@
 		
 		// 웹소켓
 		// 전역변수 설정
-		let socket  = null;
+/* 		let socket  = null;
 		$(document).ready(function(){
 		    // 웹소켓 연결
 		    sock = new SockJS("<c:url value="/echo-ws"/>");
@@ -180,7 +180,7 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
-		});
+		}); */
 		
 		
 		$(document).ready(function(){

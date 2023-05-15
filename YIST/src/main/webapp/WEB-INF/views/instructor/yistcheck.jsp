@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,14 +197,14 @@ width: 800px;
 						<th class="attendance">퇴실시간
 						</th>
 					</tr>
+									<c:forEach var="b" items="${list}">
 								<tr style="height: 70px;">
 									<td align="center">
 										<input type="checkbox" title="" name="parPushSendChk" value="1" checked="">
 									</td>
-									<td align="center">1</td>
+									<td align="center" class="bno">${b.memberNo}</td>
 									<td align="center">
-										<a href=""style="color:#333333;text-decoration:none">박누구 ()</a>
-										
+										<a href=""style="color:#333333;text-decoration:none">${b.name} (${b.subject})</a>
 									</td>
 									<td align="center">
 										<div class="btn_group_bg">
@@ -217,6 +218,7 @@ width: 800px;
 											<input type="text" name="inMin" id="inMin_0" value="" style="width: 60px; text-align: center;">분
 										</div>
 									</td>
+									
 									<td align="center">
 										<div class="btn_group_bg">
 											<div class="btn_group_1" style="margin-top: 8px; margin-bottom: 5px;">
@@ -232,11 +234,12 @@ width: 800px;
 								</tr>
                                 
                             </tbody>
+								</c:forEach>
                         </table>
                         
                         <button type="button" class="hak1_button" style="margin-left: 800px; margin-top: 10px;">저장</button>
                         <button type="button" class="hak1_button" style="margin-left: 780px; margin-top: 10px; width: 80px;" onclick="return printPage();">프린트</button>
-      					<a href="#pop_info_1" class="btn_open">프린트하기</a>
+      					
       </div>
       	
        	
@@ -266,23 +269,7 @@ width: 800px;
 				  document.getElementById("inMin_0").value = "00";
 				}
              
-             var initBodyHtml;
-             function printPage(){
-            	 window.print();
-             }
-             function beforePrint(){
-            	 initBodyHtml = document.body.innerHTML;
-            	 document.body.innerHTML = document.getElementById('pirint').innerHTML;
-             }
-             function afterPrint(){
-            	 document.body.innerHTML = initBodyHtml;
-             }
-             window.onbeforeprint = beforePrint;
-             window.onafterprint =afterPrint;
              
-             var target = document.querySelectorAll('.btn_open');
-             var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
-             var targetID;
 
              
 		</script>

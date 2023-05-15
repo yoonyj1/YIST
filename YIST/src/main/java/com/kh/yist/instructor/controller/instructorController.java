@@ -27,6 +27,7 @@ import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
 import com.sun.tools.javac.util.List;
+import com.google.gson.Gson;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
@@ -41,6 +42,7 @@ public class instructorController {
 	private TaskService tService;
 	@Autowired
 	private MemberService mService;
+	private String subject;
 	
 	@RequestMapping("scoreForm.ins")
 	public String scoreForm(HttpSession session, Model model, int testNo) {
@@ -92,9 +94,17 @@ public class instructorController {
 	public String main() {
 		return "instructor/main";
 	}
-
+	
+	
 	@RequestMapping("yistcheck.ins")
-	public String yistcheck() {
+	public String yistcheck(Model model,Member m,HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginuser");
+		System.out.println(loginUser+"test");
+		String subject= loginUser.getSubject();
+		ArrayList<Member> list = mService.selectList2(subject);
+		System.out.println(subject+"test2");
+		model.addAttribute("list",list);
+		// 모델 셋팅
 		return "instructor/yistcheck";
 	}
 
@@ -290,9 +300,16 @@ public class instructorController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="slist.bo",produces = "application/json; charset=utf-8")
-	public String ajaxSelectStudent() {
+	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")
+	public String ajaxSelectStudent(String id) {
+		System.out.println(id);
+		Member m = mService.selectStudentList(id);
 		
+		System.out.println(m);
+		
+		return new Gson().toJson(m);
+		
+		//return "redirect:studentForm.ins";
 	}
 
 }
