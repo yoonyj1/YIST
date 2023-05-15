@@ -53,7 +53,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String senderId = getMemberId(session);
-
+		
 		// 특정 유저에게 보내기
 		String msg = message.getPayload();
 		System.out.println(msg);

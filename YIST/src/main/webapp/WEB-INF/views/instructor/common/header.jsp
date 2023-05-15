@@ -164,6 +164,8 @@
 	
 	
 	<script>
+		let examModalId = "";
+	
 		NProgress.configure({
 			showSpinner : false
 		});
@@ -201,6 +203,18 @@
 				let sender = '${loginUser.getId()}';
 				
 				sendAlarm(type, title,  target, content, sender);
+			})
+			
+			// 시험 시작 알람
+			$(".test-start").click(function(){
+				
+				console.log("지금 눌린 번호 : " +$(this).next().val());
+				
+				examModalId= "#examStart" + $(this).next().val();
+				
+				if(confirm('평가를 시작하시겠습니까?')){
+					$(examModalId).modal('show');
+				}
 			})
 
 		})

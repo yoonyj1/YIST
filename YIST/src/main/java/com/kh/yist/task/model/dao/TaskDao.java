@@ -101,8 +101,8 @@ public class TaskDao {
 		return sqlSession.selectOne("instructorMapper.selectQuestion", testNo);
 	}
 
-	public int setExam(SqlSessionTemplate sqlSession, int testNo) {
-		return sqlSession.update("instructorMapper.setExam", testNo);
+	public int setExam(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.insert("instructorMapper.setExam", exam);
 	}
 
 	public ArrayList<Member> selectExamMemberList(SqlSessionTemplate sqlSession, String subject) {
@@ -115,6 +115,10 @@ public class TaskDao {
 
 	public int insertTaskSubmit(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.insert("instructorMapper.insertTaskSubmit", id);
+	}
+
+	public int setExamTime(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.insert("instructorMapper.setExamTime", exam);
 	}
 	
 

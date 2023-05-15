@@ -35,6 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="examResultSet" type="Exam">
 		<result column="test_no" property="testNo"></result>
 		<result column="id" property="id"></result>
+		<result column="student_id" property="studentId"></result>
 		<result column="subject_no" property="subjectNo"></result>
 		<result column="test_title" property="testTitle"></result>
 		<result column="exam_date" property="examDate"></result>
@@ -209,87 +210,81 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectSubmitList" resultMap="taskSubmitResultSet">
 		SELECT
-		t.task_no as
-		"task_no"
-		, t.task_title as "task_title"
-		, submit_content as
-		"submit_content"
-		, s.student_id
-		, name
-		, submit_date
-		, s.status as
-		"status"
+			t.task_no as "task_no"
+		  , t.task_title as "task_title"
+		  , submit_content as "submit_content"
+		  , s.student_id
+		  , name
+		  , submit_date
+		  , s.status as "status"
 		FROM task_submit s
-		join member m on (s.student_id
-		= m.id)
-		join
-		task t on (s.task_no = t.task_no)
-		where s.task_no =
-		#{taskNo}
+		join member m on (s.student_id = m.id)
+		join task t on (s.task_no = t.task_no)
+		where s.task_no = #{taskNo}
 	</select>
 
 	<update id="checkTaskSubmit">
 		update task_submit
-		set status = 'Y'
-		where task_no =
-		#{taskNo} and student_id = #{id}
+			set status = 'Y'
+		where task_no = #{taskNo} and student_id = #{id}
 	</update>
 
 	<select id="selectExamList" resultMap="examResultSet">
 		select
-		test_no
-		, id
-		,
-		subject_no
-		, test_title
-		, to_char(exam_date, 'RRRR-MM-DD') as
-		"exam_date"
-		, exam_time
-		, status
+			test_no
+		  , id
+		  , subject_no
+		  , test_title
+		  , status
 		from exam
 		where id = #{id}
-		order by
-		test_no
+		order 
+			by test_no
+	</select>
+
+	<select id="selectExamMemberList" resultMap="examResultSet">
+		select
+			  ea.student_id as "studentId"
+			, name
+	        , ea.status "status"
+		from member m
+		join exam_answer ea on (m.id = ea.student_id)
+		where sort = 3 and subject = #{subject}
 	</select>
 
 	<select id="selectQuestion" resultMap="examResultSet">
 		select
-		test_no
-		, test_title
-		, q1
-		, q2
-		, q3
-		, q4
-		, q5
-		, a1
-		, a2
-		, a3
-		, a4
-		, a5
+			  test_no
+			, test_title
+			, q1
+			, q2
+			, q3
+			, q4
+			, q5
+			, a1
+			, a2
+			, a3
+			, a4
+			, a5
 		from exam_question
-		join exam
-		using (test_no)
-		where test_no =
-		#{testNo}
+		join exam using (test_no)
+		where test_no = #{testNo}
 	</select>
 
 	<select id="selectExamSubmitList" resultMap="examResultSet">
 		select
-		test_no
-		, e.id
-		as "id"
-		, name
-		, a1
-		, a2
-		, a3
-		, a4
-		, a5
-		, e.status as "submit_status"
-		,
-		nvl(score, 0) as "score"
-		from exam_answer e
-		join member m on (e.id =
-		m.id)
+				test_no
+		      , student_id
+			  , name
+			  , a1
+			  , a2
+			  , a3
+		      , a4
+			  , a5
+			  , ea.status as "submit_status"
+			  , nvl(score, 0) as "score"
+		from exam_answer ea
+        join member m on (ea.student_id = m.id)
 		where test_no = #{testNo}
 	</select>
 
@@ -313,12 +308,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{testNo} and e.id = #{id}
 	</select>
 
-	<update id="setExam">
+	<!-- 시험시작(학생) -->
+	<insert id="setExam">
+		insert 
+			into exam_answer
+				(
+					test_no
+				  , student_id
+				  , a1
+				  , a2
+				  , a3
+				  , a4
+				  , a5
+				  , status
+				  , score
+				  , exam_date
+				)
+				values
+				(
+					#{testNo}
+				  , #{id}
+				  , NULL
+				  , NULL
+				  , NULL
+				  , NULL
+				  , NULL
+				  , 'N'
+				  , 0
+				  , sysdate
+				)
+	</insert>
+
+	<!-- 시험시간 설정 -->
+	<update id="setExamTime" >
 		update exam
-		set status = 'Y',
-		exam_date = sysdate
-		where
-		test_no = #{test_no}
+			set exam_time = #{examTime}
+		where test_no = #{testNo}
 	</update>
 
 	<insert id="insertAlarm">

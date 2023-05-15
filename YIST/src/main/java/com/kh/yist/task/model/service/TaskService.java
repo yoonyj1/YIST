@@ -68,8 +68,8 @@ public class TaskService {
 		return tDao.selectQuestion(sqlSession, testNo);
 	}
 
-	public int setExam(int testNo) {
-		return tDao.setExam(sqlSession, testNo);
+	public int setExam(Exam exam) {
+		return tDao.setExam(sqlSession, exam);
 	}
 
 	public ArrayList<Member> selectExamMemberList(String subject) {
@@ -82,6 +82,10 @@ public class TaskService {
 
 	public int insertTaskSubmit(String id) {
 		return tDao.insertTaskSubmit(sqlSession, id);
+	}
+
+	public int setExamTime(Exam exam) {
+		return tDao.setExamTime(sqlSession, exam);
 	}
 	
 }

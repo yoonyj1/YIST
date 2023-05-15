@@ -130,11 +130,22 @@
 																	<div class="col">
 																		<label class="text-primary">인원설정</label>
 																		<c:forEach var="m" items="${memberList}">
-																			<div class="form-check">
-																				<input class="form-check-input" type="checkbox"
-																					name="mem_chk" id="${m.id}"> <label
-																					for="mem_chk"> ${m.name} </label>
-																			</div>
+																			<c:choose>
+																				<c:when test="${m.status eq 'N'}">
+																					<div class="form-check">
+																					<input class="form-check-input" type="checkbox"
+																						name="mem_chk" id="${m.id}"> <label
+																						for="mem_chk">미응시 ${m.name} </label>
+																					</div>
+																				</c:when>
+																				<c:otherwise>
+																					<div class="form-check">
+																					<input class="form-check-input" type="checkbox"
+																						name="mem_chk" id="${m.id}"> <label
+																						for="mem_chk">응시 ${m.name} </label>
+																					</div>
+																				</c:otherwise>
+																			</c:choose>
 																		</c:forEach>
 																	</div>
 															</div>
@@ -165,102 +176,66 @@
 	</div>
 
 	<script>
-		function setExam(testNo, setTime){
-			let modalId = "";
-			$.ajax({
-				url:"setExam.ins",
-				data:{
-					testNo:testNo
-				},
-				success:function(result){
-					if (result > 0){
-						alert("시험이 시작되었습니다.");
-						countdown('timeDisplay', setTime);
-						modalId = "#testStart" + testNo;
+		function examSetForm(testNo){
+			let users = [];			
+			let setTime = $('input[name=examSet]:checked').val();
+
+			if ($('input:checkbox[name=mem_chk]').lenght == 0){
+				alert("응시할 학생을 선택해주세요.");
+			} else {
+				$('input:checkbox[name=mem_chk]').each(function (index) {
+					if($(this).is(":checked") == true){
+				    	users.push($(this).attr("id"));
+				    }
+				})
+				
+				let examUsers = {"users":users};
+				
+				 $.ajax({
+					url:'setExam.ins',
+					data:{
+							testNo:testNo
+						  , examUsers:users
+						  , setTime
+					},
+					success:function(result){
+						console.log(result);
 						
-						$(modalId).attr("disabled", false);
-						
-					} else {
-						alert("시험 시작을 실패하였습니다.");
+						if (result > 0){
+							let modalId = "";
+							
+							// ajax 성공시
+							modalId = "#test-start" + testNo;
+							
+							$(modalId).attr("disabled", true);
+							
+							$(examModalId).modal('hide')
+							
+						} else {
+							alert("시험 셋팅 실패");
+						}
+					},
+					error:function(){
+						alert("시험 ajax 통신 에러");
 					}
 					
-				},
-				error:function(){
-					alert("setExam 통신 실패");
-				}
-			})
-		}	
-	
-		function countdown(elementId, seconds){
-		  var element, endTime, hours, mins, msLeft, time;
-	
-		  function updateTimer(){
-			msLeft = endTime - (+new Date);
-			if ( msLeft < 0 ) {
-				if ($("#timeDisplay").val() != ""){
-			  		alert("시험종료");
-			  		$("#timeDisplay").val("");	
-			  		$(".test-score").attr("disabled",false);
-			  		
-			  		location.reload();
-				}
-			} else {
-			  time = new Date( msLeft );
-			  hours = time.getUTCHours();
-			  mins = time.getUTCMinutes();
-			  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
-			  element.value = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
-			  setTimeout( updateTimer, time.getUTCMilliseconds());
+				}) 
 			}
-		  }
-	
-		  element = document.getElementById(elementId);
-		  endTime = (+new Date) + 1000 * seconds;
-		  updateTimer();
-		
-		}
-	
-		function examSetForm(testNo){
-			let setTime = $('input[name=examSet]:checked').val();
 			
-			let userTime = Math.round(new Date() / 1000);
-			
-			console.log("현재 과제 번호 : " + testNo);
-			
-			let modalId = "#examStart" + testNo;
-			
-			examNo = testNo;
-			
-			$.ajax({
-				url:"examTime.ins",
-				data:{
-					setTime:Number(setTime), 
-					userTime:Number(userTime)
-				},
-				success:function(result){
-					$(modalId).modal('hide');
-					setExam(testNo, setTime);
-					//countdown('timeDisplay', setTime);
-				},
-				error:function(){
-					alert("ajax 통신 실패");
-				}
-			});
 			
 		}
-		
-		$(function(){
-			$(".test-start").click(function(){
-				
-				console.log("지금 눌린 번호 : " +$(this).next().val());
-				
-				let modalId = "#examStart" + $(this).next().val();
-				
-				if(confirm('평가를 시작하시겠습니까?')){
-					$(modalId).modal('show');
-				}
-			})
-		})
+
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

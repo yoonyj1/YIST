@@ -259,22 +259,6 @@ insert into task_submit values(1, 'USER05', '1. 자바는 운영체제와는 독
 insert into exam_question values(1,'resources/instructor/uploadFiles/java_exam1','resources/instructor/uploadFiles/java_exam2','resources/instructor/uploadFiles/java_exam3','resources/instructor/uploadFiles/java_exam4','resources/instructor/uploadFiles/java_exam5','return num1 * num2;','return num1/num2;','return num1 % num2;','return num1 - num2;','return num1 + num2;');
 insert into exam_question values(3,'resources/instructor/uploadFiles/java_exam2_1.png','resources/instructor/uploadFiles/java_exam2_2.png','resources/instructor/uploadFiles/java_exam2_3.png','resources/instructor/uploadFiles/java_exam2_4.png','resources/instructor/uploadFiles/java_exam2_5.png','int answer = 0;'||CHR(10)||'if (age > 0 && age <= 120){'||CHR(10)||'answer = (2023 - age);'||CHR(10)||'}'||CHR(10)||'return answer;','rr','d1','11','11');
 
- select 
-	       t.task_no
-	     , t.task_title
-	     , t.id
-	     , to_char(t.start_date, 'YYYY-MM-DD') as "start_date"
-	     , to_char(t.end_date, 'YYYY-MM-DD') as "end_date"
-         , subject_no
-         , submit_content
-         , submit_date
-         , ts.status
-	  from task t
-      join task_submit ts on (t.task_no = ts.task_no)
-      where student_id = 'USER01' and t.status = 'N'
-      order by t.task_no desc;
-
-commit;
 
 drop sequence seq_taskno;
 create sequence seq_taskno;
@@ -283,7 +267,15 @@ select seq_taskno.nextval
 from dual;
       
 select seq_taskno.currval
-from dual;      
+from dual;
+
+select
+		  ea.student_id
+		, name
+        , ea.status
+from member m
+join exam_answer ea on (m.id = ea.student_id)
+where sort = 3 and subject = 1;
       
       
       

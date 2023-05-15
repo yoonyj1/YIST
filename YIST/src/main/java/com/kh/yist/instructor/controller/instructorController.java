@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -43,7 +44,7 @@ public class instructorController {
 
 		Exam question = tService.selectQuestion(testNo);
 		ArrayList<Exam> examSubmitList = tService.selectExamSubmitList(testNo);
-
+		
 		model.addAttribute("question", question);
 		model.addAttribute("examSubmitList", examSubmitList);
 
@@ -56,8 +57,8 @@ public class instructorController {
 		Member ins = (Member) session.getAttribute("loginUser");
 
 		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
-		ArrayList<Member> memberList = mService.selectExamMemberList(ins.getSubject());
-
+		ArrayList<Member> memberList = tService.selectExamMemberList(ins.getSubject());
+		
 		model.addAttribute("examList", examList);
 		model.addAttribute("memberList", memberList);
 
@@ -71,14 +72,35 @@ public class instructorController {
 
 	@ResponseBody
 	@RequestMapping("setExam.ins")
-	public int setExam(int testNo) {
-		int result = tService.setExam(testNo);
-
-		if (result > 0) {
+	public int setExam(@RequestParam(value="examUsers[]") List<String> examUsers, int testNo, int setTime) {
+		
+		int resultCount = 0;
+		
+		// 시간 설정
+		Exam setExamTime = new Exam();
+		setExamTime.setExamTime(setTime);
+		setExamTime.setTestNo(testNo);
+		tService.setExamTime(setExamTime);
+		
+		// 시험보는 사람 설정
+		for (String user : examUsers) {
+			Exam exam = new Exam();
+			exam.setTestNo(testNo);
+			exam.setExamTime(setTime);
+			exam.setId(user);
+			tService.setExam(exam);
+			resultCount++;
+		}
+		
+		System.out.println("count : " + resultCount);
+		System.out.println("examUsers : " + examUsers.size());
+		
+		if (resultCount == examUsers.size()) {
 			return 1;
 		} else {
 			return 0;
 		}
+		
 	}
 
 	@RequestMapping("calendar.ins")
