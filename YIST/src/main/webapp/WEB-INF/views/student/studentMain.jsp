@@ -1,3 +1,4 @@
+<%@page import="java.net.InetAddress"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,6 +44,9 @@
  				 </c:forEach>
 
 	              <br>
+	              <form action="test.qr" method="get">
+				    <li><input type="hidden" name="url" value="http://<%= InetAddress.getLocalHost().getHostAddress() %>:8848/yist/result.att?id=${loginUser.id}"/><button type="submit" class="btn btn-default btn-theme-colored btn-circled">출석하기</button></li>
+				  </form>
 	              <li><a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a></li>
 	            </ul>
 	          </div>

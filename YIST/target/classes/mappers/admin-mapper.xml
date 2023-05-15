@@ -241,5 +241,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  	where
 	  		id=#{id}
 	</update>
+	
+	<update id="resultAt">
+		update
+			attendance
+		set
+		 count = count + 1
+	   , ATTENDANCE_DATE = sysdate
+	   , status = 'Y'
+		where
+			id=#{id}
+	</update>
 		
 </mapper>

@@ -91,4 +91,8 @@ public class AdminDaoY {
 	public int updateStudentInfo(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("adminMapper.updateStudentInfo", m);
 	}
+	
+	public int resultAt(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.resultAt", id);
+	}
 }

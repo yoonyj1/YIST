@@ -83,4 +83,8 @@ public class AdminServiceY {
 	public int updateStudentInfo(Member m) {
 		return aDao.updateStudentInfo(sqlSession, m);
 	}
+	
+	public int resultAt(String id) {
+		return aDao.resultAt(sqlSession, id);
+	}
 }
