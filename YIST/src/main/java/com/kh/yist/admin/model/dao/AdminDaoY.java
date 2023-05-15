@@ -40,6 +40,7 @@ public class AdminDaoY {
 		return sqlSession.selectOne("adminMapper.selectTeacher", id);
 	}
 	
+	
 	public int selectStudentListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.selectStudentListCount");
 	}
@@ -81,5 +82,17 @@ public class AdminDaoY {
 	
 	public int deleteStudent(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.deleteStudent", id);
+	}
+	
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", subject);
+	}
+	
+	public int updateStudentInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("adminMapper.updateStudentInfo", m);
+	}
+	
+	public int resultAt(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.resultAt", id);
 	}
 }

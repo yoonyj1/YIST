@@ -27,9 +27,11 @@
 						
 						$(document).ready(function() {
 							let currentId = "";
+							let totalId = "";
 							
 							$(".score-btn").on("click",function(){
 								currentId = "." + $(this).attr("id") + 'input-score';
+								totalId = "#total-score" + $(this).attr("id");
 								console.log("currentId : " + currentId);
 							})
 							
@@ -40,7 +42,7 @@
 									sum += Number($(this).val());
 								})								
 								
-							    $("#total-score").val(sum);
+							    $(totalId).val(sum);
 								
 								console.log("총점수 : " + $("#total-score").val());
 							})
@@ -125,10 +127,10 @@
 															      <div class="card-body">
 															      	<br>
 															      	<h6>학생답안</h6>
-															        <p class="card-text pb-3">${e.a1}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a1}</textarea>
 															        <hr>
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
-															        <p class="card-text pb-3" style="color:blue">${question.a1}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a1}</textarea>
 															        
 															        <div class="d-flex flex-row mb-1 p-2">
 															        <div class="py-4">점수입력 : </div>
@@ -154,10 +156,10 @@
 															      <div class="card-body">
 															      	<br>
 															      	<h6>학생답안</h6>
-															        <p class="card-text pb-3">${e.a2}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a2}</textarea>
 															        <hr>
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
-															        <p class="card-text pb-3" style="color:blue">${question.a2}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a2}</textarea>
 															        
 															        <div class="d-flex flex-row mb-1 p-2">
 															        <div class="py-4">점수입력 : </div>
@@ -183,10 +185,10 @@
 															      <div class="card-body">
 															      	<br>
 															      	<h6>학생답안</h6>
-															        <p class="card-text pb-3">${e.a3}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a3}</textarea>
 															        <hr>
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
-															        <p class="card-text pb-3" style="color:blue">${question.a3}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a3}</textarea>
 															        
 															        <div class="d-flex flex-row mb-1 p-2">
 															        <div class="py-4">점수입력 : </div>
@@ -212,10 +214,10 @@
 															      <div class="card-body">
 															      	<br>
 															      	<h6>학생답안</h6>
-															        <p class="card-text pb-3">${e.a4}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a4}</textarea>
 															        <hr>
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
-															        <p class="card-text pb-3" style="color:blue">${question.a4}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a4}</textarea>
 															        
 															        <div class="d-flex flex-row mb-1 p-2">
 															        <div class="py-4">점수입력 : </div>
@@ -241,10 +243,10 @@
 															      <div class="card-body">
 															      	<br>
 															      	<h6>학생답안</h6>
-															        <p class="card-text pb-3">${e.a5}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a5}</textarea>
 															        <hr>
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
-															        <p class="card-text pb-3" style="color:blue">${question.a5}</p>
+															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a5}</textarea>
 															        
 															        <div class="d-flex flex-row mb-1 p-2">
 															        <div class="py-4">점수입력 : </div>
@@ -267,7 +269,7 @@
 															    <div class="py-4">총점수 : </div>
 																  <div class="p-2">
 							                                            <div class="form-group">
-																		    <input class="form-control total-score" id="total-score" type="text" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																		    <input class="form-control total-score" id="total-score${e.id}" type="text" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																		</div>
 																  </div>
 															</div>

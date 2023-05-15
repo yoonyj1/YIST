@@ -7,91 +7,88 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <style>
-
 div.title h6 {
-    font-size: 50px;
-    color: #02068D;
-    font-weight: 600;
-    background: url() no-repeat 50% 100%;
-    line-height: 1.3;
+	font-size: 50px;
+	color: #02068D;
+	font-weight: 600;
+	background: url() no-repeat 50% 100%;
+	line-height: 1.3;
 }
 
 div.title .titleP {
-    font-size: 13.5px;
-    color: #02068D;
-    line-height: 1.5;
-    margin-top: 30px;
-    font-weight: 300;
+	font-size: 13.5px;
+	color: #02068D;
+	line-height: 1.5;
+	margin-top: 30px;
+	font-weight: 300;
 }
 
-.logincell{
-    margin-left: 220px;
-    margin-top: 40px;
+.logincell {
+	margin-left: 220px;
+	margin-top: 40px;
 }
 
 .logincell ul {
-    overflow: hidden;
-    margin: 0 auto;
-    width: 1084px;
-    list-style:none;
+	overflow: hidden;
+	margin: 0 auto;
+	width: 1084px;
+	list-style: none;
 }
 
 .logincell ul li {
-    float: left;
-    margin: 0 15px;
-    width: 241px;
-    border-top: 3px solid #02068D;
-    border-bottom: 2px solid #cdd0d1;
-    height: 193px;
-    text-align: center;
+	float: left;
+	margin: 0 15px;
+	width: 241px;
+	border-top: 3px solid #02068D;
+	border-bottom: 2px solid #cdd0d1;
+	height: 193px;
+	text-align: center;
 }
 
 .logincell ul li p {
-    margin-top: 28px;
-    height: 95px;
-    font-size: 21px;
-    font-weight: 600;
-    color: #636363;
+	margin-top: 28px;
+	height: 95px;
+	font-size: 21px;
+	font-weight: 600;
+	color: #636363;
 }
 
-.sbtn{
-    height: 35px;
-    line-height: 15px;
-    color: #ffffff;
-    background-color: #79baff;
-    border-color: #79baff;
-    padding: 0.36rem 2rem;
-    border-radius: 5px;
-    font-weight: 400;
-
-}
-.gbtn{
-    height: 35px;
-    line-height: 15px;
-    color: #ffffff;
-    background-color: #02068D;
-    border-color: #02068D;
-    padding: 0.36rem 2rem;
-    border-radius: 5px;
-    font-weight: 400;
-}   
-
-.tbtn{
-    height: 35px;
-    line-height: 15px;
-    color: #ffffff;
-    background-color: #0000FF;
-    border-color: #0000FF;
-    padding: 0.36rem 2rem;
-    border-radius: 5px;
-    font-weight: 400;
-
+.sbtn {
+	height: 35px;
+	line-height: 15px;
+	color: #ffffff;
+	background-color: #79baff;
+	border-color: #79baff;
+	padding: 0.36rem 2rem;
+	border-radius: 5px;
+	font-weight: 400;
 }
 
+.gbtn {
+	height: 35px;
+	line-height: 15px;
+	color: #ffffff;
+	background-color: #02068D;
+	border-color: #02068D;
+	padding: 0.36rem 2rem;
+	border-radius: 5px;
+	font-weight: 400;
+}
+
+.tbtn {
+	height: 35px;
+	line-height: 15px;
+	color: #ffffff;
+	background-color: #0000FF;
+	border-color: #0000FF;
+	padding: 0.36rem 2rem;
+	border-radius: 5px;
+	font-weight: 400;
+}
 </style>
 </head>
 <body>
-<%-- 
+
 	<c:if test="${ not empty alertMsg }">
 		<script>
 			alert('${alertMsg}');
@@ -126,8 +123,7 @@ div.title .titleP {
         </div>   
 
     </div>
- --%>
-	<jsp:forward page="WEB-INF/views/student/studentVideoDetail.jsp"/>
+
 </body>
 </html>
 

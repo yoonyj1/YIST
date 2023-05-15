@@ -43,7 +43,7 @@
 	float: left;
 	min-width: 160px;
 	padding: 5px 0;
-	margin: 2px 0 0;
+	margin: -130px -250px;
 	font-size: 14px;
 	text-align: left;
 	list-style: none;
@@ -457,9 +457,7 @@ select.filter {
 		<div class="card-header">
 			<h2>출석관리</h2>
 		</div>
-		<div class="wrapper">
-			<!-- 헤더 -->
-			<div class="container">
+		<div class="card-body">
 
 				<!-- 
 				<div id="contextMenu" class="dropdown1 clearfix">
@@ -473,12 +471,14 @@ select.filter {
 						<li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 					</ul>
 				</div> -->
-				<div id="contextMenu" class="dropdown1 clearfix">
+				<div id="contextMenu" class="dropdown1 clearfix" style="margin-bottom:60px; margin-right:60px;">
 					<ul class="dropdown-menu1" role="menu"
 						aria-labelledby="dropdownMenu"
-						style="display: block; position: static;">
+						style="display: block;/*  position: static; */">
 						<%-- <c:if test=""></c:if> --%>
-						<li><a>출석처리</a></li>
+						<li><a tabindex="-1" href="#">출석처리</a></li>
+						
+						<li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 					</ul>
 				</div>
 
@@ -530,9 +530,8 @@ select.filter {
 			</div>
 			<!-- /.container -->
 
-		</div>
+		
 		<br><br>
-	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -572,7 +571,7 @@ select.filter {
 
 	<script
 		src="${pageContext.request.contextPath}/resources/instructor/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-		
+		</div>
 
 </body>
 </html>
