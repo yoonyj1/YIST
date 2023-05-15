@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.dao.SubjectDao;
 import com.kh.yist.subject.model.vo.Class;
 import com.kh.yist.subject.model.vo.Subject;
@@ -88,6 +89,11 @@ public class SubjectServiceImpl implements SubjectService{
 	@Override
 	public ArrayList<Subject> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return sDao.selectSearchList(sqlSession, map, pi);
+	}
+
+	@Override
+	public ArrayList<Member> selectStudentList(int subject) {
+		return sDao.selectStudentList(sqlSession, subject);
 	}
 
 

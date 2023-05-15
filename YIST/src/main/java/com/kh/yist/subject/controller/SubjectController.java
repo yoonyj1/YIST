@@ -103,7 +103,7 @@ public class SubjectController {
 			session.setAttribute("alertMsg", "강의 수정이 실패했습니다");
 		}
 		
-		return "redirect:updateForm.cl?sNo="+s.getSubjectNo();
+		return "redirect:detail.cl?sNo="+s.getSubjectNo();
 		
 	}
 	
@@ -174,9 +174,10 @@ public class SubjectController {
 	public String selectClass(int sNo, Model m) {
 		
 		Subject s = sService.selectSubject(sNo);
-		
+		ArrayList<Member> list = sService.selectStudentList(sNo);
 		
 		m.addAttribute("s", s);
+		m.addAttribute("list", list);
 		
 		return "admin/class/detailClass";
 	}

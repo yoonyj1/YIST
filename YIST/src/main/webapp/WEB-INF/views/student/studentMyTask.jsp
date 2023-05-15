@@ -77,83 +77,59 @@ button {
 	      </ul>
 	    </div> 
 	    <div style="text-align: right;">
-	      <button type="button" class="btn btn-gray btn-theme-colored btn-circled">삭제하기</button>
-	    </div> 
-	    <div class="entry-content">
-	      <table>
-	        <thead>
-	          <tr higth="20px">
-	            <th width="5%"></th>
-	            <th width="50%">제목</th>
-	            <th width="10%">작성일</th>
-	            <th width="10%">조회수</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	          <tr>
-	            <td><input type="checkbox"></td>
-	            <td style="text-align: left;">지하철지연으로 인한 지각 출석인정 시 제출서류 안내</td>
-	            <td>2023-03-27</td>
-	            <td>8</td>
-	          </tr>
-	        </tbody>
-	      </table>
-	    </div>       
+		  <button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="deleteSelected()">삭제하기</button>
+		</div> 
+		<div class="entry-content">
+		  <input type="hidden" class="form-control" id="id" name="id" value="${ loginUser.id }">
+		  <table id="taskList">
+		    <thead>
+		      <tr higth="20px">
+		        <th width="5%"></th>
+		        <th width="60%">제목</th>
+		        <th width="10%">작성일</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tbody>
+		        <c:forEach var="t" items="${list}">
+		          <tr>
+		            <td><input type="checkbox" class="task-checkbox" data-taskno="${t.taskNo}"></td>
+		            <td>${t.taskTitle}</td>
+		            <td>${t.submitDate}</td>
+		          </tr>
+		        </c:forEach>
+		      </tbody>
+		    </table>
+		</div>  
 	  </div>
+
+	<script>
+		$(function() {
+			$("#taskList>tbody>tr").click(function() {
+				location.href='taskDetail.st?tno=' + $(this).children(".tno").text();
+			})
+		})
+		
+		function deleteSelected() {
+		  var taskNoList = [];
+		  $("#taskList .task-checkbox:checked").each(function() {
+		    taskNoList.push($(this).data("taskno"));
+		  });
+		  
+		  $.ajax({
+		    url: "deleteMyTask.st",
+		    method: "post",
+		    data: { taskNoList: taskNoList },
+		    success: function() {
+		      location.reload(); // 페이지 새로고침
+		    },
+		    error: function() {
+		      alert("과제 삭제에 실패하였습니다.");
+		    }
+		  });
+		}
+
+	</script>
 	
 	  <nav style="text-align: center; margin: 40px;">
 	    <ul class="pagination">

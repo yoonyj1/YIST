@@ -29,7 +29,6 @@
     text-align: center;
     border: 1px solid #dae0e9;
   }
-
   th {
     background-color: #eee;
     font-weight: bold;
@@ -49,7 +48,6 @@
 </style>
 </head>
 <body>
-
 	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container">

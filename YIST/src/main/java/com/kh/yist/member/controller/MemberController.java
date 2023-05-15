@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
+import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentServiceImpl;
 import com.kh.yist.subject.model.service.SubjectServiceImpl;
@@ -115,7 +117,6 @@ public class MemberController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 
 		loginUser.setExamTime(setTime);
-		
 		loginUser.setUserTime(userTime);
 		
 		session.setAttribute("loginUser", loginUser);
@@ -158,13 +159,6 @@ public class MemberController {
 		session.setAttribute("loginUser", loginUser);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

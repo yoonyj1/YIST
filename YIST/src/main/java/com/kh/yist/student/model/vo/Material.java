@@ -21,4 +21,6 @@ public class Material {
 	private int count;
 	private String createDate;
 	private String status;
+	
+	private String className;
 }

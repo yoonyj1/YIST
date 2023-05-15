@@ -75,4 +75,16 @@ public class AdminServiceY {
 	public int deleteStudent(String id) {
 		return aDao.deleteStudent(sqlSession, id);
 	}
+	
+	public ArrayList<Member> selectStudentList(String subject) {
+		return aDao.selectStudentList(sqlSession, subject);
+	}
+	
+	public int updateStudentInfo(Member m) {
+		return aDao.updateStudentInfo(sqlSession, m);
+	}
+	
+	public int resultAt(String id) {
+		return aDao.resultAt(sqlSession, id);
+	}
 }

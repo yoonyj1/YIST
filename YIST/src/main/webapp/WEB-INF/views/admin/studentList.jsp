@@ -157,7 +157,7 @@
 	          $(document).on("click",".access",function(event){
 	            var $studentId = $(this).parents("td").siblings().html();
 	            
-	            if(confirm($studentName + " 의 수강을 취소하시겠습니까?")){
+	            if(confirm($studentId + " 의 수강을 취소하시겠습니까?")){
 	            	location.href = 'deleteStudent.do?id=' + $studentId;
 	            	
 	            	alert("중퇴 처리 완료");

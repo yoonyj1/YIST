@@ -61,8 +61,13 @@
         	       } else {
         	    	   $("#insertForm").attr("action", "insert.task").submit();
         	    	   
-        	    	   // 과제 알람 보내기
-        	    	   taskAlarm();
+        	    	   let type = '과제';
+	       			   let title= $("#taskTitle").val();
+	       			   let target = "all";
+	       			   let content = "과제 등록";
+	       			   let sender = '${loginUser.getId()}';
+	       			   	
+	       			   sendAlarm(type, title,  target, content, sender);
         	       }
             	}
             	
@@ -405,7 +410,7 @@
 									    <label for="exampleFormControlTextarea1">과제 내용</label>
 									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent" >${t.taskContent}</textarea>
 									  </div>
-									  
+									  	<input type="hidden" name="fileNo" value="${t.fileNo}">
 									  	<c:if test="${ t.changeName ne 'none' }">
 									  		<div class="card">
 									  			<label for="">원본 이미지</label>

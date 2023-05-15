@@ -1,16 +1,15 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yist.member.model.dao.MemberDao;
+import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
-import com.kh.yist.subject.model.vo.Class;
 
 // @Component
 @Service
@@ -63,6 +62,11 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	public ArrayList<Member> selectExamMemberList(String subject) {
+		return mDao.selectExamMemberList(sqlSession, subject);
+	}
+
+	
 	// 쪽지저장
 	@Override
 	public int insertMessage(Message message) {
@@ -140,6 +144,17 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("서비스타나?");
 		return mDao.deleteInstructor(sqlSession, id);
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 

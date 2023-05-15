@@ -74,49 +74,54 @@ button {
     <div align="right">
       <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
         <button class="btn btn-primary" onclick="update();">수정하기</button> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-        <button class="btn btn-danger" onclick="showDeleteConfirm();;">삭제하기</button>
+        <button class="btn btn-danger" onclick="showDeleteConfirm();">삭제하기</button>
     </div>
     <div class="entry-content">
       <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
         <tr>
             <th style="text-align: center;">제목</th>
-            <td colspan="3" style="text-align: left;">${ t.taskTitle }</td>
+            <td colspan="3" style="text-align: left;">${ t.taskContent }</td>
         </tr>
         <tr>
             <th width="10%" style="text-align: center;">작성자</th>
-            <td width="40%" style="text-align: left;">${ t.studentId }</td>
+            <td width="40%" style="text-align: left;">김시연</td>
             <th width="10%" style="text-align: center;">작성일</th>
-            <td width="40%" style="text-align: left;">${ t.submitDate }</td>
+            <td width="40%" style="text-align: left;">2023-03-27</td>
         </tr>
         <tr>
             <td colspan="4">
               <div style="padding: 50px; font-size: 18px; line-height: 2;">
-                <p style="height:auto">${ t.submitContent }</p>
+                <textarea class="" id="summernote" name="submitContent" style="align: center;" readonly="readonly">${ t.submitContent }</textarea>
               </div>
             </td>
         </tr>
     </table>
     
      <div style="text-align: center; margin: 50px;">
-      <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
+      <a href="#" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
     </div> 
     </div>       
   </div>
 	
 	<script>
 		function update() {
-			location.href="updateForm.st?tno=" + ${ t.taskNo};
+			location.href="updateForm.st?taskNo=${t.taskNo}&studentId=${t.studentId}";
 		}
 		
 		function showDeleteConfirm() {
 			  if (confirm("정말로 삭제하시겠습니까? 삭제한 게시글은 복구할 수 없습니다.")) {
 			    deletePost();
 			  }
-			}
+		}
 
-			function deletePost() {
-				location.href="deleteTask.st?tno=" + ${ t.taskNo};
-			}
+		function deletePost() {
+				location.href="deleteTask.st?tno=" + ${t.taskNo};
+		}
+		
+
+	  	$(document).ready(function() {
+		    $('#summernote').summernote('disable');	
+		});
 	</script>
 	
 	<jsp:include page="common/footer.jsp"/>

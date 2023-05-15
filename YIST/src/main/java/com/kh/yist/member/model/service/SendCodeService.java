@@ -70,7 +70,7 @@ public class SendCodeService {
 		+"</body>"
 		+"</html>";
 		
-//		mailSend(setFrom, toMail, title, content);
+		mailSend(setFrom, toMail, title, content);
 		return Integer.toString(authNumber);
 	}
 	

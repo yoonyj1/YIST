@@ -27,7 +27,7 @@
 					          <img class="rounded-circle" src="${ sd.image }" width=30% height=30%>
 					          <span class="h5 d-block mt-3 mb-2">${ sd.name }</span>
 					        </div>
-	    			</div>
+	    				</div>
     			</div>
    			</div>
    			
@@ -45,7 +45,7 @@
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="UserId" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.id }" readonly>
+	                            <input type="text" class="form-control" name="id" placeholder="UserId" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.id }" disabled>
 	                        </div>
 	                    </div>
       				
@@ -54,14 +54,14 @@
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp; 이름&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.name }" required>
+	                            <input type="text" class="form-control" name='name' placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.name }" required>
 	                        </div>
 	
 	                        <div class="input-group mb-3 col">
 	                            <div class="input-group-prepend">
 	                            <span class="input-group-text" id="basic-addon1">전화번호</span>
 	                            </div>
-	                            <input type="text" class="form-control" placeholder="phone" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.phone }" required>
+	                            <input type="text" class="form-control" name='phone' placeholder="phone" aria-label="Username" aria-describedby="basic-addon1" value="${ sd.phone }" required>
 	                        </div>
                     	</div>
                     
@@ -86,7 +86,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;이메일&nbsp;&nbsp;</span>
                             </div>
-                            <input type="email" class="form-control" aria-label="email" aria-describedby="basic-addon1" value="${ sd.email }" required>
+                            <input type="email" class="form-control" name='email' aria-label="email" aria-describedby="basic-addon1" value="${ sd.email }" required>
                         </div>
                     </div>
 
@@ -96,17 +96,40 @@
                           <div class="input-group-prepend">
                           	<span class="input-group-text" id="basic-addon1">&nbsp;&nbsp;&nbsp;&nbsp;주소&nbsp;&nbsp;&nbsp;&nbsp;</span>
                           </div>
-                          <input type="text" class="form-control" aria-label="address" aria-describedby="basic-addon1" value="${ sd.address }">
+                          <input type="text" class="form-control" name='address' aria-label="address" aria-describedby="basic-addon1" value="${ sd.address }">
                       </div>
                   </div>
 
                     <div class="row">
                         <div class="col-12" align="right">
-                            <button type="submit" class="btn btn-sm btn-primary" style="margin-right: 15px;">수정</button>
+                            <button type="submit" class="btn btn-sm btn-primary" id="updateInfo" style="margin-right: 15px;">수정</button>
                         </div>
                     </div>
       			</form>
       		</div>
+      		
+      		<script>
+      			$(function(){
+	      			$("#updateInfo").click(function(){
+	      				$.ajax({
+	      					url:"updateStudent.do",
+	      					data:{
+	      						id:$("input[name='id']").val(),
+	      						name: $("input[name='name']").val(),
+	      						phone:$("input[name='phone']").val(),
+	      						email:$("input[name='email']").val(),
+	      						address:$("input[name='address']").val()
+	      					},
+	      					success:function(result){
+	      						alert("학생 정보가 수정되었습니다.");
+	      					},
+	      					error:function(){
+	      						console.log("학생정보수정 ajax 통신 실패 ㅡㅡ");
+	      					}
+	      				})
+	      			})
+      			})
+      		</script>
    			
 		</div>
 </div>
