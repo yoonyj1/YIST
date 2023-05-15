@@ -147,10 +147,15 @@ public class StudentController {
 	@RequestMapping("noticeDetail.st")
 	public ModelAndView selectNotice(int nno, ModelAndView mv) {
 
-		Notice n = sService.selectNotice(nno);
-		System.out.println(n);
-
-		mv.addObject("n", n).setViewName("student/studentNoticeDetail");
+		int result = sService.increaseCount(nno);
+		
+		if (result > 0) {
+			
+			Notice n = sService.selectNotice(nno);
+			System.out.println(n);
+			
+			mv.addObject("n", n).setViewName("student/studentNoticeDetail");
+		}
 
 		return mv;
 	}
@@ -193,6 +198,24 @@ public class StudentController {
 		return new Gson().toJson(list);
 	}
 
+	// 학습자료 상세 조회
+	@ResponseBody
+	@RequestMapping("materialDetail.st")
+	public ModelAndView selectMaterial(int mno, ModelAndView mv) {
+
+		int result = sService.increaseCount(mno);
+		
+		System.out.println(mno + "djhfkjsd");
+		if (result > 0) {
+			
+			Material m = sService.selectMaterial(mno);
+			
+			mv.addObject("m", m).setViewName("student/studentMaterialsDetail");
+		}
+
+		return mv;
+	}
+	
 	// 우리반 게시판 과제 목록(제출여부) 조회
 	@ResponseBody
 	@RequestMapping(value = "taskList.st", produces = "application/json; charset=UTF-8")

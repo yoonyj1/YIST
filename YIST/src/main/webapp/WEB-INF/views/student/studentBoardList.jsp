@@ -149,9 +149,9 @@ button {
 			} else {
 				for ( var i in list) {
 					html += "<tr>";
-					html += "<td>" + list[i].boardNo + "</td>";
+					html += "<td class='mno'>" + list[i].boardNo + "</td>";
 					html += "<td>학습자료</td>";
-					html += "<td>" + list[i].boardTitle + "</td>";
+					html += "<td><a href=materialDetail.st?materialNo=" + list[i].boardNo + ">" + list[i].boardTitle + "</a></td>";
 					html += "<td>" + list[i].boardWriter + "</td>";
 					html += "<td>" + list[i].createDate + "</td>";
 					html += "<td>" + list[i].count + "</td>";

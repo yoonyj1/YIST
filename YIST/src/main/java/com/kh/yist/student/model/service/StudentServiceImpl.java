@@ -64,6 +64,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public int increaseCount(int boardNo) {
+		
+		return sDao.increaseCount(sqlSession, boardNo);
+	}
+	
+	@Override
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		return sDao.selectList(sqlSession, pi);
 	}
@@ -91,6 +97,12 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.MaterialList(sqlSession);
 	}
 
+	// 학습자료 상세 조회
+	@Override
+	public Material selectMaterial(int boardNo) {
+		return sDao.selectMaterial(sqlSession, boardNo);
+	}
+	
 	// 우리반 게시판 과제 목록 조회
 	@Override
 	public ArrayList<Task> taskList(Member m) {

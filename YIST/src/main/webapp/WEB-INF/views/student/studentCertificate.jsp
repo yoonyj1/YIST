@@ -113,7 +113,7 @@
 	  </div>
 	</div>
 
-	  // 인쇄 함수
+	<!-- 인쇄 함수 -->
 	<script>
 		  function printCertificate() {
 		    var certificateImage = document.getElementById("certificateImage");

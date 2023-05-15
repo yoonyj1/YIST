@@ -25,6 +25,8 @@ public interface StudentService {
 	int testInsert(Exam e);
 	
 	int noticeListCount();
+	
+	int increaseCount(int boardNo);
 
 	ArrayList<Notice> selectList(PageInfo pi);
 
@@ -36,6 +38,7 @@ public interface StudentService {
 
 	ArrayList<Material> MaterialList();
 
+	Material selectMaterial(int boardNo);
 	
 	
 	// 과제 조회

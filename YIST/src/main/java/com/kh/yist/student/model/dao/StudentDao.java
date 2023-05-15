@@ -53,6 +53,11 @@ public class StudentDao {
 
 		return sqlSession.selectOne("studentMapper.noticeListCount");
 	}
+	
+	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("studentMapper.increaseCount", boardNo);
+	}
 
 	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
 
@@ -95,6 +100,12 @@ public class StudentDao {
 		return (ArrayList) sqlSession.selectList("studentMapper.MaterialList");
 	}
 
+	// 학습자료 상세 조회
+	public Material selectMaterial(SqlSessionTemplate sqlSession, int boardNo) {
+
+		return sqlSession.selectOne("studentMapper.selectMaterial", boardNo);
+	}
+	
 	// 우리반 게시판 과제 목록 조회
 	public ArrayList<Task> taskList(SqlSessionTemplate sqlSession, Member m) {
 
@@ -165,6 +176,12 @@ public class StudentDao {
 	public int deleteMyTask(SqlSessionTemplate sqlSession, List<Integer> taskNoList) {
 		
 		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
+	}
+	
+	// 마이페이지 평가 현황
+	public ArrayList<Exam> myTestList(SqlSessionTemplate sqlSession, String id) {
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.myTestList", id);
 	}
 }
 	
