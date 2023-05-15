@@ -269,16 +269,24 @@ from dual;
 select seq_taskno.currval
 from dual;
 
+
 select
-		  ea.student_id
-		, name
-        , ea.status
-from member m
-join exam_answer ea on (m.id = ea.student_id)
-where sort = 3 and subject = 1;
-      
-      
-      
+				t.task_no
+			  , file_no
+			  , subject_no
+			  , id
+			  , task_title
+			  , task_content
+			  , to_char(start_date, 'RRRR-MM-DD') as "start_date"
+			  , to_char(end_date, 'RRRR-MM-DD') as "end_date"
+			  , origin_name
+			  , change_name
+		      , file_level
+			  , tf.status
+		from task t
+		left outer join task_file tf on (t.task_no = tf.task_no)
+		where id = 'INSTRUCTOR01';
+        
       
       
       

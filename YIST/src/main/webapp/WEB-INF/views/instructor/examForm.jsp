@@ -58,8 +58,7 @@
 														<td>-</td>
 													</c:otherwise>
 												</c:choose>
-												<td><c:choose>
-														<c:when test="${e.status eq 'N'}">
+												<td>
 															<button type="button" id="test-start${e.testNo}"
 																class="test-start mb-1 btn btn-pill btn-primary"
 																style="height: 25px; line-height: 10px;"
@@ -67,29 +66,8 @@
 															<input type="hidden" value="${e.testNo}">
 															<button type="submit" id="test-score${e.testNo}"
 																class="test-score mb-1 btn btn-pill btn-secondary"
-																style="height: 25px; line-height: 10px;" disabled>채점</button>
-														</c:when>
-														<c:when test="${ not empty e.examDate}">
-															<button type="button" id="test-start${e.testNo}"
-																class="test-start mb-1 btn btn-pill btn-primary"
-																style="height: 25px; line-height: 10px;"
-																data-toggle="modal">다시보기</button>
-															<input type="hidden" value="${e.testNo}">
-															<button type="submit" id="test-score${e.testNo}"
-																class="test-score mb-1 btn btn-pill btn-secondary"
 																style="height: 25px; line-height: 10px;">채점</button>
-														</c:when>
-														<c:otherwise>
-															<button type="button" id="test-start${e.testNo}"
-																class="test-start mb-1 btn btn-pill btn-primary"
-																style="height: 25px; line-height: 10px;"
-																data-toggle="modal" disabled>시험시작</button>
-															<input type="hidden" value="${e.testNo}">
-															<button type="submit" id="test-score${e.testNo}"
-																class="test-score mb-1 btn btn-pill btn-secondary"
-																style="height: 25px; line-height: 10px;">채점</button>
-														</c:otherwise>
-													</c:choose></td>
+												</td>
 											<!-- 과제 등록 모달 -->
 											<div class="modal fade" id="examStart${e.testNo}"
 												tabindex="-1" role="dialog"
@@ -113,17 +91,17 @@
 																	<label class="text-primary">시간설정</label>
 																	<div class="form-check">
 																		<input type="radio" name="examSet" id="examSet1"
-																			value="5" checked> <label for="examSet1">
-																			5초 </label>
+																			value="60" checked> <label for="examSet1">
+																			1분 </label>
 																	</div>
 																	<div class="form-check">
 																		<input type="radio" name="examSet" id="examSet2"
-																			value="30"> <label for="examSet2"> 30초
+																			value="120"> <label for="examSet2"> 2분
 																		</label>
 																	</div>
 																	<div class="form-check">
 																		<input type="radio" name="examSet" id="examSet3"
-																			value="60"> <label for="examSet3"> 1분
+																			value="180"> <label for="examSet3"> 3분
 																		</label>
 																	</div>
 																</div>
@@ -134,16 +112,38 @@
 																				<c:when test="${m.status eq 'N'}">
 																					<div class="form-check">
 																					<input class="form-check-input" type="checkbox"
-																						name="mem_chk" id="${m.id}"> <label
-																						for="mem_chk">미응시 ${m.name} </label>
+																						name="mem_chk" id="${m.studentId}"> <label
+																						for="mem_chk">[미응시] ${m.name} </label>
+																					<input type="hidden" name="status" value="${m.status}">
 																					</div>
 																				</c:when>
 																				<c:otherwise>
-																					<div class="form-check">
-																					<input class="form-check-input" type="checkbox"
-																						name="mem_chk" id="${m.id}"> <label
-																						for="mem_chk">응시 ${m.name} </label>
-																					</div>
+																					<c:choose>
+																						<c:when test="${m.score == 999}">
+																							<div class="form-check">
+																							<input class="form-check-input" type="checkbox"
+																							name="mem_chk" id="${m.studentId}"> <label style="color:red"
+																							for="mem_chk">[미응시] ${m.name} </label>
+																							<input type="hidden" name="status" value="${m.status}">
+																							</div>	
+																						</c:when>
+																						<c:when test="${m.score < 60}">
+																							<div class="form-check">
+																							<input class="form-check-input" type="checkbox"
+																							name="mem_chk" id="${m.studentId}"> <label style="color:red"
+																							for="mem_chk">[재시험] ${m.name} (${m.score}점) </label>
+																							<input type="hidden" name="status" value="${m.status}">
+																							</div>	
+																						</c:when>
+																						<c:otherwise>
+																							<div class="form-check">
+																							<input class="form-check-input" type="checkbox"
+																							name="mem_chk" id="${m.studentId}" disabled="disabled"> <label style="color:blue"
+																							for="mem_chk">[응시] ${m.name} (${m.score}점) </label>
+																							<input type="hidden" name="status" value="${m.status}">
+																							</div>
+																						</c:otherwise>
+																					</c:choose>
 																				</c:otherwise>
 																			</c:choose>
 																		</c:forEach>
@@ -178,28 +178,33 @@
 	<script>
 		function examSetForm(testNo){
 			let users = [];			
+			
 			let setTime = $('input[name=examSet]:checked').val();
 
-			if ($('input:checkbox[name=mem_chk]').lenght == 0){
+			if ($('input:checkbox[name=mem_chk]:checked').length == 0){
 				alert("응시할 학생을 선택해주세요.");
 			} else {
 				$('input:checkbox[name=mem_chk]').each(function (index) {
 					if($(this).is(":checked") == true){
-				    	users.push($(this).attr("id"));
+						console.log($(this).attr("id"));						
+						users.push({"id":$(this).attr("id"), "status":$(this).next().next().val()});
 				    }
 				})
 				
-				let examUsers = {"users":users};
+				//let examUsers = {"users":users};
 				
-				 $.ajax({
+				console.log(users);
+				
+ 				 $.ajax({
 					url:'setExam.ins',
+					traditional: true,
 					data:{
 							testNo:testNo
-						  , examUsers:users
 						  , setTime
+						  , data: JSON.stringify(users)
 					},
+					dataType: 'json',
 					success:function(result){
-						console.log(result);
 						
 						if (result > 0){
 							let modalId = "";
@@ -209,7 +214,9 @@
 							
 							$(modalId).attr("disabled", true);
 							
-							$(examModalId).modal('hide')
+							$(examModalId).modal('hide');
+							
+							alert("시험 설정을 완료했습니다.");
 							
 						} else {
 							alert("시험 셋팅 실패");
@@ -219,7 +226,7 @@
 						alert("시험 ajax 통신 에러");
 					}
 					
-				}) 
+				})  
 			}
 			
 			

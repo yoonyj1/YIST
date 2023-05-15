@@ -87,10 +87,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					
 					targetSession = users.get(target); // 메시지를 받을 세션 조회
 
-					if (targetSession != null) { 
-						TextMessage tmpMsg = new TextMessage(content);
-						targetSession.sendMessage(tmpMsg); 
-					}
+					TextMessage tmpMsg = new TextMessage(content);
+					targetSession.sendMessage(tmpMsg); 
 				}
 				 
 

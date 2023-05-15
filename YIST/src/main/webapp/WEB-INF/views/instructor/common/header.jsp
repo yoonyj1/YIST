@@ -82,7 +82,6 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
-
 <style type="text/css">
 </style>
 
@@ -90,7 +89,7 @@
 
 <body class="navbar-fixed sidebar-fixed" id="body">
 
-	<c:if test="${loginUser.examTime > 0}">
+<%-- 	<c:if test="${loginUser.examTime > 0}">
 		<script>
 			let examNo = 0;
 			$(document).ready(function() {
@@ -153,7 +152,7 @@
 				}
 			})
 		</script>
-	</c:if>
+	</c:if> --%>
 	
 	<c:if test="${ not empty alertMsg }">
 		<script type="text/javascript">
@@ -178,7 +177,6 @@
 			socket.send(type + "," + target + "," + msg + "," + sender);
 		}
 		
-		
 		// 웹소켓
 		// 전역변수 설정
 		let socket  = null;
@@ -190,23 +188,16 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
+		    sock.onclose = function() {
+		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+		    };
+		    
 		});
 		
 		// (시험, 과제 알림)
 		$(document).ready(function(){
-			// 학생이 제출한 과제 확인했다고 알려주는 알림
-			$("#taskCheck-btn").on("click", function(){
-				let type = '과제';
-				let title = $(this).next().next().next().val();
-				let target = $(this).next().next().val();
-				let content = "과제 확인";
-				let sender = '${loginUser.getId()}';
-				
-				sendAlarm(type, title,  target, content, sender);
-			})
-			
 			// 시험 시작 알람
-			$(".test-start").click(function(){
+			$(".test-start").on("click", function(){
 				
 				console.log("지금 눌린 번호 : " +$(this).next().val());
 				
@@ -216,7 +207,34 @@
 					$(examModalId).modal('show');
 				}
 			})
-
+			
+			// 시험 점수 등록
+			$(".task-insert").on("click", function(){
+				console.log("눌림~~~~");
+				let type = '시험';
+				let title = $(this).next().next().val();
+				let target = $(this).next().val();
+				let content = "채점 완료";
+				let sender = '${loginUser.getId()}';
+				
+				sendAlarm(type, title,  target, content, sender);
+			})
+			
+			
+			// 과제 확인 알람
+			$(".taskCheck-btn").on("click", function(){
+				let type = '과제';
+				let title = $(this).next().next().next().val();
+				let target = $(this).next().next().val();
+				let content = "과제 확인";
+				let sender = '${loginUser.getId()}';
+				
+				console.log(title);
+				console.log(target);
+				
+				sendAlarm(type, title,  target, content, sender); 
+			})
+								
 		})
 		
 		// toast생성 및 추가

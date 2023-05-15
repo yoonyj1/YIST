@@ -72,7 +72,7 @@ public class TaskService {
 		return tDao.setExam(sqlSession, exam);
 	}
 
-	public ArrayList<Member> selectExamMemberList(String subject) {
+	public ArrayList<Exam> selectExamMemberList(String subject) {
 		return tDao.selectExamMemberList(sqlSession, subject);
 	}
 
@@ -86,6 +86,16 @@ public class TaskService {
 
 	public int setExamTime(Exam exam) {
 		return tDao.setExamTime(sqlSession, exam);
+	}
+
+	public int updateSetExam(Exam exam) {
+		return tDao.updateSetExam(sqlSession, exam);
+		
+	}
+
+	// 시험 점수 등록
+	public int updateSetExamAnswer(Exam exam) {
+		return tDao.updateSetExamAnswer(sqlSession, exam);
 	}
 	
 }

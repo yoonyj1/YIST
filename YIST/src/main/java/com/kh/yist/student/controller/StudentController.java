@@ -82,9 +82,11 @@ public class StudentController {
 
 	// 시험 목록 조회
 	@RequestMapping("testList.st")
-	public ModelAndView testList(ModelAndView mv) {
+	public ModelAndView testList(ModelAndView mv, HttpSession session) {
 
-		ArrayList<Exam> list = sService.testList();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> list = sService.testList(loginUser);
 
 		mv.addObject("list", list).setViewName("student/studentTestList");
 
@@ -106,22 +108,38 @@ public class StudentController {
 	
 	// 시험 제출
 	@RequestMapping("testInsert.st")
-	public String testInsert(@RequestParam(value="eno") int testNo, Exam e, HttpSession session) {
-		  
-		e.setTestNo(testNo);
-
+	public String testInsert(Exam e, HttpSession session) {
+		
 		int result = sService.testInsert(e);
 		
 		if(result>0) {
-			session.setAttribute("alertMsg", "평가 제출되었습니다");
+			session.setAttribute("student_alertMsg", "평가 제출되었습니다");
 			return "redirect:testList.st";
 		}else {
-			session.setAttribute("alertMsg", "평가 제출 실패!");
+			session.setAttribute("student_alertMsg", "평가 제출 실패!");
 			return "redirect:testList.st";
 		}
 		
 	}
 
+	// 시험 결과
+	@RequestMapping("examResult.st")
+	public String examResult(Exam exam, Model model, HttpSession session) {
+		
+		Exam examResult = sService.selectExamResult(exam);
+		Exam examQuestion = sService.selectExamQuestion(exam);
+		
+		if (examResult != null) {
+			model.addAttribute("ea", examResult);
+			model.addAttribute("q", examQuestion);
+			return "student/studentTestResult";
+		} else {
+			session.setAttribute("student_alertMsg", "시험 결과 조회에 실패했습니다.");
+			return "redirect:testList.st";
+		}
+		
+	}
+	
 	@RequestMapping("certificate.st")
 	public String certificate() {
 		return "student/studentCertificate";
@@ -287,11 +305,16 @@ public class StudentController {
 	
 	// 알림 읽음 처리
 	@RequestMapping(value="alarmCheck.st")
-	public String taskAlarmCheck(int alarmNo) {
+	public String taskAlarmCheck(int alarmNo, String type) {
 		
 		sService.taskAlarmCheck(alarmNo); 
 		
-		return "redirect:boardList.st";
+		if (type.equals("과제")) {
+			return "redirect:boardList.st";
+		} else {
+			return "redirect:testList.st";
+		}
+		
 	}
 	
 	// 우리반 게시판 Q&A 목록 조회

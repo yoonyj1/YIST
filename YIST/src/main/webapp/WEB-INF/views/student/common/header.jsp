@@ -86,6 +86,10 @@
 	
 		let socket  = null;
 		
+		$(function(){
+			seletAlarmList();
+		})
+		
 		$(document).ready(function(){
 		    // 웹소켓 연결
 		    sock = new SockJS("<c:url value="/echo-ws"/>");
@@ -94,16 +98,18 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
-		    seletAlarmList();
+		    sock.onclose = function() {
+		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+		    };
 		});
 		
 		// 전달 받은 데이터
 		function onMessage(evt){
 			seletAlarmList();
-			
+ 			
 			let data = evt.data;
-
-			toastr.info(data);
+			
+			toastr.info(data); 
 		}
 		
 		// 알람 조회
@@ -121,7 +127,7 @@
 					} else {
 						notificationHTML = "<div><h2>알림</h2>";
 						for (let i in alarmList){
-							notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "\">" + alarmList[i].alarmContent + "</a></p>";
+							notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">" + alarmList[i].alarmContent + "</a></p>";
 							count++;
 						}
 						notificationHTML += "<br></div>";
@@ -140,7 +146,7 @@
 		
 		function setExam(testNo, setTime){
 			$.ajax({
-				url:"setExam.ins",
+				url:"setExam.st",
 				data:{
 					testNo:testNo
 				},
@@ -169,16 +175,15 @@
 				if ($("#timeDisplay").val() != ""){
 			  		alert("시험종료");
 			  		$("#timeDisplay").val("");	
-			  		$(".test-score").attr("disabled",false);
 			  		
-			  		location.reload();
+			  		$("#testInsert").attr("action", "testInsert.st").submit();
 				}
 			} else {
 			  time = new Date( msLeft );
 			  hours = time.getUTCHours();
 			  mins = time.getUTCMinutes();
 			  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
-			  element.value = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+			  element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
 			  setTimeout( updateTimer, time.getUTCMilliseconds());
 			}
 		  }

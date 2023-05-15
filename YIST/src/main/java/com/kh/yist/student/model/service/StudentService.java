@@ -18,7 +18,7 @@ public interface StudentService {
 	
 	ArrayList<Notice> mainNotice();
 
-	ArrayList<Exam> testList();
+	ArrayList<Exam> testList(Member loginUser);
 	
 	Exam testDetail(int testNo);
 	
@@ -71,5 +71,10 @@ public interface StudentService {
 	ArrayList<Task> selectMyTask(String id);
 	
 	int deleteMyTask(List<Integer> taskNoList);
+
+	// 시험 결과 조회
+	Exam selectExamResult(Exam exam);
+
+	Exam selectExamQuestion(Exam exam);
 	
 }

@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="file_no" property="fileNo"></result>
 		<result column="subject_no" property="subjectNo"></result>
 		<result column="id" property="instructorId"></result>
+		<result column="student_id" property="studentId"></result>
 		<result column="task_title" property="taskTitle"></result>
 		<result column="task_content" property="taskContent"></result>
 		<result column="start_date" property="startDate"></result>
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="examResultSet" type="Exam">
 		<result column="test_no" property="testNo"></result>
 		<result column="id" property="id"></result>
-		<result column="student_id" property="studentId"></result>
+		<result column="student_Id" property="studentId"></result>
 		<result column="subject_no" property="subjectNo"></result>
 		<result column="test_title" property="testTitle"></result>
 		<result column="exam_date" property="examDate"></result>
@@ -131,8 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					)
 	</insert>
 
-	<select id="selectTaskListCount" resultType="_int"
-		parameterType="Map">
+	<select id="selectTaskListCount" resultType="_int" parameterType="Map">
 		select count(t.task_no) as "taskListCount"
 		from task t
 		left join task_file tf on (t.task_no = tf.task_no)
@@ -213,7 +213,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			t.task_no as "task_no"
 		  , t.task_title as "task_title"
 		  , submit_content as "submit_content"
-		  , s.student_id
+		  , s.student_id as "studentId"
 		  , name
 		  , submit_date
 		  , s.status as "status"
@@ -226,7 +226,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="checkTaskSubmit">
 		update task_submit
 			set status = 'Y'
-		where task_no = #{taskNo} and student_id = #{id}
+		where task_no = #{taskNo} and student_id = #{studentId}
 	</update>
 
 	<select id="selectExamList" resultMap="examResultSet">
@@ -244,9 +244,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectExamMemberList" resultMap="examResultSet">
 		select
-			  ea.student_id as "studentId"
+			  ea.student_id as "student_id"
 			, name
 	        , ea.status "status"
+	        , ea.score as "score"
 		from member m
 		join exam_answer ea on (m.id = ea.student_id)
 		where sort = 3 and subject = #{subject}
@@ -273,7 +274,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectExamSubmitList" resultMap="examResultSet">
 		select
-				test_no
+				e.test_no "test_no"
+              , test_title
 		      , student_id
 			  , name
 			  , a1
@@ -283,9 +285,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  , a5
 			  , ea.status as "submit_status"
 			  , nvl(score, 0) as "score"
-		from exam_answer ea
-        join member m on (ea.student_id = m.id)
-		where test_no = #{testNo}
+        from exam e
+        left join exam_answer ea on (e.test_no = ea.test_no)
+        left join member m on (ea.student_id = m.id)
+		where e.test_no = #{testNo}
 	</select>
 
 	<select id="selectSubmitMember" resultMap="examResultSet">
@@ -327,17 +330,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				values
 				(
 					#{testNo}
-				  , #{id}
+				  , #{studentId}
 				  , NULL
 				  , NULL
 				  , NULL
 				  , NULL
 				  , NULL
 				  , 'N'
-				  , 0
+				  , 999
 				  , sysdate
 				)
 	</insert>
+
+	<update id="updateSetExam">
+		update exam_answer
+			set a1 = NULL
+			  , a2 = NULL
+			  , a3 = NULL
+			  , a4 = NULL
+			  , a5 = NULL
+			  , status = 'N'
+			  , score = 0
+			  , exam_date = sysdate
+		where test_no = #{testNo} and student_id = #{studentId}
+	</update>
 
 	<!-- 시험시간 설정 -->
 	<update id="setExamTime" >
@@ -346,6 +362,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where test_no = #{testNo}
 	</update>
 
+	<!-- 시험 채점 -->
+	<update id="updateSetExamAnswer">
+		update exam_answer
+			set score = #{score}
+			  , status = 'Y'
+		where test_no = #{testNo} and student_id = #{studentId} 
+			
+	</update>
+	
 	<insert id="insertAlarm">
 		insert
 		into alarm
