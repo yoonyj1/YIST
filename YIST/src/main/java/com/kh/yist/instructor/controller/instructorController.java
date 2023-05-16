@@ -123,11 +123,13 @@ public class instructorController {
 			exam.setExamTime(setTime);
 			exam.setStudentId(studentId);
 			
-			if (status.equals("N")) {
-				tService.setExam(exam);
-			} else {
-				tService.updateSetExam(exam);
-			}
+//			if (status.equals("N")) {
+//				tService.setExam(exam);
+//			} else {
+//				tService.updateSetExam(exam);
+//			}
+			tService.updateSetExam(exam);
+			
 			resultCount++;
 		}
 		

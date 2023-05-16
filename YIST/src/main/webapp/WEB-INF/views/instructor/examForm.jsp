@@ -108,44 +108,46 @@
 																	<div class="col">
 																		<label class="text-primary">인원설정</label>
 																		<c:forEach var="m" items="${memberList}">
-																			<c:choose>
-																				<c:when test="${m.status eq 'N'}">
-																					<div class="form-check">
-																					<input class="form-check-input" type="checkbox"
-																						name="mem_chk" id="${m.studentId}"> <label
-																						for="mem_chk">[미응시] ${m.name} </label>
-																					<input type="hidden" name="status" value="${m.status}">
-																					</div>
-																				</c:when>
-																				<c:otherwise>
-																					<c:choose>
-																						<c:when test="${m.score == 999}">
-																							<div class="form-check">
-																							<input class="form-check-input" type="checkbox"
-																							name="mem_chk" id="${m.studentId}"> <label style="color:red"
+																			<c:if test="${e.testNo eq m.testNo}">
+																				<c:choose>
+																					<c:when test="${m.status eq 'N'}">
+																						<div class="form-check">
+																						<input class="form-check-input" type="checkbox"
+																							name="mem_chk" id="${m.studentId}"> <label
 																							for="mem_chk">[미응시] ${m.name} </label>
-																							<input type="hidden" name="status" value="${m.status}">
-																							</div>	
-																						</c:when>
-																						<c:when test="${m.score < 60}">
-																							<div class="form-check">
-																							<input class="form-check-input" type="checkbox"
-																							name="mem_chk" id="${m.studentId}"> <label style="color:red"
-																							for="mem_chk">[재시험] ${m.name} (${m.score}점) </label>
-																							<input type="hidden" name="status" value="${m.status}">
-																							</div>	
-																						</c:when>
-																						<c:otherwise>
-																							<div class="form-check">
-																							<input class="form-check-input" type="checkbox"
-																							name="mem_chk" id="${m.studentId}" disabled="disabled"> <label style="color:blue"
-																							for="mem_chk">[응시] ${m.name} (${m.score}점) </label>
-																							<input type="hidden" name="status" value="${m.status}">
-																							</div>
-																						</c:otherwise>
-																					</c:choose>
-																				</c:otherwise>
-																			</c:choose>
+																						<input type="hidden" name="status" value="${m.status}">
+																						</div>
+																					</c:when>
+																					<c:otherwise>
+																						<c:choose>
+																							<c:when test="${m.score == 999}">
+																								<div class="form-check">
+																								<input class="form-check-input" type="checkbox"
+																								name="mem_chk" id="${m.studentId}"> <label
+																								for="mem_chk">[미응시] ${m.name} </label>
+																								<input type="hidden" name="status" value="${m.status}">
+																								</div>	
+																							</c:when>
+																							<c:when test="${m.score < 60}">
+																								<div class="form-check">
+																								<input class="form-check-input" type="checkbox"
+																								name="mem_chk" id="${m.studentId}"> <label style="color:red"
+																								for="mem_chk">[재시험] ${m.name} (${m.score}점) </label>
+																								<input type="hidden" name="status" value="${m.status}">
+																								</div>	
+																							</c:when>
+																							<c:otherwise>
+																								<div class="form-check">
+																								<input class="form-check-input" type="checkbox"
+																								name="mem_chk" id="${m.studentId}" disabled="disabled"> <label style="color:blue"
+																								for="mem_chk">[응시] ${m.name} (${m.score}점) </label>
+																								<input type="hidden" name="status" value="${m.status}">
+																								</div>
+																							</c:otherwise>
+																						</c:choose>
+																					</c:otherwise>
+																				</c:choose>
+																			</c:if>
 																		</c:forEach>
 																	</div>
 															</div>

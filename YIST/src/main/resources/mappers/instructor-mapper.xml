@@ -241,6 +241,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			, name
 	        , ea.status "status"
 	        , ea.score as "score"
+	        , test_no
 		from member m
 		join exam_answer ea on (m.id = ea.student_id)
 		where sort = 3 and subject = #{subject}
