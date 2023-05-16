@@ -45,6 +45,9 @@ public class Member {
 	private int memberNo;
 	private String INHOUR;
 	private String OUTHOUR;
+	private String y_count;
+	private String n_count;
+	
 	
 	private int examTime;
 	private int userTime;

@@ -44,6 +44,7 @@ public class instructorController {
 	@Autowired
 	private MemberService mService;
 	private String subject;
+	private String date;
 	
 	@RequestMapping("scoreForm.ins")
 	public String scoreForm(HttpSession session, Model model, int testNo) {
@@ -97,17 +98,7 @@ public class instructorController {
 	}
 	
 	
-	@RequestMapping("yistcheck.ins")
-	public String yistcheck(Model model,Member m,HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		System.out.println(loginUser+"test");
-		String subject= loginUser.getSubject();
-		ArrayList<Member> list = mService.selectList2(subject);
-		System.out.println(subject+"test2");
-		model.addAttribute("list",list);
-		// 모델 셋팅
-		return "instructor/yistcheck";
-	}
+	
 
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
@@ -300,9 +291,15 @@ public class instructorController {
 		}
 	}
 	
-	
-	
-	
+	@RequestMapping("yistcheck.ins")
+	public String yistcheck(Model model,Member m,HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String subject= loginUser.getSubject();
+		ArrayList<Member> list = mService.selectList2(subject);
+		
+		model.addAttribute("list",list);
+		return "instructor/yistcheck";
+	}
 	
 	@ResponseBody
 	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")
@@ -315,6 +312,14 @@ public class instructorController {
 		return new Gson().toJson(m);
 		
 		//return "redirect:studentForm.ins";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
+	public void ajaxSelectCheck(String DATE) {
+		System.out.println(DATE);
+		ArrayList<Member> m = mService.selectStudentList2(DATE);
+		System.out.println(m);
 	}
 
 }

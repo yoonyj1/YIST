@@ -27,6 +27,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ROWNUM" property="memberNo"/>
 		<result column="INHOUR" property="INHOUR"/>
 		<result column="OUTHOUR" property="OUTHOUR"/>
+		<result column="y_count" property="y_count"/>
+		<result column="n_count" property="n_count"/>
 	</resultMap>
 
 	<resultMap id="alarmResultSet" type="Alarm">
@@ -64,14 +66,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectList2" resultMap="memberResultSet">
-	SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*, 
+	   SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*,ATTENDANCE_DATE,
        (SELECT COUNT(*) FROM attendance WHERE status = 'Y') AS y_count,
        (SELECT COUNT(*) FROM attendance WHERE status = 'N') AS n_count
 		FROM attendance
 		JOIN member ON attendance.id = member.id
 		WHERE member.sort = 3 AND member.subject = #{subject}
 	</select>
-
+	
+	<select id="selectList3" resultMap="memberResultSet">
+	  SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*, ATTENDANCE_DATE
+	  FROM attendance
+	  JOIN member ON attendance.id = member.id
+	  WHERE member.sort = 3 AND member.subject = #{subject}
+	  AND ATTENDANCE_DATE = #{DATE}
+	</select>
 	
 	<select id="loginMember" resultMap="memberResultSet">
 		select

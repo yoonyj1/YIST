@@ -64,5 +64,8 @@ public class MemberDao {
 	public Member selectStudentList(SqlSessionTemplate sqlSession, String id){
 		return sqlSession.selectOne("memberMapper.selectStudentList", id);
 	}
-
+	
+	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String DATE) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",DATE);
+	}
 }

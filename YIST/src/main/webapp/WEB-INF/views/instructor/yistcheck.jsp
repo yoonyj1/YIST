@@ -77,7 +77,7 @@ form {
     border: 0px;
     color: #ffffff;
     border-radius: 5px;
-    margin-left: 1px;
+    margin-left: 5px;
     margin-top: 0.5px;
 }
 .hak1_button:hover{
@@ -130,9 +130,9 @@ tr {
 .whTable02 th{
     border: 1px solid rgb(191, 191, 191);
 }
-.whTable02 tr:last-child td {
-    border: 1px solid rgb(191, 191, 191);
-}
+.whTable02 td {
+        border: 1px solid rgb(191, 191, 191);
+    }
 
 
 table {
@@ -164,11 +164,9 @@ width: 800px;
           <div class="studySearch">
             <div class="hak1_left">
               <div class="hak1">
-                <div class="std_00">학생
-                <input type="text" id="keyword" name="keyword" class="hak1_input" value="" placeholder="학생 이름을 입력해주세요">
-                <button type="submit" class="hak1_button" onclick="getSearchList()">검색</button>
-                <!-- <span class="theDate_sp">2023-04-11 (화)</span> -->
-                <input type="date" class="start" style="margin-left: 5px;">
+                <div class="std_00">
+                <input type="date" id="test" class="start" style="margin-left: 5px;">
+                <button type="button" class="hak1_button" id="on">검색</button>
               </div>
               </div>
             </div>
@@ -176,12 +174,10 @@ width: 800px;
         </form>
 
             <div class="attendStatus">
-              <div style="display:inline-block; margin-left: 670px;">
+              <div style="display:inline-block; margin-left: 720px;">
                 <ul class="asResult" id="attendStatus">
-                  <li><strong>전체</strong> : <span id="allCnt">2</span>명</li>
-                  <li class="fcBlue"><strong>출석</strong> : <span id="attCnt"></span>${b.n_count }명</li>
-                  <li class="fcOrange"><strong>지각</strong> : <span id="rateCnt">0</span>명</li>
-                  <li class="fcRed"><strong>결석</strong> : <span id="absCnt"></span>명</li>
+                  <li class="fcBlue"><strong>출석</strong> : <span id="attCnt"></span>${list[0].y_count}명</li>
+                  <li class="fcOrange"><strong>결석</strong> : <span id="rateCnt">${list[0].n_count}</span>명</li>
                 </ul>
               </div>
           </div>
@@ -201,7 +197,7 @@ width: 800px;
 					<tbody>
                         <tr align="center">
 						<th style="width:20px;height:90px;">
-							<div><img src="" style="vertical-align: baseline;"><br><input type="checkbox" id="allChk" title=""></div>
+							<div><input type="checkbox" id="allChk" title="" onclick="checkAll()"></div>
 						</th>
 						<th class="attendance">번호</th>
 						<th class="attendance">학생(반)</th>
@@ -243,7 +239,7 @@ width: 800px;
 					</td>
 				</tr>
 					</c:forEach>
-                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 700px; margin-top: 10px; margin-bottom:20px;">저장</button>
+                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 680px; margin-top: 10px; margin-bottom:20px;">저장</button>
                         <button type="" class="hak1_button2" style="width: 100px; margin-left: 10px; margin-top: 10px; margin-bottom:20px;">프린트</button>
                         </table>
       					</form>
@@ -267,6 +263,38 @@ width: 800px;
 				document.getElementById("inHour_" + memberNo).value = "00:00";
 			}
 			</script>
+			
+			<script>
+				function checkAll() {
+				  var checkboxes = document.getElementsByName('parPushSendChk');
+				  var checkAllBox = document.getElementById('allChk');
+				  
+				  for (var i = 0; i < checkboxes.length; i++) {
+				    checkboxes[i].checked = checkAllBox.checked;
+				  }
+				}
+			</script>
+			
+			<script>
+			$(document).ready(function() {
+			  $("#on").on("click", function() {
+			    var selectedDate = $('#test').val();
+			    console.log(selectedDate);
+			    $.ajax({
+			      url: "ylist.bo",
+			      method: "GET",
+			      data: { DATE: selectedDate },
+			      success: function(response) {
+			        $("input[name='inHour']").val(response.inHour);
+			        $("input[name='outHour']").val(response.outHour);
+			      },
+			      error: function() {
+			        console.log("출결조회실패");
+			      }
+			    });
+			  });
+			});
+</script>
        	
     </body>
 

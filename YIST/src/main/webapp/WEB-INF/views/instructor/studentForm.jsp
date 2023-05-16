@@ -283,8 +283,8 @@ tr {
        	
     </body>
     
+    	<!-- 학생정보클릭함수 -->
     	<script>
-    	
     	$(document).ready(function(){
     		$(".on").on("click", function(){
      	        $.ajax({
@@ -307,30 +307,8 @@ tr {
      	    });
     		})
     	})
-    	/* $(function(){
-    	    $("#leftMemList>tbody>tr").click(function() {
-    	        $.ajax({
-    	            url: "slist.bo",
-    	            data: {bno:$(".bno").val()},
-    	            success: function(response) {
-    	                $("input[name='name']").val(response.name);
-    	                $("input[name='id']").val(response.id);
-    	                $("input[name='birth']").val(response.birth);
-    	                $("input[name='email']").val(response.email);
-    	                $("input[name='subject']").val(response.subject);
-    	                $("input[name='phone']").val(response.phone);
-    	                $("input[name='post']").val(response.post);
-    	                $("input[name='address']").val(response.address);
-    	                $("input[name='detailAddress']").val(response.detailAddress);
-    	            },
-    	            error: function() {
-    	            	console.log("실패!");
-    	            }
-    	        });
-    	    });
-    	}); */
+    	
 		</script>
-    	<!-- 학생정보클릭함수 -->
-    	<script>
+ 
     	
 </html>
