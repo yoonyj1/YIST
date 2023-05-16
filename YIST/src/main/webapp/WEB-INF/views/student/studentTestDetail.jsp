@@ -97,7 +97,7 @@
   </div>
   
   <script type="text/javascript">
-  		countdown('examTime', 10);
+  		countdown('examTime', '${e.examTime}');
   		$(function(){
   			$("#examSubmit-btn").click(function(){
   				$("#testInsert").attr("action", "testInsert.st").submit();

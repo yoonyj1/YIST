@@ -167,8 +167,10 @@
 	     , q3
 	     , q4
 	     , q5
-	  from exam e inner join exam_question q on e.test_no = q.test_no
-	 where e.test_no = #{examNo}
+	     , exam_time
+	  from exam e 
+      join exam_question q on e.test_no = q.test_no
+	 where e.test_no = #{testNo}
 </select>
 
 <!-- 시험 제출 -->

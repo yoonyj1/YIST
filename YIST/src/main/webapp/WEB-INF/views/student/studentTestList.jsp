@@ -81,13 +81,20 @@
 	                </c:choose>
 	                <td>
 	                	<c:choose>
-	                		<c:when test="${e.score == 999}">
+	                		<c:when test="${e.status eq 'N'}">
 	                			<a href="testDetail.st?eno=${ e.testNo }" class="btn btn-primary btn-circled">평가시작</a>
 	                    		<a href="#" class="btn btn-gray btn-circled" disabled="disabled">결과확인</a>
 	                		</c:when>
 	                		<c:otherwise>
-	                			<button class="btn btn-danger btn-circled" disabled="disabled">평가준비중</button>
-	                			<a href="examResult.st?testNo=${e.testNo}&studentId=${loginUser.id}" class="btn btn-primary btn-circled">결과확인</a>
+	                			<button class="btn btn-danger btn-circled" disabled="disabled">평가완료</button>
+	                			<c:choose>
+	                				<c:when test="${e.score == 999}">
+	                					<button class="btn btn-primary btn-circled" disabled="disabled">결과확인</button>
+	                				</c:when>
+	                				<c:otherwise>
+		                				<a href="examResult.st?testNo=${e.testNo}&studentId=${loginUser.id}" class="btn btn-primary btn-circled">결과확인</a>
+	                				</c:otherwise>
+	                			</c:choose>
 	                		</c:otherwise>
 	                	</c:choose>
 	                </td>

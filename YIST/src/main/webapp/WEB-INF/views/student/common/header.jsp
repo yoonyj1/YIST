@@ -99,17 +99,19 @@
 		    sock.onmessage = onMessage; // toast 생성
 		    
 		    sock.onclose = function() {
-		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+		        
 		    };
 		});
 		
 		// 전달 받은 데이터
 		function onMessage(evt){
-			seletAlarmList();
  			
 			let data = evt.data;
 			
 			toastr.info(data); 
+
+			//seletAlarmList();
+			setTimeout(seletAlarmList, 300); // 웹소켓을 재연결하는 코드 삽입
 		}
 		
 		// 알람 조회

@@ -271,21 +271,16 @@ from dual;
 
 
 select
-				t.task_no
-			  , file_no
-			  , subject_no
-			  , id
-			  , task_title
-			  , task_content
-			  , to_char(start_date, 'RRRR-MM-DD') as "start_date"
-			  , to_char(end_date, 'RRRR-MM-DD') as "end_date"
-			  , origin_name
-			  , change_name
-		      , file_level
-			  , tf.status
-		from task t
-		left outer join task_file tf on (t.task_no = tf.task_no)
-		where id = 'INSTRUCTOR01';
+	       test_title
+	     , q1
+	     , q2
+	     , q3
+	     , q4
+	     , q5
+	     , exam_time
+	  from exam e 
+      join exam_question q on e.test_no = q.test_no
+	 where e.test_no = 2;
         
       
       

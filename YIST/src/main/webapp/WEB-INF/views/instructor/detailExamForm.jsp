@@ -107,11 +107,19 @@
 														<td>0/100</td>
 													</c:when>
 													<c:otherwise>
-														<td>${e.score}.0/100</td>
+														<td>${e.score}.00/100</td>
 													</c:otherwise>
 												</c:choose>
+												<c:choose>
+													<c:when test="${e.submitStatus eq 'Y'}">
 														<td>완료</td>
 														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.studentId}" data-toggle="modal" data-target="#${e.studentId}score${status.count}">채점</button></td>
+													</c:when>
+													<c:otherwise>
+														<td>미완료</td>
+														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.studentId}" data-toggle="modal" data-target="#${e.studentId}score${status.count}" disabled="disabled">채점</button></td>
+													</c:otherwise>
+												</c:choose>
 											</tr>
 											<!-- 과제 등록 모달 -->
 								              <div class="modal fade" id="${e.studentId}score${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
