@@ -178,6 +178,7 @@
 															      	<h6>학생답안</h6>
 															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a2}</textarea>
 															        <hr>
+															        
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
 															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a2}</textarea>
 															        
