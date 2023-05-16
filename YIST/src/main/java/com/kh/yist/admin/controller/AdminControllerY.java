@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -200,6 +201,13 @@ public class AdminControllerY {
 	  }
 	  System.out.println(result);
 	  return "redirect:/";
+	}
+	
+	@RequestMapping("adminLogout.do")
+	public String adminLogout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
 	}
     
 }

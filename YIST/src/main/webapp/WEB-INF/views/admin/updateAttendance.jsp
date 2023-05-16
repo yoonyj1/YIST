@@ -563,7 +563,7 @@ select.filter {
 	<script
 		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/main2.js?ver=1"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/addEvent.js?ver=1"></script>
+		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/addEvent2.js?ver=1"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/instructor/calendar/js/editEvent.js?ver=1"></script>
 	<script
