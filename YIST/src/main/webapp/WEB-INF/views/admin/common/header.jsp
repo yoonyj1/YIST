@@ -238,35 +238,23 @@
 					
 					<li class="has-sub">
 						<a class="sidenav-item-link" href="teacherList.do" >
-							<i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
+							<i class="fa-solid fa-person-chalkboard"></i>
 							<span class="nav-text">강사관리</span>
 						</a>
 					</li>
 
 					<li class="has-sub">
-						<a class="sidenav-item-link"  href="javascript:void(0)" data-toggle="collapse" data-target="#student-admin" aria-expanded="false" aria-controls="notice-admin">
-							<i class="fa-solid fa-chalkboard-user"></i> 
+						<a class="sidenav-item-link"  href="studentList.do">
+							<i class="fa-solid fa-user"></i>
 							<span class="nav-text">학생관리</span>
-							<b class="caret"></b>
 						</a>
-						<ul class="collapse" id="student-admin" data-parent="#sidebar-menu">
-							<div class="sub-menu">
-
-								<li>
-									<a class="sidenav-item-link" href="studentList.do"> 
-										<span class="nav-text">학생조회</span>
-									</a>
-								</li>
-
-								<li>
-									<a class="sidenav-item-link" href="gradeView.do"> 
-										<span class="nav-text">성적조회</span>
-									</a>
-								</li>
-							
-								
-							</div>
-						</ul>
+					</li>
+					
+					<li class="has-sub">
+						<a class="sidenav-item-link"  href="gradeView.do">
+							<i class="fa-solid fa-pen-fancy"></i> 
+							<span class="nav-text">성적관리</span>
+						</a>
 					</li>
 					
 				</ul>
@@ -324,7 +312,7 @@
 						<!-- User Account -->
 						<li class="dropdown user-menu" >
 							<b style="font-weight:900; color:black; margin-right:20px">
-								<img src="${pageContext.request.contextPath}/resources/admin/images/user/user-xs-01.jpg"
+								<img src="${loginUser.image}"
 									class="user-image rounded-circle" alt="User Image" /> <span
 									class="d-none d-lg-inline-block">&nbsp;${ loginUser.name }</span>
 							</b>

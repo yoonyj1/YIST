@@ -10,6 +10,7 @@ import com.kh.yist.admin.model.dao.AdminDaoY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Service
 public class AdminServiceY {
@@ -89,7 +90,11 @@ public class AdminServiceY {
 		return aDao.resultAt(sqlSession, id);
 	}
 	
-	public ArrayList<Exam> selectGrade() {
-		return aDao.selectGrade(sqlSession);
+	public ArrayList<Subject> selectSubject() {
+		return aDao.selectSubject(sqlSession);
+	}
+	
+	public ArrayList<Exam> selectGrade(String subjectName) {
+		return aDao.selectGrade(sqlSession, subjectName);
 	}
 }

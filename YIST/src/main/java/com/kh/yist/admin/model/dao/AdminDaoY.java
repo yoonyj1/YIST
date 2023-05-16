@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Repository
 public class AdminDaoY {
@@ -97,7 +98,11 @@ public class AdminDaoY {
 		return sqlSession.update("adminMapper.resultAt", id);
 	}
 	
-	public ArrayList<Exam> selectGrade(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("adminMapper.selectGrade");
+	public ArrayList<Subject> selectSubject(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectSubject");
+	}
+	
+	public ArrayList<Exam> selectGrade(SqlSessionTemplate sqlSession, String subjectName) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectGrade", subjectName);
 	}
 }
