@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ADDRESS" property="address"/>
 		<result column="DETAIL_ADDRESS" property="detailAddress"/>
 		<result column="SUBJECT" property="subject"/>
+		<result column="SUBJECT_NAME" property="subjectName"/>
 		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
 		<result column="ENORLL_DATE" property="enrollDate"/>
 		<result column="START_DATE" property="startDate"/>
@@ -50,10 +51,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			id
 		  , name
 		  , phone
-		  , subject_name as "subject"
+		  , subject_name
 	  	from 
 	  		member m
-  		left join subject s on(m.subject = s.subject_no)
   		where
   			m.status = 'Y'
   		 and
