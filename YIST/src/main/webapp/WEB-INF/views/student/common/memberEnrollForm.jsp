@@ -810,7 +810,6 @@
                                     ,data:{userEmail:$("#email").val()}
                                     ,success:(data)=>{
                                     	responseCode = data;
-                                    	console.log(responseCode);
                                     },error:()=>{
                                         alert('ajax 통신 실패!');
                                     }
@@ -908,7 +907,6 @@
                                                 ,data:{userEmail:$("#email").val()}
                                                 ,success:(data)=>{
                                                 	responseCode = data;
-                                                	console.log(responseCode);
                                                 },error:()=>{
                                                     alert('ajax 통신 실패!');
                                                 }
