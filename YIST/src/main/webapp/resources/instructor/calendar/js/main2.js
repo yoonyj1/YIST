@@ -4,6 +4,8 @@ var activeInactiveWeekends = true;
 var calendar = $('#calendar').fullCalendar({
 
 
+
+
  /** ******************
    *  OPTIONS
    * *******************/
@@ -217,7 +219,7 @@ var calendar = $('#calendar').fullCalendar({
         .css({
           display: "block",
           left: e.pageX,
-          top: e.pageY
+          top: e.pageY,
         });
       return false;
     });
@@ -359,3 +361,4 @@ function calDateWhenDragnDrop(event) {
 
   return newDates;
 }
+

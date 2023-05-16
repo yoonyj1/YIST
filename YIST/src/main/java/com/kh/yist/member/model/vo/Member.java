@@ -43,11 +43,11 @@ public class Member {
 	private int sort;
 	private String employeeDate;
 	
+	private String subjectName;
 	
 	private int examTime;
 	private int userTime;
 	
-	private String subjectName;
 
 	// private String uName;
 	// 롬복을 쓸때는 필드명 작성시 적어도 소문자 두글자 이상으로 시작할 것
