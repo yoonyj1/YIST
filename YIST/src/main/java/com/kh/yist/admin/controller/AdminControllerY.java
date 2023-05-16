@@ -27,6 +27,7 @@ import com.google.zxing.common.BitMatrix;
 import com.kh.yist.admin.model.service.AdminServiceY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
 
 @Controller
@@ -122,7 +123,6 @@ public class AdminControllerY {
 		ArrayList<Member> studentList = aService.selectStudentList(subject);
 		model.addAttribute("s", studentList);
 		
-		
 		return "admin/teacherDetail-lecture";
 	}
 	
@@ -136,7 +136,11 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("gradeView.do")
-	public String gradeView() {
+	public String gradeView(Model model) {
+		ArrayList<Exam> list = aService.selectGrade();
+		
+		model.addAttribute("tl", list);
+		
 		return "admin/gradeView";
 	}
 	
@@ -209,5 +213,6 @@ public class AdminControllerY {
 		
 		return "redirect:/";
 	}
+	
     
 }
