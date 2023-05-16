@@ -113,7 +113,7 @@
 <select id="selectIns" resultMap="memberResultSet">
 	select 
 		   name
-         , subject_name
+         , m.subject_name
          , to_char(m.start_date, 'YYYY-MM-DD') as "start_date"
          , to_char(m.end_date, 'YYYY-MM-DD') as "end_date"
 	  from member m
