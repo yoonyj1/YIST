@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"mybatis-3-mapper.dtd" >
+
+<mapper namespace="classMapper">
+	
+	<resultMap id="classResultSet" type="Class">
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="CLASS_NAME" property="className"></result>
+	</resultMap>
+	
+	<resultMap id="materialResultSet" type="Material">
+		<result column="BOARD_NO" property="boardNo"></result>
+		<result column="CLASS_NO" property="classNo"></result>
+		<result column="BOARD_TITLE" property="boardTitle"></result>
+		<result column="BOARD_WRITER" property="boardWriter"></result>
+		<result column="BOARD_CONTENT" property="boardContent"></result>
+		<result column="ORIGIN_NAME" property="originName"></result>
+		<result column="CHANGE_NAME" property="changeName"></result>
+		<result column="COUNT" property="count"></result>
+		<result column="CREATE_DATE" property="createDate"></result>
+		<result column="STATUS" property="status"></result>
+		<result column="CLASS_NAME" property="className"></result>
+	</resultMap>
+	
+	<select id="selectClassList" resultMap="classResultSet">
+		select
+			class_no
+			, class_name
+		from class
+	</select>
+
+	<select id="selectMaterialCount" resultType="_int">
+		select
+				count(*)
+		  from
+		  		MATERIAL_BOARD
+		 where
+		 		status = 'Y' 			
+	</select>
+
+
+	<select id="selectMaterialList" resultMap="materialResultSet">
+		select
+				board_no
+				, class_no
+				, board_title
+				, board_writer
+			  	, to_char(create_date,'RRRR/MM/DD') as create_date
+				, status
+		  from
+		  		MATERIAL_BOARD
+		 where
+		 		status = 'Y'
+		 order
+		    by	board_no desc 		 		 		
+	</select>
+	
+	<select id="selectSearchCount" resultType="_int">
+	
+		select
+				count(*)
+		  from 
+			  	MATERIAL_BOARD
+		 where
+			 	status = 'Y'
+				<choose>
+				    <when test="condition == 'writer'">
+				        and BOARD_WRITER like '%'||#{ keyword }||'%'
+				    </when>
+				    <when test="condition == 'title'">
+				        and BOARD_TITLE like '%'||#{ keyword }||'%'
+				    </when>    
+				    <otherwise>
+				        and BOARD_CONTENT like '%'||#{ keyword }||'%'
+				    </otherwise>
+				</choose>							 			
+	
+	</select>
+	
+  	<select id="selectSearchList" resultMap="materialResultSet">
+		select
+				board_no
+				, class_no
+				, board_title
+				, board_writer
+				, board_content
+			  	, to_char(create_date,'RRRR/MM/DD') as create_date
+				, status
+		  from
+		  		MATERIAL_BOARD
+		 where
+		 		status = 'Y' 			  
+				<choose>
+				    <when test="condition == 'writer'">
+				        and board_writer like '%'|| #{ keyword } ||'%'
+				    </when>
+				    <when test="condition == 'title'">
+				        and board_title like '%'|| #{ keyword } ||'%'
+				    </when>    
+				    <otherwise>
+				        and BOARD_NO like '%'|| #{ keyword } ||'%'
+				    </otherwise>
+				</choose>		
+		 order
+		    by board_no desc   
+  	</select>		
+
+
+	<select id="selectMaterial" resultMap="materialResultSet">
+	
+		select
+				board_no
+				, class_no
+				, class_name as "CLASS_NAME"
+				, board_title
+				, board_writer
+				, board_content
+				, origin_name
+				, change_name
+				, count
+			  	, to_char(create_date,'RRRR/MM/DD') as create_date
+				, status
+		  from
+		  		MATERIAL_BOARD
+           join
+           		class using(class_no)     
+		 where
+		 		status = 'Y'
+		 	and 
+		 		board_no = #{ boardNo }	 	
+	
+	</select>
+	
+	<update id="increaseCount">
+		update
+				material_board
+		   set
+				count = count+1
+		 where
+		 		board_no = #{ boardNo }
+	</update>
+	
+	<insert id="insertMaterial">
+		insert
+		  into material_board
+			(
+				board_no
+				, class_no
+				, board_title
+				, board_writer
+				, board_content
+				, origin_name
+				, change_name
+				, count
+			  	, create_date
+				, status
+			)
+		values
+			(
+				SEQ_MBNO.nextval
+				, #{ classNo }
+				, #{ boardTitle }
+				, #{ boardWriter }
+				, #{ boardContent }
+				, #{ originName }
+				, #{ changeName }
+				, 0
+			  	, sysdate
+				, 'Y'
+			)
+	
+	</insert>
+	
+	
+	<update id="updateMaterial">
+		update
+				material_board
+		   set
+		   		board_title = #{ boardTitle }
+		   		, class_no = #{ classNo }
+		   		, board_content = #{ boardContent }
+		   		, origin_name = #{ originName }
+		   		, change_name = #{ changeName }
+		  where
+		  		board_no = #{ boardNo }
+	
+	</update>
+	
+	<update id="deleteMaterial">
+	
+		update
+				material_board
+		   set
+		   		status = 'N'
+		   		, origin_name = NULL
+		   		, change_name = NULL
+		  where
+		  		board_no = #{ boardNo }
+	
+	</update>
+	
+
+
+</mapper>
