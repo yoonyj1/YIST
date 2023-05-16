@@ -16,6 +16,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,7 +99,7 @@ public class instructorController {
 	
 	@RequestMapping("yistcheck.ins")
 	public String yistcheck(Model model,Member m,HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginuser");
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		System.out.println(loginUser+"test");
 		String subject= loginUser.getSubject();
 		ArrayList<Member> list = mService.selectList2(subject);
@@ -298,6 +299,10 @@ public class instructorController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")

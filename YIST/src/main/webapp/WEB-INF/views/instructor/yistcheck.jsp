@@ -83,6 +83,19 @@ form {
 .hak1_button:hover{
     background-color: rgb(30, 92, 224);
 }
+.hak1_button2 {
+    width: 45px;
+    height: 30px;
+    background-color:#02068D ;
+    border: 0px;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-left: 1px;
+    margin-top: 0.5px;
+}
+.hak1_button2:hover{
+    background-color: rgb(30, 92, 224);
+}
 <!-- 몇명인지 나오는 칸-->
 .attendStatus {
     width: 100%;
@@ -142,7 +155,7 @@ width: 800px;
 </head>
 <jsp:include page="../instructor/common/header.jsp"></jsp:include>
 <body marginwidth="0" marginheight="0" style="zoom: 1;">
-    <div class="contents">
+  <div class="contents">
             <h2>학생출석체크</h2>
          
 
@@ -159,22 +172,23 @@ width: 800px;
               </div>
               </div>
             </div>
+            </div>
+        </form>
 
             <div class="attendStatus">
-              <div style="display:inline-block;">
+              <div style="display:inline-block; margin-left: 670px;">
                 <ul class="asResult" id="attendStatus">
                   <li><strong>전체</strong> : <span id="allCnt">2</span>명</li>
-                  <li class="fcBlue"><strong>출석</strong> : <span id="attCnt">0</span>명</li>
+                  <li class="fcBlue"><strong>출석</strong> : <span id="attCnt"></span>${b.n_count }명</li>
                   <li class="fcOrange"><strong>지각</strong> : <span id="rateCnt">0</span>명</li>
-                  <li class="fcRed"><strong>결석</strong> : <span id="absCnt">0</span>명</li>
+                  <li class="fcRed"><strong>결석</strong> : <span id="absCnt"></span>명</li>
                 </ul>
               </div>
-            </div>
           </div>
-        </form>
        </div> 
         
-       <table cellpadding="0" cellspacing="0" class="whTable02 stdcheck" align="center">
+			<form action="uptime.me" method="post">
+       		<table cellpadding="0" cellspacing="0" class="whTable02 stdcheck" align="center">
 					<colgroup >
 						<col width="22px">
 						<col width="44px">
@@ -197,82 +211,65 @@ width: 800px;
 						<th class="attendance">퇴실시간
 						</th>
 					</tr>
-									<c:forEach var="b" items="${list}">
-								<tr style="height: 70px;">
-									<td align="center">
-										<input type="checkbox" title="" name="parPushSendChk" value="1" checked="">
-									</td>
-									<td align="center" class="bno">${b.memberNo}</td>
-									<td align="center">
-										<a href=""style="color:#333333;text-decoration:none">${b.name} (${b.subject})</a>
-									</td>
-									<td align="center">
-										<div class="btn_group_bg">
-											<div class="btn_group_1" style="margin: 5px;">
-												<button type="button" id="btn01_0"  class="btn01 " onclick="displayDate()">출석</button>
-												<button type="button" id="btn02_0"  class="btn02 " onclick="displayDate()">지각</button>
-												<button type="button" id="btn04_0"  class="btn03 " onclick="displayDate3()">결석</button>
-											</div>
-											<input type="text" name="inHour" id="inHour_0" value="" style="width: 60px; text-align: center;">시 
-											: 
-											<input type="text" name="inMin" id="inMin_0" value="" style="width: 60px; text-align: center;">분
-										</div>
-									</td>
-									
-									<td align="center">
-										<div class="btn_group_bg">
-											<div class="btn_group_1" style="margin-top: 8px; margin-bottom: 5px;">
-												<button type="button" id="btn11_0"  class="btn01" onclick="displayDate2()">귀가</button>
-												<button type="button" id="btn03_0"  class="btn02 " onclick="displayDate2()">조퇴</button>
-												<button type="button" id="btn10_0"  class="btn03 " onclick="displayDate3()">도망</button>
-											</div>
-											<input type="text" name="outHour" id="outHour_0" value="" style="width: 60px;  text-align: center;" >시 
-											: 
-											<input type="text" name="outMin" id="outMin_0" value="" style="width: 60px; text-align: center;">분
-										</div>
-									</td>
-								</tr>
-                                
-                            </tbody>
-								</c:forEach>
+					
+			<c:forEach var="b" items="${list}">
+			<tr style="height: 70px;">
+				<td align="center">
+					<input type="checkbox" title="" name="parPushSendChk" value="1" checked="">
+				</td>
+				<td align="center" class="bno">${b.memberNo}</td>
+				<td align="center">
+					<a href="" style="color:#333333;text-decoration:none">${b.name} (${b.subject})</a>
+				</td>
+				<td align="center">
+					<div class="btn_group_bg">
+						<div class="btn_group_1" style="margin: 5px;">
+							<button type="button" id="btn01_${b.memberNo}" class="btn01" onclick="displayDate('${b.memberNo}')">출석</button>
+							<button type="button" id="btn02_${b.memberNo}" class="btn02" onclick="displayDate('${b.memberNo}')">지각</button>
+							<button type="button" id="btn04_${b.memberNo}" class="btn03" onclick="displayDate3('${b.memberNo}')">결석</button>
+						</div>
+						<input type="text" name="inHour" id="inHour_${b.memberNo}" value="${b.INHOUR}" style="width: 120px; text-align: center;"> 
+					</div>
+				</td>
+				<td align="center">
+					<div class="btn_group_bg">
+						<div class="btn_group_1" style="margin-top: 8px; margin-bottom: 5px;">
+							<button type="button" id="btn11_${b.memberNo}" class="btn01" onclick="displayDate2('${b.memberNo}')">귀가</button>
+							<button type="button" id="btn03_${b.memberNo}" class="btn02" onclick="displayDate2('${b.memberNo}')">조퇴</button>
+							<button type="button" id="btn10_${b.memberNo}" class="btn03" onclick="displayDate3('${b.memberNo}')">도망</button>
+						</div>
+						<input type="text" name="outHour" id="outHour_${b.memberNo}" value="${b.OUTHOUR}" style="width: 120px; text-align: center;">
+						</div>
+					</td>
+				</tr>
+					</c:forEach>
+                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 700px; margin-top: 10px; margin-bottom:20px;">저장</button>
+                        <button type="" class="hak1_button2" style="width: 100px; margin-left: 10px; margin-top: 10px; margin-bottom:20px;">프린트</button>
                         </table>
-                        
-                        <button type="button" class="hak1_button" style="margin-left: 800px; margin-top: 10px;">저장</button>
-                        <button type="button" class="hak1_button" style="margin-left: 780px; margin-top: 10px; width: 80px;" onclick="return printPage();">프린트</button>
-      					
-      </div>
+      					</form>
+     </div>
       	
+				<script>
+			function displayDate(memberNo) {
+				var d = new Date();
+				var time = d.getHours() + ":" + d.getMinutes();
+				document.getElementById("inHour_" + memberNo).value = time;
+			}
+		
+			function displayDate2(memberNo) {
+				var d = new Date();
+				var time = d.getHours() + ":" + d.getMinutes();
+				document.getElementById("outHour_" + memberNo).value = time;
+			}
+		
+			function displayDate3(memberNo) {
+				document.getElementById("outHour_" + memberNo).value = "00:00";
+				document.getElementById("inHour_" + memberNo).value = "00:00";
+			}
+			</script>
        	
     </body>
 
-		<script>
-			function displayDate() {
-			  var d = new Date();
-			  var hour = d.getHours();
-			  var min = d.getMinutes();
-			  document.getElementById("inHour_0").value = hour;
-			  document.getElementById("inMin_0").value = min;
-			}
-			
-			function displayDate2() {
-				  var d = new Date();
-				  var hour = d.getHours();
-				  var min = d.getMinutes();
-				  document.getElementById("outHour_0").value = hour;
-				  document.getElementById("outMin_0").value = min;
-				}
-            
-             function displayDate3() {
-                  document.getElementById("outHour_0").value = "00";
-				  document.getElementById("outMin_0").value = "00";
-				  document.getElementById("inHour_0").value = "00";
-				  document.getElementById("inMin_0").value = "00";
-				}
-             
-             
-
-             
-		</script>
 		
 
 </html>
