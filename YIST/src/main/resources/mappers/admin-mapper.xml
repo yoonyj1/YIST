@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="SUBJECT" property="subject"/>
 		<result column="SUBJECT_NAME" property="subjectName"/>
 		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
-		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="START_DATE" property="startDate"/>
 		<result column="END_DATE" property="endDate"/>
 		<result column="STATUS" property="status"/>

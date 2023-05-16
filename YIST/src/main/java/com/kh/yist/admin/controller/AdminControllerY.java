@@ -122,7 +122,6 @@ public class AdminControllerY {
 		ArrayList<Member> studentList = aService.selectStudentList(subject);
 		model.addAttribute("s", studentList);
 		
-		
 		return "admin/teacherDetail-lecture";
 	}
 	
