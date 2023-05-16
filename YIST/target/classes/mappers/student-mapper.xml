@@ -142,18 +142,20 @@
 
 <!-- 시험 목록 조회 -->
 <select id="testList" resultMap="examResultSet">
-	select
-	       test_no
+    select
+	       e.test_no
 	     , id
 	     , subject_no
 	     , test_title
-	     , to_char(exam_date, 'RRRR-MM-DD') as "exam_date"
 	     , exam_time
-	     , status
-	  from exam
-	 <!-- where id = 'INSTRUCTOR01' -->
-	 order 
-	    by test_no
+         , score
+         , ea.status
+	  from exam e
+      join exam_answer ea on (e.test_no = ea.test_no)
+      where e.status = 'N' 
+        and subject_no = #{subject}
+        and student_id = #{id}
+    order by e.test_no
 </select>
 
 <!-- 시험 상세 조회 -->
@@ -165,36 +167,23 @@
 	     , q3
 	     , q4
 	     , q5
-	  from exam e inner join exam_question q on e.test_no = q.test_no
-	 where e.test_no = #{examNo}
+	     , exam_time
+	  from exam e 
+      join exam_question q on e.test_no = q.test_no
+	 where e.test_no = #{testNo}
 </select>
 
 <!-- 시험 제출 -->
-<insert id="testInsert">
-	insert
-	  into exam_answer
-	     (
-	       test_no
-	     , student_id
-	     , a1
-	     , a2
-	     , a3
-	     , a4
-	     , a5
-	     , status
-	     )
-	values
-	     (
-	       #{ testNo }
-	     , #{ studentId }
-	     , #{ a1 }
-	     , #{ a2 }
-	     , #{ a3 }
-	     , #{ a4 }
-	     , #{ a5 }
-	     , 'Y'
-	     )
-</insert>
+<update id="testInsert">
+	update exam_answer
+		set a1 = #{a1}
+		  , a2 = #{a2}
+		  , a3 = #{a3}
+		  , a4 = #{a4}
+		  , a5 = #{a5}
+		  , status = 'Y'
+	where test_no = #{testNo} and student_id = #{studentId}
+</update>
 
 <!-- 공지사항 목록 조회 -->
 <select id="noticeListCount" resultType="_int">
@@ -266,15 +255,19 @@
 
 <!-- 우리반 게시판 과제 목록 조회 -->
 <select id="taskList" resultMap="taskResultSet">
-	  select 
+	   select 
 	       t.task_no
 	     , t.task_title
 	     , t.id
 	     , to_char(t.start_date, 'YYYY-MM-DD') as "start_date"
 	     , to_char(t.end_date, 'YYYY-MM-DD') as "end_date"
          , subject_no
+         , submit_content
+         , submit_date
+         , ts.status
 	  from task t
-      where subject_no = #{subject} and status = 'N'
+      join task_submit ts on (t.task_no = ts.task_no)
+      where student_id = #{id} and t.status = 'N'
       order by t.task_no desc
 </select>
 
@@ -309,7 +302,7 @@
       left join task_file tf on (t.task_no = tf.task_no)
       left join task_submit ts on (t.task_no = ts.task_no)
     where t.task_no = #{taskNo}
-    	and (student_id is NULL or student_id = #{studentId})
+    	and student_id = #{studentId}
     	order by t.task_no 
 </select>
 
@@ -329,31 +322,19 @@
 
 <!-- 과제 답글 삭제 -->
 <update id="deleteTask">
-	delete 
-	from task_submit
-	where task_no = #{taskNo}
+	update task_submit
+		set submit_content = NULL
+	      , submit_date = NULL
+	where task_no = #{taskNo} and student_id = #{studentId} 
 </update>
 
-<!-- 과제 등록 -->
-<insert id="taskInsert">
-	insert
-	  into task_submit
-	     (
-	       task_no
-	     , student_id
-	     , submit_content
-	     , submit_date
-	     , status
-	     )
-	     values
-	     (
-	       #{taskNo}
-	     , #{studentId}
-	     , #{submitContent}
-	     , sysdate
-	     , 'N'
-	     )
-</insert>
+<!-- 과제 답변 등록 -->
+<update id="taskSubmitInsert">
+	update task_submit
+		set submit_content = #{submitContent}
+	      , submit_date = sysdate
+	where task_no = #{taskNo} and student_id = #{studentId}
+</update>
 
 <!-- 과제수정 -->
 <update id="updateTask">
@@ -396,6 +377,36 @@
 	 where status = 'Y'
 	 order
 	    by board_no desc
+</select>
+
+<select id="selectExamResult" resultMap="examResultSet">
+	select 
+			test_no
+		  , a1
+		  , a2
+		  , a3
+		  , a4
+		  , a5
+		  , score
+	from exam_answer
+	where test_no = #{testNo} and student_id = #{studentId}
+</select>
+
+<select id="selectExamQuestion" resultMap="examResultSet">
+	select
+			test_no
+		  , q1
+		  , q2
+		  , q3
+		  , q4
+		  , q5
+		  , a1
+		  , a2
+		  , a3
+		  , a4
+		  , a5
+	from exam_question
+	where test_no = #{testNo}
 </select>
 </mapper>
 

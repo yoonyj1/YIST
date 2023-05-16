@@ -68,16 +68,34 @@ public class TaskService {
 		return tDao.selectQuestion(sqlSession, testNo);
 	}
 
-	public int setExam(int testNo) {
-		return tDao.setExam(sqlSession, testNo);
+	public int setExam(Exam exam) {
+		return tDao.setExam(sqlSession, exam);
 	}
 
-	public ArrayList<Member> selectExamMemberList(String subject) {
+	public ArrayList<Exam> selectExamMemberList(String subject) {
 		return tDao.selectExamMemberList(sqlSession, subject);
 	}
 
 	public int insertAlarm(Alarm taskAlarm) {
 		return tDao.insertAlarm(sqlSession, taskAlarm);
+	}
+
+	public int insertTaskSubmit(String id) {
+		return tDao.insertTaskSubmit(sqlSession, id);
+	}
+
+	public int setExamTime(Exam exam) {
+		return tDao.setExamTime(sqlSession, exam);
+	}
+
+	public int updateSetExam(Exam exam) {
+		return tDao.updateSetExam(sqlSession, exam);
+		
+	}
+
+	// 시험 점수 등록
+	public int updateSetExamAnswer(Exam exam) {
+		return tDao.updateSetExamAnswer(sqlSession, exam);
 	}
 	
 }

@@ -31,9 +31,9 @@ public class StudentDao {
 	}
 
 	// 시험 목록 조회
-	public ArrayList<Exam> testList(SqlSessionTemplate sqlSession) {
+	public ArrayList<Exam> testList(SqlSessionTemplate sqlSession, Member loginUser) {
 
-		return (ArrayList) sqlSession.selectList("studentMapper.testList");
+		return (ArrayList) sqlSession.selectList("studentMapper.testList", loginUser);
 	}
 
 	// 시험 상세 조회
@@ -45,7 +45,7 @@ public class StudentDao {
 	// 시험 제출
 	public int testInsert(SqlSessionTemplate sqlSession, Exam e) {
 		
-		return sqlSession.insert("studentMapper.testInsert", e);
+		return sqlSession.update("studentMapper.testInsert", e);
 	}
 
 	// 공지사항 목록 조회
@@ -125,9 +125,9 @@ public class StudentDao {
 	}
 
 	// 과제 등록
-	public int taskInsert(SqlSessionTemplate sqlSession, Task t) {
+	public int taskSubmitInsert(SqlSessionTemplate sqlSession, Task t) {
 
-		return sqlSession.insert("studentMapper.taskInsert", t);
+		return sqlSession.update("studentMapper.taskSubmitInsert", t);
 	}
 
 	// 과제 수정
@@ -165,6 +165,16 @@ public class StudentDao {
 	public int deleteMyTask(SqlSessionTemplate sqlSession, List<Integer> taskNoList) {
 		
 		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
+	}
+
+	// 시험 결과 조회
+	public Exam selectExamResult(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.selectOne("studentMapper.selectExamResult", exam);
+	}
+
+	// 시험 답안 조회
+	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
 }
 	

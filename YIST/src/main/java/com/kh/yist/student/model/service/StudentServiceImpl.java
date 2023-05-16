@@ -41,8 +41,8 @@ public class StudentServiceImpl implements StudentService {
 
 	// 시험 목록 조회
 	@Override
-	public ArrayList<Exam> testList() {
-		return sDao.testList(sqlSession);
+	public ArrayList<Exam> testList(Member loginUser) {
+		return sDao.testList(sqlSession, loginUser);
 	}
 
 	// 시험 상세 조회
@@ -111,8 +111,8 @@ public class StudentServiceImpl implements StudentService {
 
 	// 과제 등록
 	@Override
-	public int taskInsert(Task t) {
-		return sDao.taskInsert(sqlSession, t);
+	public int taskSubmitInsert(Task t) {
+		return sDao.taskSubmitInsert(sqlSession, t);
 	}
 
 	// 과제 수정
@@ -157,6 +157,18 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public int deleteMyTask(List<Integer> taskNoList) {
 	  return sDao.deleteMyTask(sqlSession, taskNoList);
+	}
+
+	// 시험 결과 조회
+	@Override
+	public Exam selectExamResult(Exam exam) {
+		return sDao.selectExamResult(sqlSession, exam);
+	}
+
+	// 시험 답안 조회
+	@Override
+	public Exam selectExamQuestion(Exam exam) {
+		return sDao.selectExamQuestion(sqlSession, exam);
 	}
 
 }
