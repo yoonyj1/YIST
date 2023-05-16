@@ -70,8 +70,8 @@
 									</c:otherwise>
 								</c:choose>
 								<c:choose>
-									<c:when test="${ not empty i.subject }">
-										<td>${ i.subject }</td>
+									<c:when test="${ not empty i.subjectName }">
+										<td>${ i.subjectName }</td>
 									</c:when>
 									<c:otherwise>
 										<td>-</td>

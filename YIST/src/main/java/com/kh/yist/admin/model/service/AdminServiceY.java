@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.admin.model.dao.AdminDaoY;
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
 
 @Service
@@ -86,5 +87,9 @@ public class AdminServiceY {
 	
 	public int resultAt(String id) {
 		return aDao.resultAt(sqlSession, id);
+	}
+	
+	public ArrayList<Exam> selectGrade() {
+		return aDao.selectGrade(sqlSession);
 	}
 }
