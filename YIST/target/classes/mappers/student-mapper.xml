@@ -419,6 +419,21 @@
 	    by board_no desc
 </select>
 
+<!-- 마이페이지 내정보 수정 -->
+	<update id="updateStudent">
+		update
+		       member
+		   set pwd = #{pwd}
+		     , name = #{name}
+		     , phone = #{phone}
+		     , email = #{email}
+		     , birth = #{birth}
+		     , post = #{post}
+		     , address = #{address}
+		     , detail_address = #{detailAddress}
+		 where id = #{id}
+	</update>
+
 <!-- 마이페이지 내과제 목록 -->
 <select id="selectMyTask" resultMap="taskResultSet">
 	select 

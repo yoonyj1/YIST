@@ -70,6 +70,7 @@ public interface StudentService {
 
 	ArrayList<QnA> qnaList();
 
+	int updateStudent(Member m);
 	
 	ArrayList<Task> selectMyTask(String id);
 	

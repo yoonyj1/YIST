@@ -104,7 +104,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String senderId = getMemberId(session);
 		if (senderId != null) { // 로그인 값이 있는 경우만
 			log(senderId + " 연결 종료됨");
-			users.remove(senderId);
+			//users.remove(senderId);
 			//sessions.remove(session);
 		}
 	}

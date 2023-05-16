@@ -160,6 +160,13 @@ public class StudentServiceImpl implements StudentService {
 	public int taskAlarmCheck(int alarmNo) {
 		return sDao.taskAlarmCheck(sqlSession, alarmNo);
 	}
+	
+	// 내정보 수정
+	@Override
+	public int updateStudent(Member m) {
+		return sDao.updateStudent(sqlSession, m);
+	}
+	
 	// 내 과제 목록
 	@Override
 	public ArrayList<Task> selectMyTask(String id) {
@@ -177,5 +184,7 @@ public class StudentServiceImpl implements StudentService {
 	public ArrayList<Exam> myTestList(String id) {
 		return sDao.myTestList(sqlSession, id);
 	}
+
+
 
 }

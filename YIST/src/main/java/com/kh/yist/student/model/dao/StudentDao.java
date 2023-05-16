@@ -165,6 +165,12 @@ public class StudentDao {
 	public int taskAlarmCheck(SqlSessionTemplate sqlSession, int alarmNo) {
 		return sqlSession.update("studentMapper.taskAlarmCheck", alarmNo);
 	}
+	
+	// 마이페이지 내정보 수정
+	public int updateStudent(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.update("studentMapper.updateStudent", m);
+	}
 
 	// 마이페이지 내과제 목록
 	public ArrayList<Task> selectMyTask(SqlSessionTemplate sqlSession, String id) {

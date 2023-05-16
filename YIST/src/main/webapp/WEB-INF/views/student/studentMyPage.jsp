@@ -74,19 +74,20 @@ button {
 	        <p class="join_necessary" style="clear:both; margin-bottom:12px; text-align: right; color: red;">*표시는 필수입력 항목입니다.</p>
 	      </ul>
 	    </div> 
+	    <form action="update.st" method="post">
 	    <div class="entry-content">
 	      <table>
 	          <tr style="border-top: 1px solid black;">
 	            <th width="20%">아이디*</th>
 	            <td width="60%" style="text-align: left;">
-	              <input type="text" class="form-control" id="" name="" value="${ loginUser.id }" readonly>
+	              <input type="text" class="form-control" id="" name="id" value="${ loginUser.id }" readonly>
 	            </td>
-	            <th rowspan="4"><img src="${ loginUser.image }" alt="프로필 사진"></th>
+	            <th rowspan="4"><img src="${ loginUser.image }" name="image" alt="프로필 사진"></th>
 	          </tr>
 				<tr>
 				  <th>비밀번호*</th>
 				  <td style="text-align: left;">
-				    <input type="password" class="form-control" id="password" name="password" value="" placeholder="8 ~ 15 자의 영문 대소문자, 숫자, 특수문자를 조합하여 설정해 주세요." oninput="validatePassword();">
+				    <input type="password" class="form-control" id="pwd" name="pwd" value="" placeholder="8 ~ 15 자의 영문 대소문자, 숫자, 특수문자를 조합하여 설정해 주세요." oninput="validatePassword();">
 				    <div class="invalid-feedback" id="password-error"></div>
 				  </td>
 				</tr>
@@ -100,7 +101,7 @@ button {
 	          <tr>
 	            <th>이름*</th>
 	            <td style="text-align: left;">
-	              <input type="text" class="form-control" id="" name="" value="${ loginUser.name }">
+	              <input type="text" class="form-control" id="" name="name" value="${ loginUser.name }">
 	            </td>
 	          </tr>
 			<tr>
@@ -114,7 +115,8 @@ button {
 	            <td style="text-align: left;" colspan="2">
 	              <input type="text" class="" name="email" id="userEmail1" value="${ loginUser.email }" style="width: 30%;" aria-describedby="mail-check-warn">
 	              <input type="text" class="mail-check-input" id="mail-check-input" name="mail-check-input" style="width: 30%;" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-	              <button type="button" class="common_btn2" id="mail-Check-Btn" style="font-size: 14px; height: 35px; margin-left: 5px; color: #eeeeee;">인증하기</button><br>
+	              <button type="button" class="common_btn2" id="mail-Check-Btn" style="font-size: 14px; height: 35px; margin-left: 5px; color: #eeeeee;">인증하기</button>
+	              <button type="button" class="common_btn2" id="mail-Check-Btn1" style="font-size: 14px; height: 35px; margin-left: 5px; color: #eeeeee;">확인</button><br>
 	              <span id="mail-check-warn"></span>
 	            </td>
 	          </tr>
@@ -129,23 +131,24 @@ button {
 	          <tr>
 	            <th>주소</th>
 	            <td style="text-align: left;" colspan="2">
-	              <input type="text" id="city" name="stdtCheck" value="${ loginUser.post }" style="width: 61%;">
+	              <input type="text" id="city" name="post" value="${ loginUser.post }" style="width: 61%;">
 	              <button type="button" class="common_btn2" id="findAddress" style="font-size: 14px; height: 35px; margin-left: 5px; color: #eeeeee;" onclick="fnFindAddress();">주소검색</button><br>
-	              <input type="text" id="city" name="stdtCheck" value="${ loginUser.address }" style="width: 61%; margin-top:5px;"><br>
-	              <input type="text" id="address_etc" value="${ loginUser.detailAddress }" style="width:61%; margin-top:5px;" >
+	              <input type="text" id="city" name="address" value="${ loginUser.address }" style="width: 61%; margin-top:5px;"><br>
+	              <input type="text" id="address_etc" name="detailAddress" value="${ loginUser.detailAddress }" style="width:61%; margin-top:5px;" >
 	              </td>
 	          </tr>
 	        </tbody>
 	      </table>
 	      <ul style="text-align: center; margin: 40px;">
 	        <li>
-	          <a href="#" class="btn btn-default btn-theme-colored btn-circled">정보수정</a>
+	          <button type="submit" class="btn btn-default btn-theme-colored btn-circled">정보수정</button>
 	          <a href="#" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
 	        </li>
 	      </ul>
-	      
 	    </div>       
+	    </form>
   </div>
+
 
 	<!-- 비밀번호 유효성 검사 -->
 	<script>
@@ -153,7 +156,7 @@ button {
 	const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
 	
 	function validatePassword() {
-	  const password = document.getElementById("password");
+	  const password = document.getElementById("pwd");
 	  const confirmPassword = document.getElementById("confirmPassword");
 	  const passwordError = document.getElementById("password-error");
 	  const confirmPasswordError = document.getElementById("confirm-password-error");
@@ -201,7 +204,7 @@ button {
 					console.log("data : " +  data);
 					checkInput.attr('disabled', false);
 					code = data;
-					alert('인증번호가 전송되었습니다.')
+					alert('인증번호가 전송되었습니다.');
 				},
 				error: function() {
                     console.log("이메일 전송 실패");
@@ -211,10 +214,10 @@ button {
 		
 		// 인증번호 비교 
 		// blur -> focus가 벗어나는 경우 발생
-		$('#userEmail1').blur(function () {
-			const inputCode = $(this).val();
-			const $resultMsg = $('#mail-check-warn');
-			
+		$("#mail-Check-Btn1").on("click", function() {
+			const inputCode = $('#mail-check-input').val();
+			const $resultMsg = $("#mail-check-warn");
+			console.log(inputCode);
 			if(inputCode === code){
 				$resultMsg.html('인증번호가 일치합니다.');
 				$resultMsg.css('color','green');

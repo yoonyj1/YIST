@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentService;
@@ -48,6 +49,9 @@ public class StudentController {
 	
 	@Autowired
 	private MailSendService mailService;
+	
+	@Autowired
+	private MemberServiceImpl mService;
 	
 
 	@RequestMapping("main.st")
@@ -308,9 +312,11 @@ public class StudentController {
 	public String selectAlarm(HttpSession session, Model model) {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		ArrayList<Alarm> alarmList = null;
 		// 학생 알람 모델
-		ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
-		
+		if(loginUser != null) {
+			alarmList = sService.selectAlarmList(loginUser.getId());
+		}
 		return new Gson().toJson(alarmList);
 	}
 	
@@ -335,6 +341,25 @@ public class StudentController {
 
 	@RequestMapping("myPage.st")
 	public String myPage() {
+		return "student/studentMyPage";
+	}
+	
+	// 마이페이지 정보 수정
+	@RequestMapping("update.st")
+	public String updateStudent(Member m, HttpSession session, Model model) {
+		
+		System.out.println("=============");
+		System.out.println(m);
+		System.out.println("=============");
+		int result = sService.updateStudent(m);
+		
+		System.out.println("result 의 값 : " + result);
+		if (result > 0) {
+			
+			session.setAttribute("loginUser", mService.loginMember(m));
+			session.setAttribute("student_alertMsg", "성공적으로 회원정보가 변경되었습니다!");
+			
+		}
 		return "student/studentMyPage";
 	}
 	
