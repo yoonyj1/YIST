@@ -24,7 +24,7 @@ var newEvent = function (start, end, eventType) {
 
     /*modalTitle.html('');*/
     editType.val(eventType).prop('selected', true);
-    editTitle.val('');
+    editTitle.val('출석');
     editStart.val(start);
     editEnd.val(end);
     editDesc.val('');
@@ -43,7 +43,7 @@ var newEvent = function (start, end, eventType) {
 
         var eventData = {
             calId: eventId.val(),
-            title: editTitle.val(),
+            title: editTitle.val('출석'),
             start: editStart.val(),
             end: editEnd.val(),
             description: editDesc.val(),
