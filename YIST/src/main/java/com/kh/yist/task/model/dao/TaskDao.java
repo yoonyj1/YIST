@@ -52,7 +52,9 @@ public class TaskDao {
 		int update1, update2 = 0;
 		
 		update1 = sqlSession.update("instructorMapper.updateTask", task);
-		
+		System.out.println("===============");
+		System.out.println(task);
+		System.out.println("===============");
 		if (update1 > 0 && !task.getOriginName().equals("")) {
 			if (task.getFileNo() == 0) {
 				update2 = sqlSession.insert("instructorMapper.insertTaskFile", task);

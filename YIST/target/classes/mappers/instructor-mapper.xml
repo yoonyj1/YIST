@@ -95,14 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					values
 					(
 					  seq_tfno.nextval
-					  <choose>
-					  	<when test="fileNo > 0">
-					  		, #{taskNo}
-					  	</when>
-					  	<otherwise>
-							, seq_taskno.currval
-					  	</otherwise>
-					  </choose>
+					, #{taskNo}
 					, #{originName}
 					, #{changeName}
 					, 1

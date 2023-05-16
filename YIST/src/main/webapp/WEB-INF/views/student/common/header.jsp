@@ -81,6 +81,7 @@
 
 	<!-- 알람(과제, 시험) -->
 	<script type="text/javascript">
+		
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
 	
@@ -99,7 +100,7 @@
 		    sock.onmessage = onMessage; // toast 생성
 		    
 		    sock.onclose = function() {
-		        
+		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
 		    };
 		});
 		
