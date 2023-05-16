@@ -108,7 +108,7 @@ button {
 						<td colspan="4">
 							<div style="padding: 50px; font-size: 18px; line-height: 2;">
 								<c:choose>
-									<c:when test="${empty t.changeName or t.changeName ne 'none'}">
+									<c:when test="${empty t.changeName}">
 										<p style="height: auto">${ t.taskContent }</p>
 									</c:when>
 									<c:otherwise>
