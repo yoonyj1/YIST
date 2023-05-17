@@ -48,7 +48,7 @@ public class SendCodeService {
 				+ "<table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse: collapse;'>"
 				+ "<tr>"
 		        + "<td align='center' style='padding: 40px 0 30px 0;'>"
-		        + "<img src='${pageContext.request.contextPath}/resources/admin/images/logoBrick.png' style='display: block;' width='300' height='230'>"
+		        + "<img src='https://kimpompu.github.io/YISTLogo.png' style='display: block;' width='300' height='230'>"
 		        + "</td>"
 		        + "</tr>"
 		        + "<tr>"
