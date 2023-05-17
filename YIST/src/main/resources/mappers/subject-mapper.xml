@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			SUBJECT_NO
 			,CLASS_NO
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SUBJECT_NO
 			,CLASS_NO 
 			,CLASS_NAME as class_name
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -194,7 +194,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 				SUBJECT_NO
 				,CLASS_NO
-				,SUBJECT_NAME
+				,s.SUBJECT_NAME
 	            ,NAME as INSTRUCTOR
 				,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 				,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -208,10 +208,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	           and m.sort = 2  
 				<choose>
 				    <when test="condition == 'name'">
-				        and name like '%'|| #{ keyword } ||'%'
+				        and m.name like '%'|| #{ keyword } ||'%'
 				    </when>
 				    <when test="condition == 'subjectName'">
-				        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+				        and s.SUBJECT_NAME like '%'|| #{ keyword } ||'%'
 				    </when>    
 				    <otherwise>
 				        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
@@ -227,7 +227,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			SUBJECT_NO
 			,CLASS_NO
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -241,10 +241,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            and m.sort = 2  
 			<choose>
 			    <when test="condition == 'name'">
-			        and name like '%'|| #{ keyword } ||'%'
+			        and m.name like '%'|| #{ keyword } ||'%'
 			    </when>
 			    <when test="condition == 'subjectName'">
-			        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+			        and s.SUBJECT_NAME like '%'|| #{ keyword } ||'%'
 			    </when>    
 			    <otherwise>
 			        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
