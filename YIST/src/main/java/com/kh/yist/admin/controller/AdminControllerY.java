@@ -227,10 +227,13 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("quitClass.do")
-	public String quitClass(String id) {
+	public String quitClass(String id, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		
+		id = loginUser.getId();
 		System.out.println(id);
 		int result = aService.quitClass(id);
+		System.out.println(result);
 		
 		if(result > 0) {
 			return "redirect:myPage.st";
