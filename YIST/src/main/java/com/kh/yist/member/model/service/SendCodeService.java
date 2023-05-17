@@ -48,7 +48,7 @@ public class SendCodeService {
 				+ "<table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse: collapse;'>"
 				+ "<tr>"
 		        + "<td align='center' style='padding: 40px 0 30px 0;'>"
-		        + "<img src='https://file.notion.so/f/s/7610af1b-6726-46fe-9215-a4473493a00b/YIST_%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png?id=1ca55a43-6cec-44a3-8a84-d5764cec6fe9&table=block&spaceId=2c34fcf9-feb3-465e-8056-d029fc770287&expirationTimestamp=1682652422517&signature=pUzdVnaq2yitIvmn3izmZUC5jO8eXNPm18ihD6ia-b4&downloadName=YIST+%EA%B0%80%EB%A1%9C%EB%A1%9C%EA%B3%A0_%EA%B5%B5%EC%9D%8C.png' style='display: block;' width='300' height='230'>"
+		        + "<img src='${pageContext.request.contextPath}/resources/admin/images/logoBrick.png' style='display: block;' width='300' height='230'>"
 		        + "</td>"
 		        + "</tr>"
 		        + "<tr>"
