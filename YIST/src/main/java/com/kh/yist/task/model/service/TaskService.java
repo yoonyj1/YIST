@@ -98,4 +98,13 @@ public class TaskService {
 		return tDao.updateSetExamAnswer(sqlSession, exam);
 	}
 	
+	// 성적 조회
+	public ArrayList<Exam> selectGradeList(Member loginUser) {
+		return tDao.selectGradeList(sqlSession, loginUser);
+	}
+
+	public ArrayList<Exam> selectExamScore(Member loginUser) {
+		return tDao.selectExamScore(sqlSession, loginUser);
+	}
+	
 }

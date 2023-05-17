@@ -31,5 +31,6 @@ public class Exam {
 	private String a4;
 	private String a5;
 	private int score;
+	private int count;
 	private String submitStatus; // 제출여부
 }

@@ -131,5 +131,15 @@ public class TaskDao {
 		return sqlSession.update("instructorMapper.updateSetExamAnswer", exam);
 	}
 	
+	// 성적 조회
+	public ArrayList<Exam> selectGradeList(SqlSessionTemplate sqlSession, Member loginUser) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectGradeList", loginUser);
+	}
+
+	// 성적 조회
+	public ArrayList<Exam> selectExamScore(SqlSessionTemplate sqlSession, Member loginUser) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamScore", loginUser);
+	}
+	
 
 }

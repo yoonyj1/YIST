@@ -542,3 +542,32 @@ INSERT INTO QNA (BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, ORIGIN_NAME
 --END;
 
 commit;
+
+select 
+        ea.test_no
+      , e.test_title
+      , student_id
+      , score
+      , name
+from exam_answer ea
+join exam e on (e.test_no = ea.test_no)
+join member m on (ea.student_id = m.id)
+where m.subject = 1
+group by ea.test_no, e.test_title, student_id, score, name
+order by test_no;
+
+
+
+select
+	          ea.test_no as "test_no"
+	        , sum(score) as "score"
+	        , e.test_title as "test_title"
+	        , count(ea.test_no) as "count"
+	from exam_answer ea
+	join exam e on (e.test_no = ea.test_no)
+	join member m on (ea.student_id = m.id)
+	where m.subject = 1 and ea.test_no = 7
+	group by ea.test_no, e.test_title;
+
+        
+        

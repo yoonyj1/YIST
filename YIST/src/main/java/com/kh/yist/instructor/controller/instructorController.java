@@ -171,7 +171,17 @@ public class instructorController {
 	}
 
 	@RequestMapping("gradeForm.ins")
-	public String gradeForm() {
+	public String gradeForm(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Exam> gradeList = tService.selectGradeList(loginUser);
+		
+		ArrayList<Exam> examList = tService.selectExamScore(loginUser); 
+		
+		model.addAttribute("gradeList", gradeList);
+		model.addAttribute("examList", examList);
+		
 		return "instructor/gradeForm";
 	}
 
