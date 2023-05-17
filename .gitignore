@@ -26,6 +26,7 @@ YIST/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
 Servers/.settings/org.eclipse.wst.server.core.prefs
 YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
+
 YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
 YIST/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 YIST/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
@@ -36,3 +37,9 @@ YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
 Servers/.settings/org.eclipse.wst.server.core.prefs
 Servers/.settings/org.eclipse.wst.server.core.prefs
 YIST/target/m2e-wtp/web-resources/META-INF/maven/com.kh/yist/pom.properties
+
+YIST/target/classes/mappers/admin-mapper.xml
+*.xml
+*.MF
+*.properties
+
