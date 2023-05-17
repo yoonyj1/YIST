@@ -317,8 +317,11 @@ public class instructorController {
 	@ResponseBody
 	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
 	public void ajaxSelectCheck(String DATE) {
-		System.out.println(DATE);
-		ArrayList<Member> m = mService.selectStudentList2(DATE);
+		System.out.println(DATE); // 2023-05-11
+		// 함수를 사용해서 -를 뺀 문자로 다시 저장
+		String str = DATE;
+        str = str.replaceAll("[^\\w+]", "");
+		ArrayList<Member> m = mService.selectStudentList2(newDate);
 		System.out.println(m);
 	}
 

@@ -184,7 +184,7 @@ tr {
                         <tbody style="background-color: #979cc4; height: 40px;">
                             <tr>
                             <th width="30" style="color: rgb(255, 255, 255); font-size: 17px; padding-left: 30px;" name="idx">No</th>
-                            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;" name="name">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="">▼</a></span></th>
+                            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;" name="name">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="down_btn"><a href="javascript:;" onclick="">▼</a></span></th>
                             <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;" name="ph">학생휴대폰</th>
                         </tr>
                     </tbody>
@@ -193,7 +193,7 @@ tr {
                     <table cellpadding="0" cellspacing="0" width="100%" id="leftMemList">
                                 <tbody style="height: 40px; color: black;">
                                 	<c:forEach var="b" items="${list}" varStatus="item" >
-	                                    <tr id="listItem_user03" class="on">
+	                                    <tr id="listItem_user03" class="on" style="border-bottom: solid 1px grey">
 		                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">${b.memberNo}</td>
 		                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
 		                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.phone}</td>
@@ -282,7 +282,9 @@ tr {
 		</div>
        	
     </body>
-    
+    <!-- 정렬을 하자 -->
+     		
+   
     	<!-- 학생정보클릭함수 -->
     	<script>
     	$(document).ready(function(){
@@ -309,6 +311,10 @@ tr {
     	})
     	
 		</script>
+ 		
+ 
+
  
     	
 </html>
+

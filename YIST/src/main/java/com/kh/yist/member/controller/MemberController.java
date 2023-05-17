@@ -58,7 +58,7 @@ public class MemberController {
 		
 		System.out.println(m);
 		
-		if (loginUser == null) { 
+		if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) { 
 			System.out.println("로그인성공");
 			loginCheck = false;
 			return "redirect:login.ins?sort=" + memSort;
