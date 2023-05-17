@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  , image
 		  , to_char(employee_date, ('YYYY-MM-DD')) as "employee_date"
 		  , email
-		  , subject_name as "SUBJECT"
+		  , m.subject_name as "SUBJECT"
 		  , address || detail_address as "ADDRESS"
 	  	from 
 	  		member m
