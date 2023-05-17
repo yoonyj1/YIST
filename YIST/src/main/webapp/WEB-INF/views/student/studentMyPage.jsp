@@ -141,8 +141,10 @@ button {
 	      </table>
 	      <ul style="text-align: center; margin: 40px;">
 	        <li>
-	          <button type="submit" class="btn btn-default btn-theme-colored btn-circled">정보수정</button>
-	          <a href="#" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
+	          <a href="#" class="btn btn-default btn-theme-colored btn-circled">정보수정</a>
+	          <c:if test="${ loginUser.status eq Y }">
+		          <a href="quitClass.do" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
+	          </c:if>
 	        </li>
 	      </ul>
 	    </div>       
