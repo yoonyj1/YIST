@@ -1,4 +1,4 @@
-Fdpackage com.kh.yist.instructor.controller;
+package com.kh.yist.instructor.controller;
 
 import java.io.File;
 import java.io.IOException;
