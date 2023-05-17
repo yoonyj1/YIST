@@ -272,6 +272,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 			name=#{name}
 		  , phone=#{phone}
+		  , email=#{email}
 		  ,	address=#{address}
 	  	where
 	  		id=#{id}
@@ -312,5 +313,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by score desc	   	
 			
 	</select>
+	
+	<update id="quitClass">
+		update
+			member
+		set
+		 	status = 'A'
+	 	where
+	 		id = #{id}
+	</update>
 		
 </mapper>

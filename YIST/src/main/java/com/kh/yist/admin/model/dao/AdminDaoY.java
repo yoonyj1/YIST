@@ -105,4 +105,8 @@ public class AdminDaoY {
 	public ArrayList<Exam> selectGrade(SqlSessionTemplate sqlSession, String subjectName) {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectGrade", subjectName);
 	}
+	
+	public int quitClass(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.quitClass", id);
+	}
 }

@@ -172,6 +172,7 @@ public class AdminControllerY {
 		int result = aService.updateStudentInfo(m);
 		
 		System.out.println(m.getId());
+		System.out.println(m.getEmail());
 		
 		if(result > 0) {
 			session.setAttribute("td", aService.selectStudent(m.getId()));
@@ -223,6 +224,20 @@ public class AdminControllerY {
 	public String selectGrade(String subjectName) {
 		ArrayList<Exam> list = aService.selectGrade(subjectName);
 		return new Gson().toJson(list);
+	}
+	
+	@RequestMapping("quitClass.do")
+	public String quitClass(String id) {
+		
+		System.out.println(id);
+		int result = aService.quitClass(id);
+		
+		if(result > 0) {
+			return "redirect:myPage.st";
+		} else {
+			return "redirect:myPage.st";
+		}
+		
 	}
     
 }
