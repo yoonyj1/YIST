@@ -136,7 +136,7 @@ button {
 			  value += "<th width='5%'>번호</th>";
 			  value += "<th width='15%'>카테고리</th>";
 			  value += "<th width='45%'>제목</th>";
-			  value += "<th width='10%'>작성자</th>";
+			  value += "<th width='15%'>작성자</th>";
 			  value += "<th width='10%'>작성일</th>";
 			  value += "<th width='10%'>조회수</th>";
 			  value += "</tr>";
@@ -148,9 +148,9 @@ button {
 			} else {
 				for ( var i in list) {
 					html += "<tr>";
-					html += "<td class='mno'>" + list[i].boardNo + "</td>";
+					html += "<td>" + list[i].boardNo + "</td>";
 					html += "<td>학습자료</td>";
-					html += "<td><a href=materialDetail.st?materialNo=" + list[i].boardNo + ">" + list[i].boardTitle + "</a></td>";
+					html += "<td>" + list[i].boardTitle + "</td>";
 					html += "<td>" + list[i].boardWriter + "</td>";
 					html += "<td>" + list[i].createDate + "</td>";
 					html += "<td>" + list[i].count + "</td>";
@@ -256,9 +256,10 @@ button {
 				  value += "<tr higth='20px'>";
 				  value += "<th width='5%'>번호</th>";
 				  value += "<th width='15%'>카테고리</th>";
-				  value += "<th width='50%'>제목</th>";
+				  value += "<th width='45%'>제목</th>";
 				  value += "<th width='15%'>작성자</th>";
-				  value += "<th width='15%'>작성일</th>";
+				  value += "<th width='10%'>작성일</th>";
+				  value += "<th width='10%'>조회수</th>";
 				  value += "</tr>";
 				  
 				  $("#result thead").html(value);
@@ -270,9 +271,10 @@ button {
 						html += "<tr>";
 						html += "<td>" + list[i].boardNo + "</td>";
 						html += "<td>Q&A</td>";
-					    html += "<td><a href=qnaDetail.st?qno=" + list[i].boardNo + ">" + list[i].boardTitle + "</a></td>";
+						html += "<td>" + list[i].boardTitle + "</td>";
 						html += "<td>" + list[i].boardWriter + "</td>";
 						html += "<td>" + list[i].createDate + "</td>";
+						html += "<td>" + list[i].count + "</td>";
 						html += "</tr>";
 					}
 					$("#result tbody").html(html);

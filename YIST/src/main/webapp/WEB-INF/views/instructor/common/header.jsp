@@ -169,6 +169,7 @@
 			showSpinner : false
 		});
 		NProgress.start();
+<<<<<<< HEAD
 		
 		function sendAlarm(type, title, target, content, sender){
 <<<<<<< HEAD
@@ -179,6 +180,11 @@
 =======
 >>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
 			
+=======
+
+		function sendAlarm(type, title, target, content, sender) {
+
+>>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
 			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
 			
 			socket.send(type + "," + target + "," + msg + "," + sender);

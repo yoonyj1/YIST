@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ page import="com.kh.yist.student.model.vo.Exam" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,11 +94,9 @@ button {
                 <td>미흡</td>
                 <td>매우 미흡</td>
             </tr>
-        </tbody>   
-       </table> 
+        </tbody>    
     </div>
     <div class="entry-content">
-    <input type="hidden" class="form-control" id="id" name="id" value="${ loginUser.id }">
       <table style="margin-bottom: 40px;">
         <thead>
             <tr higth="20px">
