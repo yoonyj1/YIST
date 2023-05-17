@@ -33,7 +33,6 @@
     text-align: center;
     border: 1px solid #dae0e9;
   }
-
   th {
     background-color: #eee;
     font-weight: bold;
@@ -42,31 +41,26 @@
   tr td:nth-child(3):hover {
   background-color: #9cd3f4;
   }
-
 #search-area {
   width: 100%;
   margin-bottom: 30px;
 }
-
 form {
   display: flex;
   justify-content: center;
 }
-
 select, input{
   text-align: center;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
 button {
   background-color: #9cd3f4;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-
 #summernote {
 	text-align: center;
 }
@@ -74,9 +68,9 @@ button {
 </head>
 <body>
 	<jsp:include page="common/header.jsp"/>
-	
+
 	<div class="container" >
-	
+
 		<div class="sub08_title">
 	      <ul style="text-align: center; margin-top: 40px">
 	        <li class="title"><h2 class="text-uppercase mt-15" style="font-size: 30px; font-weight: bold;">우리반 게시판</h2></li>
@@ -84,7 +78,7 @@ button {
 	        <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
 	      </ul>
 	    </div> 
-    
+
     <div>
 	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
 		    <input type="hidden" name="taskNo" value="${taskNo}">
@@ -134,7 +128,7 @@ button {
 			</form>
 		</div>
 	</div>
-	
+
 	<script>
 	
 		$(document).ready(function() {
@@ -150,8 +144,8 @@ button {
 		<%-- document.getElementById("title").value = "<%= request.getParameter("list[i].taskTitle") %>"; --%>
 		
 	</script>
-	
-	
+
+
 	<jsp:include page="common/footer.jsp"></jsp:include>
 </body>
 </html>

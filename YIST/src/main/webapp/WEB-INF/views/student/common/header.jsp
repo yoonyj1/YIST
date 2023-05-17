@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -41,10 +42,18 @@
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/lang/summernote-ko-KR.js"></script>
 
+<!-- 헤더 알람  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- 알림 -->
 <script src="https://unpkg.com/intro.js/intro.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
 
+<!-- 웹소켓 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+
+<!-- 알람 토스터 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <style>
 #notification {
 	position: absolute;
@@ -70,6 +79,156 @@
 </head>
 <body class="">
 
+	<!-- 알람(과제, 시험) -->
+	<script type="text/javascript">
+		
+		// 알람창 목록 
+		let notificationHTML; // 알림내용
+	
+		let socket  = null;
+		
+		$(function(){
+			seletAlarmList();
+		})
+		
+		$(document).ready(function(){
+		    // 웹소켓 연결
+		    sock = new SockJS("<c:url value="/echo-ws"/>");
+		    socket = sock;
+			
+		    // 데이터를 전달 받았을때 
+		    sock.onmessage = onMessage; // toast 생성
+		    
+		    sock.onclose = function() {
+		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+		    };
+		});
+		
+		// 전달 받은 데이터
+		function onMessage(evt){
+ 			
+			let data = evt.data;
+			
+			toastr.info(data); 
+
+			//seletAlarmList();
+			setTimeout(seletAlarmList, 300); // 웹소켓을 재연결하는 코드 삽입
+		}
+		
+		// 알람 조회
+		function seletAlarmList(){
+			let aList = [];
+			let count = 0;
+			notificationHTML = "";
+			$.ajax({
+				url:'alarm.st',
+				success:function(alarmList){
+					console.log(alarmList);
+					console.log(alarmList.lenght);
+					if(alarmList == null){
+						count = 0;
+					} else {
+						notificationHTML = "<div><h2>알림</h2>";
+						for (let i in alarmList){
+							notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">" + alarmList[i].alarmContent + "</a></p>";
+							count++;
+						}
+						notificationHTML += "<br></div>";
+						
+						$("#alarm-badge").text(count);
+					}
+					
+				},
+				
+				error:function(){
+					alert("알람 조회 실패");
+				}
+			}) 
+		}
+		
+		
+		function setExam(testNo, setTime){
+			$.ajax({
+				url:"setExam.st",
+				data:{
+					testNo:testNo
+				},
+				success:function(result){
+					if (result > 0){
+						alert("시험이 시작되었습니다.");
+						countdown('timeDisplay', setTime);
+					} else {
+						alert("시험 시작을 실패하였습니다.");
+					}
+					
+				},
+				error:function(){
+					alert("setExam 통신 실패");
+				}
+			})
+		}	
+	
+		// 시험 시간 카운터
+		function countdown(elementId, seconds){
+		  var element, endTime, hours, mins, msLeft, time;
+	
+		  function updateTimer(){
+			msLeft = endTime - (+new Date);
+			if ( msLeft < 0 ) {
+				if ($("#timeDisplay").val() != ""){
+			  		alert("시험종료");
+			  		$("#timeDisplay").val("");	
+			  		
+			  		$("#testInsert").attr("action", "testInsert.st").submit();
+				}
+			} else {
+			  time = new Date( msLeft );
+			  hours = time.getUTCHours();
+			  mins = time.getUTCMinutes();
+			  /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
+			  element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+			  setTimeout( updateTimer, time.getUTCMilliseconds());
+			}
+		  }
+	
+		  element = document.getElementById(elementId);
+		  endTime = (+new Date) + 1000 * seconds;
+		  updateTimer();
+		
+		}
+		
+		// 시험시작
+		function startExam(){
+			
+			let userTime = Math.round(new Date() / 1000);
+			
+			/* $.ajax({
+			url:"examTime.ins",
+			data:{
+				setTime:Number(setTime), 
+				userTime:Number(userTime)
+			},
+			success:function(result){
+				$(modalId).modal('hide');
+				setExam(testNo, setTime);
+				//countdown('timeDisplay', setTime);
+			},
+			error:function(){
+				alert("ajax 통신 실패");
+			}
+		}); */
+		}
+		
+	</script>
+	
+	
+	<c:if test="${ not empty student_alertMsg }">
+		<script type="text/javascript">
+			alert("${student_alertMsg}");
+		</script>
+		<c:remove var="student_alertMsg" scope="session"/>
+	</c:if>
+	
 	<!-- Header -->
 	<header id="header" class="header">
 		<div class="header-nav">
@@ -94,9 +253,9 @@
 								</ul>
 							</li>
 							<li>
-								<button id="notification-button" class="btn btn-dark btn-theme-colored" style="position: relative;">
-								  &nbsp;알림&nbsp;&nbsp;<span class="badge" style="position: absolute; top: -5px; right: -5px; color: white; background-color: black;">4</span>
-								</button>
+								 <button id="notification-button" class="btn btn-dark btn-theme-colored" style="position: relative;">
+								  &nbsp;알림&nbsp;&nbsp;<span class="badge" id="alarm-badge" style="position: absolute; top: -5px; right: -5px; color: white; background-color: black;"></span>
+								</button> 
 							</li>
 						</ul>
 					</nav>
@@ -104,38 +263,32 @@
 			</div>
 		</div>
 	</header>
-
-</div>
-	<script type="text/javascript">
-		$(function(){
-			console.log('${pageContext.request.contextPath}');
-		})
-	</script>
-	
-	<!-- 알림 -->
+	<!-- 알림창 -->
 	<script>
-		var notificationHTML = `
+
+		
+  		/* notificationHTML = `
 			<div>
 				<h2>알림</h2>
 				<hr>
-				<p><a href="testList.st">채점이 완료되었습니다.</a></p>
+				<p class="alarm" id="1"><a href="#">공지사항이 등록되었습니다.</a></p>
 				<hr>
-				<p><a href="testList.st">공지사항이 등록되었습니다.</a></p>
+				<p class="alarm" id="2"><a href="#">공지사항이 등록되었습니다.</a></p>
 				<hr>
-				<p><a href="testList.st">등록하신 게시글에 댓글이 달렸습니다.</a></p>
+				<p class="alarm" id="3"><a href="#">등록하신 게시글에 댓글이ddd.</a></p>
 				<hr>
-				<p><a href="testList.st">등록하신 게시글에 댓글이 달렸습니다.</a></p>
+				<p class="alarm" id="4"><a href="#">등록하신 게시글에 댓글이 달렸습니다.</a></p>
 				<br>
 			</div>
-		`;
-
+		`;   */
+		
 		document.getElementById('notification-button').addEventListener('click', function() {
 			// 팝업창 생성
 			var notification = document.createElement('div');
 			notification.id = 'notification';
 			notification.innerHTML = notificationHTML;
 			document.body.appendChild(notification);
-
+	
 			// 팝업창 닫기 버튼 
 			var closeButton = document.createElement('button');
 			closeButton.textContent = '닫기';
@@ -143,8 +296,10 @@
 				document.body.removeChild(notification);
 			});
 			notification.appendChild(closeButton);
-
+	
 			notification.style.display = 'block';
+			
+			console.log(notificationHTML);
 		});
 	</script>
 	

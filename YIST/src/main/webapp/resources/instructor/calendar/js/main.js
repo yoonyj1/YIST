@@ -22,7 +22,7 @@ var calendar = $('#calendar').fullCalendar({
                               },
   eventLimitClick           : 'week', //popover
   navLinks                  : true,
-  defaultDate               : moment('2023-04'), //실제 사용시 현재 날짜로 수정
+  defaultDate               : moment('2023-05'), //실제 사용시 현재 날짜로 수정
   timeFormat                : 'HH:mm',
   defaultTimedEventDuration : '01:00:00',
   editable                  : true,
@@ -210,7 +210,6 @@ var calendar = $('#calendar').fullCalendar({
 
     $(".fc-body").unbind('click');
     $(".fc-body").on('click', 'td', function (e) {
-
       $("#contextMenu")
         .addClass("contextOpened")
         .css({

@@ -1,6 +1,8 @@
 package com.kh.yist.board.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.kh.yist.board.model.vo.Notice;
 import com.kh.yist.common.model.vo.PageInfo;
@@ -29,7 +31,16 @@ public interface NoticeService {
 	int	updateNotice(Notice n);
 	
 
-
+	// 조회수증가
+	int increaseCount(int boardNo);
+	
+	
+	//키워드검색 일치 개수
+	int selectSearchCount(HashMap<String, String> map);
+	
+	//키워드검색 리스트 조회
+	ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
 	
 	
 }

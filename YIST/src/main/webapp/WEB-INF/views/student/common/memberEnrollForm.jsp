@@ -9,9 +9,12 @@
 
 
 
+	<link
+	href="${pageContext.request.contextPath}/resources/student/css/style-main.css"
+	rel="stylesheet" type="text/css">
 
 
-    <!-- script  
+
 	<script src="${pageContext.request.contextPath}/resources/admin/plugins/jquery/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/admin/plugins/simplebar/simplebar.min.js"></script>
@@ -27,7 +30,7 @@
 >
 
 	<link href="${pageContext.request.contextPath}/resources/admin/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
-	-->
+
     
     
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/admin/plugins/material/css/materialdesignicons.min.css">
@@ -177,8 +180,7 @@
 </head>
 <body>
 
-	<jsp:include page="header.jsp"/>
-
+	
 
 
     <div class="enroll-area">
@@ -808,7 +810,6 @@
                                     ,data:{userEmail:$("#email").val()}
                                     ,success:(data)=>{
                                     	responseCode = data;
-                                    	console.log(responseCode);
                                     },error:()=>{
                                         alert('ajax 통신 실패!');
                                     }
@@ -906,7 +907,6 @@
                                                 ,data:{userEmail:$("#email").val()}
                                                 ,success:(data)=>{
                                                 	responseCode = data;
-                                                	console.log(responseCode);
                                                 },error:()=>{
                                                     alert('ajax 통신 실패!');
                                                 }
@@ -948,7 +948,7 @@
                             </th>
                             <td>
                                 <div class="input-group" style="width:40%; padding: 10px;">
-                                    <input type="date" name="birth" class="form-control">
+                                    <input type="date" name="birth" class="form-control" min="1900-01-01" max="2009-12-31">
                                 </div> 
                             </td>
                         </tr>
@@ -962,7 +962,8 @@
                             </th>
                             <td>
                                 <div class="input-group"  style="width:40%; padding: 10px;">
-                                    <input type="phone" name="phone" class="form-control" placeholder="연락처를 입력하세요"  style="width:100%;" >                        
+                                    <input type="tel" name="phone" class="form-control" placeholder="연락처를 입력하세요" pattern="[0-9]{3}[0-9]{3,4}[0-9]{4}" maxlength="13" 
+                                        style="width:100%;" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >               
                                 </div>                        
                                 <div class="text-daborder-danger small mt-1" style="margin-left: 10px; padding-left:10px; width: 100%; text-align:left">
                                         - 없이 숫자만 입력하세요
@@ -1122,7 +1123,30 @@
 
 
 
-	 <jsp:include page="../common/footer.jsp"/>
+
+
+
+  <footer id="footer" class="footer divider parallax layer-overlay overlay-dark-9" data-bg-img="resources/images/bg/bg7.jpg" data-parallax-ratio="0.7">
+	<div class="container pt-70 pb-40">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center" style="width: 100%; margin: 0 auto;">
+          <p class="maincopy">
+            KH정보교육원&nbsp;｜&nbsp;사업자등록번호 : 851-87-00622&nbsp;｜&nbsp;서울 강남 제2014-01호 <br> 
+            대표자 : 양진선&nbsp;｜&nbsp;책임자 : 최홍석&nbsp;｜&nbsp; 개인정보관리책임자 : 양진선
+          </p>
+          <p class="subcopy" style="padding-bottom: 10px;">
+            강남지원 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F<br>
+            강남지원 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F<br>
+            강남지원 3관 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F<br>
+          </p>
+          <p class="subcopy copyright" style="font-size:11px; color:#656565;">
+            Copyright&nbsp;©&nbsp;1998-<script>document.write(new Date().getFullYear())</script>2023&nbsp;KH Information Educational Institute All Right Reserved
+          </p>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
 
 
 

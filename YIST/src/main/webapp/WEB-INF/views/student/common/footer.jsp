@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>       
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-
 </head>
 <body class="">
+
+  <c:if test="${ not empty loginUser }">
+	<jsp:include page="chatbot.jsp"/>
+  </c:if>  
   
   <!-- Footer -->
   <footer id="footer" class="footer divider parallax layer-overlay overlay-dark-9" data-bg-img="resources/images/bg/bg7.jpg" data-parallax-ratio="0.7">
-    <div class="container pt-70 pb-40">
+
+	<div class="container pt-70 pb-40">
       <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center">
           <p class="maincopy">
@@ -29,7 +34,8 @@
       </div>
     </div>
   </footer>
-
+  
+  
 <!-- JS | Custom script for all pages -->
 
 <!-- <script src="resources/js/custom.js"></script> -->

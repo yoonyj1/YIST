@@ -19,7 +19,7 @@
         <li class="title"><h3 class="text-uppercase mt-15" style="font-size: 25px; font-weight: bold; margin-top: 40px; margin-bottom: 35px;">이수현황</h3></li>
       </ul>
       <div class="progressbar-container">
-	  <div class="progress-item">
+		 	  <div class="progress-item">
 	    <div class="progress" style="height: 20px;">
 	      <div class="progress-bar" data-percent=""></div>
 	    </div>
@@ -59,7 +59,7 @@
             </tr>
         </tbody>
     </table>    
-    <%-- <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div> --%>
+        <%-- <div><img alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">  </div> --%>
     <div style="position: relative;">
 	  <img src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg" alt="">
 	  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">

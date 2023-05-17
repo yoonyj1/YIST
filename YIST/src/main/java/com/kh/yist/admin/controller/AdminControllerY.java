@@ -1,22 +1,36 @@
 package com.kh.yist.admin.controller;
 
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
 import com.kh.yist.admin.model.service.AdminServiceY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
 public class AdminControllerY {
@@ -75,10 +89,8 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail.do")
-	public String teacherDetail(String id, Model model) {
-		System.out.println(id);
-		Member m = aService.selectTeacherNull(id);
-		System.out.println(m);
+	public String teacherDetail(String id, String subject, Model model) {
+		Member m = aService.selectTeacher(id);
 				
 		model.addAttribute("td", m);
 		
@@ -104,13 +116,16 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("teacherDetail-lecture.do")
-	public String teacherDetailLecture(String id, Model model) {
-		Member m = aService.selectTeacher(id);
+	public String teacherDetailLecture(String id, String subject, Model model) {
+		Member teacherInfo = aService.selectTeacher(id);
 		
-		model.addAttribute("td", m);
+		model.addAttribute("t", teacherInfo);
 		
+		System.out.println(subject);
+		ArrayList<Member> studentList = aService.selectStudentList(subject);
+		model.addAttribute("s", studentList);
 		
-		return "admin/teacherDetail-lecture?id=" + id;
+		return "admin/teacherDetail-lecture";
 	}
 	
 	@RequestMapping("studentDetail.do")
@@ -123,7 +138,13 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("gradeView.do")
-	public String gradeView() {
+	public String gradeView(Model model, String subjectName) {
+		ArrayList<Subject> list = aService.selectSubject();
+		
+		ArrayList<Exam> tList = aService.selectGrade(subjectName);
+		
+		model.addAttribute("sList", list).addAttribute("tList", tList);
+		
 		return "admin/gradeView";
 	}
 	
@@ -146,5 +167,62 @@ public class AdminControllerY {
 		return "admin/updateAttendance";
 	}
 	
+	@RequestMapping("updateStudent.do")
+	public String updateStudentInfo(Member m, HttpSession session) {
+		int result = aService.updateStudentInfo(m);
+		
+		System.out.println(m.getId());
+		
+		if(result > 0) {
+			session.setAttribute("td", aService.selectStudent(m.getId()));
+			
+			
+			return "redirect:studentDetail.do?id="+m.getId();
+		} else {
+			return "redirect:studentList";
+		}
+		
+	}
 	
+	@RequestMapping("test.qr")
+	public Object createQr(@RequestParam String url) throws WriterException, IOException {
+        int width = 200;
+        int height = 200;
+        BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height);
+ 
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+            MatrixToImageWriter.writeToStream(matrix, "PNG", out);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(out.toByteArray());
+        }
+    }
+	
+	@RequestMapping("result.att")
+	public String resultAt(String id) {
+	System.out.println(id);
+	  int result = aService.resultAt(id);
+	  
+	  if(result > 0) {
+		  System.out.println("성공? " + result);
+		  return "redirect:/";
+	  }
+	  System.out.println(result);
+	  return "redirect:/";
+	}
+	
+	@RequestMapping("adminLogout.do")
+	public String adminLogout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="gradeShow.do", produces="application/json; charset=utf-8")
+	public String selectGrade(String subjectName) {
+		ArrayList<Exam> list = aService.selectGrade(subjectName);
+		return new Gson().toJson(list);
+	}
+    
 }

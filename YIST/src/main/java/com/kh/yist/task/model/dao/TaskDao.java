@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
 
@@ -17,6 +19,10 @@ import com.kh.yist.task.model.vo.TaskSubmit;
 public class TaskDao {
 
 	public int insertTask(SqlSessionTemplate sqlSession, Task task) {
+		
+		System.out.println("dao-----------------------------");
+		System.out.println(task);
+		
 		return sqlSession.insert("instructorMapper.insertTask", task);
 	}
 
@@ -46,16 +52,35 @@ public class TaskDao {
 		int update1, update2 = 0;
 		
 		update1 = sqlSession.update("instructorMapper.updateTask", task);
-		
-		if (update1 > 0) {
-			update2 = sqlSession.update("instructorMapper.updateTaskFile", task);
+		System.out.println("===============");
+		System.out.println(task);
+		System.out.println("===============");
+		if (update1 > 0 && !task.getOriginName().equals("")) {
+			if (task.getFileNo() == 0) {
+				update2 = sqlSession.insert("instructorMapper.insertTaskFile", task);
+			} else {
+				update2 = sqlSession.update("instructorMapper.updateTaskFile", task);
+			}
+		} else {
+			update2 = 1;
 		}
 		
 		return update2; 
 	}
 
 	public int deleteTask(SqlSessionTemplate sqlSession, Task task) {
-		return sqlSession.update("instructorMapper.deleteTask", task);
+		
+		int result = sqlSession.update("instructorMapper.deleteTask", task);
+		
+		for (int i = 0; i < task.getTaskNo(); i++) {
+			sqlSession.update("instructorMapper.deleteTaskSubmit", task);
+		}
+		
+		if (task.getFileNo() > 0) {
+			sqlSession.update("instructorMapper.deleteTaskFile", task);
+		}
+		
+		return result;
 	}
 
 	public ArrayList<TaskSubmit> selectSubmitList(SqlSessionTemplate sqlSession, int taskNo) {
@@ -76,6 +101,34 @@ public class TaskDao {
 
 	public Exam selectQuestion(SqlSessionTemplate sqlSession, int testNo) {
 		return sqlSession.selectOne("instructorMapper.selectQuestion", testNo);
+	}
+
+	public int setExam(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.insert("instructorMapper.setExam", exam);
+	}
+
+	public ArrayList<Exam> selectExamMemberList(SqlSessionTemplate sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamMemberList", subject);
+	}
+
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm taskAlarm) {
+		return sqlSession.insert("instructorMapper.insertAlarm", taskAlarm);
+	}
+
+	public int insertTaskSubmit(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.insert("instructorMapper.insertTaskSubmit", id);
+	}
+
+	public int setExamTime(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.insert("instructorMapper.setExamTime", exam);
+	}
+
+	public int updateSetExam(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.update("instructorMapper.updateSetExam", exam);
+	}
+
+	public int updateSetExamAnswer(SqlSessionTemplate sqlSession, Exam exam) {
+		return sqlSession.update("instructorMapper.updateSetExamAnswer", exam);
 	}
 	
 

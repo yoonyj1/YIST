@@ -20,6 +20,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CLASS_NAME" property="className"></result>
 	</resultMap>
 	
+	<resultMap id="memberResultSet" type="Member">
+		<result column="ID" property="id"/>
+		<result column="NAME" property="name"/>
+		<result column="PWD" property="pwd"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="PHONE" property="phone"/>
+		<result column="IMAGE" property="image"/>
+		<result column="EMAIL" property="email"/>
+		<result column="POST" property="post"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="DETAIL_ADDRESS" property="detailAddress"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="ATTENDANCE_RATE" property="attendanceRate"/>
+		<result column="ENORLL_DATE" property="enrollDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SORT" property="sort"/>
+		<result column="EMPLOYEE_DATE" property="employeeDate"/>
+	</resultMap>
+	
 	<!-- <select id="selectSubjectList" resultMap="subjectResultSet">
 		select
 			SUBJECT_NO
@@ -57,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			SUBJECT_NO
 			,CLASS_NO
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -78,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SUBJECT_NO
 			,CLASS_NO 
 			,CLASS_NAME as class_name
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -116,7 +137,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		      , #{subjectName}
 		      , to_date(#{startDate},'RR/MM/DD')
 		      , to_date(#{endDate},'RR/MM/DD')
-		      , 'Y'
+		      , 'N'
 		      , #{day}
 		      , #{maximumSeats}
 		      , #{currentSeats}
@@ -173,7 +194,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			select
 				SUBJECT_NO
 				,CLASS_NO
-				,SUBJECT_NAME
+				,s.SUBJECT_NAME
 	            ,NAME as INSTRUCTOR
 				,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 				,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -187,10 +208,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	           and m.sort = 2  
 				<choose>
 				    <when test="condition == 'name'">
-				        and name like '%'|| #{ keyword } ||'%'
+				        and m.name like '%'|| #{ keyword } ||'%'
 				    </when>
 				    <when test="condition == 'subjectName'">
-				        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+				        and s.SUBJECT_NAME like '%'|| #{ keyword } ||'%'
 				    </when>    
 				    <otherwise>
 				        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
@@ -206,7 +227,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 			SUBJECT_NO
 			,CLASS_NO
-			,SUBJECT_NAME
+			,s.SUBJECT_NAME
             ,NAME as INSTRUCTOR
 			,TO_CHAR(s.START_DATE,'RRRR/MM/DD') as start_date
 			,TO_CHAR(s.END_DATE,'RRRR/MM/DD') as end_date
@@ -220,10 +241,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            and m.sort = 2  
 			<choose>
 			    <when test="condition == 'name'">
-			        and name like '%'|| #{ keyword } ||'%'
+			        and m.name like '%'|| #{ keyword } ||'%'
 			    </when>
 			    <when test="condition == 'subjectName'">
-			        and SUBJECT_NAME like '%'|| #{ keyword } ||'%'
+			        and s.SUBJECT_NAME like '%'|| #{ keyword } ||'%'
 			    </when>    
 			    <otherwise>
 			        and SUBJECT_NO like '%'|| #{ keyword } ||'%'
@@ -232,5 +253,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 order
 		    by SUBJECT_NO desc   
   	</select>
+  	
+  	<select id="selectStudentList" resultMap="memberResultSet">
+  	
+  		select
+  				ID
+				, NAME
+				, SUBJECT
+				, ATTENDANCE_RATE
+				, SORT
+  		  from 
+  		  		member
+  		 where
+  		 		SUBJECT = #{ subject }
+  		   and  SORT = 3		
+  		 		
+  	</select>
+  	
 
 </mapper>

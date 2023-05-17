@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.task.model.dao.TaskDao;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
@@ -64,6 +66,36 @@ public class TaskService {
 
 	public Exam selectQuestion(int testNo) {
 		return tDao.selectQuestion(sqlSession, testNo);
+	}
+
+	public int setExam(Exam exam) {
+		return tDao.setExam(sqlSession, exam);
+	}
+
+	public ArrayList<Exam> selectExamMemberList(String subject) {
+		return tDao.selectExamMemberList(sqlSession, subject);
+	}
+
+	public int insertAlarm(Alarm taskAlarm) {
+		return tDao.insertAlarm(sqlSession, taskAlarm);
+	}
+
+	public int insertTaskSubmit(String id) {
+		return tDao.insertTaskSubmit(sqlSession, id);
+	}
+
+	public int setExamTime(Exam exam) {
+		return tDao.setExamTime(sqlSession, exam);
+	}
+
+	public int updateSetExam(Exam exam) {
+		return tDao.updateSetExam(sqlSession, exam);
+		
+	}
+
+	// 시험 점수 등록
+	public int updateSetExamAnswer(Exam exam) {
+		return tDao.updateSetExamAnswer(sqlSession, exam);
 	}
 	
 }

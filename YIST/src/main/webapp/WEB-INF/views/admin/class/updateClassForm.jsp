@@ -52,12 +52,7 @@
 
 	<jsp:include page="../common/header.jsp"/>
 	
-	<c:if test="${ not empty alertMsg }">
-		<script>
-			alert('${alertMsg}');
-		</script>
-		<c:remove var="alertMsg" scope="session" />
-	</c:if>
+
 	
 	<div class="card card-default">
               <div class="card-header">
@@ -216,9 +211,9 @@
                   
                   
                   <div class="btn-center">
-                    <button class="btn btn-primary btn-pill mr-2" type="submit" onclick="formSubmit(1);">수정</button>
-                    <button class="btn  btn-pill mr-2 btn-danger" type="submit" onclick="if(confirm('삭제된 강의는 복구할 수 없습니다. 정말 삭제하시겠습니까?')){ formSubmit(2); }">삭제</button>
-                    <button class="btn btn-light btn-pill" type="button" onclick="location.href='classAdminList.ad';">취소</button>
+                    <button class="btn btn-primary btn-pill mr-2" type="button" onclick="formSubmit(1);">수정</button>
+                    <button class="btn  btn-pill mr-2 btn-danger" type="button" onclick="if(confirm('삭제된 강의는 복구할 수 없습니다. 정말 삭제하시겠습니까?')){ formSubmit(2); }">삭제</button>
+                    <button class="btn btn-light btn-pill" type="button" onclick="backToList();">취소</button>
                   </div>
                   
                 </form>
@@ -239,6 +234,10 @@
 							$('#subjectForm').attr("action","delete.cl").submit();
 						}
 					}
+
+          function backToList(){
+            location.href='classAdminList.ad';
+          }
 				</script>
 
 

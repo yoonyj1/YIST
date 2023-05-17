@@ -29,7 +29,6 @@
     text-align: center;
     border: 1px solid #dae0e9;
   }
-
   th {
     background-color: #eee;
     font-weight: bold;
@@ -49,7 +48,6 @@
 </style>
 </head>
 <body>
-
 	<jsp:include page="common/header.jsp"/>
 	
 	<div class="container">
@@ -70,10 +68,35 @@
 	                <td>${ e.testNo }</td>
 	                <td>${ e.testTitle }</td>
 	                <td>${ e.examDate }</td>
-	                <td>96.00</td>
+	                <c:choose>
+	                	<c:when test="${e.score == 999}">
+	                		<td>-</td>
+	                	</c:when>
+	                	<c:when test="${e.score < 60}">
+	                		<td style="color:red">재시험</td>
+	                	</c:when>
+	                	<c:otherwise>
+	                		<td style="color:red">${e.score}.00</td>
+	                	</c:otherwise>
+	                </c:choose>
 	                <td>
-	                    <a href="testDetail.st?eno=${ e.testNo }" class="btn btn-gray btn-circled">평가준비중</a>
-	                    <a href="#" class="btn btn-gray btn-circled">결과확인</a>
+	                	<c:choose>
+	                		<c:when test="${e.status eq 'N'}">
+	                			<a href="testDetail.st?eno=${ e.testNo }" class="btn btn-primary btn-circled">평가시작</a>
+	                    		<a href="#" class="btn btn-gray btn-circled" disabled="disabled">결과확인</a>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<button class="btn btn-danger btn-circled" disabled="disabled">평가완료</button>
+	                			<c:choose>
+	                				<c:when test="${e.score == 999}">
+	                					<button class="btn btn-primary btn-circled" disabled="disabled">결과확인</button>
+	                				</c:when>
+	                				<c:otherwise>
+		                				<a href="examResult.st?testNo=${e.testNo}&studentId=${loginUser.id}" class="btn btn-primary btn-circled">결과확인</a>
+	                				</c:otherwise>
+	                			</c:choose>
+	                		</c:otherwise>
+	                	</c:choose>
 	                </td>
 	            </tr>
         	</c:forEach>
@@ -81,6 +104,10 @@
         </tbody>
     </table>
   </div>
+  
+  <script type="text/javascript">
+  		
+  </script>
   
   <jsp:include page="common/footer.jsp"/>
 </body>

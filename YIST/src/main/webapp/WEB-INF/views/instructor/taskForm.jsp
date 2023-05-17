@@ -58,11 +58,19 @@
          	        
          	       if(start_date.getTime() > end_date.getTime()) {
         	            alert("종료날짜보다 시작날짜가 작아야합니다.");
+        	            return false;
         	       } else {
-        	    	   $("#insertForm").attr("action", "insert.task").submit();
-        	    	   
-        	    	   // 과제 알람 보내기
-        	    	   taskAlarm();
+        	    	   let type = '과제';
+	       			   let title= $("#taskTitle").val();
+	       			   let target = "all";
+	       			   let content = "과제 등록";
+	       			   let sender = '${loginUser.getId()}';
+	       			   	
+	       			   sendAlarm(type, title,  target, content, sender);
+
+	       			   $("#insertForm").attr("action", "insert.task").submit();
+	       			   
+	       			   return true;
         	       }
             	}
             	
@@ -405,7 +413,7 @@
 									    <label for="exampleFormControlTextarea1">과제 내용</label>
 									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent" >${t.taskContent}</textarea>
 									  </div>
-									  
+									  	<input type="hidden" name="fileNo" value="${t.fileNo}">
 									  	<c:if test="${ t.changeName ne 'none' }">
 									  		<div class="card">
 									  			<label for="">원본 이미지</label>

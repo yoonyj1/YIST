@@ -148,6 +148,7 @@
 	div.card-default{
 		margin-left:250px;
 	}
+	
 
 </style>
 
@@ -167,7 +168,7 @@
 		<div id="sidebar" class="sidebar sidebar-with-footer">
 			<!-- Aplication Brand -->
 			<div class="app-brand">
-				<a href="/index.html"> 
+				<a href="#" style="cursor: default;"> 
 					<img src="${pageContext.request.contextPath}/resources/admin/images/logoBrick.png" alt="YIST 로고" style="width: 50px; height: 50px;"> 
 					<span class="brand-name">YIST</span>
 				</a>
@@ -237,35 +238,23 @@
 					
 					<li class="has-sub">
 						<a class="sidenav-item-link" href="teacherList.do" >
-							<i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
+							<i class="fa-solid fa-person-chalkboard"></i>
 							<span class="nav-text">강사관리</span>
 						</a>
 					</li>
 
 					<li class="has-sub">
-						<a class="sidenav-item-link"  href="javascript:void(0)" data-toggle="collapse" data-target="#student-admin" aria-expanded="false" aria-controls="notice-admin">
-							<i class="fa-solid fa-chalkboard-user"></i> 
+						<a class="sidenav-item-link"  href="studentList.do">
+							<i class="fa-solid fa-user"></i>
 							<span class="nav-text">학생관리</span>
-							<b class="caret"></b>
 						</a>
-						<ul class="collapse" id="student-admin" data-parent="#sidebar-menu">
-							<div class="sub-menu">
-
-								<li>
-									<a class="sidenav-item-link" href="studentList.do"> 
-										<span class="nav-text">학생조회</span>
-									</a>
-								</li>
-
-								<li>
-									<a class="sidenav-item-link" href="gradeView.do"> 
-										<span class="nav-text">성적조회</span>
-									</a>
-								</li>
-							
-								
-							</div>
-						</ul>
+					</li>
+					
+					<li class="has-sub">
+						<a class="sidenav-item-link"  href="gradeView.do">
+							<i class="fa-solid fa-pen-fancy"></i> 
+							<span class="nav-text">성적관리</span>
+						</a>
 					</li>
 					
 				</ul>
@@ -293,25 +282,9 @@
 						<!-- Offcanvas -->
 
 						<li class="custom-dropdown">
-							<button class="notify-toggler custom-dropdown-toggler">
-								<i class="mdi mdi-bell-outline icon"></i> <span
-									class="badge badge-xs rounded-circle">21</span>
-							</button>
+							
 							<div class="dropdown-notify">
 
-								<header>
-									<div class="nav nav-underline" id="nav-tab" role="tablist">
-										<a class="nav-item nav-link active" id="all-tabs"
-											data-toggle="tab" href="#all" role="tab"
-											aria-controls="nav-home" aria-selected="true">All (5)</a> <a
-											class="nav-item nav-link" id="message-tab" data-toggle="tab"
-											href="#message" role="tab" aria-controls="nav-profile"
-											aria-selected="false">Msgs (4)</a> <a
-											class="nav-item nav-link" id="other-tab" data-toggle="tab"
-											href="#other" role="tab" aria-controls="nav-contact"
-											aria-selected="false">Others (3)</a>
-									</div>
-								</header>
 
 								<div class="" data-simplebar style="height: 325px;">
 									<div class="tab-content" id="myTabContent">
@@ -326,265 +299,36 @@
 														alt="User Image">
 													</a>
 												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">John
-															Doe</span> <span class="discribe">Extremity sweetness
-															difficult behaviour he of. On disposal of as landlord
-															horrible. Afraid at highly months do things on at.</span> <span
-														class="time"> <time>Just now</time>...
-													</span>
-													</a>
-												</div>
 											</div>
 
-											<div class="media media-sm p-4 bg-light mb-0">
-												<div class="media-sm-wrapper bg-primary">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-calendar-check-outline"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">New
-															event added</span> <span class="discribe">1/3/2014 (1pm -
-															2pm)</span> <span class="time"> <time>10 min
-																ago...</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper">
-													<a href="user-profile.html"> <img
-														src="${pageContext.request.contextPath}/resources/admin/images/user/user-sm-03.jpg"
-														alt="User Image">
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Sagge
-															Hudson</span> <span class="discribe">On disposal of as
-															landlord Afraid at highly months do things on at.</span> <span
-														class="time"> <time>1 hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper bg-info-dark">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-account-multiple-check"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Add
-															request</span> <span class="discribe">Add Dany Jones as
-															your contact.</span>
-														<div class="buttons">
-															<a href="#"
-																class="btn btn-sm btn-success shadow-none text-white">accept</a>
-															<a href="#" class="btn btn-sm shadow-none">delete</a>
-														</div> <span class="time"> <time>6 hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper bg-info">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-playlist-check"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Task
-															complete</span> <span class="discribe">Afraid at highly
-															months do things on at.</span> <span class="time"> <time>1
-																hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
 
 										</div>
 
-										<div class="tab-pane fade" id="message" role="tabpanel"
-											aria-labelledby="message-tab">
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper">
-													<a href="user-profile.html"> <img
-														src="${pageContext.request.contextPath}/resources/admin/images/user/user-sm-01.jpg"
-														alt="User Image">
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Selena
-															Wagner</span> <span class="discribe">Lorem ipsum dolor
-															sit amet, consectetur adipisicing elit.</span> <span
-														class="time"> <time>15 min ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper">
-													<a href="user-profile.html"> <img
-														src="${pageContext.request.contextPath}/resources/admin/images/user/user-sm-03.jpg"
-														alt="User Image">
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Sagge
-															Hudson</span> <span class="discribe">On disposal of as
-															landlord Afraid at highly months do things on at.</span> <span
-														class="time"> <time>1 hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm bg-warning-10 p-4 mb-0">
-												<div class="media-sm-wrapper">
-													<a href="user-profile.html"> <img
-														src="${pageContext.request.contextPath}/resources/images/user/user-sm-02.jpg"
-														alt="User Image">
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">John
-															Doe</span> <span class="discribe">Extremity sweetness
-															difficult behaviour he of. On disposal of as landlord
-															horrible. Afraid at highly months do things on at.</span> <span
-														class="time"> <time>Just now</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper">
-													<a href="user-profile.html"> <img
-														src="${pageContext.request.contextPath}/resources/admin/images/user/user-sm-04.jpg"
-														alt="User Image">
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Albrecht
-															Straub</span> <span class="discribe"> Beatae quia natus
-															assumenda laboriosam, nisi perferendis aliquid
-															consectetur expedita non tenetur.</span> <span class="time">
-															<time>Just now</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-										</div>
-										<div class="tab-pane fade" id="other" role="tabpanel"
-											aria-labelledby="contact-tab">
-
-											<div class="media media-sm p-4 bg-light mb-0">
-												<div class="media-sm-wrapper bg-primary">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-calendar-check-outline"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">New
-															event added</span> <span class="discribe">1/3/2014 (1pm -
-															2pm)</span> <span class="time"> <time>10 min
-																ago...</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper bg-info-dark">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-account-multiple-check"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Add
-															request</span> <span class="discribe">Add Dany Jones as
-															your contact.</span>
-														<div class="buttons">
-															<a href="#"
-																class="btn btn-sm btn-success shadow-none text-white">accept</a>
-															<a href="#" class="btn btn-sm shadow-none">delete</a>
-														</div> <span class="time"> <time>6 hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-											<div class="media media-sm p-4 mb-0">
-												<div class="media-sm-wrapper bg-info">
-													<a href="user-profile.html"> <i
-														class="mdi mdi-playlist-check"></i>
-													</a>
-												</div>
-												<div class="media-body">
-													<a href="user-profile.html"> <span class="title mb-0">Task
-															complete</span> <span class="discribe">Afraid at highly
-															months do things on at.</span> <span class="time"> <time>1
-																hrs ago</time>...
-													</span>
-													</a>
-												</div>
-											</div>
-
-										</div>
 									</div>
 								</div>
 
-								<footer class="border-top dropdown-notify-footer">
-									<div
-										class="d-flex justify-content-between align-items-center py-2 px-4">
-										<span>Last updated 3 min ago</span> <a id="refress-button"
-											href="javascript:" class="btn mdi mdi-cached btn-refress"></a>
-									</div>
-								</footer>
 							</div>
 						</li>
 						<!-- User Account -->
-						<li class="dropdown user-menu">
-							<button class="dropdown-toggle nav-link" data-toggle="dropdown">
-								<img src="${pageContext.request.contextPath}/resources/admin/images/user/user-xs-01.jpg"
+						<li class="dropdown user-menu" >
+							<b style="font-weight:900; color:black; margin-right:20px">
+								<img src="${loginUser.image}"
 									class="user-image rounded-circle" alt="User Image" /> <span
-									class="d-none d-lg-inline-block">${ loginUser.name }</span>
-							</button>
-							<ul class="dropdown-menu dropdown-menu-right">
-								<li><a class="dropdown-link-item" href="user-profile.html">
-										<i class="mdi mdi-account-outline"></i> 
-										<span class="nav-text">My Profile</span>
-								</a></li>
-								<li><a class="dropdown-link-item" href="email-inbox.html">
-										<i class="mdi mdi-email-outline"></i> <span class="nav-text">Message</span>
-										<span class="badge badge-pill badge-primary">24</span>
-								</a></li>
-								<li><a class="dropdown-link-item"
-									href="user-activities.html"> <i
-										class="mdi mdi-diamond-stone"></i> <span class="nav-text">Activitise</span></a>
-								</li>
-								<li><a class="dropdown-link-item"
-									href="user-account-settings.html"> <i
-										class="mdi mdi-settings"></i> <span class="nav-text">Account
-											Setting</span>
-								</a></li>
-
-								<li class="dropdown-footer"><a class="dropdown-link-item"
-									href="sign-in.html"> <i class="mdi mdi-logout"></i> Log Out
-								</a></li>
-							</ul>
+									class="d-none d-lg-inline-block">&nbsp;${ loginUser.name }</span>
+							</b>
+							<button id="logoutBtn" class="btn btn-sm btn-outline-success" style="margin-right:30px;">로그아웃</button>
 						</li>
 					</ul>
 				</div>
 			</nav>
 
+			<script>
+				$(function(){
+					$('#logoutBtn').click(function(){
+						location.href = 'adminLogout.do';
+					})
+				})
+			</script>
 
 		</header>
 

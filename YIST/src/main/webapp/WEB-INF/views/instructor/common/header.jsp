@@ -82,7 +82,6 @@
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
 
-
 <style type="text/css">
 </style>
 
@@ -90,8 +89,9 @@
 
 <body class="navbar-fixed sidebar-fixed" id="body">
 
-	<c:if test="${loginUser.examTime > 0}">
+<%-- 	<c:if test="${loginUser.examTime > 0}">
 		<script>
+			let examNo = 0;
 			$(document).ready(function() {
 				
 				let currentTime = Math.round(new Date() / 1000);
@@ -128,7 +128,6 @@
 								  if ($("#timeDisplay").val() != ""){
 								  		alert("시험종료");
 								  		$("#timeDisplay").val("");	
-								  		$(".test-score").attr("disabled",false);
 									}
 							  },
 							  error : function(){
@@ -153,7 +152,7 @@
 				}
 			})
 		</script>
-	</c:if>
+	</c:if> --%>
 	
 	<c:if test="${ not empty alertMsg }">
 		<script type="text/javascript">
@@ -164,10 +163,19 @@
 	
 	
 	<script>
+		let examModalId = "";
+	
 		NProgress.configure({
 			showSpinner : false
 		});
 		NProgress.start();
+		
+		function sendAlarm(type, title, target, content, sender){
+			
+			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
+			
+			socket.send(type + "," + target + "," + msg + "," + sender);
+		}
 		
 		// 웹소켓
 		// 전역변수 설정
@@ -180,24 +188,53 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
-		}); 
+		    sock.onclose = function() {
+		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+		    };
+		    
+		});
 		
-		
+		// (시험, 과제 알림)
 		$(document).ready(function(){
-			$("#search-input").on("keyup",function(key){
-				console.log("로그인 유저 아이디" + '${loginUser.getId()}');
-		        if(key.keyCode==13) {
-					let type = '70';
-					let target = 'user02';
-					let content = $("#search-input").val();
-					let loginUser = '${loginUser.getId()}';
-					let url = '컨트롤러 매핑값';
-					//socket.send("관리자,"+target+","+content+","+url);
-					socket.send('${loginUser.name},' + target+","+content+","+url + "," + loginUser);
-		        }
-		    });
-		
-
+			// 시험 시작 알람
+			$(".test-start").on("click", function(){
+				
+				console.log("지금 눌린 번호 : " +$(this).next().val());
+				
+				examModalId= "#examStart" + $(this).next().val();
+				
+				if(confirm('평가를 시작하시겠습니까?')){
+					$(examModalId).modal('show');
+				}
+			})
+			
+			// 시험 점수 등록
+			$(".task-insert").on("click", function(){
+				console.log("눌림~~~~");
+				let type = '시험';
+				let title = $(this).next().next().val();
+				let target = $(this).next().val();
+				let content = "채점 완료";
+				let sender = '${loginUser.getId()}';
+				
+				sendAlarm(type, title,  target, content, sender);
+			})
+			
+			
+			// 과제 확인 알람
+			$(".taskCheck-btn").on("click", function(){
+				let type = '과제';
+				let title = $(this).next().next().next().val();
+				let target = $(this).next().next().val();
+				let content = "과제 확인";
+				let sender = '${loginUser.getId()}';
+				
+				console.log(title);
+				console.log(target);
+				
+				sendAlarm(type, title,  target, content, sender); 
+			})
+								
 		})
 		
 		// toast생성 및 추가
@@ -207,23 +244,6 @@
 		    
 		    console.log("메세지 : " + data);
 		   	//alert("강사 : " + data);
-		   	
-		   	<!-- 알림 시작 -->
-/* 			<div class="media media-sm p-4 bg-light mb-0">
-				<div class="media-sm-wrapper bg-primary">
-					<a href="user-profile.html"> <i
-						class="mdi mdi-calendar-check-outline"></i>
-					</a>
-				</div>
-				<!-- 알림 메세지 넣는 부분 -->
-				<div class="media-body">
-					<a href="user-profile.html"> <span class="msg-title title mb-0"></span> <span class="discribe">1/3/2014 (1pm -
-							2pm)</span> <span class="time"> <time>10 min ago...</time>...
-					</span>
-					</a>
-				</div>
-			</div> */
-			<!-- 알림 끝 -->
 		   	
 		   	let msg = "<div class='msg-idx media media-sm p-4 bg-light mb-0'>";
 		   	msg += "<div class='media-sm-wrapper bg-primary'>";
@@ -272,10 +292,6 @@
 					
 					<li><a class="sidenav-item-link" href="calendar.ins"> <i
 							class="mdi mdi-calendar-multiselect"></i> <span class="nav-text">일정</span>
-					</a></li>
-					
-					<li><a class="sidenav-item-link" href="dataForm.ins"> <i
-							class="mdi mdi-paperclip"></i> <span class="nav-text">자료</span>
 					</a></li>
 					
 					<li><a class="sidenav-item-link" href="taskForm.ins"> <i

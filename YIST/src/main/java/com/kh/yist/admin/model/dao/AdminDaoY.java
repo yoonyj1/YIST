@@ -7,7 +7,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
+import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Repository
 public class AdminDaoY {
@@ -39,6 +41,7 @@ public class AdminDaoY {
 		System.out.println("Dao: " + id);
 		return sqlSession.selectOne("adminMapper.selectTeacher", id);
 	}
+	
 	
 	public int selectStudentListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.selectStudentListCount");
@@ -81,5 +84,25 @@ public class AdminDaoY {
 	
 	public int deleteStudent(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.deleteStudent", id);
+	}
+	
+	public ArrayList<Member> selectStudentList(SqlSessionTemplate sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectStudentList", subject);
+	}
+	
+	public int updateStudentInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("adminMapper.updateStudentInfo", m);
+	}
+	
+	public int resultAt(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.resultAt", id);
+	}
+	
+	public ArrayList<Subject> selectSubject(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectSubject");
+	}
+	
+	public ArrayList<Exam> selectGrade(SqlSessionTemplate sqlSession, String subjectName) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectGrade", subjectName);
 	}
 }
