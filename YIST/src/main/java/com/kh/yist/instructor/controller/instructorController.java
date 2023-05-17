@@ -6,31 +6,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.yist.task.model.service.TaskService;
 import com.kh.yist.task.model.vo.Task;
 import com.kh.yist.task.model.vo.TaskSubmit;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.service.MemberServiceImpl;
+import com.kh.yist.member.model.service.MemberService;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.student.model.service.StudentService;
 
 @Controller
 public class instructorController {
@@ -86,7 +89,7 @@ public class instructorController {
 		Member ins = (Member) session.getAttribute("loginUser");
 
 		ArrayList<Exam> examList = tService.selectExamList(ins.getId());
-		ArrayList<Exam> memberList = tService.selectExamMemberList(ins.getSubject());
+		ArrayList<Member> memberList = mService.selectExamMemberList(ins.getSubject());
 
 		model.addAttribute("examList", examList);
 		model.addAttribute("memberList", memberList);
@@ -94,31 +97,6 @@ public class instructorController {
 		return "instructor/examForm";
 	}
 
-	// 시험 점수 등록
-	@RequestMapping("examSetScore.ins")
-	public String examSetScore(Exam exam, HttpSession session) {
-		
-		int result = tService.updateSetExamAnswer(exam);
-		
-		
-		if (result > 0) {
-			Alarm examAlarm = new Alarm();
-			examAlarm.setId(exam.getStudentId());
-			examAlarm.setAlarmType("시험");
-			examAlarm.setAlarmContent("[" + exam.getTestTitle() + "] 채점이 완료되었습니다.");
-			examAlarm.setStatus("N");
-			
-			tService.insertAlarm(examAlarm);
-			session.setAttribute("alertMsg", exam.getStudentId() + " 학생의 채점이 완료 되었습니다.");
-			
-			return "redirect:examForm.ins";
-		} else {
-			session.setAttribute("alertMsg", exam.getStudentId() + " 학생의 채점이 등록에 실패 하였습니다.");
-		}
-		
-		return "redirect:examForm.ins";
-	}
-	
 	@RequestMapping("teacher.ins")
 	public String teacher() {
 		return "instructor/teacher";
@@ -126,7 +104,8 @@ public class instructorController {
 
 	@ResponseBody
 	@RequestMapping("setExam.ins")
-	public int setExam(String data, int testNo, int setTime) {
+	public int setExam(int testNo) {
+		int result = tService.setExam(testNo);
 
 		int resultCount = 0;
 
@@ -168,7 +147,6 @@ public class instructorController {
 		} else {
 			return 0;
 		}
-		
 	}
 
 	@RequestMapping("calendar.ins")
@@ -189,9 +167,11 @@ public class instructorController {
 	public String main() {
 		return "instructor/main";
 	}
-	
-	
-	
+
+	@RequestMapping("yistcheck.ins")
+	public String yistcheck() {
+		return "instructor/yistcheck";
+	}
 
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
@@ -232,18 +212,22 @@ public class instructorController {
 	public String insertTask(Task task, MultipartFile upfile, HttpSession session, Model model) {
 
 		int insertTask = tService.insertTask(task);
+		int result = 0;
+
+		System.out.println("파일 적용됨??");
+		System.out.println(upfile.getOriginalFilename());
 
 		if (!upfile.getOriginalFilename().equals("")) {
 
 			if (insertTask > 0) {
-
+				
 				String changeName = saveFile(upfile, session);
-
+				
 				task.setOriginName(upfile.getOriginalFilename());
-
+				
 				task.setChangeName("resources/instructor/uploadFiles/" + changeName);
 
-				tService.insertTaskFile(task);
+				result = tService.insertTaskFile(task);
 
 			} else {
 				session.setAttribute("alertMsg", "과제 등록에 실패했습니다.");
@@ -259,14 +243,10 @@ public class instructorController {
 			ArrayList<Member> membList = mService.selectExamMemberList(member.getSubject());
 
 			for (Member m : membList) {
-				tService.insertTaskSubmit(m.getId());
-			}
-
-			for (Member m : membList) {
 				Alarm taskAlarm = new Alarm();
 				taskAlarm.setId(m.getId());
 				taskAlarm.setAlarmType("과제");
-				taskAlarm.setAlarmContent("[" + task.getTaskTitle() + "] 과제가 등록 되었습니다.");
+				taskAlarm.setAlarmContent("[" + task.getTaskTitle() + "] 과제 등록이 완료되었습니다.");
 				taskAlarm.setStatus("N");
 				tService.insertAlarm(taskAlarm);
 			}
@@ -282,7 +262,12 @@ public class instructorController {
 	@RequestMapping("update.task")
 	public String updateTask(Task task, MultipartFile reupfile, HttpSession session, Model model) {
 
+		System.out.println("----------------------수정==========================");
 
+		System.out.println(task);
+		
+		System.out.println(reupfile.getOriginalFilename());
+		
 		if (!reupfile.getOriginalFilename().equals("")) {// 수정할 첨부 파일이 있을 경우
 
 			if (task.getOriginName() != null) { // 원본 파일이 있을 경우
@@ -357,6 +342,8 @@ public class instructorController {
 
 		ArrayList<TaskSubmit> submitList = tService.selectSubmitList(taskNo);
 
+		// int taskSubmitCheck = tService.taskSubmitCheck(taskNo)
+
 		model.addAttribute("submitList", submitList);
 
 		return "instructor/detailTaskForm";
@@ -365,15 +352,12 @@ public class instructorController {
 	@RequestMapping("taskCheck.ins")
 	public String checkTaskSubmit(TaskSubmit ts, HttpSession session) {
 
-		System.out.println("과제 확ㅇ니~~~~");
-		System.out.println(ts);
-		
 		int result1 = tService.checkTaskSubmit(ts);
 		int result2 = 0;
 
 		if (result1 > 0) {
 			Alarm taskAlarm = new Alarm();
-			taskAlarm.setId(ts.getStudentId());
+			taskAlarm.setId(ts.getId());
 			taskAlarm.setAlarmType("과제");
 			taskAlarm.setAlarmContent("[" + ts.getTaskTitle() + "] 과제 확인이 완료되었습니다.");
 			taskAlarm.setStatus("N");
@@ -426,7 +410,7 @@ public class instructorController {
 		if (result > 0) {
 
 			session.setAttribute("loginUser", mService.selectTeacher(m));
-			session.setAttribute("alertMsg", "수정 완료");
+			session.setAttribute("alerMsg", "수정 완료");
 			return "redirect:teacher.ins";
 
 		} else {

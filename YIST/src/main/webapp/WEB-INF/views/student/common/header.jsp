@@ -81,7 +81,6 @@
 
 	<!-- 알람(과제, 시험) -->
 	<script type="text/javascript">
-		
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
 	
@@ -93,11 +92,8 @@
 			
 		}
 		
+		let loginUser = '${loginUser}';
 		let socket  = null;
-		
-		$(function(){
-			seletAlarmList();
-		})
 		
 		$(document).ready(function(){
 		    // 웹소켓 연결
@@ -107,23 +103,18 @@
 		    // 데이터를 전달 받았을때 
 		    sock.onmessage = onMessage; // toast 생성
 		    
-		    sock.onclose = function() {
-		        setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
-		    };
 		});
+		
 		
 		// 전달 받은 데이터
 		function onMessage(evt){
- 			
 			let data = evt.data;
 			
-			toastr.info(data); 
-
-			//seletAlarmList();
-			setTimeout(seletAlarmList, 300); // 웹소켓을 재연결하는 코드 삽입
+			toastr.info(data);	
+			
+			seletAlarmList();
 		}
 		
-		// 알람 조회
 		function seletAlarmList(){
 			let aList = [];
 			let count = 0;
@@ -138,16 +129,14 @@
 					} else {
 						notificationHTML = "<div><h2>알림</h2>";
 						for (let i in alarmList){
-							notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">" + alarmList[i].alarmContent + "</a></p>";
+							notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "\">" + alarmList[i].alarmContent + "</a></p>";
 							count++;
 						}
 						notificationHTML += "<br></div>";
 						
 						$("#alarm-badge").text(count);
 					}
-					
 				},
-				
 				error:function(){
 					alert("알람 조회 실패");
 				}
@@ -281,7 +270,9 @@
 	</header>
 	<!-- 알림창 -->
 	<script>
-
+ 		$(function(){
+ 			seletAlarmList();
+		}) 
 		
   		/* notificationHTML = `
 			<div>

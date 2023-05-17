@@ -155,9 +155,154 @@
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
+  <c:if test="${ not empty student_alertMsg }">
+		<script>
+			alert('${student_alertMsg}');
+		</script>
+		<c:remove var="student_alertMsg" scope="session" />
+	</c:if>
+	
+  
     <script>
         NProgress.configure({ showSpinner: false });
         NProgress.start();
+        
+     // 알람창 목록 
+        let notificationHTML; // 알림내용
+     
+        let socket  = null;
+        
+        $(function(){
+           seletAlarmList();
+        })
+        
+        $(document).ready(function(){
+            // 웹소켓 연결
+            sock = new SockJS("<c:url value="/echo-ws"/>");
+            socket = sock;
+           
+            // 데이터를 전달 받았을때 
+            sock.onmessage = onMessage; // toast 생성
+            
+            sock.onclose = function() {
+                setTimeout(socketInit, 300); // 웹소켓을 재연결하는 코드 삽입
+            };
+        });
+        
+        // 전달 받은 데이터
+        function onMessage(evt){
+            
+           let data = evt.data;
+           
+           toastr.info(data); 
+
+           //seletAlarmList();
+           setTimeout(seletAlarmList, 300); // 웹소켓을 재연결하는 코드 삽입
+        }
+        
+        // 알람 조회
+        function seletAlarmList(){
+           let aList = [];
+           let count = 0;
+           notificationHTML = "";
+           $.ajax({
+              url:'alarm.st',
+              success:function(alarmList){
+                 console.log(alarmList);
+                 console.log(alarmList.lenght);
+                 if(alarmList == null){
+                    count = 0;
+                 } else {
+                    notificationHTML = "<div><h2>알림</h2>";
+                    for (let i in alarmList){
+                       notificationHTML += "<p class=\"alarm\"><a href=\"alarmCheck.st?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">" + alarmList[i].alarmContent + "</a></p>";
+                       count++;
+                    }
+                    notificationHTML += "<br></div>";
+                    
+                    $("#alarm-badge").text(count);
+                 }
+                 
+              },
+              
+              error:function(){
+                 alert("알람 조회 실패");
+              }
+           }) 
+        }
+        
+        
+        function setExam(testNo, setTime){
+           $.ajax({
+              url:"setExam.st",
+              data:{
+                 testNo:testNo
+              },
+              success:function(result){
+                 if (result > 0){
+                    alert("시험이 시작되었습니다.");
+                    countdown('timeDisplay', setTime);
+                 } else {
+                    alert("시험 시작을 실패하였습니다.");
+                 }
+                 
+              },
+              error:function(){
+                 alert("setExam 통신 실패");
+              }
+           })
+        }   
+     
+        // 시험 시간 카운터
+        function countdown(elementId, seconds){
+          var element, endTime, hours, mins, msLeft, time;
+     
+          function updateTimer(){
+           msLeft = endTime - (+new Date);
+           if ( msLeft < 0 ) {
+              if ($("#timeDisplay").val() != ""){
+                   alert("시험종료");
+                   $("#timeDisplay").val("");   
+                   
+                   $("#testInsert").attr("action", "testInsert.st").submit();
+              }
+           } else {
+             time = new Date( msLeft );
+             hours = time.getUTCHours();
+             mins = time.getUTCMinutes();
+             /* element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2); */
+             element.innerText = "남은시간 : "+(hours ? hours + ':' + ('0' + mins).slice(-2) : mins) + ':' + ('0' + time.getUTCSeconds()).slice(-2);
+             setTimeout( updateTimer, time.getUTCMilliseconds());
+           }
+          }
+     
+          element = document.getElementById(elementId);
+          endTime = (+new Date) + 1000 * seconds;
+          updateTimer();
+        
+        }
+        
+        // 시험시작
+        function startExam(){
+           
+           let userTime = Math.round(new Date() / 1000);
+           
+           /* $.ajax({
+           url:"examTime.ins",
+           data:{
+              setTime:Number(setTime), 
+              userTime:Number(userTime)
+           },
+           success:function(result){
+              $(modalId).modal('hide');
+              setExam(testNo, setTime);
+              //countdown('timeDisplay', setTime);
+           },
+           error:function(){
+              alert("ajax 통신 실패");
+           }
+        }); */
+        }
       </script>
 
 
@@ -238,23 +383,35 @@
 					
 					<li class="has-sub">
 						<a class="sidenav-item-link" href="teacherList.do" >
-							<i class="fa-solid fa-person-chalkboard"></i>
+							<i class="fa-solid fa-chalkboard-user" style="color: #ffffff;"></i>
 							<span class="nav-text">강사관리</span>
 						</a>
 					</li>
 
 					<li class="has-sub">
-						<a class="sidenav-item-link"  href="studentList.do">
-							<i class="fa-solid fa-user"></i>
+						<a class="sidenav-item-link"  href="javascript:void(0)" data-toggle="collapse" data-target="#student-admin" aria-expanded="false" aria-controls="notice-admin">
+							<i class="fa-solid fa-chalkboard-user"></i> 
 							<span class="nav-text">학생관리</span>
+							<b class="caret"></b>
 						</a>
-					</li>
-					
-					<li class="has-sub">
-						<a class="sidenav-item-link"  href="gradeView.do">
-							<i class="fa-solid fa-pen-fancy"></i> 
-							<span class="nav-text">성적관리</span>
-						</a>
+						<ul class="collapse" id="student-admin" data-parent="#sidebar-menu">
+							<div class="sub-menu">
+
+								<li>
+									<a class="sidenav-item-link" href="studentList.do"> 
+										<span class="nav-text">학생조회</span>
+									</a>
+								</li>
+
+								<li>
+									<a class="sidenav-item-link" href="gradeView.do"> 
+										<span class="nav-text">성적조회</span>
+									</a>
+								</li>
+							
+								
+							</div>
+						</ul>
 					</li>
 					
 				</ul>
@@ -312,7 +469,7 @@
 						<!-- User Account -->
 						<li class="dropdown user-menu" >
 							<b style="font-weight:900; color:black; margin-right:20px">
-								<img src="${loginUser.image}"
+								<img src="${pageContext.request.contextPath}/resources/admin/images/user/user-xs-01.jpg"
 									class="user-image rounded-circle" alt="User Image" /> <span
 									class="d-none d-lg-inline-block">&nbsp;${ loginUser.name }</span>
 							</b>

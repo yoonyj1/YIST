@@ -77,30 +77,30 @@ button {
 	      </ul>
 	    </div> 
 	    <div style="text-align: right;">
-	      <button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="deleteSelected()">삭제하기</button>
-	    </div> 
-	    <div class="entry-content">
-	    <input type="hidden" class="form-control" id="id" name="id" value="${ loginUser.id }">
-	      <table id="taskList">
-	        <thead>
-	          <tr higth="20px">
-	            <th width="5%"></th>
-	            <th width="60%">제목</th>
-	            <th width="10%">작성일</th>
-	          </tr>
-	        </thead>
-	        <tbody>
-	          <tbody>
-				  <c:forEach var="t" items="${list}">
-				    <tr>
-				      <td><input type="checkbox" class="task-checkbox" data-taskno="${t.taskNo}"></td>
-				      <td>${t.taskTitle}</td>
-				      <td>${t.submitDate}</td>
-				    </tr>
-				  </c:forEach>
-	        </tbody>
-	      </table>
-	    </div>       
+		  <button type="button" class="btn btn-gray btn-theme-colored btn-circled" onclick="deleteSelected()">삭제하기</button>
+		</div> 
+		<div class="entry-content">
+		  <input type="hidden" class="form-control" id="id" name="id" value="${ loginUser.id }">
+		  <table id="taskList">
+		    <thead>
+		      <tr higth="20px">
+		        <th width="5%"></th>
+		        <th width="60%">제목</th>
+		        <th width="10%">작성일</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tbody>
+		        <c:forEach var="t" items="${list}">
+		          <tr>
+		            <td><input type="checkbox" class="task-checkbox" data-taskno="${t.taskNo}"></td>
+		            <td>${t.taskTitle}</td>
+		            <td>${t.submitDate}</td>
+		          </tr>
+		        </c:forEach>
+		      </tbody>
+		    </table>
+		</div>  
 	  </div>
 
 	<script>

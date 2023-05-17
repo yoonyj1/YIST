@@ -93,11 +93,12 @@ button {
                 </p>
               <div class="post-thumb" style="margin: 40px;">
                 <div class="fluid-video-wrapper">
-                  <video id="vid1" class="video-js vjs-big-play-button vjs-big-play-centered"
-				        data-setup='{"controls": true, "fluid": true, "autoplay": false, "muted": true, "playbackRates": [0.5, 1, 1.5, 2]}'>
-				        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-				        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
-				    </video>
+                  <!-- <video id="vid1" class="video-js vjs-big-play-button vjs-big-play-centered"
+			        data-setup='{"controls": true, "fluid": true, "autoplay": false, "muted": true, "playbackRates": [0.5, 1, 1.5, 2]}'>
+			        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+			        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+			      </video> -->
+			      <iframe width="1022" height="575" src="https://www.youtube.com/embed/iRZJHhjh8DU" title="WEB1 - 5. HTML코딩과 실습환경 준비" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
               </div>
               </div>

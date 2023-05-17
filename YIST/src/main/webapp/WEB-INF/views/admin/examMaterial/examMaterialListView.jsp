@@ -164,7 +164,7 @@
 
           </select>
 
-          <input type="text" name="keyword" value="${ keyword }" class="form-control rounded-pill" style="width:50%;">
+          <input type="text" name="keyword" class="form-control rounded-pill" style="width:50%;">
           <button type="submit" class="btn btn-outline-primary">검색</button>
         </form>
       </div>

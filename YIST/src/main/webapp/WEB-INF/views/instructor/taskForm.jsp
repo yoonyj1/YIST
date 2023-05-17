@@ -58,8 +58,9 @@
          	        
          	       if(start_date.getTime() > end_date.getTime()) {
         	            alert("종료날짜보다 시작날짜가 작아야합니다.");
-        	            return false;
         	       } else {
+        	    	   $("#insertForm").attr("action", "insert.task").submit();
+        	    	   
         	    	   let type = '과제';
 	       			   let title= $("#taskTitle").val();
 	       			   let target = "all";
@@ -67,10 +68,6 @@
 	       			   let sender = '${loginUser.getId()}';
 	       			   	
 	       			   sendAlarm(type, title,  target, content, sender);
-
-	       			   $("#insertForm").attr("action", "insert.task").submit();
-	       			   
-	       			   return true;
         	       }
             	}
             	
