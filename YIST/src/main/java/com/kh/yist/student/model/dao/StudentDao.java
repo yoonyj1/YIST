@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -78,6 +79,24 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectNotice", boardNo);
 	}
 
+	public int noticeSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		
+		return sqlSession.selectOne("studentMapper.noticeSearchCount", map);
+		
+	}
+	
+	public ArrayList<Notice> noticeSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		
+		int offset = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit();
+		
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.noticeSearchList", map, rowBounds);
+		
+	}
+	
 	// 동영상 게시판 목록 조회
 	public int videoListCount(SqlSessionTemplate sqlSession) {
 		
@@ -93,6 +112,24 @@ public class StudentDao {
 		RowBounds rewBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("studentMapper.selectVideoList", null, rewBounds);
+	}
+	
+	public int videoSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		
+		return sqlSession.selectOne("studentMapper.videoSearchCount", map);
+		
+	}
+	
+	public ArrayList<Video> videoSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		
+		int offset = ( pi.getCurrentPage() - 1 ) * pi.getBoardLimit();
+		
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("studentMapper.videoSearchList", map, rowBounds);
+		
 	}
 	
 	// 우리반 게시판 목록 조회

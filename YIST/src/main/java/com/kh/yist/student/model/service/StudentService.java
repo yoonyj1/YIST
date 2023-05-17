@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.yist.common.model.vo.PageInfo;
@@ -33,10 +34,18 @@ public interface StudentService {
 	ArrayList<Notice> selectList(PageInfo pi);
 
 	Notice selectNotice(int boardNo);
+	
+	int noticeSearchCount(HashMap<String, String> map);
+	
+	ArrayList<Notice> noticeSearchList(HashMap<String, String> map, PageInfo pi);
 
 	int boardListCount();
 
 	int videoListCount();
+	
+	int videoSearchCount(HashMap<String, String> map);
+	
+	ArrayList<Video> videoSearchList(HashMap<String, String> map, PageInfo pi);
 	
 	ArrayList<Video> selectVideoList(PageInfo pi);
 

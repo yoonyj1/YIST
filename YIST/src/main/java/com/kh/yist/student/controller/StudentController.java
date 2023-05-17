@@ -1,6 +1,7 @@
 package com.kh.yist.student.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import com.kh.yist.student.model.vo.QnA;
 import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
 import com.kh.yist.student.model.vo.Video;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
 public class StudentController {
@@ -184,6 +186,28 @@ public class StudentController {
 		return mv;
 	}
 
+	@RequestMapping("search.bo")
+	public ModelAndView noticeSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("condition",condition);
+		map.put("keyword", keyword);
+		
+		int listCount = sService.noticeSearchCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Notice> list = sService.noticeSearchList(map, pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("condition",condition);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pi", pi).setViewName("student/studentNoticeList");
+		
+		return mv;
+	}
+	
 	// 동영상 게시판 목록 조회
 	@RequestMapping("videoList.st")
 	public ModelAndView videoList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
@@ -201,6 +225,28 @@ public class StudentController {
 		return mv;
 	}
 
+	@RequestMapping("search.vi")
+	public ModelAndView videoSearch(String condition, String keyword,@RequestParam(value = "page", defaultValue = "1") int currentPage, ModelAndView mv) {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("condition",condition);
+		map.put("keyword", keyword);
+		
+		int listCount = sService.videoSearchCount(map);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Video> list = sService.videoSearchList(map, pi);
+		
+		mv.addObject("list", list);
+		mv.addObject("condition",condition);
+		mv.addObject("keyword", keyword);
+		mv.addObject("pi", pi).setViewName("student/studentVideoList");
+		
+		return mv;
+	}
+	
 	// 우리반 게시판 목록 조회
 	@RequestMapping("boardList.st")
 	public ModelAndView boardList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv,
@@ -231,7 +277,7 @@ public class StudentController {
 
 		int listCount = sService.materialListCount();
 
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Material> list = sService.materialList(pi);
 
@@ -245,7 +291,6 @@ public class StudentController {
 
 		int result = sService.increaseCount(mno);
 		
-		System.out.println(mno + "djhfkjsd");
 		if (result > 0) {
 			
 			Material m = sService.selectMaterial(mno);
@@ -494,7 +539,14 @@ public class StudentController {
 	}
 
 	@RequestMapping("myAttendance.st")
-	public String myAttendance() {
-		return "student/studentMyAttendance";
+	public ModelAndView myAttendance(Member m, HttpSession session, ModelAndView mv) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Member> ins = sService.selectIns(loginUser);
+		System.out.println(ins + "123");
+		mv.addObject("ins", ins).setViewName("student/studentMyAttendance");
+		
+		return mv;
 	}
 }

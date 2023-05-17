@@ -1,6 +1,7 @@
 package com.kh.yist.student.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -82,6 +83,16 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectNotice(sqlSession, boardNo);
 	}
 
+	@Override
+	public int noticeSearchCount(HashMap<String, String> map) {
+		return sDao.noticeSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Notice> noticeSearchList(HashMap<String, String> map, PageInfo pi) {
+		return sDao.noticeSearchList(sqlSession, map, pi);
+	}
+	
 	// 동영상 게시판 목록 조회
 	@Override
 	public int videoListCount() {
@@ -91,6 +102,16 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public ArrayList<Video> selectVideoList(PageInfo pi) {
 		return sDao.selectVideoList(sqlSession, pi);
+	}
+	
+	@Override
+	public int videoSearchCount(HashMap<String, String> map) {
+		return sDao.videoSearchCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<Video> videoSearchList(HashMap<String, String> map, PageInfo pi) {
+		return sDao.videoSearchList(sqlSession, map, pi);
 	}
 	
 	// 우리반 게시판 목록 조회

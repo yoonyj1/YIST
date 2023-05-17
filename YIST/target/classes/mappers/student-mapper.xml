@@ -233,15 +233,66 @@
 
 <!-- 공지사항 상세 조회 -->
 <select id="selectNotice" resultMap="noticeResultSet">
-		select
-			   board_no
-			 , board_title
-		     , board_writer
-		     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
-		     , board_content
-		  from notice
-		 where board_no = #{boardNo}
-	</select>
+	select
+		   board_no
+		 , board_title
+	     , board_writer
+	     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+	     , board_content
+	  from notice
+	 where board_no = #{boardNo}
+</select>
+
+<select id="noticeSearchCount" resultType="_int">
+	select
+			count(*)
+	  from
+	  		(
+	  				select
+					       board_no
+					     , board_title
+					     , board_writer
+					     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+					     , count
+					  from notice
+					 where status = 'Y'
+	 <if test="condition == 'writer'">
+	   and board_writer 
+	 </if>
+	 <if test="condition == 'title'">
+	   and board_title
+	 </if>
+	 <if test="condition == 'content'">
+	   and board_content
+	 </if>
+	   like '%' || #{ keyword } || '%'
+	)
+</select>
+
+<select id="noticeSearchList" resultMap="noticeResultSet">
+	select
+	       board_no
+	     , board_title
+	     , board_writer
+	     , to_char(create_date, 'YYYY-MM-DD') as "create_date"
+	     , count
+	  from notice
+	 where status = 'Y'
+	<choose>
+	 	<when test="condition == 'writer'">
+	   and board_writer 
+	 	</when>
+	 	<when test="condition == 'title'">
+	   and board_title
+	 	</when>
+		<otherwise>
+	   and board_content
+		</otherwise>
+	 </choose>
+	   	   like '%' || #{ keyword } || '%'
+	 order
+	    by board_no desc	
+</select>
 
 <!-- 동영상 게시판 목록 조회 -->
 <select id="videoListCount" resultType="_int">
@@ -262,6 +313,57 @@
 	 order
 	    by create_date desc
 </select>
+
+<select id="videoSearchCount" resultType="_int">
+  select count(*)
+	  from (
+	    select
+	      video_no,
+	      video_title,
+	      video_writer,
+	      video_content,
+	      video_src,
+	      to_char(create_date, 'YYYY-MM-DD') as "create_date"
+	    from video
+	    where 1=1
+	    <if test="condition == 'writer'">
+	      and video_writer like '%' || #{keyword} || '%'
+	    </if>
+	    <if test="condition == 'title'">
+	      and video_title like '%' || #{keyword} || '%'
+	    </if>
+	    <if test="condition == 'content'">
+	      and video_content like '%' || #{keyword} || '%'
+	    </if>
+	  )
+</select>
+
+<select id="videoSearchList" resultMap="videoResultSet">
+  select
+	    video_no,
+	    video_title,
+	    video_writer,
+	    video_content,
+	    video_src,
+	    to_char(create_date, 'YYYY-MM-DD') as "create_date"
+	  from video
+	  where 1=1
+	  <choose>
+	    <when test="condition == 'writer'">
+	      and video_writer like '%' || #{keyword} || '%'
+	    </when>
+	    <when test="condition == 'title'">
+	      and video_title like '%' || #{keyword} || '%'
+	    </when>
+	    <otherwise>
+	      and video_content like '%' || #{keyword} || '%'
+	    </otherwise>
+	  </choose>
+	  order by create_date desc
+</select>
+
+
+
 
 <!-- 우리반 게시판 목록 조회 (학습자료) -->
 <select id="boardListCount" resultType="_int">
