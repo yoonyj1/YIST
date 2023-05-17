@@ -86,6 +86,11 @@ public interface StudentService {
 	ArrayList<Task> selectMyTask(String id);
 	
 	int deleteMyTask(List<Integer> taskNoList);
+
+	// 시험 결과 조회
+	Exam selectExamResult(Exam exam);
+
+	Exam selectExamQuestion(Exam exam);
 	
 	int updateStudent(Member m);
 

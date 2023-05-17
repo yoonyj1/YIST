@@ -65,8 +65,9 @@ if (horBarChart2 !== null) {
   };
  
  
+let test = '${loginUser.id}';
   
-let grade = [{testTitle:'자바기초',testAvg:80}, {testTitle:'타입',testAvg:70}];
+let grade = [{testTitle:'자바',testAvg:80}, {testTitle:'타입',testAvg:70}];
 					
 for (let i in grade){
 	console.log(grade[i].testTitle);

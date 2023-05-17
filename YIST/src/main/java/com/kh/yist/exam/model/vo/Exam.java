@@ -13,6 +13,7 @@ public class Exam {
 
 	private int testNo;
 	private String id;
+	private String studentId;
 	private int subjectNo;
 	private String testTitle;
 	private String examDate;

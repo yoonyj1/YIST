@@ -212,13 +212,6 @@ public class StudentController {
 
 		ArrayList<Material> list = sService.boardList(pi);
 
-		// (초기 과제 리스트받아오기)
-		Member student = (Member) session.getAttribute("loginUser");
-
-		ArrayList<Task> taskList = sService.taskList(student);
-
-		mv.addObject("taskList", taskList);
-
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
 
 		return mv;

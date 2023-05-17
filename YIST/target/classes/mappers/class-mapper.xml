@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				        and BOARD_TITLE like '%'||#{ keyword }||'%'
 				    </when>    
 				    <otherwise>
-				        and BOARD_CONTENT like '%'||#{ keyword }||'%'
+				        and BOARD_NO like '%'||#{ keyword }||'%'
 				    </otherwise>
 				</choose>							 			
 	
