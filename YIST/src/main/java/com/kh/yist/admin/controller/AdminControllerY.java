@@ -138,10 +138,12 @@ public class AdminControllerY {
 	}
 	
 	@RequestMapping("gradeView.do")
-	public String gradeView(Model model) {
+	public String gradeView(Model model, String subjectName) {
 		ArrayList<Subject> list = aService.selectSubject();
-		System.out.println(list);
-		model.addAttribute("sList", list);
+		
+		ArrayList<Exam> tList = aService.selectGrade(subjectName);
+		
+		model.addAttribute("sList", list).addAttribute("tList", tList);
 		
 		return "admin/gradeView";
 	}
