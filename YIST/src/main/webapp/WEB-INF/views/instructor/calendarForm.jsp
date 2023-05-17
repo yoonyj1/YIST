@@ -459,9 +459,9 @@ select.filter {
 					<ul class="dropdown-menu1" role="menu"
 						aria-labelledby="dropdownMenu"
 						style="display: block; position: static; margin-bottom: 5px;">
-						<li><a tabindex="-1" href="#">전체</a></li>
-						<li><a tabindex="-1" href="#">강사</a></li>
-						<li><a tabindex="-1" href="#">학생</a></li>
+						<!-- <li><a tabindex="-1" href="#">전체</a></li> -->
+						<li><a tabindex="-1" href="#">일정추가</a></li>
+						<!-- <li><a tabindex="-1" href="#">학생</a></li> -->
 						<li class="divider"></li>
 						<li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 					</ul>
@@ -515,7 +515,7 @@ select.filter {
 									<label for="edit-type">구분</label> <select class="form-control"
 										type="text" name="edit-type" id="edit-type">
 										<option class="test1" value="카테고리1">전체</option>
-										<option value="카테고리2">강사</option>
+										<option value="카테고리2">일정추가</option>
 										<option value="카테고리3">학생</option>
 									</select>
 								</div>
@@ -563,11 +563,11 @@ select.filter {
 
 				<div class="panel panel-default">
 
-					<div class="panel-heading">
+					<!-- <div class="panel-heading">
 						<h3 class="panel-title">필터</h3>
-					</div>
+					</div> -->
 
-					<div class="panel-body">
+					<div class="panel-body" style="display: none;">
 
 						<div class="col-lg-6">
 							<label for="calendar_view">구분별</label>

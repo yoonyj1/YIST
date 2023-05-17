@@ -102,47 +102,37 @@ button {
             <tr higth="20px">
               <th width="10%">번호</th>
               <th width="35%">구분</th>
-              <th width="15%">평가일</th>
               <th width="15%">점수</th>
               <th width="25%">성취수준</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>프로그래밍 언어 활용</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>매우우수</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>데이터베이스 구현</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>매우우수</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>SQL활용</td>
-                <td>2022.11.02</td>
-                <td>96.00</td>
-                <td>매우우수</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>UI 디자인</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>요구사항 확인</td>
-                <td>2022.11.02</td>
-                <td></td>
-                <td></td>
-            </tr>
+        	<c:forEach var="e" items="${list}">
+        		<c:if test="${e.score < 999}">
+		            <tr>
+		                <td>${e.testNo}</td>
+		                <td>${e.testTitle}</td>
+		                <td>${e.score}</td>
+		                <c:choose>
+		                	<c:when test="${e.score > 89}">
+				                <td>매우우수</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 79}">
+		                		<td>우수</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 69}">
+		                		 <td>보통</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 59}">
+		                		<td>미흡</td>
+		                	</c:when>
+		                	<c:otherwise>
+		                		<td>매우 미흡</td>
+		                	</c:otherwise>
+		                </c:choose>
+		            </tr>
+        		</c:if>
+        	</c:forEach>
         </tbody>
       </table>
     </div>    

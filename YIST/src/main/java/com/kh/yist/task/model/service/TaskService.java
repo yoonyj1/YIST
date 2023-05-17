@@ -106,5 +106,17 @@ public class TaskService {
 	public ArrayList<Exam> selectExamScore(Member loginUser) {
 		return tDao.selectExamScore(sqlSession, loginUser);
 	}
+
+	public ArrayList<Exam> selectAjaxGradeList(Exam exam) {
+		return tDao.selectAjaxGradeList(sqlSession, exam);
+	}
+
+	public ArrayList<Alarm> selectInsAlarmList(String id) {
+		return tDao.selectInsAlarmList(sqlSession, id);
+	}
+
+	public int insAlarmCheck(int alarmNo) {
+		return tDao.insAlarmCheck(sqlSession, alarmNo);
+	}
 	
 }

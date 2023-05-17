@@ -172,9 +172,31 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectExamResult", exam);
 	}
 
+	// 시험 결과들 조회
+	
+	public ArrayList<Exam> selectExamResultList(SqlSessionTemplate sqlSession, Exam exam) {
+		return (ArrayList)sqlSession.selectList("studentMapper.selectExamResultList", exam);
+	}
+	
 	// 시험 답안 조회
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
+	}
+
+	// 알람 등록
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
+		return sqlSession.insert("studentMapper.insertAlarm", examAlarm);
+	}
+
+
+	// 시험 제출자 조회
+	public Member selectExamIns(SqlSessionTemplate sqlSession, Exam e) {
+		return sqlSession.selectOne("studentMapper.selectExamIns", e);
+	}
+
+	// 과제 제출자 조회
+	public Member selectTaskIns(SqlSessionTemplate sqlSession, Task t) {
+		return sqlSession.selectOne("studentMapper.selectTaskIns", t);
 	}
 }
 	

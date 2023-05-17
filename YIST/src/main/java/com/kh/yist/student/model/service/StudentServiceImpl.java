@@ -171,4 +171,26 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectExamQuestion(sqlSession, exam);
 	}
 
+	// 알람등록
+	@Override
+	public int insertAlarm(Alarm examAlarm) {
+		return sDao.insertAlarm(sqlSession, examAlarm);
+	}
+
+	// 시험 제출자조회
+	@Override
+	public Member selectExamIns(Exam e) {
+		return sDao.selectExamIns(sqlSession, e);
+	}
+
+	@Override
+	public Member selectTaskIns(Task t) {
+		return sDao.selectTaskIns(sqlSession, t);
+	}
+
+	@Override
+	public ArrayList<Exam> selectExamResultList(Exam e) {
+		return sDao.selectExamResultList(sqlSession, e);
+	}
+
 }

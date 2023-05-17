@@ -140,6 +140,18 @@ public class TaskDao {
 	public ArrayList<Exam> selectExamScore(SqlSessionTemplate sqlSession, Member loginUser) {
 		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamScore", loginUser);
 	}
+
+	public ArrayList<Exam> selectAjaxGradeList(SqlSessionTemplate sqlSession, Exam exam) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectAjaxGradeList", exam);
+	}
+
+	public ArrayList<Alarm> selectInsAlarmList(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectInsAlarmList", id);
+	}
+
+	public int insAlarmCheck(SqlSessionTemplate sqlSession, int alarmNo) {
+		return sqlSession.update("instructorMapper.insAlarmCheck", alarmNo);
+	}
 	
 
 }

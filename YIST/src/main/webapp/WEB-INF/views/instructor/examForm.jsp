@@ -177,7 +177,7 @@
 	<script>
 		function examSetForm(testNo){
 			let users = [];			
-			
+			let alarmUser = [];
 			let setTime = $('input[name="examSet"]:checked').val();
 
 			if ($('input:checkbox[name=mem_chk]:checked').length == 0){
@@ -185,16 +185,12 @@
 			} else if (!$('input[name="examSet"]').is(":checked")) { 
 				alert("시간을 설정해 주세요.");
 			} else {
-				$('input:checkbox[	name=mem_chk]').each(function (index) {
+				$('input:checkbox[name=mem_chk]').each(function (index) {
 					if($(this).is(":checked") == true){
 						users.push({"id":$(this).attr("id"), "status":$(this).next().next().val()});
+						alarmUser.push($(this).attr("id"));;
 				    }
 				})
-				
-				//let examUsers = {"users":users};
-				
-				console.log(users);
-				console.log("설정한 시간 : " + setTime);
 				
 				
  				 $.ajax({
@@ -217,6 +213,16 @@
 							$(modalId).attr("disabled", true);
 							
 							$(examModalId).modal('hide');
+							
+							for (let i in alarmUser){
+								let type = '시험';
+								let title = '자바시험3';
+								let target = alarmUser[i];
+								let content = "시험 응시가 가능합니다.";
+								let sender = '${loginUser.getId()}';
+
+								sendAlarm(type, title, target, content, sender);	
+							}
 							
 							alert("시험 설정을 완료했습니다.");
 							

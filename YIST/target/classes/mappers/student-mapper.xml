@@ -363,7 +363,30 @@
 		where alarm_no = #{alarmNo}
 	</update>	
 
-
+<!-- 알람등록 -->
+	<insert id="insertAlarm">
+		insert
+		into alarm
+		(
+		alarm_no
+		, id
+		, alarm_content
+		,
+		alarm_type
+		, status
+		, create_date
+		)
+		values
+		(
+		seq_ano.nextval
+		, #{id}
+		,
+		#{alarmContent}
+		, #{alarmType}
+		, 'N'
+		, sysdate
+		)
+	</insert>
 
 <!-- 우리반 게시판 QnA 목록 조회 -->
 <select id="qnaList" resultMap="qnaResultSet">
@@ -392,6 +415,21 @@
 	where test_no = #{testNo} and student_id = #{studentId}
 </select>
 
+<select id="selectExamResultList" resultMap="examResultSet">
+	select 
+			test_no
+		  , a1
+		  , a2
+		  , a3
+		  , a4
+		  , a5
+		  , score
+          , test_title
+	from exam_answer
+    join exam using (test_no)
+	where student_id = #{studentId}
+</select>
+
 <select id="selectExamQuestion" resultMap="examResultSet">
 	select
 			test_no
@@ -408,6 +446,20 @@
 	from exam_question
 	where test_no = #{testNo}
 </select>
+
+	<select id="selectExamIns" resultMap="memberResultSet">
+		select 
+		        id
+		from exam
+		where test_no = #{testNo}
+	</select>
+	
+	<select id="selectTaskIns" resultMap="memberResultSet">
+		select 
+		        id
+		from task
+		where task_no = #{taskNo}
+	</select>
 </mapper>
 
 
