@@ -176,8 +176,7 @@ public class StudentDao {
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 	// 알람 등록
 	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
@@ -194,21 +193,12 @@ public class StudentDao {
 	public Member selectTaskIns(SqlSessionTemplate sqlSession, Task t) {
 		return sqlSession.selectOne("studentMapper.selectTaskIns", t);
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
    // 마이페이지 내정보 수정
    public int updateStudent(SqlSessionTemplate sqlSession, Member m) {
       
       return sqlSession.update("studentMapper.updateStudent", m);
    }
-=======
->>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
-=======
->>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
-=======
->>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
-=======
->>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
+
 }
 	

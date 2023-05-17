@@ -84,9 +84,7 @@
 		
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
-	
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		function sendAlarm(type, title, target, content, sender) {
 
 			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
@@ -94,18 +92,9 @@
 			socket.send(type + "," + target + "," + msg + "," + sender);
 			
 		}
-		
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		let loginUser = '${loginUser}';
-=======
->>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
-=======
->>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
-=======
->>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
-=======
->>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
+
 		let socket  = null;
 		
 		$(function(){
