@@ -191,11 +191,14 @@ button {
 						   let today = new Date();
 						   let endDate;
 						   
+						   console.log("오늘 : " + today.getTime());
+						   
 						   if (list.length == 0) {
 								html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
 						   } else {
 							   for (let i in list) {
 									endDate = new Date(list[i].endDate);
+						   			console.log("마감일 : " + endDate.getTime());
 								    html += "<tr>";
 								    html += "<td>" + list[i].taskNo + "</td>";
 								    html += "<td>과제</td>";

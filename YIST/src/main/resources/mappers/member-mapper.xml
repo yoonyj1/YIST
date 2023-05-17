@@ -61,26 +61,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="loginMember" resultMap="memberResultSet">
 		select
-		id
-		, name
-		, pwd
-		, birth
-		, phone
-		, image
-		, email
-		, post
-		, address
-		, detail_address
-		, subject
-		, enroll_date
-		, start_date
-		, end_date
-		, status
-		, sort
-		, employee_date
+			id
+			, name
+			, pwd
+			, birth
+			, phone
+			, image
+			, email
+			, post
+			, address
+			, detail_address
+			, subject
+			, enroll_date
+			, start_date
+			, end_date
+			, status
+			, sort
+			, employee_date
 		from member
-		where id = #{id} and pwd = #{pwd} and status
-		= 'Y' and sort = #{sort}
+		where id = #{id} and pwd = #{pwd} and (status= 'Y' or status= 'A') and sort = #{sort}
 	</select>
 
 	<insert id="insertMember" parameterType="Member">

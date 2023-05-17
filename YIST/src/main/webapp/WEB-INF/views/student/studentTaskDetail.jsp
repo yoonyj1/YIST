@@ -112,7 +112,7 @@ button {
 										<p style="height: auto">${ t.taskContent }</p>
 									</c:when>
 									<c:otherwise>
-										<img alt="" src="${t.changeName}">
+										<img alt="" src="${pageContext.request.contextPath}/${t.changeName}">
 									</c:otherwise>
 								</c:choose>
 							</div>

@@ -86,7 +86,7 @@
 	                    		<a href="#" class="btn btn-gray btn-circled" disabled="disabled">결과확인</a>
 	                		</c:when>
 	                		<c:otherwise>
-	                			<button class="btn btn-danger btn-circled" disabled="disabled">평가완료</button>
+	                			<button class="btn btn-danger btn-circled" disabled="disabled">준비중</button>
 	                			<c:choose>
 	                				<c:when test="${e.score == 999}">
 	                					<button class="btn btn-primary btn-circled" disabled="disabled">결과확인</button>

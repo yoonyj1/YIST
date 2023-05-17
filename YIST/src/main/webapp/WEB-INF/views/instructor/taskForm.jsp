@@ -414,10 +414,10 @@
 									    <textarea class="taskContent form-control" id="exampleFormControlTextarea1" rows="3" name="taskContent" >${t.taskContent}</textarea>
 									  </div>
 									  	<input type="hidden" name="fileNo" value="${t.fileNo}">
-									  	<c:if test="${ t.changeName ne 'none' }">
+									  	<c:if test="${ not empty t.changeName}">
 									  		<div class="card">
 									  			<label for="">원본 이미지</label>
-									  			<img src="${t.changeName }" class="card-img-top" alt="...">
+									  			<img src="${pageContext.request.contextPath}/${t.changeName }" class="card-img-top" alt="...">
 									  		</div>
 									  	</c:if>
 									  	

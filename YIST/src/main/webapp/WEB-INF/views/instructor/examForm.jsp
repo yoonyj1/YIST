@@ -90,18 +90,15 @@
 																<div class="col">
 																	<label class="text-primary">시간설정</label>
 																	<div class="form-check">
-																		<input type="radio" name="examSet" id="examSet1"
-																			value="60" checked> <label for="examSet1">
+																		<input type="radio" name="examSet" id="examSet1" value="60"> <label for="examSet1">
 																			1분 </label>
 																	</div>
 																	<div class="form-check">
-																		<input type="radio" name="examSet" id="examSet2"
-																			value="120"> <label for="examSet2"> 2분
+																		<input type="radio" name="examSet" id="examSet2" value="120"> <label for="examSet2"> 2분
 																		</label>
 																	</div>
 																	<div class="form-check">
-																		<input type="radio" name="examSet" id="examSet3"
-																			value="180"> <label for="examSet3"> 3분
+																		<input type="radio" name="examSet" id="examSet3" value="180"> <label for="examSet3"> 3분
 																		</label>
 																	</div>
 																</div>
@@ -181,14 +178,15 @@
 		function examSetForm(testNo){
 			let users = [];			
 			
-			let setTime = $('input[name=examSet]:checked').val();
+			let setTime = $('input[name="examSet"]:checked').val();
 
 			if ($('input:checkbox[name=mem_chk]:checked').length == 0){
 				alert("응시할 학생을 선택해주세요.");
+			} else if (!$('input[name="examSet"]').is(":checked")) { 
+				alert("시간을 설정해 주세요.");
 			} else {
-				$('input:checkbox[name=mem_chk]').each(function (index) {
+				$('input:checkbox[	name=mem_chk]').each(function (index) {
 					if($(this).is(":checked") == true){
-						console.log($(this).attr("id"));						
 						users.push({"id":$(this).attr("id"), "status":$(this).next().next().val()});
 				    }
 				})
@@ -196,6 +194,8 @@
 				//let examUsers = {"users":users};
 				
 				console.log(users);
+				console.log("설정한 시간 : " + setTime);
+				
 				
  				 $.ajax({
 					url:'setExam.ins',
