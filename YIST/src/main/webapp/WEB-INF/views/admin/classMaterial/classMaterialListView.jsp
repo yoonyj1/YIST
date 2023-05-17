@@ -160,7 +160,7 @@
                       <option value="no">자료번호</option>
                     </select>
 
-                    <input type="text" class="form-control rounded-pill" name="keyword" style="width:50%;">
+                    <input type="text" class="form-control rounded-pill" name="keyword" value="${ keyword }" style="width:50%;">
                     <button type="submit" class="btn btn-outline-primary">검색</button>
 
                   </form>
