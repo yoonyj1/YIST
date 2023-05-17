@@ -96,11 +96,14 @@
 		}
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let loginUser = '${loginUser}';
 =======
 >>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
 =======
 >>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
+=======
+>>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
 =======
 >>>>>>> parent of ba0ecb7 (Merge branch 'main' of https://github.com/jojinwon96/YIST)
 		let socket  = null;
