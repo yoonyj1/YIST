@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -29,6 +30,7 @@ import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.subject.model.vo.Subject;
 
 @Controller
 public class AdminControllerY {
@@ -137,9 +139,9 @@ public class AdminControllerY {
 	
 	@RequestMapping("gradeView.do")
 	public String gradeView(Model model) {
-		ArrayList<Exam> list = aService.selectGrade();
-		
-		model.addAttribute("tl", list);
+		ArrayList<Subject> list = aService.selectSubject();
+		System.out.println(list);
+		model.addAttribute("sList", list);
 		
 		return "admin/gradeView";
 	}
@@ -214,5 +216,11 @@ public class AdminControllerY {
 		return "redirect:/";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="gradeShow.do", produces="application/json; charset=utf-8")
+	public String selectGrade(String subjectName) {
+		ArrayList<Exam> list = aService.selectGrade(subjectName);
+		return new Gson().toJson(list);
+	}
     
 }
