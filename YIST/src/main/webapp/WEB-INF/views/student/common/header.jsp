@@ -83,7 +83,7 @@
 	<script type="text/javascript">
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
-	
+		let loginUser = '${loginUser}'
 		let socket  = null;
 		
 		$(document).ready(function(){

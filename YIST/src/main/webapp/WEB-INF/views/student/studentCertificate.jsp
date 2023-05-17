@@ -103,7 +103,7 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-body">
-	        <img id="certificateImage" alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/certificate.jpg">
+	        <img id="certificateImage" alt="" src="${pageContext.request.contextPath}/resources/student/images/yist/수료증.jpg">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

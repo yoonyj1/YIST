@@ -71,41 +71,29 @@ button {
 	        <li class="classroom"><p class="mb-15">2022. 10. 18 ~ 2023. 05. 19 09:00~15:30 (김시연 강사)</p></li>
 	      </ul>
 	    </div> 
+	   <c:if test="${not empty loginUser.id and loginUser.id eq q.boardWriter }">
 	    <div align="right">
 	      <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
 	        <a class="btn btn-primary" onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
 	        <a class="btn btn-danger" onclick="">삭제하기</a>
 	    </div>
+	   </c:if>
 	    <div class="entry-content">
 	      <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
 	        <tr>
 	            <th style="text-align: center;">제목</th>
-	            <td colspan="3" style="text-align: left;">자습실 이용시 주의사항</td>
+	            <td colspan="3" style="text-align: left;">${ q.boardTitle }</td>
 	        </tr>
 	        <tr>
 	            <th width="10%" style="text-align: center;">작성자</th>
-	            <td width="40%" style="text-align: left;">이유나</td>
+	            <td width="40%" style="text-align: left;">${ q.boardWriter }</td>
 	            <th width="10%" style="text-align: center;">작성일</th>
-	            <td width="40%" style="text-align: left;">2023-03-27</td>
+	            <td width="40%" style="text-align: left;">${ q.createDate }</td>
 	        </tr>
 	        <tr>
 	            <td colspan="4">
 	              <div style="padding: 50px; font-size: 18px; line-height: 2;">
-	                <p style="height:auto">
-	                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-	                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-	                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-	                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-	                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-	                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-	                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-	                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-	                  코로나19로 인한 정부지침으로 교육원 내 취식을 금지합니다. <br>
-	                  ※ ​ 감염병예방법 제49조(감염병의 예방조치), 제83조(과태료) <br>
-	                  최근 KH정보교육원1관 5층 자습실에서 일부 훈련생분들이 음식 취식을 하는 경우가 있습니다. <br>
-	                  교육원에서 취식하는 경우 방역 수칙 위반에 해당되므로, 교육원에서 취식을 삼가해주시길 바랍니다. <br>
-	                  * 단 물, 음료 섭취는 허용
-	              </p>
+	                <p style="height:auto">${ q.boardContent }</p>
 	              </div>
 	            </td>
 	        </tr>
@@ -119,39 +107,80 @@ button {
 	          </th>
 	        </tr>
 	        <tr>
-	          
 	            <th colspan="2">
 	                <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
 	            </th>
 	            <th style="vertical-align: middle; text-align: center;">
-	              <button type="button" class="btn btn-default" style="height: 100%; width: 100%; background-color: #e6f4fd;">등록하기</button>
+	              <button type="button" class="btn btn-default" style="height: 100%; width: 100%; background-color: #e6f4fd;" onclick="addReply();">등록하기</button>
 	            </th>
 	        </tr>
 	      </thead>
 	      <tbody>
-	          <tr>
-	              <th style="text-align: center;">user02</th>
-	              <td style="text-align: left;">댓글입니다.너무웃기다앙</td>
-	              <td>2023-03-03</td>
-	          </tr>
-	          <tr>
-	              <th style="text-align: center;">user01</th>
-	              <td style="text-align: left;">많이봐주세용</td>
-	              <td>2023-01-08</td>
-	          </tr>
-	          <tr>
-	              <th style="text-align: center;">admin</th>
-	              <td style="text-align: left;">댓글입니다ㅋㅋㅋ</td>
-	              <td>2022-12-02</td>
-	          </tr>
 	      </tbody>
 	     </table>
 	     <div style="text-align: center; margin: 50px;">
-	      <a href="#" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
+	      <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
 	    </div> 
     </div>       
   </div>
   
+  
+  	<!-- 댓글 -->
+  	<script>
+    	$(function() {
+			selectReplyList(); // 화면이 랜더링 되자마다 댓글 조회를 하겠다
+		})
+		
+		function addReply() { // 댓글작성용 ajax
+			if ($("#content").val().trim().length != 0) { // 유효한 댓글 작성시 => insert ajax 요청
+				
+				$.ajax({
+					url: "rinsert.bo",
+					data: {
+						boardNo: ${ q.boardNo},
+						replyContent: $("#content").val(),
+						replyWriter: '${ loginUser.id }' // 문자열은 이렇게 묶어야함
+					}, 
+					success: function(status) {
+						if (status == "success") {
+							selectReplyList(); // 등록 버튼 클릭시 리스트 조회
+							$("#content").val(""); // 댓글창에 작성한 댓글 초기화
+						}
+					},
+					error: function() {
+						console.log("댓글 작성용 ajax 통신 실패!");
+					}
+				})
+			} else {
+				alertify.alert("댓글 작성 후 등록 요청해주세요!");
+			} 
+		}
+		
+		function selectReplyList() { // 해당 게시글에 달린 댓글리스트 조회용 ajax
+			$.ajax({
+				url: "rlist.bo",
+				data: {qno: ${ q.boardNo }},
+				success: function(list) {
+					console.log(list);
+					
+					let value = "";
+					
+					for ( let i in list) {
+						value += "<tr>"
+							   + "<th style='text-align: center; width: 15%'>" + list[i].replyWriter + "</th>"
+							   + "<td style='text-align: left;'>" + list[i].replyContent + "</td>"
+							   + "<td>" + list[i].replyDate + "</td>"
+							   + "</tr>";
+					}
+					
+					$("#replyArea tbody").html(value);
+				},
+				error: function() {
+					console.log("댓글 리스트 조회용 ajax 통신 실패!");
+				}
+			});
+		}
+    </script>
   <jsp:include page="common/footer.jsp"/>
 </body>
 </html>
