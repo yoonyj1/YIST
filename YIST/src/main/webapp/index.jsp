@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,41 +89,33 @@ div.title .titleP {
 </head>
 <body>
 
-	<c:if test="${ not empty alertMsg }">
-		<script>
-			alert('${alertMsg}');
-		</script>
-		<c:remove var="alertMsg" scope="session" />
-	</c:if>
+  	<div class="contents">
+        <div class="title">
+            <h6 align="center">YIST</h6>
+            <p class="titlep" align="center">
+            
+                YIST 에서는 수강생들을 위해 다양한 할인혜택과 정부 지원 서비를 연계하여<br>
+                온-오프라인의 수강료 절감 등 다양한 혜택과 부가 서비스를 제공하고 있습니다.
+            </p>
+        </div>
+        <div class="logincell">
+            <ul>
+                <li>
+                    <p>학생 로그인</p>
+                    <a href="login.ins?sort=3" class="next_join" title="다음단계"><button class="sbtn">로그인</button></a>
+                </li>
+                <li>
+                    <p>강사 로그인</p>
+                    <a href="login.ins?sort=2" class="next_join" title="다음단계"><button class="tbtn">로그인</button></a>
+                </li>
+                <li>
+                    <p>관리자 로그인</p>
+                    <a href="login.ins?sort=1" class="next_join" title="다음단계"><button class="gbtn">로그인</button></a>
+                </li>
+            </ul>
+        </div>   
 
-	<div class="contents">
-		<div class="title">
-			<h6 align="center">YIST</h6>
-			<p class="titlep" align="center">
-
-				YIST 에서는 수강생들을 위해 다양한 할인혜택과 정부 지원 서비를 연계하여<br> 온-오프라인의 수강료 절감 등
-				다양한 혜택과 부가 서비스를 제공하고 있습니다.
-			</p>
-		</div>
-		<div class="logincell">
-			<ul>
-				<li>
-					<p>학생 로그인</p> <a href="login.ins?sort=3" class="next_join"
-					title="다음단계"><button class="sbtn">로그인</button></a>
-				</li>
-				<li>
-					<p>강사 로그인</p> <a href="login.ins?sort=2" class="next_join"
-					title="다음단계"><button class="tbtn">로그인</button></a>
-				</li>
-				<li>
-					<p>관리자 로그인</p> <a href="login.ins?sort=1" class="next_join"
-					title="다음단계"><button class="gbtn">로그인</button></a>
-				</li>
-			</ul>
-		</div>
-
-		
-	</div>
+    </div> 
 
 </body>
 </html>

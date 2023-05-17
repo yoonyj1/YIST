@@ -136,7 +136,7 @@ button {
 			  value += "<th width='5%'>번호</th>";
 			  value += "<th width='15%'>카테고리</th>";
 			  value += "<th width='45%'>제목</th>";
-			  value += "<th width='15%'>작성자</th>";
+			  value += "<th width='10%'>작성자</th>";
 			  value += "<th width='10%'>작성일</th>";
 			  value += "<th width='10%'>조회수</th>";
 			  value += "</tr>";
@@ -148,9 +148,9 @@ button {
 			} else {
 				for ( var i in list) {
 					html += "<tr>";
-					html += "<td>" + list[i].boardNo + "</td>";
+					html += "<td class='mno'>" + list[i].boardNo + "</td>";
 					html += "<td>학습자료</td>";
-					html += "<td>" + list[i].boardTitle + "</td>";
+					html += "<td><a href=materialDetail.st?materialNo=" + list[i].boardNo + ">" + list[i].boardTitle + "</a></td>";
 					html += "<td>" + list[i].boardWriter + "</td>";
 					html += "<td>" + list[i].createDate + "</td>";
 					html += "<td>" + list[i].count + "</td>";
@@ -167,71 +167,71 @@ button {
 	 
 	// 과제
 	 function showTask() {
-			 	 $.ajax({
-					  url: "taskList.st",
-					  type: "POST",
-					  success: function(list) {
-						  $("#task").css("background", "#c1e5fb");
-						  $("#materials").css("background", "white");
-						  $("#qna").css("background", "white");
-						  
-						  var html = "";
-						  var value = "";
-						  
-						  value += "<tr higth='20px'>";
-						  value += "<th width='5%'>번호</th>";
-						  value += "<th width='15%'>카테고리</th>";
-						  value += "<th width='30%'>제목</th>";
-						  value += "<th width='15%'>작성자</th>";
-						  value += "<th width='20%'>기간</th>";
-						  value += "<th width='15%'>상태</th>";
-						  value += "</tr>";
-						  
-						  $("#result thead").html(value);
-						   let today = new Date();
-						   let endDate;
-						   
-						   if (list.length == 0) {
-								html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
-						   } else {
-							   for (let i in list) {
-									endDate = new Date(list[i].endDate);
-								    html += "<tr>";
-								    html += "<td>" + list[i].taskNo + "</td>";
-								    html += "<td>과제</td>";
-								    html += "<td><a href=taskDetail.st?taskNo=" + list[i].taskNo + ">" + list[i].taskTitle + "</a></td>";
-								    html += "<td>" + list[i].id + "</td>";
-								    html += "<td>" + list[i].startDate + "~" + list[i].endDate + "</td>";
-								    if (today.getTime() > endDate.getTime()){
-								    	if(list[i].submitContent != null){
-								    		if (list[i].status == 'Y'){
-								    			html += "<td style=\"color:red;\">마감/확인</td>";
-								    		} else {
-									    		html += "<td style=\"color:red;\">마감/제출</td>";
-								    		}
-								    	} else {
-										    html += "<td style=\"color:red;\">마감/미제출</td>";
-								    	}
-								    } else {
-								    	if(list[i].submitContent != null){
-								    		if (list[i].status == 'Y'){
-								    			html += "<td style=\"color:blue;\">진행중/확인</td>";
-								    		} else {
-									    		html += "<td style=\"color:blue;\">진행중/제출</td>";
-								    		}
-								    	} else {
-										    html += "<td style=\"color:blue;\">진행중/미제출</td>";
-								    	}
-								    }
-								    html += "</tr>";
-								}
-								$("#result tbody").html(html);
-						   }
-					  },
-					  error : function(jqXHR, textStatus, errorThrown) {
-		              	  console.log("Error: " + textStatus + " " + errorThrown);
-				  	  }
-				 })
+	 	 $.ajax({
+			  url: "taskList.st",
+			  type: "POST",
+			  success: function(list) {
+				  $("#task").css("background", "#c1e5fb");
+				  $("#materials").css("background", "white");
+				  $("#qna").css("background", "white");
+				  
+				  var html = "";
+				  var value = "";
+				  
+				  value += "<tr higth='20px'>";
+				  value += "<th width='5%'>번호</th>";
+				  value += "<th width='15%'>카테고리</th>";
+				  value += "<th width='30%'>제목</th>";
+				  value += "<th width='15%'>작성자</th>";
+				  value += "<th width='20%'>기간</th>";
+				  value += "<th width='15%'>상태</th>";
+				  value += "</tr>";
+				  
+				  $("#result thead").html(value);
+				   let today = new Date();
+				   let endDate;
+				   
+				   if (list.length == 0) {
+						html += "<tr><td colspan='6' align='center'>존재하는 글이 없습니다</td></tr>";
+				   } else {
+					   for (let i in list) {
+							endDate = new Date(list[i].endDate);
+						    html += "<tr>";
+						    html += "<td>" + list[i].taskNo + "</td>";
+						    html += "<td>과제</td>";
+						    html += "<td><a href=taskDetail.st?taskNo=" + list[i].taskNo + ">" + list[i].taskTitle + "</a></td>";
+						    html += "<td>" + list[i].id + "</td>";
+						    html += "<td>" + list[i].startDate + "~" + list[i].endDate + "</td>";
+						    if (today.getTime() > endDate.getTime()){
+						    	if(list[i].submitContent != null){
+						    		if (list[i].status == 'Y'){
+						    			html += "<td style=\"color:red;\">마감/확인</td>";
+						    		} else {
+							    		html += "<td style=\"color:red;\">마감/제출</td>";
+						    		}
+						    	} else {
+								    html += "<td style=\"color:red;\">마감/미제출</td>";
+						    	}
+						    } else {
+						    	if(list[i].submitContent != null){
+						    		if (list[i].status == 'Y'){
+						    			html += "<td style=\"color:blue;\">진행중/확인</td>";
+						    		} else {
+							    		html += "<td style=\"color:blue;\">진행중/제출</td>";
+						    		}
+						    	} else {
+								    html += "<td style=\"color:blue;\">진행중/미제출</td>";
+						    	}
+						    }
+						    html += "</tr>";
+						}
+						$("#result tbody").html(html);
+				   }
+			  },
+			  error : function(jqXHR, textStatus, errorThrown) {
+              	  console.log("Error: " + textStatus + " " + errorThrown);
+		  	  }
+		 })
 			
 	 }	
 	 
@@ -253,10 +253,9 @@ button {
 				  value += "<tr higth='20px'>";
 				  value += "<th width='5%'>번호</th>";
 				  value += "<th width='15%'>카테고리</th>";
-				  value += "<th width='45%'>제목</th>";
+				  value += "<th width='50%'>제목</th>";
 				  value += "<th width='15%'>작성자</th>";
-				  value += "<th width='10%'>작성일</th>";
-				  value += "<th width='10%'>조회수</th>";
+				  value += "<th width='15%'>작성일</th>";
 				  value += "</tr>";
 				  
 				  $("#result thead").html(value);
@@ -268,10 +267,9 @@ button {
 						html += "<tr>";
 						html += "<td>" + list[i].boardNo + "</td>";
 						html += "<td>Q&A</td>";
-						html += "<td>" + list[i].boardTitle + "</td>";
+					    html += "<td><a href=qnaDetail.st?qno=" + list[i].boardNo + ">" + list[i].boardTitle + "</a></td>";
 						html += "<td>" + list[i].boardWriter + "</td>";
 						html += "<td>" + list[i].createDate + "</td>";
-						html += "<td>" + list[i].count + "</td>";
 						html += "</tr>";
 					}
 					$("#result tbody").html(html);

@@ -13,7 +13,6 @@ public class TaskSubmit {
 
 	private int taskNo;
 	private String id;
-	private String studentId;
 	private String taskTitle;
 	private String submitContent;
 	private String name;

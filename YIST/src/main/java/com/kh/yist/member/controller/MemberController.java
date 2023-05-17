@@ -57,7 +57,7 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session , Model model) {
 		
-		System.out.println("sort 몇번? " + memSort);
+		System.out.println("sort 적용 됬나 ? " + memSort);
 		
 		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
@@ -65,11 +65,11 @@ public class MemberController {
 		
 		System.out.println(loginUser);
 		
-		if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) { 
-			System.out.println("로그인성공");
+		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
+			System.out.println("로그인실패");
 			loginCheck = false;
 			return "redirect:login.ins?sort=" + memSort;
-		} else { 
+		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
 
 			boolean hasMember = true;
 			
@@ -77,9 +77,9 @@ public class MemberController {
 			
 			System.out.println("m.getSort() : " + m.getSort());
 			
-			if (m.getSort() == 1) { 
+			if (m.getSort() == 1) { // 관리자
 				mainPage = "admin/common/header";
-			} else if(m.getSort() == 2) { 
+			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
 				System.out.println("학생입니당");

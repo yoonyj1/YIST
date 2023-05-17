@@ -32,12 +32,7 @@ public interface MemberService {
 	
 	int updateMessage(String userId);
 	
-	//출석 조회
 	ArrayList<Member> selectList();
-	ArrayList<Member> selectList2(String subject);
-	
-	int getYCount();
-	int getNCount();
 	
 	//선생정보 수정
 	int updateTeacher(Member m);
@@ -52,11 +47,5 @@ public interface MemberService {
 	
 	// 담당 강사에서 해제
 	int deleteInstructor(String id);
-	
-	//학생정보조회(선생)
-	Member selectStudentList(String id);
-	
-	//그날짜 학생 출결 조회
-	ArrayList<Member> selectStudentList2(String DATE);
 
 }

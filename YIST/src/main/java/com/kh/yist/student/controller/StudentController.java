@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
+import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentService;
@@ -38,7 +39,9 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
+import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
+import com.kh.yist.student.model.vo.Video;
 
 @Controller
 public class StudentController {
@@ -48,6 +51,9 @@ public class StudentController {
 	
 	@Autowired
 	private MailSendService mailService;
+	
+	@Autowired
+	private MemberServiceImpl mService;
 	
 
 	@RequestMapping("main.st")
@@ -165,17 +171,34 @@ public class StudentController {
 	@RequestMapping("noticeDetail.st")
 	public ModelAndView selectNotice(int nno, ModelAndView mv) {
 
-		Notice n = sService.selectNotice(nno);
-		System.out.println(n);
-
-		mv.addObject("n", n).setViewName("student/studentNoticeDetail");
+		int result = sService.increaseCount(nno);
+		
+		if (result > 0) {
+			
+			Notice n = sService.selectNotice(nno);
+			System.out.println(n);
+			
+			mv.addObject("n", n).setViewName("student/studentNoticeDetail");
+		}
 
 		return mv;
 	}
 
+	// 동영상 게시판 목록 조회
 	@RequestMapping("videoList.st")
-	public String videoList() {
-		return "student/studentVideoList";
+	public ModelAndView videoList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
+		
+		int listCount = sService.videoListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Video> list = sService.selectVideoList(pi);
+		
+		System.out.println(list);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentVideoList");
+		
+		return mv;
 	}
 
 	// 우리반 게시판 목록 조회
@@ -189,6 +212,13 @@ public class StudentController {
 
 		ArrayList<Material> list = sService.boardList(pi);
 
+		// (초기 과제 리스트받아오기)
+		Member student = (Member) session.getAttribute("loginUser");
+
+		ArrayList<Task> taskList = sService.taskList(student);
+
+		mv.addObject("taskList", taskList);
+
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
 
 		return mv;
@@ -197,11 +227,33 @@ public class StudentController {
 	// 우리반 게시판 학습자료 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "MaterialList.st", produces = "application/json; charset=UTF-8")
-	public String MaterialList() {
+	public String MaterialList(int currentPage) {
 
-		ArrayList<Material> list = sService.MaterialList();
+		int listCount = sService.materialListCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		
+		ArrayList<Material> list = sService.materialList(pi);
 
 		return new Gson().toJson(list);
+	}
+	
+	// 학습자료 상세 조회
+	@ResponseBody
+	@RequestMapping("materialDetail.st")
+	public ModelAndView selectMaterial(int mno, ModelAndView mv) {
+
+		int result = sService.increaseCount(mno);
+		
+		System.out.println(mno + "djhfkjsd");
+		if (result > 0) {
+			
+			Material m = sService.selectMaterial(mno);
+			
+			mv.addObject("m", m).setViewName("student/studentMaterialsDetail");
+		}
+
+		return mv;
 	}
 
 	// 우리반 게시판 과제 목록조회
@@ -297,9 +349,9 @@ public class StudentController {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-		// 학생 알람 모델
-		ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
-		
+	// 학생 알람 모델
+	ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
+	
 		return new Gson().toJson(alarmList);
 	}
 	
@@ -326,10 +378,71 @@ public class StudentController {
 
 		return new Gson().toJson(list);
 	}
+	
+	// Q&A 게시판 상세 조회
+	@RequestMapping("qnaDetail.st")
+	public ModelAndView selectQna(int qno, ModelAndView mv) {
+	
+		QnA q = sService.selectQna(qno);
+		System.out.println(q);
 
+		if (q != null) {
+			
+			mv.addObject("q", q).setViewName("student/studentQnaDetail");
+			
+		} else {
+			
+			mv.setViewName("student/common/errorPage");
+			
+		}
+
+		return mv;
+	}
+
+	// Q&A 게시판 댓글 등록
+	@ResponseBody
+	@RequestMapping("rinsert.bo")
+	public String ajaxInsertReply(Reply r) {
+
+		int result = sService.insertReply(r);
+		
+		return result > 0 ? "success" : "fail";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int qno) {
+		
+		ArrayList<Reply> list = sService.selectReplyList(qno);
+		
+		return new Gson().toJson(list);
+	}
+	
 	@RequestMapping("myPage.st")
 	public String myPage() {
 		return "student/studentMyPage";
+	}
+	
+	// 마이페이지 정보 수정
+	@RequestMapping("update.st")
+	public String updateStudent(Member m, HttpSession session, Model model) {
+		
+		int result = sService.updateStudent(m);
+		
+		System.out.println("result 의 값 : " + result);
+		if (result > 0) {
+			
+			System.out.println("수정 성공시");
+			m.setSort(3);
+			Member updateMember = mService.loginMember(m);
+			System.out.println(updateMember);
+			
+			session.setAttribute("loginUser",updateMember);
+			session.setAttribute("student_alertMsg", "성공적으로 회원정보가 변경되었습니다!");
+			
+		}
+		
+		return "redirect:myPage.st";
 	}
 	
 	//이메일 인증
