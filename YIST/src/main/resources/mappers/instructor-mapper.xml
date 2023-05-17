@@ -10,7 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="file_no" property="fileNo"></result>
 		<result column="subject_no" property="subjectNo"></result>
 		<result column="id" property="instructorId"></result>
-		<result column="student_id" property="studentId"></result>
 		<result column="task_title" property="taskTitle"></result>
 		<result column="task_content" property="taskContent"></result>
 		<result column="start_date" property="startDate"></result>
@@ -36,7 +35,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="examResultSet" type="Exam">
 		<result column="test_no" property="testNo"></result>
 		<result column="id" property="id"></result>
-		<result column="student_Id" property="studentId"></result>
 		<result column="subject_no" property="subjectNo"></result>
 		<result column="test_title" property="testTitle"></result>
 		<result column="exam_date" property="examDate"></result>
@@ -95,7 +93,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					values
 					(
 					  seq_tfno.nextval
-					, #{taskNo}
+					  <choose>
+					  	<when test="fileNo > 0">
+					  		, #{taskNo}
+					  	</when>
+					  	<otherwise>
+							, seq_taskno.currval
+					  	</otherwise>
+					  </choose>
 					, #{originName}
 					, #{changeName}
 					, 1
@@ -103,29 +108,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					)
 	</insert>
 
-	<insert id="insertTaskSubmit">
-		insert
-			into task_submit
-					(
-					  task_no
-		  	        , student_id
-					, submit_content
-					, submit_date
-					, modify_date
-					, status
-					)
-					values
-					(
-					    seq_taskno.currval
-					  , #{id}
-					  , NULL
-					  , NULL
-					  , NULL
-					  , 'N'
-					)
-	</insert>
-
-	<select id="selectTaskListCount" resultType="_int" parameterType="Map">
+	<select id="selectTaskListCount" resultType="_int"
+		parameterType="Map">
 		select count(t.task_no) as "taskListCount"
 		from task t
 		left join task_file tf on (t.task_no = tf.task_no)
@@ -195,93 +179,90 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where task_no = #{taskNo}
 	</update>
 
-	<update id="deleteTaskSubmit">
-		update task_submit
-			set status = 'Y'
-		where task_no = #{taskNo}
-	</update>
-
 	<select id="selectSubmitList" resultMap="taskSubmitResultSet">
 		SELECT
-			t.task_no as "task_no"
-		  , t.task_title as "task_title"
-		  , submit_content as "submit_content"
-		  , s.student_id as "studentId"
-		  , name
-		  , submit_date
-		  , s.status as "status"
+		t.task_no as
+		"task_no"
+		, t.task_title as "task_title"
+		, submit_content as
+		"submit_content"
+		, s.student_id
+		, name
+		, submit_date
+		, s.status as
+		"status"
 		FROM task_submit s
-		join member m on (s.student_id = m.id)
-		join task t on (s.task_no = t.task_no)
-		where s.task_no = #{taskNo}
+		join member m on (s.student_id
+		= m.id)
+		join
+		task t on (s.task_no = t.task_no)
+		where s.task_no =
+		#{taskNo}
 	</select>
 
 	<update id="checkTaskSubmit">
 		update task_submit
-			set status = 'Y'
-		where task_no = #{taskNo} and student_id = #{studentId}
+		set status = 'Y'
+		where task_no =
+		#{taskNo} and student_id = #{id}
 	</update>
 
 	<select id="selectExamList" resultMap="examResultSet">
 		select
-			test_no
-		  , id
-		  , subject_no
-		  , test_title
-		  , status
+		test_no
+		, id
+		,
+		subject_no
+		, test_title
+		, to_char(exam_date, 'RRRR-MM-DD') as
+		"exam_date"
+		, exam_time
+		, status
 		from exam
 		where id = #{id}
-		order 
-			by test_no
-	</select>
-
-	<select id="selectExamMemberList" resultMap="examResultSet">
-		select
-			  ea.student_id as "student_id"
-			, name
-	        , ea.status "status"
-	        , ea.score as "score"
-		from member m
-		join exam_answer ea on (m.id = ea.student_id)
-		where sort = 3 and subject = #{subject}
+		order by
+		test_no
 	</select>
 
 	<select id="selectQuestion" resultMap="examResultSet">
 		select
-			  test_no
-			, test_title
-			, q1
-			, q2
-			, q3
-			, q4
-			, q5
-			, a1
-			, a2
-			, a3
-			, a4
-			, a5
+		test_no
+		, test_title
+		, q1
+		, q2
+		, q3
+		, q4
+		, q5
+		, a1
+		, a2
+		, a3
+		, a4
+		, a5
 		from exam_question
-		join exam using (test_no)
-		where test_no = #{testNo}
+		join exam
+		using (test_no)
+		where test_no =
+		#{testNo}
 	</select>
 
 	<select id="selectExamSubmitList" resultMap="examResultSet">
 		select
-				e.test_no "test_no"
-              , test_title
-		      , student_id
-			  , name
-			  , a1
-			  , a2
-			  , a3
-		      , a4
-			  , a5
-			  , ea.status as "submit_status"
-			  , nvl(score, 0) as "score"
-        from exam e
-        left join exam_answer ea on (e.test_no = ea.test_no)
-        left join member m on (ea.student_id = m.id)
-		where e.test_no = #{testNo}
+		test_no
+		, e.id
+		as "id"
+		, name
+		, a1
+		, a2
+		, a3
+		, a4
+		, a5
+		, e.status as "submit_status"
+		,
+		nvl(score, 0) as "score"
+		from exam_answer e
+		join member m on (e.id =
+		m.id)
+		where test_no = #{testNo}
 	</select>
 
 	<select id="selectSubmitMember" resultMap="examResultSet">
@@ -304,66 +285,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{testNo} and e.id = #{id}
 	</select>
 
-	<!-- 시험시작(학생) -->
-	<insert id="setExam">
-		insert 
-			into exam_answer
-				(
-					test_no
-				  , student_id
-				  , a1
-				  , a2
-				  , a3
-				  , a4
-				  , a5
-				  , status
-				  , score
-				  , exam_date
-				)
-				values
-				(
-					#{testNo}
-				  , #{studentId}
-				  , NULL
-				  , NULL
-				  , NULL
-				  , NULL
-				  , NULL
-				  , 'N'
-				  , 999
-				  , sysdate
-				)
-	</insert>
-
-	<update id="updateSetExam">
-		update exam_answer
-			set a1 = NULL
-			  , a2 = NULL
-			  , a3 = NULL
-			  , a4 = NULL
-			  , a5 = NULL
-			  , status = 'N'
-			  , score = 999
-			  , exam_date = sysdate
-		where test_no = #{testNo} and student_id = #{studentId}
-	</update>
-
-	<!-- 시험시간 설정 -->
-	<update id="setExamTime" >
+	<update id="setExam">
 		update exam
-			set exam_time = #{examTime}
-		where test_no = #{testNo}
+		set status = 'Y',
+		exam_date = sysdate
+		where
+		test_no = #{test_no}
 	</update>
 
-	<!-- 시험 채점 -->
-	<update id="updateSetExamAnswer">
-		update exam_answer
-			set score = #{score}
-			  , status = 'Y'
-		where test_no = #{testNo} and student_id = #{studentId} 
-			
-	</update>
-	
 	<insert id="insertAlarm">
 		insert
 		into alarm

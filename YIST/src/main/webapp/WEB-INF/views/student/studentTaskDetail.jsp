@@ -90,8 +90,8 @@ button {
 		<div class="entry-content">
 			<form id="tx_editor_form" name="tx_editor_form" action=""
 				method="post" enctype="multipart/form-data">
-				<input type="hidden" name="taskNo" value="${t.taskNo}"> 
-				<input type="hidden" name="studentId" value="${t.studentId}">
+				<input type="hidden" name="taskNo" value="${t.taskNo}"> <input
+					type="hidden" name="studentId" value="${t.studentId}">
 				<table id="contentArea" align="center" class="table"
 					style="margin-top: 10px;">
 					<tr>
@@ -108,7 +108,7 @@ button {
 						<td colspan="4">
 							<div style="padding: 50px; font-size: 18px; line-height: 2;">
 								<c:choose>
-									<c:when test="${empty t.changeName}">
+									<c:when test="${empty t.changeName or t.changeName ne 'none'}">
 										<p style="height: auto">${ t.taskContent }</p>
 									</c:when>
 									<c:otherwise>
@@ -159,7 +159,7 @@ button {
 			} else if (param == "update") {
 				url = "updateTask.st";
 			} else {
-				url = "deleteTaskJW.st";
+				url = "deleteTask.st";
 			}
 
 			$("#tx_editor_form").attr("action", url).submit();

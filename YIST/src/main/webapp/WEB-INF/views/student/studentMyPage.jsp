@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +80,7 @@ button {
 	          <tr style="border-top: 1px solid black;">
 	            <th width="20%">아이디*</th>
 	            <td width="60%" style="text-align: left;">
-	              <input type="text" class="form-control" id="id" name="id" value="${ loginUser.id }" readonly>
+	              <input type="text" class="form-control" id="" name="id" value="${ loginUser.id }" readonly>
 	            </td>
 	            <th rowspan="4"><img src="${ loginUser.image }" name="image" alt="프로필 사진"></th>
 	          </tr>
@@ -142,10 +141,8 @@ button {
 	      </table>
 	      <ul style="text-align: center; margin: 40px;">
 	        <li>
-	          <a href="#" class="btn btn-default btn-theme-colored btn-circled">정보수정</a>
-	          <c:if test="${ loginUser.status != A }">
-		          <a href="quitClass.do" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
-	          </c:if>
+	          <button type="submit" class="btn btn-default btn-theme-colored btn-circled">정보수정</button>
+	          <a href="#" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
 	        </li>
 	      </ul>
 	    </div>       

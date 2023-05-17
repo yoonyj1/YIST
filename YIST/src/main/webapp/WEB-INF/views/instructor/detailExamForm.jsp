@@ -10,14 +10,6 @@
 <script type="text/javascript" src="toast.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.css">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/summernote-lite.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/admin/plugins/summerNote/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
 
@@ -25,7 +17,7 @@
 		<div class="wrapper">
 			<!-- 헤더 -->
 			<jsp:include page="../instructor/common/header.jsp"></jsp:include>
-				
+			
 				<script type="text/javascript">
 						function checkInputNum() {
 							if ((event.keyCode < 48) || (event.keyCode > 57)) {
@@ -52,12 +44,10 @@
 								
 							    $(totalId).val(sum);
 								
-								console.log("총점수 : " + $(totalId).val());
+								console.log("총점수 : " + $("#total-score").val());
 							})
 							
 							$(document).on("keyup", ".input-score", function() {
-								console.log($(this).val());
-								
 								if ($(this).val() > 20) {
 										$(this).val(20);
 										alert("최대 20점입니다.");
@@ -71,11 +61,8 @@
 							$("#tt").click(function(){
 								toastr.info('hi');
 							})
-							
 						})
-						
 				</script>
-
 			<div class="content-wrapper table-hover">
 				<div class="content">
 					
@@ -98,37 +85,31 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="e" items="${examSubmitList}" varStatus="status">
+										<c:forEach var="e" items="${examSubmitList}"
+											varStatus="status">
 											<tr>
 												<td scope="row">${status.count}</td>
 												<td>${e.name}</td>
+												<td>${e.score}/100</td>
 												<c:choose>
-													<c:when test="${e.score == 999}">
-														<td>0/100</td>
-													</c:when>
-													<c:otherwise>
-														<td>${e.score}.00/100</td>
-													</c:otherwise>
-												</c:choose>
-												<c:choose>
-													<c:when test="${e.submitStatus eq 'Y'}">
-														<td>완료</td>
-														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.studentId}" data-toggle="modal" data-target="#${e.studentId}score${status.count}">채점</button></td>
-													</c:when>
-													<c:otherwise>
+													<c:when test="${e.submitStatus == 'N'}">
 														<td>미완료</td>
-														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.studentId}" data-toggle="modal" data-target="#${e.studentId}score${status.count}" disabled="disabled">채점</button></td>
+														<td><button type="button" class="mb-1 btn btn-pill btn-primary" disabled>채점</button></td>
+														<input type="hidden" name="id" value="${e.id}"> 
+													</c:when>
+													<c:otherwise>
+														<td>완료</td>
+														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.id}" data-toggle="modal" data-target="#${e.id}score${status.count}">채점</button></td>
 													</c:otherwise>
 												</c:choose>
 											</tr>
 											<!-- 과제 등록 모달 -->
-								              <div class="modal fade" id="${e.studentId}score${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
+								              <div class="modal fade" id="${e.id}score${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalFormTitle"
 												  aria-hidden="true">
 												  <div class="modal-dialog modal-xl" role="document">
-												   <form action="examSetScore.ins" method="post">
+												   <form>
 												   <input type="hidden" name="instructorId" value="${loginUser.getId()}">
-												   <input type="hidden" name="subjectNo" value="${loginUser.subject}">
-												   <input type="hidden" name="testNo" value="${e.testNo}">
+												   <input type="hidden" name="subjectNo" value="1">
 												    <div class="modal-content">
 												      <div class="modal-header">
 												        <h5 class="modal-title" id="exampleModalFormTitle">${e.name}</h5>
@@ -137,7 +118,6 @@
 												        </button>
 												      </div>
 												      <div class="modal-body">
-												      		${e.studentId}
 												      		<h4>[문제1]</h4>
 												      		<br>
 															<div class="row">
@@ -156,7 +136,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.studentId}input-score" id="input-score1" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score1" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -178,7 +158,6 @@
 															      	<h6>학생답안</h6>
 															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none" readonly="readonly">${e.a2}</textarea>
 															        <hr>
-															        
 															        <h6 style="font-weight: bolder;">모범답안</h6>															        
 															        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" style="resize: none; color: blue;" readonly="readonly">${question.a2}</textarea>
 															        
@@ -186,7 +165,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.studentId}input-score" id="input-score2" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score2" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -215,7 +194,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.studentId}input-score" id="input-score3" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score3" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -244,7 +223,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.studentId}input-score" id="input-score4" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score4" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -273,7 +252,7 @@
 															        <div class="py-4">점수입력 : </div>
 																	  <div class="p-2">
 							                                                <div class="form-group">
-																			    <input class="form-control input-score ${e.studentId}input-score" id="input-score5" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																			    <input class="form-control input-score ${e.id}input-score" id="input-score5" type="text" onkeyPress="javascript:checkInputNum();" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																			</div>
 																	  </div>
 																	</div>
@@ -285,19 +264,18 @@
 												      		<hr>
 												      		
 												      		</div>
+												      		
 												      		<div class="d-flex flex-row mb-1 p-2">
 															    <div class="py-4">총점수 : </div>
 																  <div class="p-2">
 							                                            <div class="form-group">
-																		    <input class="form-control total-score" name="score" id="total-score${e.studentId}" type="text" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
+																		    <input class="form-control total-score" id="total-score${e.id}" type="text" value="0" min="0" maxlength="100" placeholder="점수를 입력하세요">
 																		</div>
 																  </div>
 															</div>
 												      <div class="modal-footer">
 												        <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal" onClick="history.go(0)">닫기</button>
-												        <button type="submit" class="task-insert btn btn-primary btn-pill">저장하기</button>
-												        <input type="hidden" name="studentId" value="${e.studentId}">
-												        <input type="hidden" name="testTitle" value="${e.testTitle}">
+												        <button type="button" class="task-insert btn btn-primary btn-pill">저장하기</button>
 												      </div>
 												    </div>
 												    </form>
@@ -315,7 +293,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	

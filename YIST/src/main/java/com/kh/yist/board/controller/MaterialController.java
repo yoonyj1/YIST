@@ -58,6 +58,7 @@ public class MaterialController {
 		
 		int listCount = mService.selectSearchCount(map);
 		
+		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
 		
 		ArrayList<Material> list = mService.selectSearchList(map, pi);

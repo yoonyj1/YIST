@@ -79,11 +79,11 @@
 					                          <div class="modal-footer">
 					                            <button type="button" class="btn btn-danger btn-pill" data-dismiss="modal">닫기</button>
 					                            <c:if test="${t.status eq 'N'}">
-						                            <button type="submit" class="taskCheck-btn btn btn-primary btn-pill">확인하기</button>
-													<input type="hidden" name="taskNo" value="${t.taskNo}">
-													<input type="hidden" name="studentId" value="${t.studentId}">
-													<input type="hidden" name="taskTitle" value="${t.taskTitle}">
+						                            <button type="submit" id="taskCheck-btn" class="btn btn-primary btn-pill">확인하기</button>
 					                            </c:if>
+												<input type="hidden" name="taskNo" value="${t.taskNo}">
+												<input type="hidden" name="id" value="${t.id}">
+												<input type="hidden" name="taskTitle" value="${t.taskTitle}">
 					                          </div>
 					                        </div>
 					                      </div>
