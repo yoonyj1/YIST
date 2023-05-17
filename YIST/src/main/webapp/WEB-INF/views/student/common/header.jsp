@@ -84,6 +84,8 @@
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
 		function sendAlarm(type, title, target, content, sender) {
 
 			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
@@ -93,6 +95,10 @@
 		}
 		
 		let loginUser = '${loginUser}';
+=======
+>>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
+=======
+>>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
 		let socket  = null;
 		
 		$(document).ready(function(){
@@ -175,14 +181,6 @@
 				if ($("#timeDisplay").val() != ""){
 			  		alert("시험종료");
 			  		$("#timeDisplay").val("");	
-			  		
-			  		let type = '시험';
-					let title = '자바시험3';
-					let target = 'INSTRUCTOR01';
-					let content = "평가 완료";
-					let sender = '${loginUser.getId()}';
-
-					sendAlarm(type, title, target, content, sender);
 			  		
 			  		$("#testInsert").attr("action", "testInsert.st").submit();
 				}

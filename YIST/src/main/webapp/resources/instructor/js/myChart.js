@@ -1,8 +1,6 @@
 /*======== 7. HORIZONTAL BAR CHART2 ========*/
-$(function(){
 var horBarChart2 = document.querySelector("#horizontal-bar-chart2");
 
-let test = "";
 
 
 if (horBarChart2 !== null) {
@@ -66,16 +64,10 @@ if (horBarChart2 !== null) {
     },
   };
  
-
-	test = '${loginUser.id}';
-	console.log('${loginUser.id}');
-
  
-
+let test = '${loginUser.id}';
   
-console.log("차트 : " + test);
-  
-let grade = [{testTitle:test,testAvg:80}, {testTitle:'타입',testAvg:70}];
+let grade = [{testTitle:'자바',testAvg:80}, {testTitle:'타입',testAvg:70}];
 					
 for (let i in grade){
 	console.log(grade[i].testTitle);
@@ -85,4 +77,3 @@ for (let i in grade){
 
   chart.render();
 }
-})

@@ -44,33 +44,6 @@ public class instructorController {
 	@Autowired
 	private MemberServiceImpl mService;
 
-	// 알람 조회
-	@ResponseBody
-	@RequestMapping(value="insAlarm.ins", produces = "application/json; charset=UTF-8")
-	public String selectAlarm(HttpSession session, Model model) {
-		
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		// 학생 알람 모델
-		ArrayList<Alarm> alarmList = tService.selectInsAlarmList(loginUser.getId());
-		
-		return new Gson().toJson(alarmList);
-	}
-	
-	// 알림 읽음 처리
-	@RequestMapping(value="insAlarmCheck.ins")
-	public String taskAlarmCheck(int alarmNo, String type) {
-		
-		tService.insAlarmCheck(alarmNo); 
-		
-		if (type.equals("과제")) {
-			return "redirect:taskForm.ins";
-		} else {
-			return "redirect:examForm.ins";
-		}
-		
-	}
-	
 	@RequestMapping("scoreForm.ins")
 	public String scoreForm(HttpSession session, Model model, int testNo) {
 
@@ -116,7 +89,7 @@ public class instructorController {
 
 		List<Map<String, Object>> users = new Gson().fromJson(String.valueOf(data),
 				new TypeToken<List<Map<String, String>>>() {}.getType());
-		
+
 		for (Map<String, Object> user : users) {
 			String status = (String)user.get("status");
 			String studentId = (String)user.get("id");
@@ -129,14 +102,11 @@ public class instructorController {
 			exam.setExamTime(setTime);
 			exam.setStudentId(studentId);
 			
-			Alarm taskAlarm = new Alarm();
-			taskAlarm.setId(studentId);
-			taskAlarm.setAlarmType("시험");
-			taskAlarm.setAlarmContent("[자바시험3] 시험 응시가 가능합니다.");
-			taskAlarm.setStatus("N");
-			
-			tService.insertAlarm(taskAlarm);
-			
+//			if (status.equals("N")) {
+//				tService.setExam(exam);
+//			} else {
+//				tService.updateSetExam(exam);
+//			}
 			tService.updateSetExam(exam);
 			
 			resultCount++;
@@ -193,21 +163,6 @@ public class instructorController {
 		return "instructor/gradeForm";
 	}
 
-	@ResponseBody
-	@RequestMapping(value="ajaxGradeForm.ins", produces = "application/json; charset=utf-8")
-	public String ajaxGradeForm(int testNo, HttpSession session) {
-		
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		
-		Exam exam = new Exam();
-		exam.setSubjectNo(Integer.parseInt(loginUser.getSubject()));
-		exam.setTestNo(testNo);
-		
-		ArrayList<Exam> list = tService.selectAjaxGradeList(exam);
-		
-		return new Gson().toJson(list);
-	}
-	
 	@RequestMapping(value = "insert.task")
 	public String insertTask(Task task, MultipartFile upfile, HttpSession session, Model model) {
 
@@ -449,8 +404,8 @@ public class instructorController {
 		// 함수를 사용해서 -를 뺀 문자로 다시 저장
 		String str = DATE;
         str = str.replaceAll("[^\\w+]", "");
-		//ArrayList<Member> m = mService.selectStudentList2(newDate);
-		//System.out.println(m);
+		ArrayList<Member> m = mService.selectStudentList2(newDate);
+		System.out.println(m);
 	}
 
 }

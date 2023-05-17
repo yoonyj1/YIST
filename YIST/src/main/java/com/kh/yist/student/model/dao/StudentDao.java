@@ -230,16 +230,12 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectExamResult", exam);
 	}
 
-	// 시험 결과들 조회
-	
-	public ArrayList<Exam> selectExamResultList(SqlSessionTemplate sqlSession, Exam exam) {
-		return (ArrayList)sqlSession.selectList("studentMapper.selectExamResultList", exam);
-	}
-	
 	// 시험 답안 조회
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 	// 알람 등록
 	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
@@ -262,5 +258,9 @@ public class StudentDao {
       
       return sqlSession.update("studentMapper.updateStudent", m);
    }
+=======
+>>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
+=======
+>>>>>>> parent of 1356cb9 (평가 페이지(성적조회완료))
 }
 	

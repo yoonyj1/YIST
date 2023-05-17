@@ -101,14 +101,6 @@
   		$(function(){
   			$("#examSubmit-btn").click(function(){
   				$("#testInsert").attr("action", "testInsert.st").submit();
-  				
-  				let type = '시험';
-				let title = '자바시험3';
-				let target = 'INSTRUCTOR01';
-				let content = "평가 완료";
-				let sender = '${loginUser.getId()}';
-
-				sendAlarm(type, title, target, content, sender);
   			})
   		})
   </script>

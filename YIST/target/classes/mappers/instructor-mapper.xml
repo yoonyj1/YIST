@@ -54,16 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="score" property="score"></result>
 		<result column="submit_status" property="submitStatus"></result>
 	</resultMap>
-	
-	<resultMap id="alarmResultSet" type="Alarm">
-		<result column="alarm_no" property="alarmNo"></result>
-		<result column="id" property="id"></result>
-		<result column="alarm_content" property="alarmContent"></result>
-		<result column="alarm_type" property="alarmType"></result>
-		<result column="status" property="status"></result>
-		<result column="create_date" property="createDate"></result>
-	</resultMap>
-	
+
 	<insert id="insertTask">
 		insert
 			into task
@@ -338,6 +329,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, 'N'
 		, sysdate
 		)
+
 	</insert>
 
 <select id="selectGradeList" resultMap="examResultSet">
@@ -355,21 +347,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	order by test_no
 </select>
 
-<select id="selectAjaxGradeList" resultMap="examResultSet">
-	select 
-	        ea.test_no
-	      , e.test_title
-	      , student_id
-	      , score
-	      , name
-	from exam_answer ea
-	join exam e on (e.test_no = ea.test_no)
-	join member m on (ea.student_id = m.id)
-	where m.subject = #{subjectNo} and ea.test_no = #{testNo}
-	group by ea.test_no, e.test_title, student_id, score, name
-	order by test_no
-</select>
-
 <select id="selectExamScore" resultMap="examResultSet">
 	select
 	          ea.test_no as "test_no"
@@ -382,24 +359,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where m.subject = #{subject}
 	group by ea.test_no, e.test_title
 </select>
-
-<select id="selectInsAlarmList" resultMap="alarmResultSet">
-	select
-			alarm_no
-			, id
-			, alarm_content
-			, alarm_type
-			, status
-			, create_date
-			from alarm
-	where id = #{id} and status = 'N'
-</select>
-
-<update id="insAlarmCheck">
-	update alarm
-			set status = 'Y'
-	where alarm_no = #{alarmNo}	
-</update>
 
 </mapper>
 

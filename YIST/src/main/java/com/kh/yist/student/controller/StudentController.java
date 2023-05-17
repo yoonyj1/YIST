@@ -116,21 +116,9 @@ public class StudentController {
 	@RequestMapping("testInsert.st")
 	public String testInsert(Exam e, HttpSession session) {
 		
-		Member loginMember = (Member)session.getAttribute("loginUser");
-		
 		int result = sService.testInsert(e);
 		
-		Member m = sService.selectExamIns(e);
-		
-		if(result > 0) {
-			Alarm examAlarm = new Alarm();
-			examAlarm.setId(m.getId());
-			examAlarm.setAlarmType("시험");
-			examAlarm.setAlarmContent(loginMember.getName() + "님이 시험을 완료했습니다.");
-			examAlarm.setStatus("N");
-			
-			sService.insertAlarm(examAlarm);
-			
+		if(result>0) {
 			session.setAttribute("student_alertMsg", "평가 제출되었습니다");
 			return "redirect:testList.st";
 		}else {
@@ -308,17 +296,8 @@ public class StudentController {
 		t.setStudentId(m.getId());
 
 		int result = sService.taskSubmitInsert(t);
-		
-		Member ins = sService.selectTaskIns(t);
-		
+
 		if (result > 0) {
-			Alarm taskAlarm = new Alarm();
-			taskAlarm.setId(ins.getId());
-			taskAlarm.setAlarmType("과제");
-			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 완료하였습니다.");
-			taskAlarm.setStatus("N");
-			sService.insertAlarm(taskAlarm);
-			
 			session.setAttribute("student_alertMsg", "과제가 제출되었습니다!");
 		} else {
 			session.setAttribute("student_alertMsg", "과제 제출에 실패했습니다.");
@@ -510,18 +489,7 @@ public class StudentController {
 
 	
 	@RequestMapping("myTest.st")
-	public String myTest(HttpSession session, Model model) {
-		
-		Member m = (Member)session.getAttribute("loginUser");
-		
-		Exam e = new Exam();
-		e.setTestNo(0);
-		e.setStudentId(m.getId());
-		
-		ArrayList<Exam> list = sService.selectExamResultList(e);
-		
-		model.addAttribute("list", list);
-		
+	public String myTest() {
 		return "student/studentMyTestState";
 	}
 
