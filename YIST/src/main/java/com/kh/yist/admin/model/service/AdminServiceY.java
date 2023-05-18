@@ -101,5 +101,9 @@ public class AdminServiceY {
 	public int quitClass(String id) {
 		return aDao.quitClass(sqlSession, id);
 	}
+	
+	public int resultoutAt(String id) {
+		return aDao.resultoutAt(sqlSession, id);
+	}
 
 }
