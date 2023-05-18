@@ -144,6 +144,10 @@ public class TaskDao {
 	public ArrayList<Exam> selectAjaxGradeList(SqlSessionTemplate sqlSession, Exam exam) {
 		return (ArrayList)sqlSession.selectList("instructorMapper.selectAjaxGradeList", exam);
 	}
+
+	public ArrayList<Member> selectTaskMember(SqlSessionTemplate sqlSession, String subject) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectTaskMember", subject);
+	}
 	
 
 }

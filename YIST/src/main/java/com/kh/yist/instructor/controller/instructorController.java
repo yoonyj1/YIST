@@ -257,7 +257,7 @@ public class instructorController {
 			Member member = (Member) session.getAttribute("loginUser");
 
 			// 강사 과목을 수강하고있는 학생 전체 과제 알람등록
-			ArrayList<Member> membList = mService.selectExamMemberList(member.getSubject());
+			ArrayList<Member> membList = tService.selectTaskMember(member.getSubject());
 
 			for (Member m : membList) {
 				tService.insertTaskSubmit(m.getId());

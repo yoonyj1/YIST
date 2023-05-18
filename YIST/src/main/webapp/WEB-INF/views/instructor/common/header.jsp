@@ -177,8 +177,8 @@
 								taskMsg += "</div>";
 								taskMsg += "<div class=\"media-body\">";
 								taskMsg += "<a href=\"insAlarmCheck.ins?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">"; 
-								taskMsg += "<span class=\"title mb-0\">" + alarmList[i].alarmContent + "</span>";
-								taskMsg += "<span class=\"discribe\">" + "진원 님이 과제를 제출하셨습니다." + "</span>";
+								taskMsg += "<span style=\"font-size:14px\" class=\"title mb-0\">과제완료</span>";
+								taskMsg += "<span style=\"font-size:13px\" class=\"discribe\">" + alarmList[i].alarmContent + "</span>";
 								taskMsg += "</a>";
 								taskMsg += "</div>";
 								taskMsg += "</div>";
@@ -196,8 +196,8 @@
 								examMsg += "</div>"
 								examMsg += "<div class=\"media-body\">"
 								examMsg += "<a href=\"insAlarmCheck.ins?alarmNo=" + alarmList[i].alarmNo + "&type=" + alarmList[i].alarmType + "\">";  
-								examMsg += "<span class=\"title mb-0\">" + alarmList[i].alarmContent + "</span>" 
-								examMsg += "<span class=\"discribe\">" + "시험완료" + "</span>" 
+								examMsg += "<span style=\"font-size:14px\" class=\"title mb-0\">시험완료</span>" 
+								examMsg += "<span style=\"font-size:13px\" class=\"discribe\">" + alarmList[i].alarmContent + "</span>" 
 								examMsg += "</a>"
 								examMsg += "</div>"
 								examMsg += "</div>"

@@ -121,5 +121,10 @@ public class TaskService {
 	public ArrayList<Exam> selectAjaxGradeList(Exam exam) {
 		return tDao.selectAjaxGradeList(sqlSession, exam);
 	}
+
+	// 과제 제출해야할 학생 조회
+	public ArrayList<Member> selectTaskMember(String subject) {
+		return tDao.selectTaskMember(sqlSession, subject);
+	}
 	
 }
