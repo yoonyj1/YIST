@@ -163,7 +163,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update
 				subject
 		   set
-		   		status = 'N'
+		   		status = 'Y'
 		 where 
 		 		subject_no in 
 		 		<foreach item="item" collection="list" open="(" separator="," close=")">
@@ -175,7 +175,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update
 				subject
 		   set
-		   		status = 'N'
+		   		status = 'Y'
 		 where 
 		 		subject_no = ${subjectNo}	
 	</update>
