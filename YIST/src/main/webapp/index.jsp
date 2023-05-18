@@ -89,6 +89,13 @@ div.title .titleP {
 </head>
 <body>
 
+	<c:if test="${ not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg" scope="session" />
+	</c:if>
+
   	<div class="contents">
         <div class="title">
             <h6 align="center">YIST</h6>
