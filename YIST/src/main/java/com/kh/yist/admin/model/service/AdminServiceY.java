@@ -97,4 +97,13 @@ public class AdminServiceY {
 	public ArrayList<Exam> selectGrade(String subjectName) {
 		return aDao.selectGrade(sqlSession, subjectName);
 	}
+	
+	public int quitClass(String id) {
+		return aDao.quitClass(sqlSession, id);
+	}
+	
+	public int resultoutAt(String id) {
+		return aDao.resultoutAt(sqlSession, id);
+	}
+
 }

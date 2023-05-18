@@ -205,7 +205,12 @@ public class instructorController {
 	}
 
 	@RequestMapping("yistcheck.ins")
-	public String yistcheck() {
+	public String yistcheck(Model model,Member m,HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String subject= loginUser.getSubject();
+		ArrayList<Member> list = mService.selectList2(subject);
+		
+		model.addAttribute("list",list);
 		return "instructor/yistcheck";
 	}
 
@@ -434,6 +439,25 @@ public class instructorController {
 			model.addAttribute("errorMsg", "실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")
+	public String ajaxSelectStudent(String id) {
+		System.out.println(id);
+		Member m = mService.selectStudentList(id);
+		return new Gson().toJson(m);
+		
+		//return "redirect:studentForm.ins";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
+	public String ajaxSelectCheck(String date) {
+		System.out.println(date);
+		ArrayList<Member> m = mService.selectStudentList2(date);
+		System.out.println(m);
+		return  new Gson().toJson(m);
 	}
 
 }

@@ -8,8 +8,9 @@
 <body class="">
 
   <c:if test="${ not empty loginUser }">
-	<%-- <jsp:include page="chatbot.jsp"/> --%>
+	<jsp:include page="chatbot.jsp"/>
   </c:if>  
+
   
   <!-- Footer -->
   <footer id="footer" class="footer divider parallax layer-overlay overlay-dark-9" data-bg-img="resources/images/bg/bg7.jpg" data-parallax-ratio="0.7">

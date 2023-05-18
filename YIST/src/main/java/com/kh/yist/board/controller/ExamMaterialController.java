@@ -140,7 +140,7 @@ public class ExamMaterialController {
 	public String updateFormExamMaterial(@RequestParam(value = "no")int boardNo, Model m) {
 		
 		ExamMaterial em = eService.selectMaterial(boardNo);
-		
+		System.out.println(em);
 		m.addAttribute("em", em);
 		
 		return "admin/examMaterial/updateExamMaterialForm";

@@ -61,5 +61,16 @@ public class MemberDao {
 	public ArrayList<Member> selectExamMemberList(SqlSessionTemplate sqlSession, String subject) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectExamMemberList", subject);
 	}
-
+	
+	public ArrayList<Member> selectList2(SqlSessionTemplate sqlSession,String subject) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList2",subject);
+	}
+	
+	public Member selectStudentList(SqlSessionTemplate sqlSession, String id){
+		return sqlSession.selectOne("memberMapper.selectStudentList", id);
+	}
+	
+	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String DATE) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",DATE);
+	}
 }

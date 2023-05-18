@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,7 +141,9 @@ button {
 	      <ul style="text-align: center; margin: 40px;">
 	        <li>
 	          <a href="#" class="btn btn-default btn-theme-colored btn-circled">정보수정</a>
-	          <a href="#" class="btn btn-dark btn-theme-colored btn-circled">수강포기</a>
+	          <c:if test="${ loginUser.status eq 'Y' }">
+		          <a href="quitClass.do" class="btn btn-dark btn-theme-colored btn-circled" onclick="return confirm('수강을 취소하시겠습니까?');">수강포기</a>
+	          </c:if>
 	        </li>
 	      </ul>
 	      

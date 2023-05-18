@@ -55,48 +55,49 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.me")
-	public String loginMember(Member m, HttpSession session , Model model) {
-		
-		System.out.println("sort 적용 됬나 ? " + memSort);
-		
-		m.setSort(memSort);
-		Member loginUser = mService.loginMember(m);
-		ArrayList<Member> ins = stuService.selectIns(loginUser);
-		
-		System.out.println(loginUser);
-		
-		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
-			System.out.println("로그인실패");
-			loginCheck = false;
-			return "redirect:login.ins?sort=" + memSort;
-		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
+	public String loginMember(Member m, HttpSession session, Model model) {
+	    System.out.println("sort 적용 됬나 ? " + memSort);
 
-			boolean hasMember = true;
-			
-			String mainPage = "";
-			
-			System.out.println("m.getSort() : " + m.getSort());
-			
-			if (m.getSort() == 1) { // 관리자
-				mainPage = "admin/common/header";
-			} else if(m.getSort() == 2) { // 강사
-				mainPage = "instructor/main";
-			} else if(m.getSort() == 3){ // 학생
-				System.out.println("학생입니당");
-				model.addAttribute("ins", ins);
-				mainPage = "student/studentMain";
-			} else {
-				hasMember = false;
-				mainPage = "redirect:login.ins";
-			}
-			
-			if (hasMember) {
-				session.setAttribute("loginUser", loginUser);
-			}
-			
-			return mainPage;
-		}
+	    m.setSort(memSort);
+	    Member loginUser = mService.loginMember(m);
+	    ArrayList<Member> ins = stuService.selectIns(loginUser);
 
+	    System.out.println(loginUser+"로그인유저");
+
+	    if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
+	        System.out.println("로그인실패");
+	        loginCheck = false;
+	        return "redirect:login.ins?sort=" + memSort;
+	    } else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
+	        boolean hasMember = true;
+	        String mainPage = "";
+
+	        System.out.println("m.getSort() : " + m.getSort());
+
+	        if (m.getSort() == 1) { // 관리자
+	            mainPage = "admin/common/header";
+	        } else if(m.getSort() == 2) { // 강사
+	            mainPage = "instructor/main";
+	        } else if(m.getSort() == 3){ // 학생
+	            System.out.println("학생입니당");
+	            model.addAttribute("ins", ins);
+	            mainPage = "student/studentMain";
+	        } else {
+	            hasMember = false;
+	            mainPage = "redirect:login.ins";
+	        }
+
+	        if (hasMember) {
+	            // 비밀번호 암호화
+	            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	            String hashedPassword = passwordEncoder.encode(loginUser.getPwd());
+	            loginUser.setPwd(hashedPassword);
+
+	            session.setAttribute("loginUser", loginUser);
+	        }
+
+	        return mainPage;
+	    }
 	}
 	
 
