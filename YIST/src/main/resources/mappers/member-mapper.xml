@@ -119,7 +119,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, status
 		, sort
 		, employee_date
-		from member
+		from member m
+		join attendance a using(id)
 		where id = #{id} and (status
 		= 'Y' or status = 'A') and sort = #{sort}
 	</select>

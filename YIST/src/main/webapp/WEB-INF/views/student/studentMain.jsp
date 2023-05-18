@@ -47,7 +47,7 @@
 	            </ul>
 	              <ul>
 	              	<c:choose>
-	              		<c:when test="${ ins.status eq 'N' }">
+	              		<c:when test="${ loginUser.status eq 'N' }">
 	              			<form action="test.qr" method="get">
 							    <li style="float:left;"><input type="hidden" name="url" value="http://<%= InetAddress.getLocalHost().getHostAddress() %>:8848/yist/result.att?id=${loginUser.id}"/><button type="submit" class="btn btn-default btn-theme-colored btn-circled">출석하기</button></li>
 						  	</form>
