@@ -80,13 +80,14 @@ button {
 	    </div> 
 
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="qnaInsert.st" method="post" enctype="multipart/form-data">
-		    
-		    	<table id="write_frm">
+	    <form id="tx_editor_form" name="tx_editor_form" action="updateQna.st" method="post" enctype="multipart/form-data">
+			<table id="write_frm">
+			
 					<tr>
-						<th>제목</th>
+						<th width="25%">제목</th>
 						<td>
-							<input type="text" id="title" name="boardTitle" style="width: 100%; height: 40px; text-align: left;" value="${title}">
+							<input type="text" id="title" name="boardTitle" style="width: 100%; height: 40px; text-align: left;" value="${q.boardTitle}">
+							<input type="hidden" name="boardNo" value="${q.boardNo}"/>
 						</td>
 					</tr>
 					<tr>
@@ -102,26 +103,14 @@ button {
 						</td>
 					</tr>
 					<tr>
-						<th>비밀글 여부</th>
-						<td style="padding-top: 10px; text-align: left;">
-							<label>
-									<input type="checkbox" name="views" id="secret" value="1"> 비밀글
-							</label>
-								<p>
-									* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
-									* 비밀글 등록 후 공개로 전환불가
-								</p>
+						<td colspan="2">
+						  <textarea id="summernote" name="boardContent" style="align: center;">${ q.boardContent }</textarea>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea id="summernote" name="boardContent" style="align: center; width: 100%" required></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">등록하기</button>
-							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled">취소하기</button>
+							<button type="submit" class="btn btn-gray btn-theme-colored btn-circled">수정하기</button>
+							<button type="reset" class="btn btn-gray btn-theme-colored btn-circled" onclick="javascript:history.back();">취소하기</button>
 						</td>
 					</tr>
 			</table>
@@ -130,21 +119,17 @@ button {
 	</div>
 
 	<script>
-	
 		$(document).ready(function() {
 	    	$('#summernote').summernote({
 	        	height: 500,                 // 에디터 높이
+	            width: 1200,
 	  		    minHeight: null,             // 최소 높이
 	  		    maxHeight: null,             // 최대 높이
 	  		    focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	  		    lang: "ko-KR",					// 한글 설정
 			});
 		});
-		
-		<%-- document.getElementById("title").value = "<%= request.getParameter("list[i].taskTitle") %>"; --%>
-		
 	</script>
-
 
 	<jsp:include page="common/footer.jsp"></jsp:include>
 </body>

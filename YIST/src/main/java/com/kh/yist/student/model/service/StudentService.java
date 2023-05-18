@@ -3,10 +3,12 @@ package com.kh.yist.student.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
+import com.kh.yist.student.model.vo.Attendance;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
@@ -18,6 +20,10 @@ import com.kh.yist.student.model.vo.Video;
 public interface StudentService {
 
 	ArrayList<Member> selectIns(Member loginUser);
+	
+	ArrayList<Attendance> selectAtt();
+	ArrayList<Attendance> selectAttDay();
+	ArrayList<Attendance> selectAttTotal();
 	
 	ArrayList<Notice> mainNotice();
 
@@ -51,9 +57,9 @@ public interface StudentService {
 
 	ArrayList<Material> boardList(PageInfo pi);
 
-	ArrayList<Material> materialList(PageInfo pi);
+	ArrayList<Material> materialList(PageInfo pi, Map<String, Object> map);
 	
-	int materialListCount();
+	int materialListCount(Map<String, Object> map);
 
 	Material selectMaterial(int boardNo);
 	
@@ -84,9 +90,13 @@ public interface StudentService {
 	// 알람 읽음 처리
 	int taskAlarmCheck(int alarmNo);
 
-	ArrayList<QnA> qnaList();
+	ArrayList<QnA> qnaList(PageInfo pi, Map<String, Object> map);
+	
+	int qnaListCount(Map<String, Object> map);
 	
 	QnA selectQna(int boardNo);
+	
+	int insertQna(QnA q);
 	
 	int insertReply(Reply r);
 	
@@ -102,5 +112,11 @@ public interface StudentService {
 	Exam selectExamResult(Exam exam);
 
 	Exam selectExamQuestion(Exam exam);
+
+	int insertReReply(Reply r);
+
+	int updateQna(QnA qna);
+
+	int deleteQna(QnA qna);
 	
 }

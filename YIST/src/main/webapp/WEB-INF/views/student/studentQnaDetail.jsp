@@ -74,10 +74,14 @@ button {
 	   <c:if test="${not empty loginUser.id and loginUser.id eq q.boardWriter }">
 	    <div align="right">
 	      <!-- 수정하기, 삭제하기 버튼은 이글이 본인글일 경우만 보여져야됨 -->
-	        <a class="btn btn-primary" onclick="">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
-	        <a class="btn btn-danger" onclick="">삭제하기</a>
+	        <a class="btn btn-primary" onclick="goModifyForm()">수정하기</a> <!-- 요기에 href="" 를 작성하면 get방식이기 떄문에 노출된다. -->
+	        <a class="btn btn-danger" onclick="goDelete()">삭제하기</a>
 	    </div>
 	   </c:if>
+	   <form>
+	   	<input type="hidden" name="boardNo" value="${q.boardNo}">
+	   </form>
+	  
 	    <div class="entry-content">
 	      <table id="contentArea" align="center" class="table" style="margin-top: 10px;">
 	        <tr>
@@ -102,16 +106,20 @@ button {
 	    <table id="replyArea" class="table" align="center" style="margin: 0; border-top: 1px solid #dae0e9;">
 	      <thead>
 	        <tr>
-	          <th colspan="3" style="font-size: 10px; text-align: left; height: 10px;">
+	          <th colspan="4" style="font-size: 10px; text-align: left; height: 10px;">
 	            등록통신예절에 어긋나는 글이나 상업적인 글, 타 사이트에 관련된 글은 관리자에 의해 사전 통보없이 삭제될 수 있습니다.
 	          </th>
 	        </tr>
 	        <tr>
-	            <th colspan="2">
-	                <textarea class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
+	            <th colspan="3">
+	                <textarea placeholder="댓글을 입력해주세요."  class="form-control" name="" id="content" cols="55" rows="2" style="resize:none; width:100%"></textarea>
+	                <textarea placeholder="답댓글을 입력해주세요."  class="form-control" name="" id="content_reply" cols="55" rows="2" style="resize:none; width:100%; display:none"></textarea>
+	            	<input type="hidden" id="hideRefRnoValue">
 	            </th>
 	            <th style="vertical-align: middle; text-align: center;">
-	              <button type="button" class="btn btn-default" style="height: 100%; width: 100%; background-color: #e6f4fd;" onclick="addReply();">등록하기</button>
+	              <button type="button" class="btn btn-default" style="height: 100%; width: 100%; background-color: #e6f4fd;" id="reply_btn" onclick="addReply()">등록하기</button>
+	             <button type="button" class="btn btn-default" style="height: 100%; width: 100%; background-color: #e6f4fd; display:none" id="re_reply_btn" onclick="addReReply()">답댓글 등록하기</button>
+	            
 	            </th>
 	        </tr>
 	      </thead>
@@ -121,17 +129,25 @@ button {
 	     <div style="text-align: center; margin: 50px;">
 	      <a href="boardList.st" class="btn btn-gray btn-theme-colored btn-circled"><i class="fa fa-home"></i> 목록으로</a>
 	    </div> 
-    </div>       
+    </div>  
   </div>
   
   
   	<!-- 댓글 -->
   	<script>
+  	
+	
     	$(function() {
 			selectReplyList(); // 화면이 랜더링 되자마다 댓글 조회를 하겠다
 		})
 		
+		var content = document.getElementById('content')
+		var reContent = document.getElementById('content_reply')
+		var replyBtn = document.getElementById('reply_btn')
+		var reReplyBtn = document.getElementById('re_reply_btn')
+		
 		function addReply() { // 댓글작성용 ajax
+    		console.log("댓글")
 			if ($("#content").val().trim().length != 0) { // 유효한 댓글 작성시 => insert ajax 요청
 				
 				$.ajax({
@@ -155,22 +171,63 @@ button {
 				alertify.alert("댓글 작성 후 등록 요청해주세요!");
 			} 
 		}
+  	
+	
+		function addReReply() { // 대댓글작성용 ajax
+			console.log("대댓글")
+		if ($("#content_reply").val().trim().length != 0) { // 유효한 댓글 작성시 => insert ajax 요청
+			
+			$.ajax({
+				url: "rereplyinsert.bo",
+				data: {
+					boardNo: ${ q.boardNo},
+					refRno : $("#hideRefRnoValue").val(),
+					replyContent: $("#content_reply").val(),
+					replyWriter: '${ loginUser.id }' // 문자열은 이렇게 묶어야함
+				}, 
+				success: function(status) {
+					if (status == "success") {
+						selectReplyList(); // 등록 버튼 클릭시 리스트 조회
+						$("#content_reply").val(""); // 댓글창에 작성한 댓글 초기화
+					}
+				},
+				error: function() {
+					console.log("댓글 작성용 ajax 통신 실패!");
+				}
+			})
+		} else {
+			alertify.alert("댓글 작성 후 등록 요청해주세요!");
+		} 
+	}
 		
 		function selectReplyList() { // 해당 게시글에 달린 댓글리스트 조회용 ajax
 			$.ajax({
 				url: "rlist.bo",
 				data: {qno: ${ q.boardNo }},
 				success: function(list) {
-					console.log(list);
+					//console.log(list);
 					
 					let value = "";
 					
 					for ( let i in list) {
-						value += "<tr>"
-							   + "<th style='text-align: center; width: 15%'>" + list[i].replyWriter + "</th>"
-							   + "<td style='text-align: left;'>" + list[i].replyContent + "</td>"
-							   + "<td>" + list[i].replyDate + "</td>"
-							   + "</tr>";
+						console.log(list[i].refRno>0)
+						if(list[i].refRno > 0){
+							value += "<tr>"
+								 + "<th style='text-align: center;'> ㄴ " + list[i].replyWriter + "</th>"
+								   + "<td style='text-align: center;'>" + list[i].replyContent + "</td>"
+								   + "<td style='text-align: center;'>" + list[i].replyDate + "</td>"
+								   + "<th style='text-align: center;'></th>"
+								   + "</tr>";
+						}else{
+							value += "<tr>"
+								   + "<th style='text-align: center; width: 15%'>" + list[i].replyWriter + "</th>"
+								   + "<td style='width: 55%'>" + list[i].replyContent + "</td>"
+								   + "<td style='width: 15%'>" + list[i].replyDate + "</td>"
+								   + "<td><button style='height: 100%; width: 50%; background-color: #e6f4fd;' onclick='reReply("+ list[i].replyNo+")' >답댓글</button><button style='height: 100%; width: 50%; background-color: #e6f4fd;' onclick='reReplyCancel()' >취소</button></td>"
+								   + "</tr>";	
+							
+						}
+					
 					}
 					
 					$("#replyArea tbody").html(value);
@@ -180,6 +237,45 @@ button {
 				}
 			});
 		}
+		
+		function reReply(e){
+			document.getElementById('hideRefRnoValue').value = e
+			if(reContent.style.display = 'none'){
+				content.style.display = 'none';
+				reContent.style.display = 'block'
+				replyBtn.style.display = 'none';
+				reReplyBtn.style.display = 'block';
+			}else{
+				content.style.display = 'block';
+				reContent.style.display = 'none'
+				replyBtn.style.display = 'block';
+				reReplyBtn.style.display = 'none';
+			}
+		}
+		
+		function reReplyCancel(){
+				content.style.display = 'block';
+				reContent.style.display = 'none'
+				replyBtn.style.display = 'block';
+				reReplyBtn.style.display = 'none';
+			
+		}
+		
+		function goModifyForm(){
+			location.href = 'qnaModify.st?qno='+	${q.boardNo}
+		}
+		
+		function goDelete(){
+			var confirm =  window.confirm('QnA를 삭제하시겠습니까?')
+			if(confirm){
+				var form = document.querySelector('form')
+				form.action = 'deleteQna.st'
+				form.submit();
+			}
+		
+		}
+
+		
     </script>
   <jsp:include page="common/footer.jsp"/>
 </body>

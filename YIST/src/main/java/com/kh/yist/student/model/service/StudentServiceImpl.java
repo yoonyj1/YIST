@@ -3,6 +3,7 @@ package com.kh.yist.student.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.dao.StudentDao;
+import com.kh.yist.student.model.vo.Attendance;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
@@ -34,6 +36,19 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public ArrayList<Member> selectIns(Member loginUser) {
 		return sDao.selectIns(sqlSession, loginUser);
+	}
+
+	@Override
+	public ArrayList<Attendance> selectAttDay() {
+		return sDao.selectAtt(sqlSession);
+	}
+	@Override
+	public ArrayList<Attendance> selectAttTotal() {
+		return sDao.selectAtt(sqlSession);
+	}
+	@Override
+	public ArrayList<Attendance> selectAtt() {
+		return sDao.selectAtt(sqlSession);
 	}
 	
 	// 메인 공지사항 목록 조회
@@ -127,13 +142,13 @@ public class StudentServiceImpl implements StudentService {
 
 	// 우리반 게시판 학습자료 목록 조회
 	@Override
-	public ArrayList<Material> materialList(PageInfo pi) {
-		return sDao.materialList(sqlSession, pi);
+	public ArrayList<Material> materialList(PageInfo pi, Map<String, Object> map) {
+		return sDao.materialList(sqlSession, pi, map);
 	}
 
 	@Override
-	public int materialListCount() {
-		return sDao.materialListCount(sqlSession);
+	public int materialListCount(Map<String, Object> map) {
+		return sDao.materialListCount(sqlSession, map);
 	}
 	
 	// 학습자료 상세 조회
@@ -180,8 +195,8 @@ public class StudentServiceImpl implements StudentService {
 
 	// 우리반 게시판 ??
 	@Override
-	public ArrayList<QnA> qnaList() {
-		return sDao.qnaList(sqlSession);
+	public ArrayList<QnA> qnaList(PageInfo pi, Map<String, Object> map) {
+		return sDao.qnaList(sqlSession, pi, map);
 	}
 	
 	// Q&A 상세 조회
@@ -190,6 +205,12 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectQna(sqlSession, boardNo);
 	}
 
+
+	@Override
+	public int qnaListCount(Map<String, Object> map) {
+		return sDao.qnaListCount(sqlSession, map);
+	}
+	
 	// Q&A 게시판 댓글 등록
 	@Override
 	public int insertReply(Reply r) {
@@ -244,6 +265,27 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Exam selectExamQuestion(Exam exam) {
 		return sDao.selectExamQuestion(sqlSession, exam);
+	}
+
+	@Override
+	public int insertQna(QnA q) {
+		return sDao.insertQna(q, sqlSession);
+	}
+
+	@Override
+	public int insertReReply(Reply r) {
+		return sDao.insertReReply(sqlSession, r);
+	}
+
+	@Override
+	public int updateQna(QnA qna) {
+		return sDao.updateQna(sqlSession, qna);
+	}
+
+	@Override
+	public int deleteQna(QnA qna) {
+		// TODO Auto-generated method stub
+		return sDao.deleteQna(sqlSession, qna);
 	}
 
 }

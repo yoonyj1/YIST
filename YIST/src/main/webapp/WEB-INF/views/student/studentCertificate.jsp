@@ -59,7 +59,7 @@
 		  $('.progress-bar').attr('data-percent', completionRate);
 	</script>
     
-    <table style="margin-bottom: 40px">
+    <table style="margin-bottom: 100px">
         <thead>
             <tr higth="20px">
               <th width="15%">번호</th>

@@ -87,6 +87,11 @@ button {
             <td colspan="4">
               <div style="padding: 50px; font-size: 18px; line-height: 2;">
                 <p style="height:auto">${ m.boardContent }</p>
+                <c:if test="${m.changeName != null}">  
+                	<img src="resources/materialUploadFiles/${m.changeName}" alt="첨부이미지"/>
+                	<a href="<c:url value="/fileDown.do?fileDir=resources/materialUploadFiles/${m.changeName}&fileName=${m.changeName}"/>">${m.changeName} 다운로드</a>
+               
+               </c:if> 
               </div>
             </td>
         </tr>

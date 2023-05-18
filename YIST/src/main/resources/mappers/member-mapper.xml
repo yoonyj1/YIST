@@ -72,6 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, address
 		, detail_address
 		, subject
+		, attendance_rate
 		, enroll_date
 		, start_date
 		, end_date
