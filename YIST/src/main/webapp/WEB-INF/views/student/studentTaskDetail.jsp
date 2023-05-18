@@ -141,6 +141,7 @@ button {
 							</c:choose>
 					</tr>
 				</table>
+				<input type="hidden" name="id" value="${t.id}">
 			</form>
 			<div style="text-align: center; margin: 50px;">
 				<a href="boardList.st"
@@ -153,15 +154,25 @@ button {
 	<script>
 		function accessForm(param) {
 			let url = "";
-
+			let type = '과제';
+			let title = '${t.taskTitle}';
+			let target = '${t.id}';
+			let sender = '${loginUser.getId()}';
+			let conent = "";
+			
 			if (param == "insert") {
 				url = "taskInsert.st";
+				content = "과제 제출 완료";
 			} else if (param == "update") {
 				url = "updateTask.st";
+				content = "과제 수정 완료";
 			} else {
 				url = "deleteTaskJW.st";
+				content = "과제 삭제 완료";
 			}
-
+			
+			sendAlarm(type, title, target, content, sender);
+			
 			$("#tx_editor_form").attr("action", url).submit();
 		}
 

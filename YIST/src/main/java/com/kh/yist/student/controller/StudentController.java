@@ -96,7 +96,8 @@ public class StudentController {
 	// 시험 상세 조회
 	@RequestMapping("testDetail.st")
 	public String testDetail(@RequestParam(value="eno") int testNo, Model model) {
-	    
+		
+		
 	    Exam e = sService.testDetail(testNo);
 	    e.setTestNo(testNo);
 	    
@@ -110,9 +111,21 @@ public class StudentController {
 	@RequestMapping("testInsert.st")
 	public String testInsert(Exam e, HttpSession session) {
 		
+		Member loginMember = (Member)session.getAttribute("loginUser");
+		
+		Member m = sService.selectExamIns(e);
+		
 		int result = sService.testInsert(e);
 		
 		if(result>0) {
+			Alarm examAlarm = new Alarm();
+			examAlarm.setId(m.getId());
+			examAlarm.setAlarmType("시험");
+			examAlarm.setAlarmContent(loginMember.getName() + "님이 시험을 완료했습니다.");
+			examAlarm.setStatus("N");
+			
+			sService.insertAlarm(examAlarm);
+			
 			session.setAttribute("student_alertMsg", "평가 제출되었습니다");
 			return "redirect:testList.st";
 		}else {
@@ -244,8 +257,16 @@ public class StudentController {
 		t.setStudentId(m.getId());
 
 		int result = sService.taskSubmitInsert(t);
-
+		
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(t.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 제출하셨습니다.");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "과제가 제출되었습니다!");
 		} else {
 			session.setAttribute("student_alertMsg", "과제 제출에 실패했습니다.");
@@ -259,12 +280,20 @@ public class StudentController {
 	public String updateTask(Task task, Model model, HttpSession session) {
 
 		Member m = (Member) session.getAttribute("loginUser");
-
+		
 		task.setStudentId(m.getId());
 
 		int result = sService.updateTask(task);
 
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(task.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 수정 했습니다");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "과제 성공적으로 수정했습니다.");
 		} else {
 			session.setAttribute("student_alertMsg", "과제 수정을 실패했습니다.");
@@ -283,6 +312,14 @@ public class StudentController {
 		int result = sService.deleteTask(task);
 
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(task.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 삭제 했습니다");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "게시글이 삭제되었습니다!");
 		} else {
 			session.setAttribute("student_alertMsg", "게시글 삭제 실패했습니다.");
@@ -376,7 +413,18 @@ public class StudentController {
 
 	
 	@RequestMapping("myTest.st")
-	public String myTest() {
+	public String myTest(HttpSession session, Model model) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		Exam e = new Exam();
+		e.setTestNo(0);
+		e.setStudentId(m.getId());
+		
+		ArrayList<Exam> list = sService.selectExamResultList(e);
+		
+		model.addAttribute("list", list);
+		
 		return "student/studentMyTestState";
 	}
 

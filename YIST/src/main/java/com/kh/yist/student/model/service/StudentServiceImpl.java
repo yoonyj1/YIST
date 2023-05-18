@@ -26,13 +26,12 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	
 	// 메인 정보 조회
 	@Override
 	public ArrayList<Member> selectIns(Member loginUser) {
 		return sDao.selectIns(sqlSession, loginUser);
 	}
-	
+
 	// 메인 공지사항 목록 조회
 	@Override
 	public ArrayList<Notice> mainNotice() {
@@ -50,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
 	public Exam testDetail(int testNo) {
 		return sDao.testDetail(sqlSession, testNo);
 	}
-	
+
 	// 시험 제출
 	@Override
 	public int testInsert(Exam e) {
@@ -148,6 +147,7 @@ public class StudentServiceImpl implements StudentService {
 	public int taskAlarmCheck(int alarmNo) {
 		return sDao.taskAlarmCheck(sqlSession, alarmNo);
 	}
+
 	// 내 과제 목록
 	@Override
 	public ArrayList<Task> selectMyTask(String id) {
@@ -156,7 +156,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public int deleteMyTask(List<Integer> taskNoList) {
-	  return sDao.deleteMyTask(sqlSession, taskNoList);
+		return sDao.deleteMyTask(sqlSession, taskNoList);
 	}
 
 	// 시험 결과 조회
@@ -169,6 +169,28 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Exam selectExamQuestion(Exam exam) {
 		return sDao.selectExamQuestion(sqlSession, exam);
+	}
+
+	// 알람등록
+	@Override
+	public int insertAlarm(Alarm examAlarm) {
+		return sDao.insertAlarm(sqlSession, examAlarm);
+	}
+
+	// 시험 제출자조회
+	@Override
+	public Member selectExamIns(Exam e) {
+		return sDao.selectExamIns(sqlSession, e);
+	}
+
+	@Override
+	public Member selectTaskIns(Task t) {
+		return sDao.selectTaskIns(sqlSession, t);
+	}
+
+	@Override
+	public ArrayList<Exam> selectExamResultList(Exam e) {
+		return sDao.selectExamResultList(sqlSession, e);
 	}
 
 }

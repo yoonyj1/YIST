@@ -178,6 +178,8 @@
 		function examSetForm(testNo){
 			let users = [];			
 			
+			let alarmUser = [];
+			
 			let setTime = $('input[name="examSet"]:checked').val();
 
 			if ($('input:checkbox[name=mem_chk]:checked').length == 0){
@@ -188,6 +190,7 @@
 				$('input:checkbox[	name=mem_chk]').each(function (index) {
 					if($(this).is(":checked") == true){
 						users.push({"id":$(this).attr("id"), "status":$(this).next().next().val()});
+						alarmUser.push($(this).attr("id"));
 				    }
 				})
 				
@@ -217,6 +220,16 @@
 							$(modalId).attr("disabled", true);
 							
 							$(examModalId).modal('hide');
+							
+							for (let i in alarmUser){
+								let type = '시험';
+								let title = '자바시험3';
+								let target = alarmUser[i];
+								let content = "시험 응시가 가능합니다.";
+								let sender = '${loginUser.getId()}';
+
+								sendAlarm(type, title, target, content, sender);	
+							}
 							
 							alert("시험 설정을 완료했습니다.");
 							

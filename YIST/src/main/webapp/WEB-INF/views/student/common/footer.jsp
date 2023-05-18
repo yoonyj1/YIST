@@ -8,7 +8,7 @@
 <body class="">
 
   <c:if test="${ not empty loginUser }">
-	<jsp:include page="chatbot.jsp"/>
+	<%-- <jsp:include page="chatbot.jsp"/> --%>
   </c:if>  
   
   <!-- Footer -->

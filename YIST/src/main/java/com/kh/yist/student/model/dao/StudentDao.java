@@ -20,10 +20,10 @@ import com.kh.yist.student.model.vo.Task;
 public class StudentDao {
 
 	public ArrayList<Member> selectIns(SqlSessionTemplate sqlSession, Member loginUser) {
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectIns", loginUser);
+
+		return (ArrayList) sqlSession.selectList("studentMapper.selectIns", loginUser);
 	}
-	
+
 	// 메인 공지사항 목록 조회
 	public ArrayList<Notice> mainNotice(SqlSessionTemplate sqlSession) {
 
@@ -38,13 +38,13 @@ public class StudentDao {
 
 	// 시험 상세 조회
 	public Exam testDetail(SqlSessionTemplate sqlSession, int testNo) {
-		
+
 		return sqlSession.selectOne("studentMapper.testDetail", testNo);
 	}
-	
+
 	// 시험 제출
 	public int testInsert(SqlSessionTemplate sqlSession, Exam e) {
-		
+
 		return sqlSession.update("studentMapper.testInsert", e);
 	}
 
@@ -157,13 +157,13 @@ public class StudentDao {
 
 	// 마이페이지 내과제 목록
 	public ArrayList<Task> selectMyTask(SqlSessionTemplate sqlSession, String id) {
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectMyTask", id);
+
+		return (ArrayList) sqlSession.selectList("studentMapper.selectMyTask", id);
 	}
-	
+
 	// 마이페이지 내과제 삭제
 	public int deleteMyTask(SqlSessionTemplate sqlSession, List<Integer> taskNoList) {
-		
+
 		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
 	}
 
@@ -172,9 +172,29 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectExamResult", exam);
 	}
 
+	// 시험 결과들 조회
+
+	public ArrayList<Exam> selectExamResultList(SqlSessionTemplate sqlSession, Exam exam) {
+		return (ArrayList) sqlSession.selectList("studentMapper.selectExamResultList", exam);
+	}
+
 	// 시험 답안 조회
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
+
+	// 알람 등록
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
+		return sqlSession.insert("studentMapper.insertAlarm", examAlarm);
+	}
+
+	// 시험 제출자 조회
+	public Member selectExamIns(SqlSessionTemplate sqlSession, Exam e) {
+		return sqlSession.selectOne("studentMapper.selectExamIns", e);
+	}
+
+	// 과제 제출자 조회
+	public Member selectTaskIns(SqlSessionTemplate sqlSession, Task t) {
+		return sqlSession.selectOne("studentMapper.selectTaskIns", t);
+	}
 }
-	

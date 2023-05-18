@@ -111,7 +111,7 @@
 													</c:otherwise>
 												</c:choose>
 												<c:choose>
-													<c:when test="${e.submitStatus eq 'Y'}">
+													<c:when test="${e.submitStatus == 'Y'}">
 														<td>완료</td>
 														<td><button type="button" class="score-btn mb-1 btn btn-pill btn-primary" id="${e.studentId}" data-toggle="modal" data-target="#${e.studentId}score${status.count}">채점</button></td>
 													</c:when>

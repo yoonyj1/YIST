@@ -76,5 +76,18 @@ public interface StudentService {
 	Exam selectExamResult(Exam exam);
 
 	Exam selectExamQuestion(Exam exam);
+
+
+	// 알람 등록
+	int insertAlarm(Alarm examAlarm);
+
+	// 시험 제출자 조회
+	Member selectExamIns(Exam e);
+
+	// 과제 제출자조회
+	Member selectTaskIns(Task t);
+
+	// 마이페이지(평가)
+	ArrayList<Exam> selectExamResultList(Exam e);
 	
 }

@@ -73,7 +73,7 @@
 	                		<td>-</td>
 	                	</c:when>
 	                	<c:when test="${e.score < 60}">
-	                		<td style="color:red">재시험</td>
+	                		<td style="color:red">${e.score}.00/재시험</td>
 	                	</c:when>
 	                	<c:otherwise>
 	                		<td style="color:red">${e.score}.00</td>

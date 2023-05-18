@@ -27,6 +27,7 @@ public class TaskDao {
 	}
 
 	public int insertTaskFile(SqlSessionTemplate sqlSession, Task task) {
+		System.out.println("fileNo : " + task.getFileNo());
 		return sqlSession.insert("instructorMapper.insertTaskFile", task);
 	}
 
@@ -52,19 +53,9 @@ public class TaskDao {
 		int update1, update2 = 0;
 		
 		update1 = sqlSession.update("instructorMapper.updateTask", task);
-		System.out.println("===============");
-		System.out.println(task);
-		System.out.println("===============");
-		if (update1 > 0 && !task.getOriginName().equals("")) {
-			if (task.getFileNo() == 0) {
-				update2 = sqlSession.insert("instructorMapper.insertTaskFile", task);
-			} else {
-				update2 = sqlSession.update("instructorMapper.updateTaskFile", task);
-			}
-		} else {
-			update2 = 1;
+		if (update1 > 0 ) {
+			update2 = sqlSession.update("instructorMapper.updateTaskFile", task);
 		}
-		
 		return update2; 
 	}
 
@@ -139,6 +130,19 @@ public class TaskDao {
 	// 성적 조회
 	public ArrayList<Exam> selectExamScore(SqlSessionTemplate sqlSession, Member loginUser) {
 		return (ArrayList)sqlSession.selectList("instructorMapper.selectExamScore", loginUser);
+	}
+
+	// 알람 조회
+	public ArrayList<Alarm> selectInsAlarmList(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList) sqlSession.selectList("instructorMapper.selectInsAlarmList", id);
+	}
+
+	public int insAlarmCheck(SqlSessionTemplate sqlSession, int alarmNo) {
+		return sqlSession.update("instructorMapper.insAlarmCheck", alarmNo);
+	}
+
+	public ArrayList<Exam> selectAjaxGradeList(SqlSessionTemplate sqlSession, Exam exam) {
+		return (ArrayList)sqlSession.selectList("instructorMapper.selectAjaxGradeList", exam);
 	}
 	
 

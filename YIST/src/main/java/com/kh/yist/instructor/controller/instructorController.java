@@ -40,7 +40,34 @@ public class instructorController {
 
 	@Autowired
 	private MemberServiceImpl mService;
-
+	
+	// 알람 조회
+	@ResponseBody
+	@RequestMapping(value="insAlarm.ins", produces = "application/json; charset=UTF-8")
+	public String selectInsAlarm(HttpSession session, Model model) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		// 학생 알람 모델
+		ArrayList<Alarm> alarmList = tService.selectInsAlarmList(loginUser.getId());
+		
+		return new Gson().toJson(alarmList);
+	}
+	
+	// 알림 읽음 처리
+	@RequestMapping(value="insAlarmCheck.ins")
+	public String insAlarmCheck(int alarmNo, String type) {
+		
+		tService.insAlarmCheck(alarmNo); 
+		
+		if (type.equals("과제")) {
+			return "redirect:taskForm.ins";
+		} else {
+			return "redirect:examForm.ins";
+		}
+		
+	}
+	
 	@RequestMapping("scoreForm.ins")
 	public String scoreForm(HttpSession session, Model model, int testNo) {
 
@@ -123,11 +150,13 @@ public class instructorController {
 			exam.setExamTime(setTime);
 			exam.setStudentId(studentId);
 			
-//			if (status.equals("N")) {
-//				tService.setExam(exam);
-//			} else {
-//				tService.updateSetExam(exam);
-//			}
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(studentId);
+			taskAlarm.setAlarmType("시험");
+			taskAlarm.setAlarmContent("[자바시험3] 시험 응시가 가능합니다.");
+			taskAlarm.setStatus("N");
+			
+			tService.insertAlarm(taskAlarm);
 			tService.updateSetExam(exam);
 			
 			resultCount++;
@@ -141,6 +170,21 @@ public class instructorController {
 		
 	}
 
+	@ResponseBody
+	@RequestMapping(value="ajaxGradeForm.ins", produces = "application/json; charset=utf-8")
+	public String ajaxGradeForm(int testNo, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		Exam exam = new Exam();
+		exam.setSubjectNo(Integer.parseInt(loginUser.getSubject()));
+		exam.setTestNo(testNo);
+		
+		ArrayList<Exam> list = tService.selectAjaxGradeList(exam);
+		
+		return new Gson().toJson(list);
+	}
+	
 	@RequestMapping("calendar.ins")
 	public String Calendar() {
 		return "instructor/calendarForm";
