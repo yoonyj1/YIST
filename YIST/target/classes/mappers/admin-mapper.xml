@@ -306,11 +306,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  , name
 		  , score
 	  	from
-	  		exam
+	  		exam e
   		join exam_answer using(test_no)
   		join member using(id)
   		where
   			subject_no = #{subject_no}
+  		and e.status = 'Y'
 		order by score desc	   	
 			
 	</select>
@@ -322,6 +323,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	status = 'A'
 	 	where
 	 		id = #{id}
+	</update>
+	
+	<update id="resultoutAt">
+		update
+			attendance
+		set
+	    ATTENDANCE_DATE = sysdate
+	   , status = 'N'
+		where
+			id=#{id}
 	</update>
 		
 </mapper>

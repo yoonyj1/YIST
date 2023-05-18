@@ -109,4 +109,8 @@ public class AdminDaoY {
 	public int quitClass(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.quitClass", id);
 	}
+	
+	public int resultoutAt(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.resultoutAt", id);
+	}
 }

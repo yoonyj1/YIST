@@ -46,9 +46,19 @@
 	              <br>
 	            </ul>
 	              <ul>
-		              <form action="test.qr" method="get">
-					    <li style="float:left;"><input type="hidden" name="url" value="http://<%= InetAddress.getLocalHost().getHostAddress() %>:8848/yist/result.att?id=${loginUser.id}"/><button type="submit" class="btn btn-default btn-theme-colored btn-circled">출석하기</button></li>
-					  </form>
+	              	<c:choose>
+	              		<c:when test="${ ins.status eq 'N' }">
+	              			<form action="test.qr" method="get">
+							    <li style="float:left;"><input type="hidden" name="url" value="http://<%= InetAddress.getLocalHost().getHostAddress() %>:8848/yist/result.att?id=${loginUser.id}"/><button type="submit" class="btn btn-default btn-theme-colored btn-circled">출석하기</button></li>
+						  	</form>
+	              		</c:when>
+	              		<c:otherwise>
+	              			<form action="testout.qr" method="get">
+							    <li style="float:left;"><input type="hidden" name="url" value="http://<%= InetAddress.getLocalHost().getHostAddress() %>:8848/yist/result2.att?id=${loginUser.id}"/><button type="submit" class="btn btn-default btn-theme-colored btn-circled">퇴실하기</button></li>
+						  	</form>
+	              		</c:otherwise>
+	              	</c:choose>
+		              
 		              <li style="float:left; margin-left:5px;"><a href="logout.me" class="btn btn-default btn-theme-colored btn-circled">로그아웃</a></li>
 	              </ul>
 	          </div>
