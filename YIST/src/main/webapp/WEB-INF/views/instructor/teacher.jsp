@@ -154,6 +154,7 @@ tr {
                         <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 50px;">
                             <div id="photoArea">
                                 <div class="photoGroup" style="margin: 20px;">
+                                    <a href="${contextPath}/memImageForm.do"></a>
                                     <img id="memBerPhoto" src="" alt="">
                                 </div>
                             </div>

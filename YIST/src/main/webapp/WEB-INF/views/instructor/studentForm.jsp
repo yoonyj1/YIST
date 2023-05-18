@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,7 +142,6 @@ tr {
    color: blue;
 }
 
-
 </style>
 
 
@@ -159,51 +159,56 @@ tr {
             </div>
             <div class="topBtnBox2Line" style="margin-top: 15px;">
                 
-                <form name="search.bo" method="get">
-                <div class="search">
-                    <table cellpadding="0" cellspacing="0" width="100%" style="margin-left: 7px;">
-                        <tbody >
-                             <tr>
-                            <td>
-                                <select style="width:95px; border-radius: 3px;" name="searchType">
-                                    <option value="studentname">학생이름</option>
-                                </select>
-                                <input type="text" name="searchValue" id="searchName" style="width:226px; border-radius: 3px;" value="${ keyword }">
-                            </td>
-                            <td rowspan="2" valign="top" align="right"><button type="submit" class="bBtn08" style="width:70px; height:35px;background-color: #02068D; border-radius: 5px; color: white; margin-right: 14px;" 
-                                onclick="getSearchList()">검색</button></td>
-                        </tr>
-                       
-                    </tbody>
-                    </table>
-                </div>
-                	
-               
+                <div class="search-area">
+    <form name="search.bo" name="searchForm" method="get" action="search.bo">
+        <table  width="100%" style="margin-left: 7px;">
+            <tbody>
+                <tr>
+                    <td>
+                        <select style="width:95px; border-radius: 3px;" name="condition" id="materialSearchCondition">
+                            <option value="studentName">학생이름</option>
+                            <option value="subjectName">반</option>
+                        </select>
+                        <input type="text" id="searchName" style="width:226px; border-radius: 3px;" name="keyword" value="${keyword}">
+                        <button type="submit" class="bBtn08" style="width:70px; height:35px;background-color: #02068D; border-radius: 5px; color: white; margin-right: 14px;">검색</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+         		<c:if test="${!empty condition}">
+			    <script>
+			        $(function() {
+			            $(".search-area option[value='${condition}']").attr("selected", true);
+			        })
+			    </script>
+				</c:if>
+    </form>
+</div>
 
-                    <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 10px;">
-                        <tbody style="background-color: #02068D; height: 40px;">
-                            <tr>
-                            <th width="30" style="color: rgb(255, 255, 255); font-size: 17px; padding-left: 30px;" name="idx">No</th>
-                            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;" name="name">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="">▼</a></span></th>
-                            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;" name="ph">반</th>
-                        </tr>
-                    </tbody>
-                </table>
-                 
-                    <table cellpadding="0" cellspacing="0" width="100%" id="leftMemList">
-                                <tbody style="height: 40px; color: black;">
-                                	<c:forEach var="b" items="${list}" varStatus="item" >
-	                                    <tr id="listItem_user03" class="on" style="border-top: solid 2PX rgb(187, 187, 187); height: 35PX;">
-		                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">${b.memberNo}</td>
-		                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
-		                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.subjectName}</td>
-	                                	</tr>
-	                                	<input type="hidden" name="id${item}" value="${b.id }">
-	                                	
-                               		</c:forEach>
-                                </tbody>
-                                
-                </table>
+<table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 10px;">
+    <tbody style="background-color: #02068D; height: 40px;">
+        <tr>
+            <th width="30" style="color: rgb(255, 255, 255); font-size: 17px; padding-left: 30px;">No</th>
+            <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="">▼</a></span></th>
+            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;">반</th>
+        </tr>
+    </tbody>
+</table>
+
+<table cellpadding="0" cellspacing="0" width="100%" id="leftMemList">
+    <tbody style="height: 40px; color: black;" class="sbody" id="sboby">
+        <c:forEach var="b" items="${list}" varStatus="item">
+            <c:if test="${fn:containsIgnoreCase(b.name, keyword) || fn:containsIgnoreCase(b.subjectName, keyword)}">
+                <tr id="listItem_user03" class="on" style="border-top: solid 2PX rgb(187, 187, 187); height: 35PX;">
+                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">${b.memberNo}</td>
+                    <td width="70" style="padding-left:5px; font-size: 15px;" id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
+                    <td align="right" style="padding-right:70px; font-size: 15px;" id="listItemMinab_user03" class="leftStdListMoreOpen">${b.subjectName}</td>
+                </tr>
+                <input type="hidden" name="id${item}" value="${b.id}">
+            </c:if>
+        </c:forEach>
+    </tbody>
+</table>
                 <div style="border: solid 1px #02068D"></div> 
                 </form>
             </div> <!--topBtnBox2Line-->
@@ -224,7 +229,7 @@ tr {
                                 <tbody>
                             	<div id="photoArea">
                                 <div class="photoGroup" style="margin: 20px;">
-                                    <td><img id="memBerPhoto" name="image" value="image" src="" alt=""></td>
+                                    <img id="memBerPhoto" name="image" value="image" src="./resources/common/image/userImg.png" alt="User Image">
                                 </div>
                             	</div>
                                 <tr>
@@ -300,6 +305,7 @@ tr {
      	                $("input[name='post']").val(response.post);
      	                $("input[name='address']").val(response.address);
      	                $("input[name='detailAddress']").val(response.detailAddress);
+     	                
      	            },
      	            error: function() {
      	            	console.log("실패!");

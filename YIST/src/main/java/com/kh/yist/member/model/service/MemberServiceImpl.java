@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +118,12 @@ public class MemberServiceImpl implements MemberService {
 		int result = mDao.updateTeacher(sqlSession,m);
 		return result;
 	}
+	
+	@Override
+	public int updateyist(Member m) {
+		int result = mDao.updateyist(sqlSession,m);
+		return result;
+	}
 
 	
 	// 미배정강사리스트조회
@@ -149,6 +156,8 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectList2(String subject){
 		return mDao.selectList2(sqlSession,subject);
 	}
+	
+
 	//선생 학생조회
 	@Override
 	public Member selectStudentList(String id){
@@ -156,11 +165,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//날짜별 출결조회 (선생)
 	@Override
-	public ArrayList<Member> selectStudentList2(String modifiedDate) {
-		return mDao.selectStudentList2(sqlSession,modifiedDate);
+	public ArrayList<Member> getAttendanceList(String modifiedDate) {
+		return mDao.getAttendanceList(sqlSession,modifiedDate);
 	}
 	
-	
+	//학생 검색
+	@Override
+    public ArrayList<Member> selectSearchList(HashMap<String, String> map) {
+        return mDao.selectSearchList(sqlSession,map);
+    }
 	
 	
 	

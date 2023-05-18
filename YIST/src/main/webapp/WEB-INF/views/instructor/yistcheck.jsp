@@ -160,7 +160,7 @@ width: 800px;
          
 
        <div class="infoStyle04">
-        <form name="f" method="get" action="search.bo">
+        <form name="f" method="get" action="yupdate.bo">
           <div class="studySearch">
             <div class="hak1_left">
               <div class="hak1">
@@ -171,7 +171,6 @@ width: 800px;
               </div>
             </div>
             </div>
-        </form>
 
             <div class="attendStatus">
               <div style="display:inline-block; margin-left: 720px;">
@@ -239,12 +238,12 @@ width: 800px;
 					</td>
 				</tr>
 					</c:forEach>
-                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 680px; margin-top: 10px; margin-bottom:20px;">저장</button>
-                        <button type="" class="hak1_button2" style="width: 100px; margin-left: 10px; margin-top: 10px; margin-bottom:20px;">프린트</button>
+                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 730px; margin-top: 10px; margin-bottom:20px;">저장</button>
                         </table>
       					</form>
      </div>
-      	
+        </form>
+ 	
 				<script>
 			function displayDate(memberNo) {
 				var d = new Date();
@@ -274,7 +273,6 @@ width: 800px;
 				  }
 				}
 			</script>
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 			<script>
 			$(document).ready(function() {
 				  let user = [];
@@ -300,6 +298,7 @@ width: 800px;
 				  });
 				});
 			</script>
+			
        	
     </body>
 

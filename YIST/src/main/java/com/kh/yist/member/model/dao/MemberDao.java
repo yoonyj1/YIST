@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,11 @@ public class MemberDao {
 	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateTeacher",m);
 	}
+	
+	public int updateyist(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateyist",m);
+	}
+	
 	public ArrayList<Member> selectInstructorList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
 	}
@@ -70,7 +76,14 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.selectStudentList", id);
 	}
 	
-	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String modifiedDate) {
+	public ArrayList<Member> getAttendanceList(SqlSessionTemplate sqlSession,String modifiedDate) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",modifiedDate);
 	}
+	
+	public ArrayList<Member>selectSearchList(SqlSessionTemplate sqlSession,HashMap<String, String> map){
+		return (ArrayList)sqlSession.selectList("memberMapper.selectSearchList", map);
+	}
+	
+
+	 
 }

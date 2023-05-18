@@ -68,9 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectList2" resultMap="memberResultSet">
-	   SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*,ATTENDANCE_DATE,
-       (SELECT COUNT(*) FROM attendance WHERE status = 'Y') AS y_count,
-       (SELECT COUNT(*) FROM attendance WHERE status = 'N') AS n_count
+	 SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*, ATTENDANCE_DATE,
+       (SELECT COUNT(*) FROM member WHERE status = 'Y' AND subject = 1) AS y_count,
+  		(SELECT COUNT(*) FROM member WHERE status = 'N' AND subject = 1) AS n_count
 		FROM attendance
 		JOIN member ON attendance.id = member.id
 		WHERE member.sort = 3 AND member.subject = #{subject}
@@ -82,6 +82,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      JOIN member ON attendance.id = member.id
      WHERE member.sort = 3 AND member.subject = 1
      AND #{modifiedDate} = TO_CHAR(attendance_date, 'YYYYMMDD')
+	</select>
+	
+	<select id="selectSearchList" resultMap="memberResultSet">
+	    select
+	        rownum, member.*,
+	        name,
+	        id,
+	        phone,
+	        subject_name
+	    from member
+	    where sort = 3
+	    <choose>
+	        <when test="condition =='studentName'">
+	            and name like '%' || #{keyword} || '%'
+	        </when>
+	        <when test="condition =='subjectName'">
+				and subject_name like '%'|| #{ keyword } ||'%'
+			</when>
+	    </choose>
 	</select>
 	
 	<select id="selectStudentList" resultMap="memberResultSet">
@@ -211,6 +230,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, detail_Address = #{detailAddress}
 		where id = #{id} and status= 'Y'
 	</update>
+	
+	<update id="updateyist">
+    UPDATE (SELECT a.INHOUR, a.OUTHOUR
+        FROM attendance a
+        JOIN member m ON a.id = m.id
+        WHERE m.id = #{id}) t
+    SET t.INHOUR = #{INHOUR},
+        t.OUTHOUR = #{OUTHOUR}
+		</update>
+
+
 
 	<select id="selectTeacher" resultMap="memberResultSet">
 		select
