@@ -18,7 +18,9 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
+import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
+import com.kh.yist.student.model.vo.Video;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -78,6 +80,12 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.noticeListCount(sqlSession);
 	}
 
+	@Override
+	public int increaseCount(int boardNo) {
+		
+		return sDao.increaseCount(sqlSession, boardNo);
+	}
+	
 	@Override
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		return sDao.selectList(sqlSession, pi);
@@ -190,6 +198,11 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.qnaList(sqlSession, pi, map);
 	}
 
+	// Q&A 상세 조회
+	@Override
+	public QnA selectQna(int boardNo) {
+		return sDao.selectQna(sqlSession, boardNo);
+	}
 
 	@Override
 	public int qnaListCount(Map<String, Object> map) {
@@ -234,6 +247,12 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.deleteMyTask(sqlSession, taskNoList);
 	}
 
+   // 내정보 수정
+   @Override
+   public int updateStudent(Member m) {
+      return sDao.updateStudent(sqlSession, m);
+   }
+	   
 	// 시험 결과 조회
 	@Override
 	public Exam selectExamResult(Exam exam) {
@@ -265,6 +284,8 @@ public class StudentServiceImpl implements StudentService {
 	public int deleteQna(QnA qna) {
 		// TODO Auto-generated method stub
 		return sDao.deleteQna(sqlSession, qna);
+	}
+	
 	// 알람등록
 	@Override
 	public int insertAlarm(Alarm examAlarm) {

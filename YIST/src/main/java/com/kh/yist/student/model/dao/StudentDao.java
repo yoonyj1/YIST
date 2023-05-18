@@ -17,7 +17,9 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
+import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
+import com.kh.yist.student.model.vo.Video;
 
 @Repository
 public class StudentDao {
@@ -68,6 +70,11 @@ public class StudentDao {
 	public int noticeListCount(SqlSessionTemplate sqlSession) {
 
 		return sqlSession.selectOne("studentMapper.noticeListCount");
+	}
+
+	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
+		
+		return sqlSession.update("studentMapper.increaseCount", boardNo);
 	}
 
 	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -318,7 +325,8 @@ public class StudentDao {
 
 	public int deleteQna(SqlSessionTemplate sqlSession, QnA qna) {
 		return sqlSession.update("studentMapper.deleteQna", qna);
-
+	}
+	
 	// 알람 등록
 	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
 		return sqlSession.insert("studentMapper.insertAlarm", examAlarm);

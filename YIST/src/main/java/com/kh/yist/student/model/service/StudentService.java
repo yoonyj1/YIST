@@ -13,7 +13,9 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
+import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
+import com.kh.yist.student.model.vo.Video;
 
 public interface StudentService {
 
@@ -32,6 +34,8 @@ public interface StudentService {
 	int testInsert(Exam e);
 	
 	int noticeListCount();
+	
+	int increaseCount(int boardNo);
 
 	ArrayList<Notice> selectList(PageInfo pi);
 
@@ -57,7 +61,7 @@ public interface StudentService {
 	
 	int materialListCount(Map<String, Object> map);
 
-	
+	Material selectMaterial(int boardNo);
 	
 	// 과제 조회
 	ArrayList<Task> taskList(Member m);
@@ -102,6 +106,8 @@ public interface StudentService {
 	
 	int deleteMyTask(List<Integer> taskNoList);
 
+	int updateStudent(Member m);
+	
 	// 시험 결과 조회
 	Exam selectExamResult(Exam exam);
 
@@ -124,5 +130,6 @@ public interface StudentService {
 
 	// 마이페이지(평가)
 	ArrayList<Exam> selectExamResultList(Exam e);
+
 	
 }
