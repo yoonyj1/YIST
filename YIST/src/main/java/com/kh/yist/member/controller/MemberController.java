@@ -55,10 +55,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.me")
-	public String loginMember(Member m, HttpSession session, Model model) {
+	public String loginMember(Member m, String id, HttpSession session, Model model) {
 	    System.out.println("sort 적용 됬나 ? " + memSort);
 	    
-	    String id = m.getId(); 
+	    System.out.println(id);
 	    		
 	    m.setSort(memSort);
 	    Member loginUser = mService.loginMember(m);
