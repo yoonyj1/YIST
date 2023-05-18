@@ -89,8 +89,9 @@ public class AdminControllerY {
 
 	@RequestMapping("teacherDetail.do")
 	public String teacherDetail(String id, String subject, Model model) {
+		System.out.println( "sadfdsaf"+subject);
 		Member m = aService.selectTeacher(id);
-
+		
 		model.addAttribute("td", m);
 
 		return "admin/teacherDetail";
@@ -192,8 +193,9 @@ public class AdminControllerY {
 	}
 
 	@RequestMapping("result.att")
-	public String resultAt(String id) {
+	public String resultAt(String id, int subject) {
 		System.out.println(id);
+		System.out.println(subject);
 		int result = aService.resultAt(id);
 
 		if (result > 0) {

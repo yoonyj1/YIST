@@ -102,9 +102,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				where id = #{id}	
 	</select>
 
-	<select id="loginMember" resultMap="memberResultSet">
+	<select id="loginMember" resultType="string" resultMap="memberResultSet">
 		select
-		id
+		distinct a.id
 		, name
 		, pwd
 		, birth
@@ -118,15 +118,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, enroll_date
 		, start_date
 		, end_date
-		<if test="">
-			, a.status
-		</if>
+		<choose>
+			<when test="sort == 3">
+				, a.status
+			</when>
+			<otherwise>
+				, m.status
+			</otherwise>
+		</choose>
 		, sort
 		, employee_date
 		from member m
-		join attendance a using(id)
-		where id = #{id} and (m.status
-		= 'Y' or m.status = 'A') and sort = #{sort}
+		<if test="sort == 3">
+			join attendance a on(m.id = a.id)
+		</if>
+		where m.id = #{id} and (m.status
+		= 'Y' or m.status = 'A') 
+		<if test="sort == 3">
+			and a.status = 'N'
+		</if>
+		 and sort = #{sort}
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
@@ -318,6 +329,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where sort = 3 and subject = #{subject} and status =
 		'Y'
 	</select>
+	
+	<insert id="insertMemberAttendance">
+		insert 
+			into
+				attendance
+				(
+					id
+				) 
+				values
+					(
+						#{id}
+					)
+	</insert>
 
 </mapper>
 

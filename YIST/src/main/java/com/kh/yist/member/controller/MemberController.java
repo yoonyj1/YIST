@@ -57,7 +57,9 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session, Model model) {
 	    System.out.println("sort 적용 됬나 ? " + memSort);
-
+	    
+	    String id = m.getId(); 
+	    		
 	    m.setSort(memSort);
 	    Member loginUser = mService.loginMember(m);
 	    ArrayList<Member> ins = stuService.selectIns(loginUser);
@@ -79,6 +81,7 @@ public class MemberController {
 	        } else if(m.getSort() == 2) { // 강사
 	            mainPage = "instructor/main";
 	        } else if(m.getSort() == 3){ // 학생
+	        	int result = mService.insertMemberAttendance(id);
 	            System.out.println("학생입니당");
 	            model.addAttribute("ins", ins);
 	            mainPage = "student/studentMain";

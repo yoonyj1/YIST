@@ -51,4 +51,7 @@ public interface MemberService {
 	Member selectStudentList(String id);
 	//출결조회 ajax (선생)
 	ArrayList<Member> selectStudentList2(String DATE);
+	
+	// 출석 테이블에 로그인하는 멤버 sysdate로 추가
+	int insertMemberAttendance(String id);
 }

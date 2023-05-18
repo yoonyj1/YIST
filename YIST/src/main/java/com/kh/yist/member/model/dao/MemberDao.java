@@ -73,4 +73,8 @@ public class MemberDao {
 	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String DATE) {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",DATE);
 	}
+	
+	public int insertMemberAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.insert("memberMapper.insertMemberAttendance", id);
+	}
 }

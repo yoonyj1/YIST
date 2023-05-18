@@ -95,7 +95,7 @@ public class AdminDaoY {
 	}
 	
 	public int resultAt(SqlSessionTemplate sqlSession, String id) {
-		return sqlSession.update("adminMapper.resultAt", id);
+		return sqlSession.insert("adminMapper.resultAt", id);
 	}
 	
 	public ArrayList<Subject> selectSubject(SqlSessionTemplate sqlSession) {

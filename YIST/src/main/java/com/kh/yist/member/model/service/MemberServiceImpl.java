@@ -159,6 +159,11 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectStudentList2(String DATE) {
 		return mDao.selectStudentList2(sqlSession,DATE);
 	}
+
+	@Override
+	public int insertMemberAttendance(String id) {
+		return mDao.insertMemberAttendance(sqlSession, id);
+	}
 	
 	
 	

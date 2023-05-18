@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by subject		
 	</select>
 	
-	<select id="selectNonSubjectList" resultMap="memberResultSet">
+	<select id="selectNullTeacherList" resultMap="memberResultSet">
 		select
 			id
 		  , name
@@ -281,14 +281,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id="resultAt">
-		update
-			attendance
-		set
-		 count = count + 1
-	   , ATTENDANCE_DATE = sysdate
-	   , status = 'Y'
-		where
-			id=#{id}
+		INSERT INTO
+			ATTENDANCE
+			(
+			  ID
+			, STATUS
+			, SUBJECT_NO 
+			)
+			VALUES
+			 (
+			 	ID = #{id}
+			   , 'Y'
+			   ,  
+			 )
+			 
 	</update>
 	
 	<select id="selectSubject" resultMap="subjectResultSet">
@@ -306,10 +312,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  , test_title
 		  , score
 	  	from
-	  		exam
+	  		exam e
   		join exam_answer using(test_no)
   		where
   			subject_no = #{subject_no}
+  			and e.status = 'Y'
 		order by score desc	   	
 			
 	</select>
