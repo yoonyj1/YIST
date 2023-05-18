@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="ADDRESS" property="address" />
 		<result column="DETAIL_ADDRESS" property="detailAddress" />
 		<result column="SUBJECT" property="subject" />
+		<result column="SUBJECT_NAME" property="subjectName" />
 		<result column="ATTENDANCE_RATE" property="attendanceRate" />
 		<result column="ENORLL_DATE" property="enrollDate" />
 		<result column="START_DATE" property="startDate" />
@@ -24,6 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="STATUS" property="status" />
 		<result column="SORT" property="sort" />
 		<result column="EMPLOYEE_DATE" property="employeeDate" />
+		<result column="ROWNUM" property="memberNo"/>
+		<result column="INHOUR" property="INHOUR"/>
+		<result column="OUTHOUR" property="OUTHOUR"/>
+		<result column="y_count" property="y_count"/>
+		<result column="n_count" property="n_count"/>
 	</resultMap>
 
 	<resultMap id="alarmResultSet" type="Alarm">
@@ -51,13 +57,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="selectList" resultMap="memberResultSet">
-		select
+	select
+		rownum,member.*,
 		name
+		,id
 		,phone
+		,subject_name
 		from member
 		where sort=3
 	</select>
-
+	
+	<select id="selectList2" resultMap="memberResultSet">
+	   SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*,ATTENDANCE_DATE,
+       (SELECT COUNT(*) FROM attendance WHERE status = 'Y') AS y_count,
+       (SELECT COUNT(*) FROM attendance WHERE status = 'N') AS n_count
+		FROM attendance
+		JOIN member ON attendance.id = member.id
+		WHERE member.sort = 3 AND member.subject = #{subject}
+	</select>
+	
+	<select id="selectList3" resultMap="memberResultSet">
+	  SELECT INHOUR, OUTHOUR,ATTENDANCE_DATE
+	  FROM attendance
+	  JOIN member ON attendance.id = member.id
+	  WHERE member.sort = 3 AND member.subject = #{subject}
+	  AND #{DATE} =TO_CHAR(attendance_date, 'YYYYMMDD')
+	</select>
+	
+	<select id="selectStudentList" resultMap="memberResultSet">
+		select
+				  id
+				, name
+				, birth
+				, phone
+				, image
+				, email
+				, post
+				, address
+				, detail_address
+				, subject_name
+				from member
+				where id = #{id}	
+	</select>
 
 	<select id="loginMember" resultMap="memberResultSet">
 		select
@@ -79,7 +120,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, sort
 		, employee_date
 		from member
-		where id = #{id} and pwd = #{pwd} and (status
+		where id = #{id} and (status
 		= 'Y' or status = 'A') and sort = #{sort}
 	</select>
 
