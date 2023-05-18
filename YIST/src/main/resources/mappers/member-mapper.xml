@@ -118,13 +118,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, enroll_date
 		, start_date
 		, end_date
-		, status
+		<if test="#{sort}==sort">
+			, a.status
+		</if>
 		, sort
 		, employee_date
 		from member m
 		join attendance a using(id)
-		where id = #{id} and (status
-		= 'Y' or status = 'A') and sort = #{sort}
+		where id = #{id} and (m.status
+		= 'Y' or m.status = 'A') and sort = #{sort}
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
