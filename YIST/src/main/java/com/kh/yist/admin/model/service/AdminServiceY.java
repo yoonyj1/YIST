@@ -105,5 +105,7 @@ public class AdminServiceY {
 	public int resultoutAt(String id) {
 		return aDao.resultoutAt(sqlSession, id);
 	}
+	
+	
 
 }

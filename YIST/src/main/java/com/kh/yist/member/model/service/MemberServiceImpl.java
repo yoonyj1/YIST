@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.yist.member.model.dao.MemberDao;
 import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
 
@@ -163,6 +164,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int insertMemberAttendance(String id) {
 		return mDao.insertMemberAttendance(sqlSession, id);
+	}
+
+	@Override
+	public Attendance selectStudentAttendance(String id) {
+		return mDao.selectStudentAttendance(sqlSession, id);
 	}
 	
 	

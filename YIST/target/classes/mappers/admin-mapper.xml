@@ -281,20 +281,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<update id="resultAt">
-		INSERT INTO
-			ATTENDANCE
-			(
-			  ID
-			, STATUS
-			, SUBJECT_NO 
-			)
-			VALUES
-			 (
-			 	ID = #{id}
-			   , 'Y'
-			   ,  
-			 )
-			 
+		update
+			attendance
+		set
+			status = 'Y'
+		where id = #{id}
 	</update>
 	
 	<select id="selectSubject" resultMap="subjectResultSet">
@@ -335,10 +326,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update
 			attendance
 		set
-	    ATTENDANCE_DATE = sysdate
-	   , status = 'N'
+	   , count = 1
 		where
 			id=#{id}
+			and attendance_date = sysdate
 	</update>
+	
+	
 		
 </mapper>

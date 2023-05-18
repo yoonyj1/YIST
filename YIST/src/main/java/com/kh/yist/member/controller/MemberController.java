@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.yist.admin.model.service.AdminServiceY;
 import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.service.SendCodeService;
 import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentServiceImpl;
 import com.kh.yist.subject.model.service.SubjectServiceImpl;
@@ -36,6 +38,9 @@ public class MemberController {
 	
 	@Autowired
 	private SendCodeService sendCode;
+	
+	@Autowired
+	private AdminServiceY aService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -58,14 +63,10 @@ public class MemberController {
 	public String loginMember(Member m, String id, HttpSession session, Model model) {
 	    System.out.println("sort 적용 됬나 ? " + memSort);
 	    
-	    System.out.println(id);
-	    System.out.println(m);
 	    
 	    m.setSort(memSort);
 	    
-	    if (m.getSort() == 3) {
-	    	int result = mService.insertMemberAttendance(id);
-	    }
+	    
 	    Member loginUser = mService.loginMember(m);
 	    ArrayList<Member> ins = stuService.selectIns(loginUser);
 	    
@@ -88,6 +89,9 @@ public class MemberController {
 	        } else if(m.getSort() == 2) { // 강사
 	            mainPage = "instructor/main";
 	        } else if(m.getSort() == 3){ // 학생
+	    	    	int result = mService.insertMemberAttendance(id);
+	        	Attendance am = mService.selectStudentAttendance(id);
+		    	session.setAttribute("am", am);
 	            System.out.println("학생입니당");
 	            model.addAttribute("ins", ins);
 	            mainPage = "student/studentMain";

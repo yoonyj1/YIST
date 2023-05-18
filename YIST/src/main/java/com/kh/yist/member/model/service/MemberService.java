@@ -3,6 +3,7 @@ package com.kh.yist.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
 
@@ -54,4 +55,6 @@ public interface MemberService {
 	
 	// 출석 테이블에 로그인하는 멤버 sysdate로 추가
 	int insertMemberAttendance(String id);
+	
+	Attendance selectStudentAttendance(String id);
 }

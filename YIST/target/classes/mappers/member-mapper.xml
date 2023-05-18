@@ -57,6 +57,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="CURRENT_SEATS" property="currentSeats"></result>
 		<result column="FEE" property="fee"></result>
 	</resultMap>
+	
+	<resultMap type="Attendance" id="attendanceResultSet">
+		<result column="ID" property="id"/>
+		<result column="COUNT" property="count"/>
+		<result column="ATTENDANCE_DATE" property="attendanceDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+	</resultMap>
 
 	<select id="selectList" resultMap="memberResultSet">
 	select
@@ -349,6 +357,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						#{id}
 					)
 	</insert>
+	
+	<select id="selectStudentAttendance" resultMap="attendanceResultSet">
+		select distinct id, count, attendance_date, status
+		from attendance
+		where id = #{id} and attendance_date like SYSDATE and count = 0 and status = 'Y'
+	</select>
 
 </mapper>
 

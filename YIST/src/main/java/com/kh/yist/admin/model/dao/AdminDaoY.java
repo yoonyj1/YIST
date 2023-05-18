@@ -113,4 +113,6 @@ public class AdminDaoY {
 	public int resultoutAt(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.resultoutAt", id);
 	}
+	
+	
 }
