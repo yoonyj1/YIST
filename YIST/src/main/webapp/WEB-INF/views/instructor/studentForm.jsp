@@ -137,6 +137,10 @@ tr {
     height: 100%;
 }
 
+#listItem_user03:hover{
+   color: blue;
+}
+
 
 </style>
 
@@ -150,7 +154,7 @@ tr {
     <jsp:include page="../instructor/common/header.jsp"></jsp:include>
        <div style="height: 1000px; class="all">
         <div class="leftMenu">
-            <div class="topBtnBox" style="background-color: #979cc4; height: 75px;">   
+            <div class="topBtnBox" style="background-color: #02068D; height: 75px;">   
                 <div class="topBtnBox_left"><h1 style="font-size: 20px; color: white; margin-top: 27px;">학생관리</h1></div>
             </div>
             <div class="topBtnBox2Line" style="margin-top: 15px;">
@@ -163,7 +167,6 @@ tr {
                             <td>
                                 <select style="width:95px; border-radius: 3px;" name="searchType">
                                     <option value="studentname">학생이름</option>
-                                    <option value="stuphone">핸드폰번호</option>
                                 </select>
                                 <input type="text" name="searchValue" id="searchName" style="width:226px; border-radius: 3px;" value="${ keyword }">
                             </td>
@@ -177,26 +180,26 @@ tr {
                 	
                
 
-                    <table cellpadding="0" cellspacing="0" width="100%" class="leftMemList" style="margin-top: 10px;">
-                        <tbody style="background-color: #979cc4; height: 40px;">
+                    <table cellpadding="0" cellspacing="0" width="100%" style="margin-top: 10px;">
+                        <tbody style="background-color: #02068D; height: 40px;">
                             <tr>
-                            <th width="30"><input type="checkbox" name="check" onclick="revcheck(this.form);" title="문자발송" style="margin-left: 10px;"></th>
-                            <th width="40" style="color: rgb(255, 255, 255); font-size: 17px;" name="idx">No</th>
+                            <th width="30" style="color: rgb(255, 255, 255); font-size: 17px; padding-left: 30px;" name="idx">No</th>
                             <th width="70" style="color: rgb(255, 255, 255); font-size: 15px;" name="name">이름 <span class="up_btn"><a href="" style="color:#000000;">▲</a></span><span class="up_btn"><a href="javascript:;" onclick="">▼</a></span></th>
-                            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;" name="ph">학생휴대폰</th>
+                            <th width="88" style="color: rgb(255, 255, 255); font-size: 15px;" name="ph">반</th>
                         </tr>
                     </tbody>
                 </table>
                  
-                    <table cellpadding="0" cellspacing="0" width="100%" class="leftMemList">
+                    <table cellpadding="0" cellspacing="0" width="100%" id="leftMemList">
                                 <tbody style="height: 40px; color: black;">
-                                	<c:forEach var="b" items="${list}">
-                                    <tr id="listItem_user03" class="on" id="btn1">
-                                    <td width="30" align="center"><input type="checkbox" name="mobileNo" id="listItemMobileNo_user03" value=""></td>
-                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">1</td>
-                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
-                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.phone}</td>
-                                </tr>
+                                	<c:forEach var="b" items="${list}" varStatus="item" >
+	                                    <tr id="listItem_user03" class="on" style="border-top: solid 2PX rgb(187, 187, 187); height: 35PX;">
+		                                    <td width="88" style="font-size: 17px;" align="center" id="listItemPcs_user03" class="bno">${b.memberNo}</td>
+		                                    <td width="70" style="padding-left:5px; font-size: 15px;"  id="listItemSex_user03"><div class="sex_man" id="listItemName_user03">${b.name}</div></td>
+		                                    <td align="right" style="padding-right:70px; font-size: 15px;"  id="listItemMinab_user03" class="leftStdListMoreOpen">${b.subjectName}</td>
+	                                	</tr>
+	                                	<input type="hidden" name="id${item}" value="${b.id }">
+	                                	
                                		</c:forEach>
                                 </tbody>
                                 
@@ -208,71 +211,59 @@ tr {
             </div> <!--leftMenu-->
             <div class="contents"> 
                 <div class="infoStyle03">   
-                    <div id="memberInfo" style="background-color: #f8f8f8;">
+                    <div id="memberInfo" style="background-color: #fffefe;">
                         <br>
                         <div class="tableGroup" style="height: 1000px; margin-top: 30px; margin-left: 50px;">
-                            <div id="photoArea">
-                                <div class="photoGroup" style="margin: 20px;">
-                                    <img id="memBerPhoto" src="" alt="">
-                                </div>
-                            </div>
                             <table cellpadding="0" cellspacing="0" style="width:1000px; height: 500px;">
                                 <colgroup >
-                                    <col width="60">
+                                    <col width="30">
                                     <col width="100">
                                     <col width="120">
                                     <col width="*">
                                 </colgroup>
                                 <tbody>
+                            	<div id="photoArea">
+                                <div class="photoGroup" style="margin: 20px;">
+                                    <td><img id="memBerPhoto" name="image" value="image" src="" alt=""></td>
+                                </div>
+                            	</div>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">이름 </th>
-                                    <td><input type="text" name="memName" value="김누구" maxlength="20" style="width:100%; height: 35px;" disabled=""></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th style="color: rgb(87, 87, 87);">성별 </th>
-                                    <td>
-                                        <input type="radio" name="sex" value="남" checked="">남 
-                                        <input type="radio" name="sex" value="여">여
-                                    </td>
+                                    <td><input type="text" name="userName" value="name" maxlength="20" style="width:100%; height: 35px;" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">아이디 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="memId" value="user03" class="readon" disabled=""></td>
-                                </tr>
-                                <tr>
-                                    <th style="color: rgb(87, 87, 87);">비밀번호 </th>
-                                    <td><input type="text" style="width:100%; height: 35px;" name="pw" value="pass03" maxlength="16" disabled=""></td>
+                                    <td><input type="text" style="width:100%; height: 35px;" name="id" class="readon" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">생년월일</th>
                                     <td>
-                                        <input type="text" style="width:80px; height: 35px;" class="datepicker hasDatepicker" readonly="" name="birthday" value="1998-12-24" id="dp1680462505816" disabled=""> 
+                                        <input type="text" style="width:80px; height: 35px;" class="datepicker hasDatepicker" readonly="" name="birth" value="birth" id="dp1680462505816" disabled=""> 
                                     </td>
                                 </tr>   
                                 <tr>
                                 <th style="color: rgb(87, 87, 87);">이메일</th>
-                                <td><input type="text" name="email" value="jane9512@naver.com" maxlength="50" style="width:100%; height: 35px;" disabled=""></td>
+                                <td><input type="text" name="email" value="email" maxlength="50" style="width:100%; height: 35px;" disabled=""></td>
                                 </tr>                          
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">반</th>
-                                    <td><input type="text" name="class" value="361" maxlength="30" style="width:30px; height: 35px;" disabled="">반</td>
+                                    <td><input type="text" name="subjectName" value="subjectName" maxlength="30" style="width:120px; height: 35px;" disabled=""></td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">휴대전화</th>
                                     <td>
-                                        <input type="text" name="pcs" value="010-5285-0376" maxlength="15" style="width:200px; height: 35px;" disabled=""> 
+                                        <input type="text" name="phone" value="phone" maxlength="15" style="width:200px; height: 35px;" disabled=""> 
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="color: rgb(87, 87, 87);">주소 </th>
                                     <td colspan="3">
                                         <div style="padding-bottom:5px;">
-                                            <input type="text" style="width:100px; height: 35px;" name="zipcode" id="zipcode" title="우편번호" value="07362" maxlength="5" onkeyup="chkNumeric(this);" disabled=""> 
+                                            <input type="text" style="width:100px; height: 35px;" name="post" id="post" title="우편번호" value="post" maxlength="5" onkeyup="chkNumeric(this);" disabled=""> 
                                             </div>
                                         <div>
-                                            <input type="text" style="width:41%; height: 35px;" name="address1" id="address1" value="서울시 영등포구 신길동" maxlength="150" title="주소" disabled="">
-                                            <input type="text" style="width:41%; height: 35px;" name="address2" id="address2" value="래미안아파트101동303호" maxlength="50" title="상세주소" disabled="">
+                                            <input type="text" style="width:41%; height: 35px;" name="address" id="address" value="address" maxlength="150" title="주소" disabled="">
+                                            <input type="text" style="width:41%; height: 35px;" name="detailAddress" id="detailAddress" value="detailAddress" maxlength="50" title="상세주소" disabled="">
                                         </div>
                                     </td>
                                 </tr>
@@ -292,15 +283,32 @@ tr {
        	
     </body>
     
-    	<script>
-    		$(function(){
-    			$("#leftMemList>tbody>tr").click(function(){
-    				location.href='detail.bo?bno'+$(this).children(".bno").text();
-    			})
-    		})
-		</script>
     	<!-- 학생정보클릭함수 -->
     	<script>
+    	$(document).ready(function(){
+    		$(".on").on("click", function(){
+     	        $.ajax({
+     	            url: "slist.bo",
+     	            data: {id:$(this).next().val()},
+     	            success: function(response) {
+     	                $("input[name='userName']").val(response.name);
+     	                $("input[name='id']").val(response.id);
+     	                $("input[name='birth']").val(response.birth);
+     	                $("input[name='email']").val(response.email);
+     	                $("input[name='subjectName']").val(response.subjectName);
+     	                $("input[name='phone']").val(response.phone);
+     	                $("input[name='post']").val(response.post);
+     	                $("input[name='address']").val(response.address);
+     	                $("input[name='detailAddress']").val(response.detailAddress);
+     	            },
+     	            error: function() {
+     	            	console.log("실패!");
+     	            }
+     	    });
+    		})
+    	})
     	
-    	</script>
+		</script>
+ 
+    	
 </html>

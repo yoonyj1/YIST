@@ -77,25 +77,76 @@ button {
         <div class="blog-posts">
           <div class="col-md-12">
             <div class="list-dashed">
-            <c:forEach var="v" items="${ list }">
               <article class="post clearfix mb-30 pb-30">
                 <div class="row">
                   <div class="col-sm-5">
                     <div class="entry-header">
                       <div class="post-thumb">
                         <div class="fluid-video-wrapper">
-							<iframe width="996" height="560" src="${ v.videoSrc }" title="[국비지원 무료교육] 취업! 조금 더 쉽게하자!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-						</div>
+                          <iframe src="images/yist/KakaoTalk_20230330_173845232.mp4" height="230" title="Creative" allowfullscreen></iframe>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-7">
                     <div class="entry-content mt-0">
-                      <h4 class="entry-title mt-0 pt-0">${ v.videoTitle }</h4>
-                      <p class="mb-30">${ v.videoContent }</p>
+                      <a href="#">
+                      <h4 class="entry-title mt-0 pt-0">JAVA_컬렉션_우리반 도서 프로그램 만들기1</h4>
+                      <p class="mb-30">2022.11.19일 줌에서 진행한 컬렉션_우리반 도서 프로그램 만들기 2탄 영상입니다.</p>
+                      </a>
                       <ul class="list-inline font-12 mb-20 mt-10">
-                        <li class="text-theme-colored">${ v.videoWriter } |</li>
-                        <li><span class="text-theme-colored">${ v.createDate }</span></li>
+                        <li class="text-theme-colored">Admin |</li>
+                        <li><span class="text-theme-colored">2022-11-19</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="post clearfix mb-30 pb-30">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <div class="entry-header">
+                      <div class="post-thumb">
+                        <div class="fluid-video-wrapper">
+                          <iframe src="images/yist/KakaoTalk_20230330_173845232.mp4" height="230" title="Creative" allowfullscreen></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="entry-content mt-0">
+                      <a href="#">
+                      <h4 class="entry-title mt-0 pt-0">JAVA_컬렉션_우리반 도서 프로그램 만들기1</h4>
+                      <p class="mb-30">2022.11.19일 줌에서 진행한 컬렉션_우리반 도서 프로그램 만들기 2탄 영상입니다.</p>
+                      </a>
+                      <ul class="list-inline font-12 mb-20 mt-10">
+                        <li class="text-theme-colored">Admin |</li>
+                        <li><span class="text-theme-colored">2022-11-19</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="post clearfix mb-30 pb-30">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <div class="entry-header">
+                      <div class="post-thumb">
+                        <div class="fluid-video-wrapper">
+                          <iframe src="images/yist/KakaoTalk_20230330_173845232.mp4" height="230" title="Creative" allowfullscreen></iframe>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="entry-content mt-0">
+                      <a href="#">
+                      <h4 class="entry-title mt-0 pt-0">JAVA_컬렉션_우리반 도서 프로그램 만들기1</h4>
+                      <p class="mb-30">2022.11.19일 줌에서 진행한 컬렉션_우리반 도서 프로그램 만들기 2탄 영상입니다.</p>
+                      </a>
+                      <ul class="list-inline font-12 mb-20 mt-10">
+                        <li class="text-theme-colored">Admin |</li>
+                        <li><span class="text-theme-colored">2022-11-19</span></li>
                       </ul>
                     </div>
                   </div>

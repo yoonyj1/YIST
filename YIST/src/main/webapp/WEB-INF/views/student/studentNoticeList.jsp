@@ -117,7 +117,7 @@ button {
 	      		<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
        	  	</c:when>
 	       	<c:otherwise>
-	        	<li class="page-item"><a class="page-link" href="noticeList.st?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+	        	<li class="page-item"><a class="page-link" href="list.bo?cpage=${ pi.currentPage - 1 }">Previous</a></li>
 	        </c:otherwise>
 	      </c:choose>			
            	

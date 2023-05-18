@@ -53,7 +53,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String senderId = getMemberId(session);
-
+		
 		// 특정 유저에게 보내기
 		String msg = message.getPayload();
 		System.out.println(msg);
@@ -87,10 +87,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 					
 					targetSession = users.get(target); // 메시지를 받을 세션 조회
 
-					if (targetSession != null) { 
-						TextMessage tmpMsg = new TextMessage(content);
-						targetSession.sendMessage(tmpMsg); 
-					}
+					TextMessage tmpMsg = new TextMessage(content);
+					targetSession.sendMessage(tmpMsg); 
 				}
 				 
 
@@ -104,7 +102,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String senderId = getMemberId(session);
 		if (senderId != null) { // 로그인 값이 있는 경우만
 			log(senderId + " 연결 종료됨");
-			//users.remove(senderId);
+			users.remove(senderId);
 			//sessions.remove(session);
 		}
 	}

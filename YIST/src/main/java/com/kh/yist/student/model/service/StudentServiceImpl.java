@@ -18,9 +18,7 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
-import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
-import com.kh.yist.student.model.vo.Video;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -31,7 +29,6 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	
 	// 메인 정보 조회
 	@Override
 	public ArrayList<Member> selectIns(Member loginUser) {
@@ -68,7 +65,7 @@ public class StudentServiceImpl implements StudentService {
 	public Exam testDetail(int testNo) {
 		return sDao.testDetail(sqlSession, testNo);
 	}
-	
+
 	// 시험 제출
 	@Override
 	public int testInsert(Exam e) {
@@ -81,12 +78,6 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.noticeListCount(sqlSession);
 	}
 
-	@Override
-	public int increaseCount(int boardNo) {
-		
-		return sDao.increaseCount(sqlSession, boardNo);
-	}
-	
 	@Override
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		return sDao.selectList(sqlSession, pi);
@@ -198,12 +189,6 @@ public class StudentServiceImpl implements StudentService {
 	public ArrayList<QnA> qnaList(PageInfo pi, Map<String, Object> map) {
 		return sDao.qnaList(sqlSession, pi, map);
 	}
-	
-	// Q&A 상세 조회
-	@Override
-	public QnA selectQna(int boardNo) {
-		return sDao.selectQna(sqlSession, boardNo);
-	}
 
 
 	@Override
@@ -237,7 +222,7 @@ public class StudentServiceImpl implements StudentService {
 	public int taskAlarmCheck(int alarmNo) {
 		return sDao.taskAlarmCheck(sqlSession, alarmNo);
 	}
-	
+
 	// 내 과제 목록
 	@Override
 	public ArrayList<Task> selectMyTask(String id) {
@@ -246,15 +231,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public int deleteMyTask(List<Integer> taskNoList) {
-	  return sDao.deleteMyTask(sqlSession, taskNoList);
+		return sDao.deleteMyTask(sqlSession, taskNoList);
 	}
 
-   // 내정보 수정
-   @Override
-   public int updateStudent(Member m) {
-      return sDao.updateStudent(sqlSession, m);
-   }
-	   
 	// 시험 결과 조회
 	@Override
 	public Exam selectExamResult(Exam exam) {
@@ -286,6 +265,26 @@ public class StudentServiceImpl implements StudentService {
 	public int deleteQna(QnA qna) {
 		// TODO Auto-generated method stub
 		return sDao.deleteQna(sqlSession, qna);
+	// 알람등록
+	@Override
+	public int insertAlarm(Alarm examAlarm) {
+		return sDao.insertAlarm(sqlSession, examAlarm);
+	}
+
+	// 시험 제출자조회
+	@Override
+	public Member selectExamIns(Exam e) {
+		return sDao.selectExamIns(sqlSession, e);
+	}
+
+	@Override
+	public Member selectTaskIns(Task t) {
+		return sDao.selectTaskIns(sqlSession, t);
+	}
+
+	@Override
+	public ArrayList<Exam> selectExamResultList(Exam e) {
+		return sDao.selectExamResultList(sqlSession, e);
 	}
 
 }

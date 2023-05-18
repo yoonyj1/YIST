@@ -33,7 +33,7 @@ public interface MemberService {
 	int updateMessage(String userId);
 	
 	ArrayList<Member> selectList();
-	
+	ArrayList<Member> selectList2(String subject);
 	//선생정보 수정
 	int updateTeacher(Member m);
 	// 미배정 강사 리스트 조회
@@ -47,5 +47,11 @@ public interface MemberService {
 	
 	// 담당 강사에서 해제
 	int deleteInstructor(String id);
-
+	//학생조회 (선생란)
+	Member selectStudentList(String id);
+	//출결조회 ajax (선생)
+	ArrayList<Member> selectStudentList2(String DATE);
+	
+	// 출석 테이블에 로그인하는 멤버 sysdate로 추가
+	int insertMemberAttendance(String id);
 }

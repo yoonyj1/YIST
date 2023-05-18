@@ -68,16 +68,63 @@ public class TaskService {
 		return tDao.selectQuestion(sqlSession, testNo);
 	}
 
-	public int setExam(int testNo) {
-		return tDao.setExam(sqlSession, testNo);
+	public int setExam(Exam exam) {
+		return tDao.setExam(sqlSession, exam);
 	}
 
-	public ArrayList<Member> selectExamMemberList(String subject) {
+	public ArrayList<Exam> selectExamMemberList(String subject) {
 		return tDao.selectExamMemberList(sqlSession, subject);
 	}
 
 	public int insertAlarm(Alarm taskAlarm) {
 		return tDao.insertAlarm(sqlSession, taskAlarm);
+	}
+
+	public int insertTaskSubmit(String id) {
+		return tDao.insertTaskSubmit(sqlSession, id);
+	}
+
+	public int setExamTime(Exam exam) {
+		return tDao.setExamTime(sqlSession, exam);
+	}
+
+	public int updateSetExam(Exam exam) {
+		return tDao.updateSetExam(sqlSession, exam);
+		
+	}
+
+	// 시험 점수 등록
+	public int updateSetExamAnswer(Exam exam) {
+		return tDao.updateSetExamAnswer(sqlSession, exam);
+	}
+	
+	// 성적 조회
+	public ArrayList<Exam> selectGradeList(Member loginUser) {
+		return tDao.selectGradeList(sqlSession, loginUser);
+	}
+
+	public ArrayList<Exam> selectExamScore(Member loginUser) {
+		return tDao.selectExamScore(sqlSession, loginUser);
+	}
+
+	
+	// 알람 조회
+	public ArrayList<Alarm> selectInsAlarmList(String id) {
+		return tDao.selectInsAlarmList(sqlSession, id);
+	}
+
+	// 알람 읽음
+	public int insAlarmCheck(int alarmNo) {
+		return tDao.insAlarmCheck(sqlSession, alarmNo);
+	}
+
+	public ArrayList<Exam> selectAjaxGradeList(Exam exam) {
+		return tDao.selectAjaxGradeList(sqlSession, exam);
+	}
+
+	// 과제 제출해야할 학생 조회
+	public ArrayList<Member> selectTaskMember(String subject) {
+		return tDao.selectTaskMember(sqlSession, subject);
 	}
 	
 }
