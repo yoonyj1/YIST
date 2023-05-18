@@ -274,31 +274,32 @@ width: 800px;
 				  }
 				}
 			</script>
-			
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 			<script>
 			$(document).ready(function() {
-				let user = [];
-				
-			  $("#on").on("click", function() {
-			    var selectedDate = $('#test').val();
-			    console.log(selectedDate);
-			    $.ajax({
-			      url: "ylist.bo",
-			      method: "GET",
-			      data: { 
-			    	  date: selectedDate 
-			      },
-			      success: function(response) {
-			        $("input[name='inHour']").val(response.inHour);
-			        $("input[name='outHour']").val(response.outHour);
-			      },
-			      error: function() {
-			        console.log("출결조회실패");
-			      }
-			    });
-			  });
-			});
-</script>
+				  let user = [];
+
+				  $("#on").on("click", function() {
+				    var selectedDate = $('#test').val();
+				    console.log(selectedDate);
+				    $.ajax({
+				      url: "ylist.bo",
+				      method: "GET",
+				      data: { 
+				        date: selectedDate 
+				      },
+				      success: function(response) {
+				        console.log(response);
+				        $("input[name='inHour']").val(response[0].INHOUR);
+				        $("input[name='outHour']").val(response[0].OUTHOUR);
+				      },
+				      error: function() {
+				        console.log("출결조회실패");
+				      }
+				    });
+				  });
+				});
+			</script>
        	
     </body>
 

@@ -107,15 +107,6 @@ public class instructorController {
 		return "instructor/main";
 	}
 
-	@RequestMapping("yistcheck.ins")
-	public String yistcheck(Model model,Member m,HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String subject= loginUser.getSubject();
-		ArrayList<Member> list = mService.selectList2(subject);
-		
-		model.addAttribute("list",list);
-		return "instructor/yistcheck";
-	}
 
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
@@ -351,10 +342,21 @@ public class instructorController {
 	@ResponseBody
 	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
 	public String ajaxSelectCheck(String date) {
-		System.out.println(date);
-		ArrayList<Member> m = mService.selectStudentList2(date);
+		String modifiedDate = date.replace("-", "");
+		System.out.println(modifiedDate);
+		ArrayList<Member> m = mService.selectStudentList2(modifiedDate);
 		System.out.println(m);
 		return  new Gson().toJson(m);
+	}
+	
+	@RequestMapping("yistcheck.ins")
+	public String yistcheck(Model model,Member m,HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String subject= loginUser.getSubject();
+		ArrayList<Member> list = mService.selectList2(subject);
+		
+		model.addAttribute("list",list);
+		return "instructor/yistcheck";
 	}
 
 }

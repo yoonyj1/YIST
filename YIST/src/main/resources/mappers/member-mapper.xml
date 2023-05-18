@@ -77,11 +77,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectList3" resultMap="memberResultSet">
-	  SELECT INHOUR, OUTHOUR,ATTENDANCE_DATE
-	  FROM attendance
-	  JOIN member ON attendance.id = member.id
-	  WHERE member.sort = 3 AND member.subject = #{subject}
-	  AND #{DATE} =TO_CHAR(attendance_date, 'YYYYMMDD')
+   	 SELECT INHOUR, OUTHOUR, ATTENDANCE_DATE,member.name
+     FROM attendance
+     JOIN member ON attendance.id = member.id
+     WHERE member.sort = 3 AND member.subject = 1
+     AND #{modifiedDate} = TO_CHAR(attendance_date, 'YYYYMMDD')
 	</select>
 	
 	<select id="selectStudentList" resultMap="memberResultSet">

@@ -70,7 +70,7 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.selectStudentList", id);
 	}
 	
-	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String DATE) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",DATE);
+	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String modifiedDate) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",modifiedDate);
 	}
 }

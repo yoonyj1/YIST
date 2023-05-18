@@ -156,8 +156,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	//날짜별 출결조회 (선생)
 	@Override
-	public ArrayList<Member> selectStudentList2(String DATE) {
-		return mDao.selectStudentList2(sqlSession,DATE);
+	public ArrayList<Member> selectStudentList2(String modifiedDate) {
+		return mDao.selectStudentList2(sqlSession,modifiedDate);
 	}
 	
 	
