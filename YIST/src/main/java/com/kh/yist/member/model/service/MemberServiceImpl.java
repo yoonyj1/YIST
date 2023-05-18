@@ -144,11 +144,21 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("서비스타나?");
 		return mDao.deleteInstructor(sqlSession, id);
 	}
-
 	
-	
-	
-	
+	@Override
+	public ArrayList<Member> selectList2(String subject){
+		return mDao.selectList2(sqlSession,subject);
+	}
+	//선생 학생조회
+	@Override
+	public Member selectStudentList(String id){
+		return mDao.selectStudentList(sqlSession, id);
+	}
+	//날짜별 출결조회 (선생)
+	@Override
+	public ArrayList<Member> selectStudentList2(String DATE) {
+		return mDao.selectStudentList2(sqlSession,DATE);
+	}
 	
 	
 	
