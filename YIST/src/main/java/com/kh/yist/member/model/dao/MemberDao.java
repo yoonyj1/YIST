@@ -75,6 +75,7 @@ public class MemberDao {
 	}
 	
 	public int insertMemberAttendance(SqlSessionTemplate sqlSession, String id) {
+		System.out.println(id);
 		return sqlSession.insert("memberMapper.insertMemberAttendance", id);
 	}
 }

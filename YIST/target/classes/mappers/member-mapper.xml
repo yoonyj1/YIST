@@ -104,7 +104,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="loginMember" resultType="string" resultMap="memberResultSet">
 		select
-		distinct a.id
+		<choose>
+			<when test="sort==3">
+				distinct a.id
+			</when>
+			<otherwise>
+				m.id
+			</otherwise>
+		</choose>
 		, name
 		, pwd
 		, birth

@@ -59,10 +59,17 @@ public class MemberController {
 	    System.out.println("sort 적용 됬나 ? " + memSort);
 	    
 	    System.out.println(id);
-	    		
+	    System.out.println(m);
+	    
 	    m.setSort(memSort);
+	    
+	    if (m.getSort() == 3) {
+	    	int result = mService.insertMemberAttendance(id);
+	    }
 	    Member loginUser = mService.loginMember(m);
 	    ArrayList<Member> ins = stuService.selectIns(loginUser);
+	    
+	    System.out.println(loginUser);
 
 	    System.out.println(loginUser+"로그인유저");
 
@@ -81,7 +88,6 @@ public class MemberController {
 	        } else if(m.getSort() == 2) { // 강사
 	            mainPage = "instructor/main";
 	        } else if(m.getSort() == 3){ // 학생
-	        	int result = mService.insertMemberAttendance(id);
 	            System.out.println("학생입니당");
 	            model.addAttribute("ins", ins);
 	            mainPage = "student/studentMain";
