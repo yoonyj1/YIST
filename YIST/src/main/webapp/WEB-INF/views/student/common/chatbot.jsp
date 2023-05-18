@@ -35,7 +35,7 @@
 		    line-height: 2rem;
 		    font-size: 1.2rem;
 		    font-family: 'LINESeedKR-Rg';
-		    color: white;
+		    color: black;
 		    background-color: #f7e600;
 		    border-radius: 5px;
 		    height: 1.5rem;
