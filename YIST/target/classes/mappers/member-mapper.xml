@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, enroll_date
 		, start_date
 		, end_date
-		<if test="#{sort}==sort">
+		<if test="">
 			, a.status
 		</if>
 		, sort

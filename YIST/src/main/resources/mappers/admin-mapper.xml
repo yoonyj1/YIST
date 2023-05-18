@@ -134,7 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by subject		
 	</select>
 	
-	<select id="selectNullTeacherList" resultMap="memberResultSet">
+	<select id="selectNonSubjectList" resultMap="memberResultSet">
 		select
 			id
 		  , name
@@ -347,18 +347,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by score desc	   	
 			
 	</select>
-		  , name
-		  , score
-	  	from
-	  		exam e
-  		join exam_answer using(test_no)
-  		join member using(id)
-  		where
-  			subject_no = #{subject_no}
-  		and e.status = 'Y'
-		order by score desc	   	
-			
-	</select>
+	
 	
 	<update id="quitClass">
 		update
