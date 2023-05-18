@@ -80,47 +80,42 @@ button {
     <div class="tableArea">
       <table class="list mt10">
         <colgroup>
-          <col style="width:20%">
-          <col style="width:20%">
-          <col style="width:20%">
-          <col style="width:20%">
-          <col style="width:20%">
+          <col style="width:30%">
+          <col style="width:35%">
+          <col style="width:35%">
         </colgroup>
         <tbody>
+        <c:forEach var="member" items="${ins}">
           <tr>
             <th scope="row">훈련과정명</th>
-            <td colspan="4">(디지털컨버전스)자바(JAVA)기반 공공데이터 융합 개발자 양성과정A12</td>
+            <td colspan="2">${ member.subjectName }</td>
           </tr>
           <tr>
             <th scope="row">훈련 기관명</th>
-            <td colspan="4">KH정보교육원 강남지원 </td>
+            <td colspan="2">YIST 정보교육원 강남지원</td>
           </tr>
           <tr>
             <th scope="row">훈련기간</th>
-            <td colspan="4">2022.10.18  ~ 2023.05.19  </td>
+            <td colspan="2">${ member.startDate } ~ ${ member.endDate }</td>
           </tr>
           <tr>
             <th scope="row">훈련생명</th>
-            <td colspan="4">이윤화  </td>
+            <td colspan="2">${ loginUser.name }</td>
           </tr>
           <tr>
             <th scope="row">총 훈련일수</th>
-            <th>실시일수</th>
             <th>출석일</th>
-            <th scope="row">결석일</th>
             <th>출석률 (일수)</th>
           </tr>
           <tr>
-            <td> <span class="flr">148일</span></td>
-            <td> <span class="flr">124일</span></td>
-            <td> <span class="flr">124일</span></td>
-            <td> <span class="flr">0일</span></td>
-            <td> <span class="flr">83.8%</span></td>
+            <td> <span class="flr">213일</span></td>
+            <td> <span class="flr">17일</span></td>
+            <td> <span class="flr">${ loginUser.attendanceRate }%</span></td>
           </tr>
+        </c:forEach>
         </tbody>
       </table>
     </div>
-       
     <div class="tableArea">
       <table class="list mt10" style="margin-bottom: 40px;">
         <thead>
@@ -144,7 +139,7 @@ button {
                 </tr>
                 <tr class="tac">
                   <td>2022-10-21</td>
-                  <td>출석</td>
+                  <td>결석</td>
                 </tr>
                 <tr class="tac">
                   <td>2022-10-24</td>
@@ -158,35 +153,6 @@ button {
                   <td>2022-10-26</td>
                   <td>출석</td>
                 </tr>
-                <tr class="tac">
-                  <td>2022-10-27</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-10-28</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-10-31</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-11-01</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-11-02</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-11-03</td>
-                  <td>출석</td>
-                </tr>
-                <tr class="tac">
-                  <td>2022-11-04</td>
-                  <td>출석</td>
-                </tr>
-              
         </tbody>
       </table>
     </div>

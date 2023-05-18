@@ -1,7 +1,9 @@
 package com.kh.yist.student.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,14 @@ import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.dao.StudentDao;
+import com.kh.yist.student.model.vo.Attendance;
 import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
+import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
+import com.kh.yist.student.model.vo.Video;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -32,6 +37,19 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectIns(sqlSession, loginUser);
 	}
 
+	@Override
+	public ArrayList<Attendance> selectAttDay() {
+		return sDao.selectAtt(sqlSession);
+	}
+	@Override
+	public ArrayList<Attendance> selectAttTotal() {
+		return sDao.selectAtt(sqlSession);
+	}
+	@Override
+	public ArrayList<Attendance> selectAtt() {
+		return sDao.selectAtt(sqlSession);
+	}
+	
 	// 메인 공지사항 목록 조회
 	@Override
 	public ArrayList<Notice> mainNotice() {
@@ -63,6 +81,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	public int increaseCount(int boardNo) {
+		
+		return sDao.increaseCount(sqlSession, boardNo);
+	}
+	
+	@Override
 	public ArrayList<Notice> selectList(PageInfo pi) {
 		return sDao.selectList(sqlSession, pi);
 	}
@@ -73,6 +97,37 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectNotice(sqlSession, boardNo);
 	}
 
+	@Override
+	public int noticeSearchCount(HashMap<String, String> map) {
+		return sDao.noticeSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Notice> noticeSearchList(HashMap<String, String> map, PageInfo pi) {
+		return sDao.noticeSearchList(sqlSession, map, pi);
+	}
+	
+	// 동영상 게시판 목록 조회
+	@Override
+	public int videoListCount() {
+		return sDao.videoListCount(sqlSession);
+	}
+	
+	@Override
+	public ArrayList<Video> selectVideoList(PageInfo pi) {
+		return sDao.selectVideoList(sqlSession, pi);
+	}
+	
+	@Override
+	public int videoSearchCount(HashMap<String, String> map) {
+		return sDao.videoSearchCount(sqlSession, map);
+	}
+	
+	@Override
+	public ArrayList<Video> videoSearchList(HashMap<String, String> map, PageInfo pi) {
+		return sDao.videoSearchList(sqlSession, map, pi);
+	}
+	
 	// 우리반 게시판 목록 조회
 	@Override
 	public int boardListCount() {
@@ -86,10 +141,21 @@ public class StudentServiceImpl implements StudentService {
 
 	// 우리반 게시판 학습자료 목록 조회
 	@Override
-	public ArrayList<Material> MaterialList() {
-		return sDao.MaterialList(sqlSession);
+	public ArrayList<Material> materialList(PageInfo pi, Map<String, Object> map) {
+		return sDao.materialList(sqlSession, pi, map);
 	}
 
+	@Override
+	public int materialListCount(Map<String, Object> map) {
+		return sDao.materialListCount(sqlSession, map);
+	}
+	
+	// 학습자료 상세 조회
+	@Override
+	public Material selectMaterial(int boardNo) {
+		return sDao.selectMaterial(sqlSession, boardNo);
+	}
+		
 	// 우리반 게시판 과제 목록 조회
 	@Override
 	public ArrayList<Task> taskList(Member m) {
@@ -128,10 +194,32 @@ public class StudentServiceImpl implements StudentService {
 
 	// 우리반 게시판 ??
 	@Override
-	public ArrayList<QnA> qnaList() {
-		return sDao.qnaList(sqlSession);
+	public ArrayList<QnA> qnaList(PageInfo pi, Map<String, Object> map) {
+		return sDao.qnaList(sqlSession, pi, map);
 	}
 
+	// Q&A 상세 조회
+	@Override
+	public QnA selectQna(int boardNo) {
+		return sDao.selectQna(sqlSession, boardNo);
+	}
+
+	@Override
+	public int qnaListCount(Map<String, Object> map) {
+		return sDao.qnaListCount(sqlSession, map);
+	}
+	
+	// Q&A 게시판 댓글 등록
+	@Override
+	public int insertReply(Reply r) {
+		return sDao.insertReply(sqlSession, r);
+	}
+	
+	@Override
+	public ArrayList<Reply> selectReplyList(int boardNo) {
+		return sDao.selectReplyList(sqlSession, boardNo);
+	}
+	
 	// 알람조회
 	@Override
 	public ArrayList<Alarm> selectAlarmList(String id) {
@@ -159,6 +247,12 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.deleteMyTask(sqlSession, taskNoList);
 	}
 
+   // 내정보 수정
+   @Override
+   public int updateStudent(Member m) {
+      return sDao.updateStudent(sqlSession, m);
+   }
+	   
 	// 시험 결과 조회
 	@Override
 	public Exam selectExamResult(Exam exam) {
@@ -171,6 +265,27 @@ public class StudentServiceImpl implements StudentService {
 		return sDao.selectExamQuestion(sqlSession, exam);
 	}
 
+	@Override
+	public int insertQna(QnA q) {
+		return sDao.insertQna(q, sqlSession);
+	}
+
+	@Override
+	public int insertReReply(Reply r) {
+		return sDao.insertReReply(sqlSession, r);
+	}
+
+	@Override
+	public int updateQna(QnA qna) {
+		return sDao.updateQna(sqlSession, qna);
+	}
+
+	@Override
+	public int deleteQna(QnA qna) {
+		// TODO Auto-generated method stub
+		return sDao.deleteQna(sqlSession, qna);
+	}
+	
 	// 알람등록
 	@Override
 	public int insertAlarm(Alarm examAlarm) {
