@@ -71,6 +71,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="FEE" property="fee"/>
 	</resultMap>
 
+	<resultMap id="examResultSet" type="Exam">
+		<result column="test_no" property="testNo"></result>
+		<result column="id" property="id"></result>
+		<result column="subject_no" property="subjectNo"></result>
+		<result column="test_title" property="testTitle"></result>
+		<result column="exam_date" property="examDate"></result>
+		<result column="exam_time" property="examTime"></result>
+		<result column="status" property="status"></result>
+		<result column="name" property="name"></result>
+		<result column="q1" property="q1"></result>
+		<result column="q2" property="q2"></result>
+		<result column="q3" property="q3"></result>
+		<result column="q4" property="q4"></result>
+		<result column="q5" property="q5"></result>
+		<result column="a1" property="a1"></result>
+		<result column="a2" property="a2"></result>
+		<result column="a3" property="a3"></result>
+		<result column="a4" property="a4"></result>
+		<result column="a5" property="a5"></result>
+		<result column="score" property="score"></result>
+		<result column="submit_status" property="submitStatus"></result>
+	</resultMap>
+	
+	<resultMap id="subjectResultSet" type="Subject">
+		<result column="SUBJECT_NO" property="subjectNo"/>
+		<result column="CLASS_NO" property="classNo"/>
+		<result column="SUBJECT_NAME" property="subjectName"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="DAY" property="day"/>
+		<result column="MAXIMUM_SEATS" property="maximumSeats"/>
+		<result column="CURRENT_SEATS" property="currentSeats"/>
+		<result column="FEE" property="fee"/>
+	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
 	select
@@ -303,6 +338,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			test_no
 		  , student_id "id"
 		  , test_title
+		  , score
+	  	from
+	  		exam
+  		join exam_answer using(test_no)
+  		where
+  			subject_no = #{subject_no}
+		order by score desc	   	
+			
+	</select>
 		  , name
 		  , score
 	  	from

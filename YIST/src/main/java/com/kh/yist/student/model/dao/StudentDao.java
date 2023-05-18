@@ -14,18 +14,16 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
-import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
-import com.kh.yist.student.model.vo.Video;
 
 @Repository
 public class StudentDao {
 
 	public ArrayList<Member> selectIns(SqlSessionTemplate sqlSession, Member loginUser) {
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectIns", loginUser);
+
+		return (ArrayList) sqlSession.selectList("studentMapper.selectIns", loginUser);
 	}
-	
+
 	// 메인 공지사항 목록 조회
 	public ArrayList<Notice> mainNotice(SqlSessionTemplate sqlSession) {
 
@@ -40,13 +38,13 @@ public class StudentDao {
 
 	// 시험 상세 조회
 	public Exam testDetail(SqlSessionTemplate sqlSession, int testNo) {
-		
+
 		return sqlSession.selectOne("studentMapper.testDetail", testNo);
 	}
-	
+
 	// 시험 제출
 	public int testInsert(SqlSessionTemplate sqlSession, Exam e) {
-		
+
 		return sqlSession.update("studentMapper.testInsert", e);
 	}
 
@@ -54,11 +52,6 @@ public class StudentDao {
 	public int noticeListCount(SqlSessionTemplate sqlSession) {
 
 		return sqlSession.selectOne("studentMapper.noticeListCount");
-	}
-
-	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
-		
-		return sqlSession.update("studentMapper.increaseCount", boardNo);
 	}
 
 	public ArrayList<Notice> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -78,23 +71,6 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectNotice", boardNo);
 	}
 
-	// 동영상 게시판 목록 조회
-	public int videoListCount(SqlSessionTemplate sqlSession) {
-		
-		return sqlSession.selectOne("studentMapper.videoListCount");
-	}
-	
-	public ArrayList<Video> selectVideoList(SqlSessionTemplate sqlSession, PageInfo pi) {
-		
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-
-		int limit = pi.getBoardLimit();
-
-		RowBounds rewBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectVideoList", null, rewBounds);
-	}
-	
 	// 우리반 게시판 목록 조회
 	public int boardListCount(SqlSessionTemplate sqlSession) {
 
@@ -114,28 +90,11 @@ public class StudentDao {
 	}
 
 	// 우리반 게시판 학습자료 목록 조회
-	public ArrayList<Material> materialList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Material> MaterialList(SqlSessionTemplate sqlSession) {
 
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-
-		int limit = pi.getBoardLimit();
-
-		RowBounds rewBounds = new RowBounds(offset, limit);
-		
-		return (ArrayList) sqlSession.selectList("studentMapper.materialList");
+		return (ArrayList) sqlSession.selectList("studentMapper.MaterialList");
 	}
 
-	public int materialListCount(SqlSessionTemplate sqlSession) {
-
-		return sqlSession.selectOne("studentMapper.materialListCount");
-	}
-	
-	// 학습자료 상세 조회
-	public Material selectMaterial(SqlSessionTemplate sqlSession, int boardNo) {
-
-		return sqlSession.selectOne("studentMapper.selectMaterial", boardNo);
-	}
-	
 	// 우리반 게시판 과제 목록 조회
 	public ArrayList<Task> taskList(SqlSessionTemplate sqlSession, Member m) {
 
@@ -165,23 +124,6 @@ public class StudentDao {
 		return (ArrayList) sqlSession.selectList("studentMapper.qnaList");
 	}
 
-	// Q&A 상세 조회
-	public QnA selectQna(SqlSessionTemplate sqlSession, int boardNo) {
-		
-		return sqlSession.selectOne("studentMapper.selectQna", boardNo);
-	}
-	
-	// Q&A 게시판 댓글 등록
-	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
-		
-		return sqlSession.insert("studentMapper.insertReply", r);
-	}
-	
-	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int boardNo) {
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectReplyList", boardNo);
-	}
-	
 	// 과제 등록
 	public int taskSubmitInsert(SqlSessionTemplate sqlSession, Task t) {
 
@@ -215,13 +157,13 @@ public class StudentDao {
 
 	// 마이페이지 내과제 목록
 	public ArrayList<Task> selectMyTask(SqlSessionTemplate sqlSession, String id) {
-		
-		return (ArrayList)sqlSession.selectList("studentMapper.selectMyTask", id);
+
+		return (ArrayList) sqlSession.selectList("studentMapper.selectMyTask", id);
 	}
-	
+
 	// 마이페이지 내과제 삭제
 	public int deleteMyTask(SqlSessionTemplate sqlSession, List<Integer> taskNoList) {
-		
+
 		return sqlSession.update("studentMapper.deleteMyTask", taskNoList);
 	}
 
@@ -230,15 +172,30 @@ public class StudentDao {
 		return sqlSession.selectOne("studentMapper.selectExamResult", exam);
 	}
 
+	// 시험 결과들 조회
+
+	public ArrayList<Exam> selectExamResultList(SqlSessionTemplate sqlSession, Exam exam) {
+		return (ArrayList) sqlSession.selectList("studentMapper.selectExamResultList", exam);
+	}
+
 	// 시험 답안 조회
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
-	
-   // 마이페이지 내정보 수정
-   public int updateStudent(SqlSessionTemplate sqlSession, Member m) {
-      
-      return sqlSession.update("studentMapper.updateStudent", m);
-   }
+
+	// 알람 등록
+	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
+		return sqlSession.insert("studentMapper.insertAlarm", examAlarm);
+	}
+
+	// 시험 제출자 조회
+	public Member selectExamIns(SqlSessionTemplate sqlSession, Exam e) {
+		return sqlSession.selectOne("studentMapper.selectExamIns", e);
+	}
+
+	// 과제 제출자 조회
+	public Member selectTaskIns(SqlSessionTemplate sqlSession, Task t) {
+		return sqlSession.selectOne("studentMapper.selectTaskIns", t);
+	}
 }
 	

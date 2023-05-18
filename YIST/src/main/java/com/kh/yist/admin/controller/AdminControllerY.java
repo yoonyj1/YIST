@@ -121,7 +121,7 @@ public class AdminControllerY {
 		System.out.println(subject);
 		ArrayList<Member> studentList = aService.selectStudentList(subject);
 		model.addAttribute("s", studentList);
-
+		
 		return "admin/teacherDetail-lecture";
 	}
 

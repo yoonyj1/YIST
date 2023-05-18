@@ -10,9 +10,7 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
-import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
-import com.kh.yist.student.model.vo.Video;
 
 public interface StudentService {
 
@@ -27,8 +25,6 @@ public interface StudentService {
 	int testInsert(Exam e);
 	
 	int noticeListCount();
-	
-	int increaseCount(int boardNo);
 
 	ArrayList<Notice> selectList(PageInfo pi);
 
@@ -36,17 +32,11 @@ public interface StudentService {
 
 	int boardListCount();
 
-	int videoListCount();
-	
-	ArrayList<Video> selectVideoList(PageInfo pi);
-
 	ArrayList<Material> boardList(PageInfo pi);
 
-	ArrayList<Material> materialList(PageInfo pi);
-	
-	int materialListCount();
+	ArrayList<Material> MaterialList();
 
-	Material selectMaterial(int boardNo);
+	
 	
 	// 과제 조회
 	ArrayList<Task> taskList(Member m);
@@ -76,22 +66,28 @@ public interface StudentService {
 	int taskAlarmCheck(int alarmNo);
 
 	ArrayList<QnA> qnaList();
-	
-	QnA selectQna(int boardNo);
-	
-	int insertReply(Reply r);
-	
-	ArrayList<Reply> selectReplyList(int boardNo);
+
 	
 	ArrayList<Task> selectMyTask(String id);
 	
 	int deleteMyTask(List<Integer> taskNoList);
-	
-	int updateStudent(Member m);
 
 	// 시험 결과 조회
 	Exam selectExamResult(Exam exam);
 
 	Exam selectExamQuestion(Exam exam);
+
+
+	// 알람 등록
+	int insertAlarm(Alarm examAlarm);
+
+	// 시험 제출자 조회
+	Member selectExamIns(Exam e);
+
+	// 과제 제출자조회
+	Member selectTaskIns(Task t);
+
+	// 마이페이지(평가)
+	ArrayList<Exam> selectExamResultList(Exam e);
 	
 }

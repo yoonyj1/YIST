@@ -31,7 +31,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
-import com.kh.yist.member.model.service.MemberServiceImpl;
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.student.model.service.StudentService;
@@ -39,9 +38,7 @@ import com.kh.yist.student.model.vo.Exam;
 import com.kh.yist.student.model.vo.Material;
 import com.kh.yist.student.model.vo.Notice;
 import com.kh.yist.student.model.vo.QnA;
-import com.kh.yist.student.model.vo.Reply;
 import com.kh.yist.student.model.vo.Task;
-import com.kh.yist.student.model.vo.Video;
 
 @Controller
 public class StudentController {
@@ -51,9 +48,6 @@ public class StudentController {
 	
 	@Autowired
 	private MailSendService mailService;
-	
-	@Autowired
-	private MemberServiceImpl mService;
 	
 
 	@RequestMapping("main.st")
@@ -102,7 +96,8 @@ public class StudentController {
 	// 시험 상세 조회
 	@RequestMapping("testDetail.st")
 	public String testDetail(@RequestParam(value="eno") int testNo, Model model) {
-	    
+		
+		
 	    Exam e = sService.testDetail(testNo);
 	    e.setTestNo(testNo);
 	    
@@ -116,9 +111,21 @@ public class StudentController {
 	@RequestMapping("testInsert.st")
 	public String testInsert(Exam e, HttpSession session) {
 		
+		Member loginMember = (Member)session.getAttribute("loginUser");
+		
+		Member m = sService.selectExamIns(e);
+		
 		int result = sService.testInsert(e);
 		
 		if(result>0) {
+			Alarm examAlarm = new Alarm();
+			examAlarm.setId(m.getId());
+			examAlarm.setAlarmType("시험");
+			examAlarm.setAlarmContent(loginMember.getName() + "님이 시험을 완료했습니다.");
+			examAlarm.setStatus("N");
+			
+			sService.insertAlarm(examAlarm);
+			
 			session.setAttribute("student_alertMsg", "평가 제출되었습니다");
 			return "redirect:testList.st";
 		}else {
@@ -171,34 +178,17 @@ public class StudentController {
 	@RequestMapping("noticeDetail.st")
 	public ModelAndView selectNotice(int nno, ModelAndView mv) {
 
-		int result = sService.increaseCount(nno);
-		
-		if (result > 0) {
-			
-			Notice n = sService.selectNotice(nno);
-			System.out.println(n);
-			
-			mv.addObject("n", n).setViewName("student/studentNoticeDetail");
-		}
+		Notice n = sService.selectNotice(nno);
+		System.out.println(n);
+
+		mv.addObject("n", n).setViewName("student/studentNoticeDetail");
 
 		return mv;
 	}
 
-	// 동영상 게시판 목록 조회
 	@RequestMapping("videoList.st")
-	public ModelAndView videoList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, ModelAndView mv) {
-		
-		int listCount = sService.videoListCount();
-		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		
-		ArrayList<Video> list = sService.selectVideoList(pi);
-		
-		System.out.println(list);
-		
-		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentVideoList");
-		
-		return mv;
+	public String videoList() {
+		return "student/studentVideoList";
 	}
 
 	// 우리반 게시판 목록 조회
@@ -212,13 +202,6 @@ public class StudentController {
 
 		ArrayList<Material> list = sService.boardList(pi);
 
-		// (초기 과제 리스트받아오기)
-		Member student = (Member) session.getAttribute("loginUser");
-
-		ArrayList<Task> taskList = sService.taskList(student);
-
-		mv.addObject("taskList", taskList);
-
 		mv.addObject("pi", pi).addObject("list", list).setViewName("student/studentBoardList");
 
 		return mv;
@@ -227,33 +210,11 @@ public class StudentController {
 	// 우리반 게시판 학습자료 목록 조회
 	@ResponseBody
 	@RequestMapping(value = "MaterialList.st", produces = "application/json; charset=UTF-8")
-	public String MaterialList(int currentPage) {
+	public String MaterialList() {
 
-		int listCount = sService.materialListCount();
-
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
-		
-		ArrayList<Material> list = sService.materialList(pi);
+		ArrayList<Material> list = sService.MaterialList();
 
 		return new Gson().toJson(list);
-	}
-	
-	// 학습자료 상세 조회
-	@ResponseBody
-	@RequestMapping("materialDetail.st")
-	public ModelAndView selectMaterial(int mno, ModelAndView mv) {
-
-		int result = sService.increaseCount(mno);
-		
-		System.out.println(mno + "djhfkjsd");
-		if (result > 0) {
-			
-			Material m = sService.selectMaterial(mno);
-			
-			mv.addObject("m", m).setViewName("student/studentMaterialsDetail");
-		}
-
-		return mv;
 	}
 
 	// 우리반 게시판 과제 목록조회
@@ -296,8 +257,16 @@ public class StudentController {
 		t.setStudentId(m.getId());
 
 		int result = sService.taskSubmitInsert(t);
-
+		
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(t.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 제출하셨습니다.");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "과제가 제출되었습니다!");
 		} else {
 			session.setAttribute("student_alertMsg", "과제 제출에 실패했습니다.");
@@ -311,12 +280,20 @@ public class StudentController {
 	public String updateTask(Task task, Model model, HttpSession session) {
 
 		Member m = (Member) session.getAttribute("loginUser");
-
+		
 		task.setStudentId(m.getId());
 
 		int result = sService.updateTask(task);
 
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(task.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 수정 했습니다");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "과제 성공적으로 수정했습니다.");
 		} else {
 			session.setAttribute("student_alertMsg", "과제 수정을 실패했습니다.");
@@ -335,6 +312,14 @@ public class StudentController {
 		int result = sService.deleteTask(task);
 
 		if (result > 0) {
+			Alarm taskAlarm = new Alarm();
+			taskAlarm.setId(task.getId());
+			taskAlarm.setAlarmType("과제");
+			taskAlarm.setAlarmContent(m.getName() + "님이 과제를 삭제 했습니다");
+			taskAlarm.setStatus("N");
+			
+			sService.insertAlarm(taskAlarm);
+			
 			session.setAttribute("student_alertMsg", "게시글이 삭제되었습니다!");
 		} else {
 			session.setAttribute("student_alertMsg", "게시글 삭제 실패했습니다.");
@@ -349,9 +334,9 @@ public class StudentController {
 		
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
-	// 학생 알람 모델
-	ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
-	
+		// 학생 알람 모델
+		ArrayList<Alarm> alarmList = sService.selectAlarmList(loginUser.getId());
+		
 		return new Gson().toJson(alarmList);
 	}
 	
@@ -378,71 +363,10 @@ public class StudentController {
 
 		return new Gson().toJson(list);
 	}
-	
-	// Q&A 게시판 상세 조회
-	@RequestMapping("qnaDetail.st")
-	public ModelAndView selectQna(int qno, ModelAndView mv) {
-	
-		QnA q = sService.selectQna(qno);
-		System.out.println(q);
 
-		if (q != null) {
-			
-			mv.addObject("q", q).setViewName("student/studentQnaDetail");
-			
-		} else {
-			
-			mv.setViewName("student/common/errorPage");
-			
-		}
-
-		return mv;
-	}
-
-	// Q&A 게시판 댓글 등록
-	@ResponseBody
-	@RequestMapping("rinsert.bo")
-	public String ajaxInsertReply(Reply r) {
-
-		int result = sService.insertReply(r);
-		
-		return result > 0 ? "success" : "fail";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "rlist.bo", produces = "application/json; charset=UTF-8")
-	public String ajaxSelectReplyList(int qno) {
-		
-		ArrayList<Reply> list = sService.selectReplyList(qno);
-		
-		return new Gson().toJson(list);
-	}
-	
 	@RequestMapping("myPage.st")
 	public String myPage() {
 		return "student/studentMyPage";
-	}
-	
-	// 마이페이지 정보 수정
-	@RequestMapping("update.st")
-	public String updateStudent(Member m, HttpSession session, Model model) {
-		
-		int result = sService.updateStudent(m);
-		
-		System.out.println("result 의 값 : " + result);
-		if (result > 0) {
-			
-			System.out.println("수정 성공시");
-			m.setSort(3);
-			Member updateMember = mService.loginMember(m);
-			System.out.println(updateMember);
-			
-			session.setAttribute("loginUser",updateMember);
-			session.setAttribute("student_alertMsg", "성공적으로 회원정보가 변경되었습니다!");
-			
-		}
-		
-		return "redirect:myPage.st";
 	}
 	
 	//이메일 인증
@@ -489,7 +413,18 @@ public class StudentController {
 
 	
 	@RequestMapping("myTest.st")
-	public String myTest() {
+	public String myTest(HttpSession session, Model model) {
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		Exam e = new Exam();
+		e.setTestNo(0);
+		e.setStudentId(m.getId());
+		
+		ArrayList<Exam> list = sService.selectExamResultList(e);
+		
+		model.addAttribute("list", list);
+		
 		return "student/studentMyTestState";
 	}
 

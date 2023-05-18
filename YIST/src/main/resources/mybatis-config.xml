@@ -4,10 +4,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "mybatis-3-config.dtd" >
 
 <configuration>
-   <settings>
-      <setting name="jdbcTypeForNull" value="NULL"/>
-   </settings>
-   
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
    <typeAliases>
       <typeAlias type="com.kh.yist.calendar.model.vo.Calendar" alias="Calendar"/>
       <typeAlias type="com.kh.yist.member.model.vo.Member" alias="Member"/>
@@ -26,7 +26,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	  <typeAlias type="com.kh.yist.student.model.vo.Video" alias="Video"/>
       <typeAlias type="com.kh.yist.student.model.vo.QnA" alias="QnA"/>
-      <typeAlias type="com.kh.yist.student.model.vo.Reply" alias="Reply"/>
       <typeAlias type="com.kh.yist.subject.model.vo.Subject" alias="Subject"/>
       <typeAlias type="com.kh.yist.subject.model.vo.Class" alias="Class"/>
       <typeAlias type="com.kh.yist.member.model.vo.Attendance" alias="Attendance"/>

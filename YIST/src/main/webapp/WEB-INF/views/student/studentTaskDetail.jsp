@@ -90,8 +90,8 @@ button {
 		<div class="entry-content">
 			<form id="tx_editor_form" name="tx_editor_form" action=""
 				method="post" enctype="multipart/form-data">
-				<input type="hidden" name="taskNo" value="${t.taskNo}"> <input
-					type="hidden" name="studentId" value="${t.studentId}">
+				<input type="hidden" name="taskNo" value="${t.taskNo}"> 
+				<input type="hidden" name="studentId" value="${t.studentId}">
 				<table id="contentArea" align="center" class="table"
 					style="margin-top: 10px;">
 					<tr>
@@ -108,11 +108,11 @@ button {
 						<td colspan="4">
 							<div style="padding: 50px; font-size: 18px; line-height: 2;">
 								<c:choose>
-									<c:when test="${empty t.changeName or t.changeName ne 'none'}">
+									<c:when test="${empty t.changeName}">
 										<p style="height: auto">${ t.taskContent }</p>
 									</c:when>
 									<c:otherwise>
-										<img alt="" src="${t.changeName}">
+										<img alt="" src="${pageContext.request.contextPath}/${t.changeName}">
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -141,6 +141,7 @@ button {
 							</c:choose>
 					</tr>
 				</table>
+				<input type="hidden" name="id" value="${t.id}">
 			</form>
 			<div style="text-align: center; margin: 50px;">
 				<a href="boardList.st"
@@ -153,15 +154,25 @@ button {
 	<script>
 		function accessForm(param) {
 			let url = "";
-
+			let type = '과제';
+			let title = '${t.taskTitle}';
+			let target = '${t.id}';
+			let sender = '${loginUser.getId()}';
+			let conent = "";
+			
 			if (param == "insert") {
 				url = "taskInsert.st";
+				content = "과제 제출 완료";
 			} else if (param == "update") {
 				url = "updateTask.st";
+				content = "과제 수정 완료";
 			} else {
-				url = "deleteTask.st";
+				url = "deleteTaskJW.st";
+				content = "과제 삭제 완료";
 			}
-
+			
+			sendAlarm(type, title, target, content, sender);
+			
 			$("#tx_editor_form").attr("action", url).submit();
 		}
 
