@@ -169,8 +169,7 @@
 			showSpinner : false
 		});
 		NProgress.start();
-
-
+		
 		function sendAlarm(type, title, target, content, sender){
 			
 			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
@@ -180,7 +179,7 @@
 		
 		// 웹소켓
 		// 전역변수 설정
- 		let socket  = null;
+		let socket  = null;
 		$(document).ready(function(){
 		    // 웹소켓 연결
 		    sock = new SockJS("<c:url value="/echo-ws"/>");

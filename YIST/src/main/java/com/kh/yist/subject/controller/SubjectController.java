@@ -68,6 +68,7 @@ public class SubjectController {
 	@RequestMapping("update.cl")
 	public String updateClass(Subject s, String id, String instructorId, HttpSession session) {
 		
+		System.out.println(s);
 		int result = sService.updateSubject(s);
 		int deleteFlag = 1;
 		int updateFlag = 1;

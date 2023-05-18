@@ -272,7 +272,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set
 			name=#{name}
 		  , phone=#{phone}
-		  , email=#{email}
 		  ,	address=#{address}
 	  	where
 	  		id=#{id}
@@ -302,25 +301,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			test_no
 		  , student_id "id"
 		  , test_title
-		  , name
 		  , score
 	  	from
 	  		exam
   		join exam_answer using(test_no)
-  		join member using(id)
   		where
   			subject_no = #{subject_no}
 		order by score desc	   	
 			
 	</select>
-	
-	<update id="quitClass">
-		update
-			member
-		set
-		 	status = 'A'
-	 	where
-	 		id = #{id}
-	</update>
 		
 </mapper>

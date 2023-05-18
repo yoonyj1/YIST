@@ -49,7 +49,7 @@ public class MemberController {
 		model.addAttribute("sort", sort);
 		if (!loginCheck) {
 			loginCheck = true;
-			model.addAttribute("alertMsg", "�븘�씠�뵒�� 鍮꾨�踰덊샇瑜� �솗�씤�빐二쇱꽭�슂.");
+			model.addAttribute("alertMsg", "아이디와 비밀번호를 확인해주세요.");
 		}
 		return "LOGIN";
 	}
@@ -57,7 +57,7 @@ public class MemberController {
 	@RequestMapping("login.me")
 	public String loginMember(Member m, HttpSession session , Model model) {
 		
-		System.out.println("sort 몇번? " + memSort);
+		System.out.println("sort 적용 됬나 ? " + memSort);
 		
 		m.setSort(memSort);
 		Member loginUser = mService.loginMember(m);
@@ -65,11 +65,11 @@ public class MemberController {
 		
 		System.out.println(loginUser);
 		
-		if (loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) { 
-			System.out.println("로그인성공");
+		if (loginUser == null) { // 로그인 실패 => requestScope에 담아서 에러페이지 포워딩
+			System.out.println("로그인실패");
 			loginCheck = false;
 			return "redirect:login.ins?sort=" + memSort;
-		} else { 
+		} else { // 로그인 성공 => loginUser sessionScope에 담아서 메인페이지 url 재요청
 
 			boolean hasMember = true;
 			
@@ -77,9 +77,9 @@ public class MemberController {
 			
 			System.out.println("m.getSort() : " + m.getSort());
 			
-			if (m.getSort() == 1) { 
+			if (m.getSort() == 1) { // 관리자
 				mainPage = "admin/common/header";
-			} else if(m.getSort() == 2) { 
+			} else if(m.getSort() == 2) { // 강사
 				mainPage = "instructor/main";
 			} else if(m.getSort() == 3){ // 학생
 				System.out.println("학생입니당");
@@ -133,10 +133,10 @@ public class MemberController {
 		int originTime = 0;
 		
 		if (loginUser != null){
-			originTime = loginUser.getUserTime(); // 湲곗〈 �떆媛�
+			originTime = loginUser.getUserTime(); // 기존 시간
 		} 
 		
-		int newTime = userTime; // �깉濡� 諛쏆븘�삩�떆媛� 
+		int newTime = userTime; // 새로 받아온시간 
 		
 		loginUser.setExamTime(setTime);
 		loginUser.setUserTime(originTime);
@@ -164,8 +164,8 @@ public class MemberController {
 	
 	/**
 	 * SH
-	 * @param sort:�쉶�썝遺꾨쪟(1:愿�由ъ옄, 2:媛뺤궗, 3:�븰�깮)
-	 * @return �쉶�썝媛��엯 �솕硫댁쑝濡� �씠�룞
+	 * @param sort:회원분류(1:관리자, 2:강사, 3:학생)
+	 * @return 회원가입 화면으로 이동
 	 */
 	@RequestMapping(value="enrollForm.me")
 	public ModelAndView enrollForm(int sort,  ModelAndView mv) {
@@ -183,9 +183,9 @@ public class MemberController {
 	
 	
 	/**
-	 * �쉶�썝媛��엯�떆 �엯�젰�븳 ID 以묐났泥댄겕
-	 * @param checkId:�엯�젰�븳 ID
-	 * @return 以묐났�솗�씤媛�
+	 * 회원가입시 입력한 ID 중복체크
+	 * @param checkId:입력한 ID
+	 * @return 중복확인값
 	 */
 	@ResponseBody
 	@RequestMapping("AjaxIdCheck.me")
@@ -195,7 +195,7 @@ public class MemberController {
 		int count = mService.idCheck(checkId);
 		
 		if(count>0) {
-			// 以묐났
+			// 중복
 			return "NNNNN";
 		}else {
 			return "NNNNY";
@@ -218,7 +218,7 @@ public class MemberController {
 	public String insertMember(Member m, HttpSession session, Model model) {
 
 		
-		//�븫�샇�솕
+		//암호화
 		String encPwd = bcryptPasswordEncoder.encode(m.getPwd());
 		
 		m.setPwd(encPwd);
@@ -236,12 +236,12 @@ public class MemberController {
 			}
 			
 			
-			session.setAttribute("alertMsg", "YIST�뿉 �븿猿� �빐二쇱뀛�꽌 媛먯궗�빀�땲�떎!");
+			session.setAttribute("alertMsg", "YIST에 함께 해주셔서 감사합니다!");
 			return "redirect:/";
 			
 		}else {
 			
-			model.addAttribute("errorMsg","�쉶�썝媛��엯�뿉 �떎�뙣�뻽�뒿�땲�떎. �떎�떆 �떆�룄�빐二쇱꽭�슂");
+			model.addAttribute("errorMsg","회원가입에 실패했습니다. 다시 시도해주세요");
 			return "/student/common/errorPage";
 			
 		}

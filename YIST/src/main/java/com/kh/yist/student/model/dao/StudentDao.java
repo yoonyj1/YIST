@@ -176,29 +176,5 @@ public class StudentDao {
 	public Exam selectExamQuestion(SqlSessionTemplate sqlSession, Exam exam) {
 		return sqlSession.selectOne("studentMapper.selectExamQuestion", exam);
 	}
-
-
-	// 알람 등록
-	public int insertAlarm(SqlSessionTemplate sqlSession, Alarm examAlarm) {
-		return sqlSession.insert("studentMapper.insertAlarm", examAlarm);
-	}
-
-
-	// 시험 제출자 조회
-	public Member selectExamIns(SqlSessionTemplate sqlSession, Exam e) {
-		return sqlSession.selectOne("studentMapper.selectExamIns", e);
-	}
-
-	// 과제 제출자 조회
-	public Member selectTaskIns(SqlSessionTemplate sqlSession, Task t) {
-		return sqlSession.selectOne("studentMapper.selectTaskIns", t);
-	}
-	
-   // 마이페이지 내정보 수정
-   public int updateStudent(SqlSessionTemplate sqlSession, Member m) {
-      
-      return sqlSession.update("studentMapper.updateStudent", m);
-   }
-
 }
 	

@@ -42,12 +42,6 @@ public class Member {
 	private String status;
 	private int sort;
 	private String employeeDate;
-	private int memberNo;
-	private String INHOUR;
-	private String OUTHOUR;
-	private String y_count;
-	private String n_count;
-	
 	
 	private String subjectName;
 	

@@ -84,17 +84,7 @@
 		
 		// 알람창 목록 
 		let notificationHTML; // 알림내용
-
-		function sendAlarm(type, title, target, content, sender) {
-
-			let msg = "[" + title + "] " + content + " 알람이 도착했습니다.";
 	
-			socket.send(type + "," + target + "," + msg + "," + sender);
-			
-		}
-
-		let loginUser = '${loginUser}';
-
 		let socket  = null;
 		
 		$(function(){

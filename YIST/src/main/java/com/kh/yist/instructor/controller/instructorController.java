@@ -159,9 +159,11 @@ public class instructorController {
 	public String main() {
 		return "instructor/main";
 	}
-	
-	
-	
+
+	@RequestMapping("yistcheck.ins")
+	public String yistcheck() {
+		return "instructor/yistcheck";
+	}
 
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
@@ -381,47 +383,13 @@ public class instructorController {
 		if (result > 0) {
 
 			session.setAttribute("loginUser", mService.selectTeacher(m));
-			session.setAttribute("alertMsg", "수정 완료");
+			session.setAttribute("alerMsg", "수정 완료");
 			return "redirect:teacher.ins";
 
 		} else {
 			model.addAttribute("errorMsg", "실패");
 			return "common/errorPage";
 		}
-	}
-	
-	@RequestMapping("yistcheck.ins")
-	public String yistcheck(Model model,Member m,HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String subject= loginUser.getSubject();
-		ArrayList<Member> list = mService.selectList2(subject);
-		
-		model.addAttribute("list",list);
-		return "instructor/yistcheck";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")
-	public String ajaxSelectStudent(String id) {
-		System.out.println(id);
-		Member m = mService.selectStudentList(id);
-		
-		System.out.println(m);
-		
-		return new Gson().toJson(m);
-		
-		//return "redirect:studentForm.ins";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
-	public void ajaxSelectCheck(String DATE) {
-		System.out.println(DATE); // 2023-05-11
-		// 함수를 사용해서 -를 뺀 문자로 다시 저장
-		String str = DATE;
-        str = str.replaceAll("[^\\w+]", "");
-		ArrayList<Member> m = mService.selectStudentList2(newDate);
-		System.out.println(m);
 	}
 
 }
