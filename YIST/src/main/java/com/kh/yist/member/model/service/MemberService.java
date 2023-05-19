@@ -1,6 +1,7 @@
 package com.kh.yist.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.yist.member.model.vo.Alarm;
 import com.kh.yist.member.model.vo.Attendance;
@@ -51,6 +52,18 @@ public interface MemberService {
 	//학생조회 (선생란)
 	Member selectStudentList(String id);
 	//출결조회 ajax (선생)
+	
+	//학생조회(검색용)
+	 ArrayList<Member> selectSearchList(HashMap<String, String> map);
+	//출결조회 ajax (선생)	
+	ArrayList<Member> getAttendanceList(String modifiedDate);
+	//출결 업데이트
+	int updateyist(Member m);
+	
+	
+	void updateAttendanceTime(Member m);
+	ArrayList<Member> selectList3(String DATE);
+
 	ArrayList<Member> selectStudentList2(String DATE);
 	
 	// 출석 테이블에 로그인하는 멤버 sysdate로 추가

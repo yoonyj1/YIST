@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -204,15 +208,6 @@ public class instructorController {
 		return "instructor/main";
 	}
 
-	@RequestMapping("yistcheck.ins")
-	public String yistcheck(Model model,Member m,HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String subject= loginUser.getSubject();
-		ArrayList<Member> list = mService.selectList2(subject);
-		
-		model.addAttribute("list",list);
-		return "instructor/yistcheck";
-	}
 
 	@RequestMapping("dataForm.ins")
 	public String dataForm() {
@@ -441,6 +436,28 @@ public class instructorController {
 		}
 	}
 	
+	@RequestMapping("/yupdate.bo")
+	public String updateyist(Member m, HttpSession session, Model model) {
+	    int result = mService.updateyist(m);
+	    System.out.println(m+"업데이트좀하자");
+	    System.out.println(result+"업데이트좀하자2");
+	    if (result > 0) {
+	        // 업데이트 후 회원 정보를 다시 조회하여 세션에 저장
+	        session.setAttribute("alertMsg", "수정 완료");
+	        return "redirect:yistcheck.ins";
+	    } else {
+	        model.addAttribute("errorMsg", "실패");
+	        return "../common/errorPage";
+	    }
+	}
+	
+	
+	
+	
+	
+
+	
+	
 	@ResponseBody
 	@RequestMapping(value="slist.bo", produces = "application/json; charset=utf-8")
 	public String ajaxSelectStudent(String id) {
@@ -451,13 +468,58 @@ public class instructorController {
 		//return "redirect:studentForm.ins";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
-	public String ajaxSelectCheck(String date) {
-		System.out.println(date);
-		ArrayList<Member> m = mService.selectStudentList2(date);
-		System.out.println(m);
-		return  new Gson().toJson(m);
+	 
+	
+	 @RequestMapping("yistcheck.ins")
+		public String yistcheck(Model model,Member m,HttpSession session) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			String subject= loginUser.getSubject();
+			ArrayList<Member> list = mService.selectList2(subject);
+			
+			model.addAttribute("list",list);
+			return "instructor/yistcheck";
+		}
+	
+	
+	
+	
+	@RequestMapping("search.bo")
+	public ModelAndView selectSearch(
+	    @RequestParam(value="condition", required=false, defaultValue="") String condition, 
+	    @RequestParam(value="keyword", required=false, defaultValue="") String keyword) {
+	  
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("condition", condition);
+	    map.put("keyword", keyword);
+
+	    ArrayList<Member> list = mService.selectSearchList(map);
+
+	    ModelAndView mv = new ModelAndView();
+	    mv.addObject("list", list);
+	    mv.addObject("condition", condition);
+	    mv.addObject("keyword", keyword);
+	    mv.setViewName("instructor/studentForm");
+
+	    return mv;
 	}
+	
+
+
+	// 날짜별 출석 정보 검색
+	@ResponseBody
+	@RequestMapping(value="searchAttendanceByDate.ins", produces = "application/json; charset=utf-8")
+	public String searchAttendanceByDate(String DATE) {
+	    ArrayList<Member> m = mService.selectList3(DATE);
+	    return new Gson().toJson(m);
+	}
+
+	// 출석 시간 정보 업데이트
+	@ResponseBody
+	@RequestMapping(value="updateAttendanceTime.ins", method = RequestMethod.POST)
+	public String updateAttendanceTime(@RequestBody Member m) {
+	    mService.updateAttendanceTime(m);
+	    return "success";
+	}
+
 
 }

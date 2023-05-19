@@ -160,7 +160,7 @@ width: 800px;
          
 
        <div class="infoStyle04">
-        <form name="f" method="get" action="search.bo">
+        <form name="f" method="get" action="yupdate.bo">
           <div class="studySearch">
             <div class="hak1_left">
               <div class="hak1">
@@ -171,7 +171,6 @@ width: 800px;
               </div>
             </div>
             </div>
-        </form>
 
             <div class="attendStatus">
               <div style="display:inline-block; margin-left: 720px;">
@@ -239,12 +238,12 @@ width: 800px;
 					</td>
 				</tr>
 					</c:forEach>
-                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 680px; margin-top: 10px; margin-bottom:20px;">저장</button>
-                        <button type="" class="hak1_button2" style="width: 100px; margin-left: 10px; margin-top: 10px; margin-bottom:20px;">프린트</button>
+                        <button type="submit" class="hak1_button2" style=" width: 100px; margin-left: 730px; margin-top: 10px; margin-bottom:20px;">저장</button>
                         </table>
       					</form>
      </div>
-      	
+        </form>
+ 	
 				<script>
 			function displayDate(memberNo) {
 				var d = new Date();
@@ -274,31 +273,49 @@ width: 800px;
 				  }
 				}
 			</script>
-			
 			<script>
-			$(document).ready(function() {
-				let user = [];
-				
-			  $("#on").on("click", function() {
-			    var selectedDate = $('#test').val();
-			    console.log(selectedDate);
-			    $.ajax({
-			      url: "ylist.bo",
-			      method: "GET",
-			      data: { 
-			    	  date: selectedDate 
-			      },
-			      success: function(response) {
-			        $("input[name='inHour']").val(response.inHour);
-			        $("input[name='outHour']").val(response.outHour);
-			      },
-			      error: function() {
-			        console.log("출결조회실패");
-			      }
-			    });
-			  });
-			});
+    $(document).ready(function(){
+        // 날짜 검색
+        $('#on').click(function(){
+            var date = $('#test').val();
+            $.ajax({
+                url: "/searchAttendanceByDate.ins",
+                type: "get",
+                data: {DATE: date},
+                success: function(data){
+                    // TODO: HTML DOM을 업데이트하거나 혹은 dataTable을 재설정하는 코드를 작성함.
+                    // 예) $('#inHour_'+data.id).val(data.inHour); $('#outHour_'+data.id).val(data.outHour);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+        // 출석 및 퇴실 시간 저장
+        $('.hak1_button2').click(function(e){
+            e.preventDefault();
+            // 여기서는 예시로 첫번째 학생의 데이터만 업데이트 함.
+            var inHour = $('#inHour_1').val();
+            var outHour = $('#outHour_1').val();
+            var id = 1; // 사용자의 id를 적절히 가져와서 설정함.
+            $.ajax({
+                url: "/updateAttendanceTime.ins",
+                type: "post",
+                contentType: "application/json",
+                data: JSON.stringify({id: id, inHour: inHour, outHour: outHour}),
+                success: function(data){
+                    alert("시간 정보가 성공적으로 업데이트됨");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    });
 </script>
+			
+			
        	
     </body>
 

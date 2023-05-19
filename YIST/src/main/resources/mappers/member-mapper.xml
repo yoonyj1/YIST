@@ -78,20 +78,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectList2" resultMap="memberResultSet">
-	   SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*,ATTENDANCE_DATE,
-       (SELECT COUNT(*) FROM attendance WHERE status = 'Y') AS y_count,
-       (SELECT COUNT(*) FROM attendance WHERE status = 'N') AS n_count
+	 SELECT INHOUR, OUTHOUR, attendance.id, rownum, member.*, ATTENDANCE_DATE,
+       (SELECT COUNT(*) FROM member WHERE status = 'Y' AND subject = 1) AS y_count,
+  		(SELECT COUNT(*) FROM member WHERE status = 'N' AND subject = 1) AS n_count
 		FROM attendance
 		JOIN member ON attendance.id = member.id
 		WHERE member.sort = 3 AND member.subject = #{subject}
 	</select>
 	
 	<select id="selectList3" resultMap="memberResultSet">
-	  SELECT INHOUR, OUTHOUR,ATTENDANCE_DATE
-	  FROM attendance
-	  JOIN member ON attendance.id = member.id
-	  WHERE member.sort = 3 AND member.subject = #{subject}
-	  AND #{DATE} =TO_CHAR(attendance_date, 'YYYYMMDD')
+   	 SELECT INHOUR, OUTHOUR, ATTENDANCE_DATE,member.name
+     FROM attendance
+     JOIN member ON attendance.id = member.id
+     WHERE member.sort = 3 AND member.subject = 1
+     AND #{modifiedDate} = TO_CHAR(attendance_date, 'YYYYMMDD')
+	</select>
+	
+	<select id="selectSearchList" resultMap="memberResultSet">
+	    select
+	        rownum, member.*,
+	        name,
+	        id,
+	        phone,
+	        subject_name
+	    from member
+	    where sort = 3
+	    <choose>
+	        <when test="condition =='studentName'">
+	            and name like '%' || #{keyword} || '%'
+	        </when>
+	        <when test="condition =='subjectName'">
+				and subject_name like '%'|| #{ keyword } ||'%'
+			</when>
+	    </choose>
 	</select>
 	
 	<select id="selectStudentList" resultMap="memberResultSet">
@@ -243,6 +262,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, detail_Address = #{detailAddress}
 		where id = #{id} and status= 'Y'
 	</update>
+	
+	<update id="updateAttendanceTime">
+    UPDATE attendance 
+    SET INHOUR = #{inHour}, 
+    	OUTHOUR = #{outHour} 
+    	WHERE id = #{id}
+	</update>
+
+
 
 	<select id="selectTeacher" resultMap="memberResultSet">
 		select

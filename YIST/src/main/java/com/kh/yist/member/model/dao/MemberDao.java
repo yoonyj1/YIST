@@ -1,6 +1,8 @@
 package com.kh.yist.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -43,6 +45,11 @@ public class MemberDao {
 	public int updateTeacher(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateTeacher",m);
 	}
+	
+	public int updateyist(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateyist",m);
+	}
+	
 	public ArrayList<Member> selectInstructorList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("memberMapper.selectInstructorList");
 	}
@@ -67,14 +74,30 @@ public class MemberDao {
 		return (ArrayList)sqlSession.selectList("memberMapper.selectList2",subject);
 	}
 	
+	public ArrayList<Member> selectList3(SqlSessionTemplate sqlSession,String DATE) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList2",DATE);
+	}
+	
 	public Member selectStudentList(SqlSessionTemplate sqlSession, String id){
 		return sqlSession.selectOne("memberMapper.selectStudentList", id);
 	}
 	
-	public ArrayList<Member> selectStudentList2(SqlSessionTemplate sqlSession,String DATE) {
-		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",DATE);
+	public ArrayList<Member> getAttendanceList(SqlSessionTemplate sqlSession,String modifiedDate) {
+		return (ArrayList)sqlSession.selectList("memberMapper.selectList3",modifiedDate);
 	}
 	
+	public ArrayList<Member>selectSearchList(SqlSessionTemplate sqlSession,HashMap<String, String> map){
+		return (ArrayList)sqlSession.selectList("memberMapper.selectSearchList", map);
+	}
+	
+	
+	 public List<Member> updateAttendanceTime(SqlSessionTemplate sqlSession,Member m) {
+		 return sqlSession.selectList("memberMapper.updateAttendanceTime",m);
+	 }
+
+	
+	
+	 
 	public int insertMemberAttendance(SqlSessionTemplate sqlSession, String id) {
 		System.out.println(id);
 		return sqlSession.insert("memberMapper.insertMemberAttendance", id);
