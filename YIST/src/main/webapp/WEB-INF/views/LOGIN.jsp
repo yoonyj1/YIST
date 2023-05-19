@@ -54,7 +54,7 @@ div.title .titleP {
 	width: 200px;
 	border-bottom: 2px solid #02068D;
 	height: 30px;
-	margin-left: 15px;
+	margin-left: 205px;
 	margin-top: 30px;
 	color: black;
 }
@@ -121,8 +121,6 @@ div.title .titleP {
 				</div>
 				<br>
 				<ul align="center">
-					<li><a href="" style="text-decoration-line: none;">아이디찾기</a></li>
-					<li><a href="" style="text-decoration-line: none;">비밀번호찾기</a></li>
 					<li><a href="enrollForm.me?sort=${sort}"  style="text-decoration-line: none;">회원가입</a></li>
 				</ul>
 			</form>

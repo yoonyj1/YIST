@@ -69,6 +69,18 @@
 	background: #fff;
 	margin-left: 15px;
 }
+.mconBox3 {
+	width: 500px;
+	height: 150px;
+	margin-bottom: 20px;
+	padding: 20px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #ebebeb;
+	border-radius: 3px;
+	background: #fff;
+	margin-left: 15px;
+}
 
 .all_member {
 	margin-top: 10px;
@@ -143,7 +155,17 @@
 	background: url(/LMS/images/bg_st_absence.png) no-repeat 104px 90px #fff;
 	border-radius: 10px;
 }
+.st_absence2 {
+	float: left;
+	width: 380px;
+	height: 120px;
+	background: url(/LMS/images/bg_st_absence.png) no-repeat 104px 90px #fff;
+	border-radius: 10px;
+	margin-left: 30px;
+}
 </style>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/instructor/plugins/apexcharts/apexcharts.js"></script>
 
 
 </head>
@@ -158,21 +180,21 @@
 				<div class="mLeft">
 					<div class="mtody" style="border-radius: 10px;">
 						<h1 style="font-weight: 600;">today</h1>
-						<div class="mday_date" style="font-size: 23px; color: white;">2023.03.29</div>
-						<div class="week" style="font-size: 15px; color: white;">Wendnesday</div>
+						<div class="mday_date" style="font-size: 23px; color: white;">2023.05.19</div>
+						<div class="week" style="font-size: 15px; color: white;">Friday</div>
 						<div class="btn_attend">
-							<a href=""><i class="mdi mdi-calendar-check"></i>출석체크</a>
+							<a href="http://localhost:8848/yist/yistcheck.ins"><i class="mdi mdi-calendar-check"></i>출석체크</a>
 						</div>
 					</div>
 
 					<div class="mconBox1" style="border-radius: 10px;">
 						<div class="all_member">
 							<h5 style="font-weight: 600;">전체수강생</h5>
-							<div class="mNum1">1</div>
+							<div class="mNum1"><a href="http://localhost:8848/yist/studentForm.ins">26</a></div>
 						</div>
 						<div class="all_lesson">
 							<h5 style="font-weight: 600;">개설학급</h5>
-							<div class="mNum1">1</div>
+							<div class="mNum1">6</div>
 						</div>
 					</div>
 
@@ -180,7 +202,7 @@
 						<h5 style="font-weight: 600;">
 							출석생
 							</h2>
-							<div class="mNum1">0</div>
+							<div class="mNum1">4</div>
 					</div>
 					<div class="st_absence mconBox2">
 						<h5 style="font-weight: 600;">
@@ -188,9 +210,48 @@
 							</h2>
 							<div class="mNum1">0</div>
 					</div>
+					<div class="st_absence2 mconBox3">
+						<h2 style="font-weight: 600;">
+						<a href="http://localhost:8848/yist/calendar.ins">calender</a>
+						</h5>
+							</h2>
+							
+					</div>
 				</div>
+
+		</div>
+				<div class="content-wrapper table-hover" style="margin-right: 150PX;">
+
+				<div class="content">
+					<h4 align="center">우리반 성적</h4>
+					<hr>
+
+					<table class="table" style="text-align: center;">
+						<thead style="background-color: lightgray;">
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">과목</th>
+								<th scope="col">구분</th>
+								<th scope="col">평가명</th>
+								<th scope="col">평가일</th>
+							</tr>
+						</thead>
+					</table>
+					
+					<br>
+					<br>
+					
+					<h4 align="center">average</h4>
+					<hr>
+					<div id="horizontal-bar-chart2"></div>
+				</div>
+
+			</div>
+	</div>
 			</div>
 		</div>
 	</div>
 </body>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/myChart.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/instructor/js/custom.js"></script>
 </html>

@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>성적관리</title>
 
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/instructor/plugins/apexcharts/apexcharts.js"></script>
 
 </head>
 <body>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/instructor/plugins/apexcharts/apexcharts.js"></script>
 	
 	<div class="page-wrapper">
 		<div class="wrapper">
@@ -61,4 +61,5 @@
 	<script src="${pageContext.request.contextPath}/resources/instructor/js/custom.js"></script>
 	
 </body>
+
 </html>

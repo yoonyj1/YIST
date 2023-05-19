@@ -274,30 +274,47 @@ width: 800px;
 				}
 			</script>
 			<script>
-			$(document).ready(function() {
-				  let user = [];
+    $(document).ready(function(){
+        // 날짜 검색
+        $('#on').click(function(){
+            var date = $('#test').val();
+            $.ajax({
+                url: "/searchAttendanceByDate.ins",
+                type: "get",
+                data: {DATE: date},
+                success: function(data){
+                    // TODO: HTML DOM을 업데이트하거나 혹은 dataTable을 재설정하는 코드를 작성함.
+                    // 예) $('#inHour_'+data.id).val(data.inHour); $('#outHour_'+data.id).val(data.outHour);
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
 
-				  $("#on").on("click", function() {
-				    var selectedDate = $('#test').val();
-				    console.log(selectedDate);
-				    $.ajax({
-				      url: "ylist.bo",
-				      method: "GET",
-				      data: { 
-				        date: selectedDate 
-				      },
-				      success: function(response) {
-				        console.log(response);
-				        $("input[name='inHour']").val(response[0].INHOUR);
-				        $("input[name='outHour']").val(response[0].OUTHOUR);
-				      },
-				      error: function() {
-				        console.log("출결조회실패");
-				      }
-				    });
-				  });
-				});
-			</script>
+        // 출석 및 퇴실 시간 저장
+        $('.hak1_button2').click(function(e){
+            e.preventDefault();
+            // 여기서는 예시로 첫번째 학생의 데이터만 업데이트 함.
+            var inHour = $('#inHour_1').val();
+            var outHour = $('#outHour_1').val();
+            var id = 1; // 사용자의 id를 적절히 가져와서 설정함.
+            $.ajax({
+                url: "/updateAttendanceTime.ins",
+                type: "post",
+                contentType: "application/json",
+                data: JSON.stringify({id: id, inHour: inHour, outHour: outHour}),
+                success: function(data){
+                    alert("시간 정보가 성공적으로 업데이트됨");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    });
+</script>
+			
 			
        	
     </body>

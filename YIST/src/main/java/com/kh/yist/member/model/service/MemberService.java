@@ -58,4 +58,9 @@ public interface MemberService {
 	ArrayList<Member> getAttendanceList(String modifiedDate);
 	//출결 업데이트
 	int updateyist(Member m);
+	
+	
+	void updateAttendanceTime(Member m);
+	ArrayList<Member> selectList3(String DATE);
+
 }

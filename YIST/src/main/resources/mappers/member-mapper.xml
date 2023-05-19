@@ -231,14 +231,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id = #{id} and status= 'Y'
 	</update>
 	
-	<update id="updateyist">
-    UPDATE (SELECT a.INHOUR, a.OUTHOUR
-        FROM attendance a
-        JOIN member m ON a.id = m.id
-        WHERE m.id = #{id}) t
-    SET t.INHOUR = #{INHOUR},
-        t.OUTHOUR = #{OUTHOUR}
-		</update>
+	<update id="updateAttendanceTime">
+    UPDATE attendance 
+    SET INHOUR = #{inHour}, 
+    	OUTHOUR = #{outHour} 
+    	WHERE id = #{id}
+	</update>
 
 
 

@@ -17,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -362,22 +364,7 @@ public class instructorController {
 		//return "redirect:studentForm.ins";
 	}
 	
-	 @RequestMapping(value="ylist.bo", produces = "application/json; charset=utf-8")
-	    @ResponseBody
-	    public String getAttendanceList(String date) {
-	        String modifiedDate = date.replace("-", "");
-	        System.out.println(modifiedDate+"데이터테스트1");
-	        ArrayList<Member> m = mService.getAttendanceList(modifiedDate);
-	        if (m == null) {
-	            m = new ArrayList<>();
-	            Member member = new Member();
-	            member.setINHOUR("00:00");
-	            member.setOUTHOUR("00:00");
-	            m.add(member);
-	        }
-	        return new Gson().toJson(m);
-	        
-	    }
+	 
 	
 	 @RequestMapping("yistcheck.ins")
 		public String yistcheck(Model model,Member m,HttpSession session) {
@@ -411,5 +398,24 @@ public class instructorController {
 
 	    return mv;
 	}
+	
+
+
+	// 날짜별 출석 정보 검색
+	@ResponseBody
+	@RequestMapping(value="searchAttendanceByDate.ins", produces = "application/json; charset=utf-8")
+	public String searchAttendanceByDate(String DATE) {
+	    ArrayList<Member> m = mService.selectList3(DATE);
+	    return new Gson().toJson(m);
+	}
+
+	// 출석 시간 정보 업데이트
+	@ResponseBody
+	@RequestMapping(value="updateAttendanceTime.ins", method = RequestMethod.POST)
+	public String updateAttendanceTime(@RequestBody Member m) {
+	    mService.updateAttendanceTime(m);
+	    return "success";
+	}
+
 
 }

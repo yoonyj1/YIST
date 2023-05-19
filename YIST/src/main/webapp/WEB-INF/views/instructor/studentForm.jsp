@@ -165,11 +165,11 @@ tr {
             <tbody>
                 <tr>
                     <td>
-                        <select style="width:95px; border-radius: 3px;" name="condition" id="materialSearchCondition">
+                        <select style="width:100px; height:30px; border-radius: 3px;" name="condition" id="materialSearchCondition">
                             <option value="studentName">학생이름</option>
                             <option value="subjectName">반</option>
                         </select>
-                        <input type="text" id="searchName" style="width:226px; border-radius: 3px;" name="keyword" value="${keyword}">
+                        <input type="text" id="searchName" style="width:226px; height:30px; border-radius: 3px;" name="keyword" value="${keyword}">
                         <button type="submit" class="bBtn08" style="width:70px; height:35px;background-color: #02068D; border-radius: 5px; color: white; margin-right: 14px;">검색</button>
                     </td>
                 </tr>
