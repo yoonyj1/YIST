@@ -22,6 +22,6 @@ public class QnA {
 	private int count;
 	private Date createDate;
 	private String status;
-	private int view;
+	private int views;
 	private String answer;
 }

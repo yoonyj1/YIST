@@ -39,7 +39,6 @@
 				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
-				      <th scope="col">출석률</th>
 				      <th scope="col" colspan='3'>관리</th>
 				    </tr>
 				  </thead>
@@ -50,17 +49,15 @@
 					      	<c:when test="${s.status eq 'A'}">
 					      		<td>${ s.id }</td>
 					      		<td>${ s.name }</td>
-						      	<td>${ s.subject }</td>
-						     	<td>${ s.attendanceRate }</td>
+						      	<td>${ s.subjectName }</td>
 						      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 					      	</c:when>
 					      	<c:otherwise>
 					      		<td>${ s.id }</td>
 						      	<td scope="row">${ s.name }</td>
-						     	<td>${ s.subject }</td>
-						      	<td class='attendance'>${ s.attendanceRate }</td>
-						      	<td align='right'><a href='studentDetail.do?id=${ s.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-							    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
+						     	<td>${ s.subjectName }</td>
+						      	<td align='center'><a href='studentDetail.do?id=${ s.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+							    <!-- <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td> -->
 					      	</c:otherwise>
 				      	  </c:choose>
 					    </tr>
@@ -75,7 +72,6 @@
 				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
-				      <th scope="col">출석률</th>
 				      <th scope="col" colspan='3'>관리</th>
 				    </tr>
 				  </thead>
@@ -86,17 +82,15 @@
 				      	<c:when test="${p.status eq 'A'}">
 				      		<td>${ p.id }</td>
 				      		<td scope="row">${ p.name }</td>
-					      	<td>${ p.subject }</td>
-					     	<td>${ p.attendanceRate }</td>
+					      	<td>${ p.subjectName }</td>
 					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 				      	</c:when>
 				      	<c:otherwise>
 				      		<td>${ p.id }</td>
 					      	<td scope="row">${ p.name }</td>
-					     	<td>${ p.subject }</td>
-					      	<td class='attendance'>${ p.attendanceRate }</td>
-					      	<td align='right'><a href='studentDetail.do?id=${ p.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-						    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
+					     	<td>${ p.subjectName }</td>
+					      	<td align='center'><a href='studentDetail.do?id=${ p.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+						   <!--  <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td> -->
 				      	</c:otherwise>
 			      	  </c:choose>
 				    </tr>
@@ -111,7 +105,6 @@
 				      <th scope="col">아이디</th>
 				      <th scope="col">이름</th>
 				      <th scope="col">수강과목</th>
-				      <th scope="col">출석률</th>
 				      <th scope="col" colspan='3'>관리</th>
 				    </tr>
 				  </thead>
@@ -122,18 +115,16 @@
 				      	<c:when test="${c.status eq 'A'}">
 				      		<td>${ c.id }</td>
 				      		<td scope="row" class='studentName'>${ c.name }</td>
-					      	<td>${ c.subject }</td>
-					     	<td class='attendance'>${ c.attendanceRate }</td>
+					      	<td>${ c.subjectName }</td>
 					      	<td colspan='3' align='center'><button class="btn btn-sm btn-primary access">중퇴승인</button></td>
 				      	</c:when>
 				      	<c:otherwise>
 				      		<td>${ c.id }</td>
 					      	<td scope="row">${ c.name }</td>
-					     	<td>${ c.subject }</td>
-					      	<td class='attendance'>${ c.attendanceRate }</td>
-					      	<td align='right'><a href='studentDetail.do?id=${ c.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
-						    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
-				      	</c:otherwise>
+					     	<td>${ c.subjectName }</td>
+					      	<td align='center'><a href='studentDetail.do?id=${ c.id }' class="btn btn-sm btn-info" style='font-weight:bold'>조회</a></td>
+<!-- 						    <td align='left'><button class='btn btn-sm btn-warning updateAttendance'>출결관리</button></td>
+ -->				      	</c:otherwise>
 			      	  </c:choose>
 				    </tr>
 			  	</c:forEach>

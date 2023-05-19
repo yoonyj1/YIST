@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 
 @Repository
@@ -97,4 +98,12 @@ public class MemberDao {
 	
 	
 	 
+	public int insertMemberAttendance(SqlSessionTemplate sqlSession, String id) {
+		System.out.println(id);
+		return sqlSession.insert("memberMapper.insertMemberAttendance", id);
+	}
+	
+	public Attendance selectStudentAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("memberMapper.selectStudentAttendance", id);
+	}
 }

@@ -145,11 +145,16 @@
 	<script>
 		$(function() {
 			let $option = $("option");
+
 			console.log($option)
+
 			$option.each(function() {
 				let $this = $(this);
 				let value = $this.val();
-				let classNo = '${ m.classNo }';
+				let classNo = "${ em.classNo }"
+				console.log($this)
+				console.log($this.val())
+				console.log(value);
 				if (value === classNo) {
 					$this.attr('selected', true);
 				}

@@ -49,18 +49,28 @@ button {
       </ul>
     </div> 
 
-    <div id="search-area" style="margin-bottom: 40px;">
-      <form action="" method="get" align="center">
-        <select name="search-type" id="search-type" style="width: 7%;">
-          <option value="writer">작성자</option>
-          <option value="title">제목</option>
-        </select>
-        <div style="width: 25%;">
-          <input type="text" id="search-keyword" name="keyword" style="width: 95%;">
-        </div>
-        <button type="submit" style="width: 6%;">검색</button>
-      </form>
-    </div>
+	  <div id="search-area">
+	    <form action="search.vi" method="get" align="center">
+	    	<input type="hidden" name="cpage" value="1">
+	      <select name="condition" id="search-type" style="width: 7%;">
+	        <option value="writer">작성자</option>
+	        <option value="title">제목</option>
+	        <option value="content">내용</option>
+	      </select>
+	      <div style="width: 25%;">
+	        <input type="text" id="search-keyword" name="keyword" style="width: 95%;" value="${ keyword }">
+	      </div>
+	      <button type="submit" style="width: 6%;">검색</button>
+	    </form>
+	  </div>
+	  
+	  <c:if test="${ not empty condition }">
+        <script>
+        	$(function() {
+        		$("#search-area option[value=${condition}]").attr("selected", true);
+        	})
+        </script>
+       </c:if>
 
     <div class="container mt-30 mb-30 pt-30 pb-30">
       <div class="row multi-row-clearfix">
@@ -92,9 +102,6 @@ button {
                 </div>
               </article>
               </c:forEach>
-              
-              
-              
             </div>
           </div>
           
@@ -123,7 +130,7 @@ button {
             	<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
         	</c:when>
         	<c:otherwise>
-            	<li class="page-item"><a class="page-link" href="videoList.st?cpage=${ pi.currentPage + 1 }">Next</a></li>
+            	<li class="page-item"><a class="page-link" href="search.vi?cpage=${ pi.currentPage + 1 }">Next</a></li>
         	</c:otherwise>
           </c:choose>   
 	    </ul>

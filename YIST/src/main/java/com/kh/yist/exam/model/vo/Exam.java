@@ -13,6 +13,7 @@ public class Exam {
 
 	private int testNo;
 	private String id;
+	private String studentId;
 	private int subjectNo;
 	private String testTitle;
 	private String examDate;
@@ -30,5 +31,6 @@ public class Exam {
 	private String a4;
 	private String a5;
 	private int score;
+	private int count;
 	private String submitStatus; // 제출여부
 }

@@ -80,24 +80,24 @@ button {
 	    </div> 
 
     <div>
-	    <form id="tx_editor_form" name="tx_editor_form" action="taskInsert.st" method="post" enctype="multipart/form-data">
-		    <input type="hidden" name="taskNo" value="${taskNo}">
+	    <form id="tx_editor_form" name="tx_editor_form" action="qnaInsert.st" method="post" enctype="multipart/form-data">
+		    
 		    	<table id="write_frm">
 					<tr>
 						<th>제목</th>
 						<td>
-							<input type="text" id="title" name="title" style="width: 100%; height: 40px; text-align: left;" value="${title}">
+							<input type="text" id="title" name="boardTitle" style="width: 100%; height: 40px; text-align: left;" value="${title}">
 						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td style="text-align: left;"><input type="text" id="writer" name="studentId" value="${ loginUser.id }" readonly></td>
+						<td style="text-align: left;"><input type="text" id="writer" name="boardWriter" value="${ loginUser.id }" readonly></td>
 					</tr>
 					<tr>
 						<th style="height: 70px;">카테고리</th>
 						<td style="text-align: left;">
 							<select id="category_select" name="category" class="select_view" value="" style="width: 158px; height:40px;">
-								<option value="A">과제</option>
+								<option value="A">QnA</option>
 							</select>
 						</td>
 					</tr>
@@ -105,7 +105,7 @@ button {
 						<th>비밀글 여부</th>
 						<td style="padding-top: 10px; text-align: left;">
 							<label>
-									<input type="checkbox" name="secret" id="secret" value="1"> 비밀글
+									<input type="checkbox" name="views" id="secret" value="1"> 비밀글
 							</label>
 								<p>
 									* 체크시 작성자, 관리자, 강사님만 해당 게시글 조회가능<br> 
@@ -115,7 +115,7 @@ button {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea id="summernote" name="submitContent" style="align: center; width: 100%" required></textarea>
+							<textarea id="summernote" name="boardContent" style="align: center; width: 100%" required></textarea>
 						</td>
 					</tr>
 					<tr>

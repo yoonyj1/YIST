@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -95,7 +96,7 @@ public class AdminDaoY {
 	}
 	
 	public int resultAt(SqlSessionTemplate sqlSession, String id) {
-		return sqlSession.update("adminMapper.resultAt", id);
+		return sqlSession.insert("adminMapper.resultAt", id);
 	}
 	
 	public ArrayList<Subject> selectSubject(SqlSessionTemplate sqlSession) {
@@ -108,5 +109,21 @@ public class AdminDaoY {
 	
 	public int quitClass(SqlSessionTemplate sqlSession, String id) {
 		return sqlSession.update("adminMapper.quitClass", id);
+	}
+	
+	public int resultoutAt(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.resultoutAt", id);
+	}
+	
+	public int deleteStudentAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.delete("adminMapper.deleteStudentAttendance", id);
+	}
+	
+	public Member selectMemberAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectMemberAttendance", id);
+	}
+	
+	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAttendance", id);
 	}
 }

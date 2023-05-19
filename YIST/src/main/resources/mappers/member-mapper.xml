@@ -25,6 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="STATUS" property="status" />
 		<result column="SORT" property="sort" />
 		<result column="EMPLOYEE_DATE" property="employeeDate" />
+		<result column="SUBJECT_NAME" property="subjectName" />
+
 		<result column="ROWNUM" property="memberNo"/>
 		<result column="INHOUR" property="INHOUR"/>
 		<result column="OUTHOUR" property="OUTHOUR"/>
@@ -54,6 +56,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="MAXIMUM_SEATS" property="maximumSeats"></result>
 		<result column="CURRENT_SEATS" property="currentSeats"></result>
 		<result column="FEE" property="fee"></result>
+	</resultMap>
+	
+	<resultMap type="Attendance" id="attendanceResultSet">
+		<result column="ID" property="id"/>
+		<result column="COUNT" property="count"/>
+		<result column="ATTENDANCE_DATE" property="attendanceDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
 
 	<select id="selectList" resultMap="memberResultSet">
@@ -119,9 +129,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				where id = #{id}	
 	</select>
 
-	<select id="loginMember" resultMap="memberResultSet">
+	<select id="loginMember" resultType="string" resultMap="memberResultSet">
 		select
-		id
+		<choose>
+			<when test="sort==3">
+				distinct a.id
+			</when>
+			<otherwise>
+				m.id
+			</otherwise>
+		</choose>
 		, name
 		, pwd
 		, birth
@@ -132,15 +149,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, address
 		, detail_address
 		, subject
+		, attendance_rate
 		, enroll_date
 		, start_date
 		, end_date
-		, status
+		<choose>
+			<when test="sort == 3">
+				, a.status
+			</when>
+			<otherwise>
+				, m.status
+			</otherwise>
+		</choose>
 		, sort
 		, employee_date
-		from member
-		where id = #{id} and status
-		= 'Y' and sort = #{sort}
+		from member m
+		<if test="sort == 3">
+			join attendance a on(m.id = a.id)
+		</if>
+		where m.id = #{id} and (m.status
+		= 'Y' or m.status = 'A') 
+		<if test="sort == 3">
+			and a.status = 'N'
+		</if>
+		 and sort = #{sort}
 	</select>
 
 	<insert id="insertMember" parameterType="Member">
@@ -265,70 +297,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectSubjectList" resultMap="subjectResultSet">
 		select
-		SUBJECT_NO
-		,CLASS_NO
-		,SUBJECT_NAME
-		,TO_CHAR(START_DATE,'RRRR/MM/DD') as start_date
-		,TO_CHAR(END_DATE,'RRRR/MM/DD') as end_date
-		,DAY
-		,MAXIMUM_SEATS
-		,CURRENT_SEATS
-		,FEE
-		from subject
-		where status = 'N'
+				SUBJECT_NO
+				,CLASS_NO
+				,SUBJECT_NAME
+				,TO_CHAR(START_DATE,'RRRR/MM/DD') as start_date
+				,TO_CHAR(END_DATE,'RRRR/MM/DD') as end_date
+				,DAY
+				,MAXIMUM_SEATS
+				,CURRENT_SEATS
+				,FEE
+		  from subject
+		 where 
+				status = 'N'
 		order
-		by start_date
+				by start_date
 	</select>
 
 	<select id="selectInstructorList" resultMap="memberResultSet">
 		select
-		id
-		, NAME
-		, SUBJECT
-		, STATUS
-		, SORT
+				id
+				, NAME
+				, SUBJECT
+				, STATUS
+				, SORT
 		from
-		member
+				member
 		where
-		sort = 2
-		and status = 'Y'
-		and subject is null
+				sort = 2
+			and status = 'Y'
+			and subject is null
 		order by
-		name
+				name
 	</select>
 
 	<update id="updateInstructor">
 		update
-		member
-		set subject = #{subject}
+				member
+		   set 
+		   		subject = #{subject}
 		where
-		id = #{id}
-		and sort = 2
+				id = #{id}
+		  and   sort = 2
 	</update>
 
 	<select id="selectInstructor" resultMap="memberResultSet">
 		select
-		id
-		, NAME
-		, SUBJECT
-		, STATUS
-		, SORT
+				id
+				, NAME
+				, SUBJECT
+				, STATUS
+				, SORT
 		from
-		member
+				member
 		where
-		sort = 2
-		and status = 'Y'
-		and subject = #{subject}
+				sort = 2
+				and status = 'Y'
+				and subject = #{subject}
 	</select>
 
 	<update id="deleteInstructor">
 		update
-		member
+				member
 		set
-		subject = null
+				subject = null
 		where
-		id = #{id}
-		and sort = 2
+				id = #{id}
+		  and   sort = 2
 	</update>
 
 	<select id="selectExamMemberList" resultMap="memberResultSet">
@@ -338,6 +372,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where sort = 3 and subject = #{subject} and status =
 		'Y'
+	</select>
+	
+	<insert id="insertMemberAttendance">
+		insert 
+			into
+				attendance
+				(
+					id
+				) 
+				values
+					(
+						#{id}
+					)
+	</insert>
+	
+	<select id="selectStudentAttendance" resultMap="attendanceResultSet">
+		select distinct id, count, attendance_date, status
+		from attendance
+		where id = #{id} and attendance_date like SYSDATE and count = 0 and status = 'Y'
 	</select>
 
 </mapper>

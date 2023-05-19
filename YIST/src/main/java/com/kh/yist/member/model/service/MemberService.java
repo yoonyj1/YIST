@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.yist.member.model.vo.Alarm;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.message.Message;
 
@@ -63,4 +64,10 @@ public interface MemberService {
 	void updateAttendanceTime(Member m);
 	ArrayList<Member> selectList3(String DATE);
 
+	ArrayList<Member> selectStudentList2(String DATE);
+	
+	// 출석 테이블에 로그인하는 멤버 sysdate로 추가
+	int insertMemberAttendance(String id);
+	
+	Attendance selectStudentAttendance(String id);
 }

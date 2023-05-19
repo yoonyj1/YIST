@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<%@ page import="com.kh.yist.student.model.vo.Exam" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,54 +94,46 @@ button {
                 <td>미흡</td>
                 <td>매우 미흡</td>
             </tr>
-        </tbody>   
-       </table> 
+        </tbody>    
     </div>
     <div class="entry-content">
-    <input type="hidden" class="form-control" id="id" name="id" value="${ loginUser.id }">
       <table style="margin-bottom: 40px;">
         <thead>
             <tr higth="20px">
               <th width="10%">번호</th>
               <th width="35%">구분</th>
-              <th width="15%">평가일</th>
               <th width="15%">점수</th>
               <th width="25%">성취수준</th>
             </tr>
         </thead>
         <tbody>
-			<c:forEach var="e" items="${list}">
-			  <tr>
-			    <td>${e.testNo}</td>
-			    <td>${e.testTitle}</td>
-			    <td>${e.examDate}</td>
-			    <td>${e.score}</td>
-			    <td>
-			      <%-- 성취수준 계산 --%>
-			      <c:set var="level" value="" />
-			      <c:choose>
-			        <c:when test="${e.score >= 90}">
-			          <c:set var="level" value="매우 우수" />
-			        </c:when>
-			        <c:when test="${e.score >= 80}">
-			          <c:set var="level" value="우수" />
-			        </c:when>
-			        <c:when test="${e.score >= 70}">
-			          <c:set var="level" value="보통" />
-			        </c:when>
-			        <c:when test="${e.score >= 60}">
-			          <c:set var="level" value="미흡" />
-			        </c:when>
-			        <c:otherwise>
-			          <c:set var="level" value="매우 미흡" />
-			        </c:otherwise>
-			      </c:choose>
-			      ${level}
-			    </td>
-			  </tr>
-			</c:forEach>
-			</tbody>
-
+            <c:forEach var="e" items="${list}">
+        		<c:if test="${e.score < 999}">
+		            <tr>
+		                <td>${e.testNo}</td>
+		                <td>${e.testTitle}</td>
+		                <td>${e.score}</td>
+		                <c:choose>
+		                	<c:when test="${e.score > 89}">
+				                <td>매우우수</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 79}">
+		                		<td>우수</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 69}">
+		                		 <td>보통</td>
+		                	</c:when>
+		                	<c:when test="${e.score > 59}">
+		                		<td>미흡</td>
+		                	</c:when>
+		                	<c:otherwise>
+		                		<td>매우 미흡</td>
+		                	</c:otherwise>
+		                </c:choose>
+		            </tr>
+        		</c:if>
+        	</c:forEach>
+        </tbody>
       </table>
     </div>    
        
