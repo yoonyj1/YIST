@@ -66,7 +66,9 @@ public class MemberController {
 	    
 	    m.setSort(memSort);
 	    
-	    
+	    if (m.getSort() == 3) {
+	    	int result = mService.insertMemberAttendance(id);
+	    }
 	    Member loginUser = mService.loginMember(m);
 	    ArrayList<Member> ins = stuService.selectIns(loginUser);
 	    
@@ -89,7 +91,7 @@ public class MemberController {
 	        } else if(m.getSort() == 2) { // 강사
 	            mainPage = "instructor/main";
 	        } else if(m.getSort() == 3){ // 학생
-	    	    	int result = mService.insertMemberAttendance(id);
+	        	
 	        	Attendance am = mService.selectStudentAttendance(id);
 		    	session.setAttribute("am", am);
 	            System.out.println("학생입니당");

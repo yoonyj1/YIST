@@ -42,8 +42,6 @@
 	   		</table>
 	   		<br>
 	   	</div>
-	   	<div class='updateGradeForm' style='display:none;'>
-	   	</div>
    	</div>
    </div>
    
@@ -62,7 +60,7 @@
    					
    					let value = "";
    					let form = "";
-   					let thead = "<tr> + <th scope='col' width='100px'>석차</th> + <th scope='col' width='300px'>아이디</th> + <th scope='col' width='200px'>점수</th> + <th width='200px'></th> + </tr>"
+   					let thead = "<tr> + <th scope='col' width='100px'>석차</th> + <th scope='col' width='300px'>아이디</th> + <th scope='col' width='200px'>점수</th> + </tr>"
    					
    					$("table thead").html(thead)
    					
@@ -71,22 +69,14 @@
    						value += "<tr>"
    								+ "<td>" + j + "</td>"
    								+ "<td>" + result[i].id + "</td>"
-   								+ "<td>" + result[i].score + "</td>"
-   								+ "<td>" + "<button type='button' class='btn btn-sm btn-danger' onclick='updateGrade();'>성적수정</button>"
+   								+ "<td class='score'>" + result[i].score + "</td>"
    								+ "</tr>";
    								
-   						form += "<table class='table' border=1>"
-   								+ "<thead>"
-   								+ "<tr><th colspan='2'>" + result[i].id + "학생 점수</th></tr></thead>"
-   								+ "<tr><td> <p>현 점수:</p></td><td>" + result[i].score + "</td></tr>"
-   								+ "<tr><td> <p>수정 점수:</p></td><td> <input type='text'> </td></tr>"
-								+ "<tr align='center'><td><button type='submit' class='btn btn-sm btn-success'>수정하기</button></td>	<td><button type='button' class='btn btn-sm btn-danger'>닫기</button></td></tr>"
-								+ "</table></div>";
    						   		
    							j++;	
 						$("#gradeTableWrapper tbody").html(value);
-						$(".updateGradeForm").html(form);
 						
+				   		
 						
    					}
    				},
@@ -96,11 +86,7 @@
    			})
    		})
    		
-   		function updateGrade(e){
-   			$(".updateGradeForm").removeAttr("style", "display").attr("style","width:30%; height:35%; padding:10px;");
-   			
-   			
-   		}
+   		
    </script>  
                
 

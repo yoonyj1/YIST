@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.yist.admin.model.dao.AdminDaoY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -106,6 +107,16 @@ public class AdminServiceY {
 		return aDao.resultoutAt(sqlSession, id);
 	}
 	
+	public int deleteStudentAttendance(String id) {
+		return aDao.deleteStudentAttendance(sqlSession, id);
+	}
 	
+	public Member selectMemberAttendance(String id) {
+		return aDao.selectMemberAttendance(sqlSession, id);
+	}
+	
+	public ArrayList<Attendance> selectAttendance(String id) {
+		return aDao.selectAttendance(sqlSession, id);
+	}
 
 }

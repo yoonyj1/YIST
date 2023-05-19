@@ -28,6 +28,7 @@ import com.kh.yist.admin.model.service.AdminServiceY;
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.common.template.Pagination;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -159,8 +160,12 @@ public class AdminControllerY {
 	}
 
 	@RequestMapping("updateAttendanceForm.do")
-	public String updateAttForm(String id) {
-
+	public String updateAttForm(String id, Model model) {
+		Member at = aService.selectMemberAttendance(id);
+		ArrayList<Attendance> m = aService.selectAttendance(id);
+		
+		model.addAttribute("at",at).addAttribute("m", m);
+		
 		return "admin/updateAttendance";
 	}
 
@@ -200,6 +205,7 @@ public class AdminControllerY {
 
 		if (result > 0) {
 			System.out.println("성공? " + result);
+			
 			return "redirect:/";
 		}
 		System.out.println(result);
@@ -252,6 +258,7 @@ public class AdminControllerY {
 	
 	@RequestMapping("result2.att")
 	public String resultoutAt(String id) {
+		int result2 = aService.deleteStudentAttendance(id);
 		System.out.println(id);
 		int result = aService.resultoutAt(id);
 

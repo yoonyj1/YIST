@@ -211,7 +211,7 @@
 							
 						}
 						
-						
+						$("#all-tab").html('');
 						$("#all-tab").append(allMsg);
 						$("#task-panel").append(taskMsg);
 						$("#exam-panel").append(examMsg);

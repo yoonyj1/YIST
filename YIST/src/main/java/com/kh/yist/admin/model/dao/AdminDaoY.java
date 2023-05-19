@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yist.common.model.vo.PageInfo;
 import com.kh.yist.exam.model.vo.Exam;
+import com.kh.yist.member.model.vo.Attendance;
 import com.kh.yist.member.model.vo.Member;
 import com.kh.yist.subject.model.vo.Subject;
 
@@ -114,5 +115,15 @@ public class AdminDaoY {
 		return sqlSession.update("adminMapper.resultoutAt", id);
 	}
 	
+	public int deleteStudentAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.delete("adminMapper.deleteStudentAttendance", id);
+	}
 	
+	public Member selectMemberAttendance(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.selectMemberAttendance", id);
+	}
+	
+	public ArrayList<Attendance> selectAttendance(SqlSessionTemplate sqlSession, String id) {
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAttendance", id);
+	}
 }
